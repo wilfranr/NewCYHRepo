@@ -140,7 +140,6 @@
                                 <th>direccion</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Marcas</th>
                                 <th>Seleccionar</th>
                             </tr>
                         </thead>
@@ -153,13 +152,6 @@
                                     <td>{{ $tercero->direccion }}</td>
                                     <td>{{ $tercero->telefono }}</td>
                                     <td>{{ $tercero->email }}</td>
-                                    <td><ul>
-                                        @foreach ($tercero->marcas as $marcaTercero)
-                                            <li>
-                                                {{ $marcaTercero->nombre }}
-                                            </li>
-                                        @endforeach
-                                    </ul></td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary seleccionar-cliente"
                                             data-id="{{ $tercero->id }}" data-nombre="{{ $tercero->nombre }}"
@@ -223,6 +215,8 @@
                 $('#direccion').val($(this).data('direccion'));
                 $('#telefono').val($(this).data('telefono'));
                 $('#wp_cliente').attr('href', 'https://wa.me/+57' + $(this).data('telefono'));
+
+
                 $('#email').val($(this).data('email'));
                 cargarMaquinas();
                 cargarContactos();
@@ -234,6 +228,8 @@
             // Cargar maquinas
             function cargarMaquinas() {
                 var tercero_id = $('#tercero_id').val();
+                var filtro_marca = $('#filtro_marca').val(); // Obtener el valor seleccionado en el filtro de marca
+
                 $.ajax({
                     url: `/terceros/${tercero_id}/maquinas`,
                     method: 'GET',
@@ -248,7 +244,7 @@
                                 value: maquina.id,
                                 text: maquina.modelo + ' -- ' + maquina.serie +
                                     ' -- ' +
-                                    maquina.arreglo
+                                    maquina.arreglo + ' -- ' + maquinasFiltradas.marca_nombre
                             }));
                         });
                     },
@@ -258,7 +254,36 @@
                 });
             }
 
-            
+            //funcion para cargar las marcas asociadas al tercero despues de seleccionarlo
+            function cargarMarcas() {
+                // Obtener el valor del ID del tercero seleccionado
+                var tercero_id = $('#tercero_id').val();
+
+                // Realizar una petición AJAX para obtener las marcas del tercero
+                $.ajax({
+                    url: `/terceros/${tercero_id}/marcas`,
+                    method: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        $('#filtro_marca').empty();
+                        $('#filtro_marca').append($('<option>', {
+                            value: '',
+                            text: 'Todas'
+                        }));
+                        response.forEach(marca => {
+                            $('#filtro_marca').append($('<option>', {
+                                value: marca.nombre,
+                                text: marca.nombre
+                            }));
+                        });
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+
+
+            };
 
 
 
