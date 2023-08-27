@@ -234,17 +234,13 @@
                     url: `/terceros/${tercero_id}/maquinas`,
                     method: 'GET',
                     success: function(response) {
-                        var maquinasFiltradas = response.filter(maquina => {
-                            return filtro_marca === '' || maquina.marca_nombre === filtro_marca;
-                        });
-
+                        console.log(response);
                         $('#maquina_id').empty();
-                        maquinasFiltradas.forEach(maquina => {
+                        response.forEach(maquina => {
                             $('#maquina_id').append($('<option>', {
                                 value: maquina.id,
-                                text: maquina.modelo + ' -- ' + maquina.serie +
-                                    ' -- ' +
-                                    maquina.arreglo + ' -- ' + maquinasFiltradas.marca_nombre
+                                text: maquina.tipo + ' - ' + maquina.modelo + ' - ' + maquina.serie +
+                                    ' - ' + maquina.marca
                             }));
                         });
                     },

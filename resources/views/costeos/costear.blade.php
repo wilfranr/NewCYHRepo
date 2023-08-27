@@ -123,15 +123,12 @@
                                             <li>
                                                 <b>
                                                     <i class="fa fa-wrench"></i>
-                                                    {{ $maquina->tipo }} <a
-                                                        href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a><br>
+                                                    <a href="{{ route('maquinas.edit', $maquina->id) }}" target="_blank">
+                                                        {{ $maquina->tipo }}
+                                                    </a>
                                                 </b>
                                                 <p>{{ $maquina->marca }}</p>
                                                 <p>{{ $maquina->modelo }}</p>
-
-
                                             </li>
                                         </ul>
                                     @endforeach
@@ -142,8 +139,10 @@
 
                     </div>
                     <div class="col-3 text-center">
-                        <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
-                            class="img-circle img-fluid">
+                        <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" target="_blank">
+                            <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
+                                class="img-circle img-fluid">
+                        </a>
                     </div>
                 @else
                     N/A
@@ -295,8 +294,8 @@
                                             </td>
                                             <td>
                                                 {{-- Cantidad --}}
-                                                <input type="number" class="form-control cantidad-nacional" name="cantidad"
-                                                    value="{{ $articulo->pivot->cantidad }}"
+                                                <input type="number" class="form-control cantidad-nacional"
+                                                    name="cantidad" value="{{ $articulo->pivot->cantidad }}"
                                                     data-index="{{ $index }}">
                                             </td>
                                             <td>
@@ -487,7 +486,7 @@
                 var utilidad = $(this).val();
                 var cantidad = parseFloat($('.cantidad-nacional[data-index="' + index + '"]').val());
                 var costo = parseFloat($('.costo-nacional[data-index="' + index + '"]').val());
-                var precioVenta = ((costo * (utilidad / 100)) + costo)*cantidad;
+                var precioVenta = ((costo * (utilidad / 100)) + costo) * cantidad;
                 console.log('precioVenta', precioVenta);
             });
         });

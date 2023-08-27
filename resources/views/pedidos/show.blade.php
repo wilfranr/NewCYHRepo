@@ -129,24 +129,24 @@
                                                 <li>
                                                     <b>
                                                         <i class="fa fa-wrench"></i>
-                                                        {{ $maquina->tipo }} <a
+                                                         <a
                                                             href="{{ route('maquinas.show', $maquina->id) }}"
                                                             target="_blank">
-                                                            <i class="fa fa-eye"></i>
+                                                            {{ $maquina->tipo }}
                                                         </a><br>
                                                     </b>
-                                                    <p>{{ $maquina->marca }}</p>
+                                                    <p>
+                                                        @foreach ($maquina->marcas as $marcaMaquina)
+                                                         {{ $marcaMaquina->nombre }}
+                                                        @endforeach
+                                                    </p>
                                                     <p>{{ $maquina->modelo }}</p>
-
-
                                                 </li>
                                             </ul>
                                         @endforeach
                                     </strong>
-
                                 </h2>
-
-
+                            </div>
                                 <div class="col-3 text-center">
                                     <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
                                         class="img-circle img-fluid">
@@ -154,7 +154,6 @@
                             @else
                                 N/A
                             @endif
-                        </div>
                     </div>
                     <div>
                         Comentarios del pedido: <br>

@@ -20,6 +20,12 @@ class Marca extends Model
     {
         return $this->belongsToMany(Maquina::class, 'maquina_marca');
     }
+
+    //relacion uno a muchos entre marcas y pedidos
+    public function pedidos()
+    {
+        return $this->belongsToMany(Pedido::class, 'pedido_marca');
+    }
 }
 
 

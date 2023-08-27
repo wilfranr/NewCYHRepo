@@ -62,4 +62,9 @@ class Pedido extends Model
     {
         return $this->belongsToMany(ArticuloTemporal::class, 'pedidos_articulos_temporales', 'pedido_id', 'articulo_temporal_id')->withTimestamps();
     }
+    
+    public function marcas()
+    {
+        return $this->belongsToMany(Marca::class, 'pedido_marca');
+    }
 }

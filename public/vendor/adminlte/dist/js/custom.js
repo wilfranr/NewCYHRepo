@@ -21,7 +21,7 @@ if (ruta == 'http://127.0.0.1:8000/articulos' || ruta == 'http://127.0.0.1:8000/
     document.getElementById('btnNuevo').style.display = 'block';
     //función de boton nuevo para que redirija a la vista de crear
     document.getElementById('btnNuevo').setAttribute('onclick', 'nuevo()');
-
+    
 }
 if (ruta == 'http://127.0.0.1:8000/users') {
     document.getElementById('btnNuevo').style.display = 'block';
@@ -30,6 +30,8 @@ if (ruta == 'http://127.0.0.1:8000/users') {
 }
 //si estoy en la ruta de edit mostrar boton guardar
 if (ruta.includes('edit')) {
+    document.getElementById('btnNuevo').style.display = 'block';
+    document.getElementById('btnNuevo').setAttribute('onclick', 'nuevoDesdeEdit()');
     document.getElementById('btnGuardar').style.display = 'block';
     document.getElementById('btnEliminar').style.display = 'block';
 }
@@ -48,6 +50,19 @@ function registrar() {
 function nuevo() {
     window.location.href = ruta + '/create';
 }
+
+//función de boton que redirija a la vista de crear desde la vista edit
+function nuevoDesdeEdit() {
+    // Extraer el número del id del tercero utilizando una expresión regular
+    var id = ruta.match(/\/(\d+)\/edit$/)[1];
+    
+    // Construir la nueva ruta sin el número del id
+    var nuevaRuta = ruta.replace(new RegExp(`/${id}/edit$`), '/create');
+    
+    // Redirigir a la nueva ruta
+    window.location.href = nuevaRuta;
+}
+
 
 //funcion de boton que redirja hacia la pagina anterior
 function atras() {
