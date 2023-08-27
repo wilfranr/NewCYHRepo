@@ -12,7 +12,7 @@ use App\Models\Articulo;
 use App\Models\ArticuloTemporal;
 use App\Models\FotoArticuloTemporal;
 use App\Models\Marca;
-
+use App\Models\Sistemas;
 
 class PedidoController extends Controller
 {
@@ -50,7 +50,7 @@ class PedidoController extends Controller
         $marcas = Marca::all();
 
         //obtener sistemas desde listas
-        $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
+        $sistemas = Sistemas::all();
 
         //obtener articulos
         $articulos = Articulo::all();
@@ -61,7 +61,7 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-            // Validar los datos del formulario	
+        // Validar los datos del formulario	
         $data = $request->validate([
             'tercero_id' => 'nullable|exists:terceros,id',
             'user_id' => 'nullable|exists:users,id',
@@ -139,6 +139,9 @@ class PedidoController extends Controller
                 //guuardar cantidad en tabla pivot
                 $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
             }
+
+            // Asociar el sistema al pedido
+            $pedido->sistemas()->attach($request->input("sistema{$i}"));
         }
         return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
     }
@@ -147,6 +150,11 @@ class PedidoController extends Controller
     {
         // Obtener el pedido con sus relaciones
         $pedido = Pedido::with(['tercero', 'contacto', 'maquinas', 'articulosTemporales.fotosArticuloTemporal', 'articulos'])->find($id);
+
+        //obtener el pedido anterior
+        $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
+        //obtener el pedido siguiente
+        $next = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'asc')->first();
 
         // Obtener todos los artículos asociados al pedido
         $articulos = $pedido->articulos;
@@ -169,19 +177,26 @@ class PedidoController extends Controller
         $maquinas = Maquina::all();
         $marcas = Marca::all();
 
-        return view('pedidos.show', compact('pedido', 'sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'definicion', 'referencias', 'marcas'));
+        return view('pedidos.show', compact('pedido', 'sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'definicion', 'referencias', 'marcas', 'previous', 'next'));
     }
 
     public function edit($id)
     {
         $pedido = Pedido::findOrFail($id);
+
+        //obtener el pedido anterior
+        $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
+        //obtener el pedido siguiente
+        $next = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'asc')->first();
+
+        //obtener artículos temporales
         $articulosTemporales = $pedido->articulosTemporales;
         //foto de articulo temporal
         $fotosArticuloTemporal = FotoArticuloTemporal::all();
         // dd($fotosArticuloTemporal);
 
 
-        return view('pedidos.edit', compact('pedido', 'articulosTemporales', 'fotosArticuloTemporal'));
+        return view('pedidos.edit', compact('pedido', 'articulosTemporales', 'fotosArticuloTemporal', 'previous', 'next'));
     }
 
     public function update(Request $request, $id)
@@ -210,6 +225,23 @@ class PedidoController extends Controller
         // Actualizar la relación con las máquinas
         $maquinas = $request->input('maquina_id', []);
         $pedido->maquinas()->sync($maquinas);
+
+        $maquinasMarcas = $request->input('maquinas'); // Obtén los IDs de las marcas seleccionadas para cada máquina
+
+        if ($maquinasMarcas == null) {
+            $maquinasMarcas = [];
+        } else {
+            foreach ($maquinasMarcas as $maquinaId => $data) {
+                $maquina = Maquina::find($maquinaId);
+
+                if ($maquina) {
+                    foreach ($data['marcas'] as $marcaId) {
+                        // Asocia la relación Pedido-Marca para la marca actual
+                        $pedido->marcas()->attach($marcaId);
+                    }
+                }
+            }
+        }
 
         // Actualizar los artículos temporales
         $articulosTemporales = [];
@@ -275,7 +307,6 @@ class PedidoController extends Controller
         // Redirige a la página de detalles del pedido o a cualquier otra página relevante
         return redirect()->route('pedidos.index', $pedido->id)->with('success', 'Estado del pedido actualizado exitosamente.');
     }
-
 
     public function detachArticulo($pedidoId, $articuloId)
     {

@@ -11,6 +11,8 @@ use App\Models\Maquina;
 use App\Models\Contacto;
 use App\Models\ItemPedido;
 use App\Models\ArticuloTemporal;
+use App\Models\Marca;
+use App\Models\Sistema;
 
 class Pedido extends Model
 {
@@ -62,9 +64,14 @@ class Pedido extends Model
     {
         return $this->belongsToMany(ArticuloTemporal::class, 'pedidos_articulos_temporales', 'pedido_id', 'articulo_temporal_id')->withTimestamps();
     }
-    
+
     public function marcas()
     {
         return $this->belongsToMany(Marca::class, 'pedido_marca');
+    }
+
+    public function sistemas()
+    {
+        return $this->belongsToMany(Sistemas::class, 'pedido_sistema', 'pedido_id', 'sistema_id')->withTimestamps();
     }
 }

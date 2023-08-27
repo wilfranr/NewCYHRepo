@@ -82,4 +82,10 @@ class Tercero extends Model
     {
         return $this->belongsToMany(Sistemas::class, 'tercero_sistema', 'tercero_id', 'sistema_id');
     }
+
+    // Verificar si tercero es proveedor
+    public function esProveedor()
+    {
+        return $this->tipo == 'Proveedor';
+    }
 }

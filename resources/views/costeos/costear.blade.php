@@ -153,6 +153,7 @@
                     <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
 
                 </div>
+                
             </div>
             <div class="card-footer">
                 <div class="text-right">
@@ -195,6 +196,7 @@
 
             <!-- /.card-header -->
             <div class="card-body pt-0">
+                
                 <!--Tabla de articulos y proveedores -->
                 <div id="" style="width: 100%">
                     <table id="articulos" class="table table-bordered table-striped">

@@ -225,9 +225,9 @@ class TerceroController extends Controller
     public function edit($id)
     {
         $tercero = Tercero::findOrFail($id);
-        // Obtener el artículo anterior
+        // Obtener el tercero anterior
         $previous = Tercero::where('id', '<', $tercero->id)->orderBy('id', 'desc')->first();
-        // Obtener el artículo siguiente
+        // Obtener el tercero siguiente
         $next = Tercero::where('id', '>', $tercero->id)->orderBy('id', 'asc')->first();
         $tipo_maquina = Lista::where('tipo', 'Tipo Maquina')->get();
         $modelo = Lista::where('tipo', 'Modelo Maquina')->get();

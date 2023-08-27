@@ -360,8 +360,8 @@
                                 <label for="sistema">Sistema</label>
                                 <select name="sistema${contadorArticulos}" class="form-control" id="sistema${contadorArticulos}">
                                     <option value="">Ninguno</option>
-                                    @foreach ($sistemas as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                    @foreach ($sistemas as $id => $sistema)
+                                    <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>

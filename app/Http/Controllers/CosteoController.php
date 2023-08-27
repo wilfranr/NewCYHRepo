@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\Tercero;
-use App\Models\Lista;
 
 class CosteoController extends Controller
 {
@@ -16,10 +14,72 @@ class CosteoController extends Controller
         return view('costeos.index', compact('pedidos'));
     }
 
+    // Obtener proveedores según criterios
+    public function obtenerProveedores()
+    {
+        $proveedoresNacionales = Tercero::where('tipo', 'Proveedor')
+            ->where('PaisCodigo', 'COL')
+            ->get();
+
+        $proveedoresInternacionales = Tercero::where('tipo', 'Proveedor')
+            ->where('PaisCodigo', '!=', 'COL')
+            ->get();
+
+        return [
+            'proveedoresNacionales' => $proveedoresNacionales,
+            'proveedoresInternacionales' => $proveedoresInternacionales,
+        ];
+    }
+
+
+    //función para obtener proveedores por marcas y sistemas
+    public function obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas)
+    {
+        $proveedoresNacionales = collect();
+        $proveedoresInternacionales = collect();
+
+        // Obtener proveedores por marcas
+        foreach ($marcas as $marca) {
+            foreach ($marca->terceros as $tercero) {
+                if ($tercero->esProveedor()) {
+                    if ($tercero->PaisCodigo === 'COL') {
+                        $proveedoresNacionales->push($tercero);
+                    } else {
+                        $proveedoresInternacionales->push($tercero);
+                    }
+                }
+            }
+        }
+
+        // Obtener proveedores por sistemas
+        foreach ($sistemas as $sistema) {
+            foreach ($sistema->terceros as $tercero) {
+                if ($tercero->esProveedor()) {
+                    if ($tercero->PaisCodigo === 'COL') {
+                        $proveedoresNacionales->push($tercero);
+                    } else {
+                        $proveedoresInternacionales->push($tercero);
+                    }
+                }
+            }
+        }
+
+        return [
+            'proveedoresNacionales' => $proveedoresNacionales,
+            'proveedoresInternacionales' => $proveedoresInternacionales
+        ];
+    }
+
     public function costear(Pedido $pedido, $id)
     {
         //traer el pedido con sus relaciones
-        $pedido = Pedido::with(['tercero', 'contacto', 'maquinas', 'articulosTemporales.fotosArticuloTemporal', 'articulos'])->find($id);
+        $pedido = Pedido::with(['tercero', 'contacto', 'maquinas', 'articulosTemporales.fotosArticuloTemporal', 'articulos', 'marcas'])->find($id);
+
+        //obtener el pedido anterior
+        $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
+
+        //obtener el pedido siguiente
+        $next = Pedido::where('id', '>', $pedido->id)->orderBy('id', 'asc')->first();
 
         //traer el tercero_id de ese pedido
         $tercero = $pedido->tercero;
@@ -29,35 +89,26 @@ class CosteoController extends Controller
         $maquinas = $pedido->maquinas;
         //dd($maquinas);
 
-        //traer las marcas 
-        $marca = Lista::where('tipo', 'marca')->get();
-        // dd($marca);
+        //traer las marcas asociadas a este pedido
+        $marcas = $pedido->marcas;
+        // dd($marcas);
 
-        $marcaTercero = $tercero->marcas;
-        // dd($marcaTercero);
+        //traer los sistemas asociados a este pedido
+        $sistemas = $pedido->sistemas;
+        // dd($sistemas);
 
-        // Obtén los terceros relacionados con las marcas usando los IDs de las marcas y si es proveedor nacional
-        $proveedoresNacionales = Tercero::whereHas('marcas', function ($query) use ($marcaTercero) {
-            $query->whereIn('id', $marcaTercero->pluck('id'));
-        })->where('PaisCodigo', 'COL')->where('tipo', 'proveedor')->get();
-        // dd($proveedoresNacionales);
+        // Si no hay marcas asociadas, obtener todos los proveedores
+        if ($marcas->isEmpty() && $sistemas->isEmpty()) {
+            $proveedoresPorMarcas = $this->obtenerProveedores();
+            $proveedoresNacionales = $proveedoresPorMarcas['proveedoresNacionales'];
+            $proveedoresInternacionales = $proveedoresPorMarcas['proveedoresInternacionales'];
+        } else {
+            // Obtener proveedores por marcas
+            $proveedoresPorMarcas = $this->obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas);
+            $proveedoresNacionales = $proveedoresPorMarcas['proveedoresNacionales'];
+            $proveedoresInternacionales = $proveedoresPorMarcas['proveedoresInternacionales'];
+        }
 
-        // Obtén los terceros relacionados con las marcas usando los IDs de las marcas y si es proveedor nacional
-        $proveedoresInternacionales = Tercero::whereHas('marcas', function ($query) use ($marcaTercero) {
-            $query->whereIn('id', $marcaTercero->pluck('id'));
-        })->where('PaisCodigo', '!=', 'COL')->where('tipo', 'proveedor')->get();
-        // dd($proveedoresInternacionales);
-
-
-        // $terceros = Tercero::whereHas('marcas', function ($query) use ($marcaTercero) {
-        //     $query->whereIn('id', $marcaTercero->pluck('id'));
-        // })->get();
-        // dd($terceros);
-
-
-
-        // $proveedoresInternacionales = Tercero::where('PaisCodigo', '!=', 'COL')->where('tipo', 'proveedor')->get();
-
-        return view('costeos.costear', compact('pedido', 'proveedoresNacionales', 'proveedoresInternacionales'));
+        return view('costeos.costear', compact('pedido', 'maquinas', 'marcas', 'previous', 'next', 'proveedoresNacionales', 'proveedoresInternacionales'));
     }
 }

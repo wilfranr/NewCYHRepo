@@ -129,31 +129,33 @@
                                                 <li>
                                                     <b>
                                                         <i class="fa fa-wrench"></i>
-                                                         <a
-                                                            href="{{ route('maquinas.show', $maquina->id) }}"
+                                                        <a href="{{ route('maquinas.show', $maquina->id) }}"
                                                             target="_blank">
                                                             {{ $maquina->tipo }}
                                                         </a><br>
                                                     </b>
                                                     <p>
                                                         @foreach ($maquina->marcas as $marcaMaquina)
-                                                         {{ $marcaMaquina->nombre }}
+                                                            {{ $marcaMaquina->nombre }}
+                                                            <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
                                                         @endforeach
+                                                               value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
                                                     </p>
+                                                    
                                                     <p>{{ $maquina->modelo }}</p>
                                                 </li>
                                             </ul>
                                         @endforeach
                                     </strong>
                                 </h2>
-                            </div>
-                                <div class="col-3 text-center">
-                                    <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
-                                        class="img-circle img-fluid">
-                                </div>
-                            @else
-                                N/A
-                            @endif
+                        </div>
+                        <div class="col-3 text-center">
+                            <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
+                                class="img-circle img-fluid">
+                        </div>
+                    @else
+                        N/A
+                        @endif
                     </div>
                     <div>
                         Comentarios del pedido: <br>

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Tercero;
+use App\Models\Pedido;
 
 class Sistemas extends Model
 {
@@ -15,4 +17,9 @@ class Sistemas extends Model
     {
         return $this->belongsToMany(Tercero::class, 'tercero_sistema', 'sistema_id', 'tercero_id');
     }
+
+    public function pedidos()
+{
+    return $this->belongsToMany(Pedido::class, 'pedido_sistema', 'sistema_id', 'pedido_id');
+}
 }
