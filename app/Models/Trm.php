@@ -9,3 +9,4 @@ class TRM extends Model
    // Tabla asociada al modelo
    protected $table = 'trm';
 }
+

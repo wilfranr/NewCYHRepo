@@ -21,12 +21,17 @@
 
 
                                         <div class="form-group row">
+                                         <!-- Creación de un grupo de formulario en una fila -->
                                             <label for="select-definicion"
-                                                class="col-md-4 col-form-label text-md-right">{{ __('Definición') }}</label>
 
+                                                class="col-md-4 col-form-label text-md-right">{{ __('Definición') }}</label>
+                                                <!-- Etiqueta del campo de selección de definición, con un diseño para dispositivos medianos -->
                                             <div class="col-md-6">
+                                                <!-- Creación de un grupo de formulario en una columna -->
                                                 <div class="row">
+                                                    <!-- Creación de un grupo de formulario en una fila -->
                                                     <div class="col">
+                                                        <!-- Creación de un grupo de formulario en una columna -->
                                                         <select class="form-control select2" id="select-definicion"
                                                             name="select-definicion"
                                                             onchange="mostrarFotoMedida(this.value)" required>
@@ -41,6 +46,7 @@
                                                         <button type="button" class="btn btn-outline-primary"
                                                             id="btn-crear-deficion">
                                                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                            {{-- Incluye un icono con clase "fa fa-plus-circle" --}}
                                                         </button>
                                                     </div>
 
@@ -48,27 +54,38 @@
                                             </div>
                                         </div>
                                         <div class="form-group row" id="divCrearDefinicion">
+                                            <!-- Inicio de un grupo de formulario en una fila con un atributo de identificación "divCrearDefinicion" -->
                                             <div class="col-md-9">
+                                             <!-- Comienza una columna con un ancho de 9 unidades en dispositivos medianos -->
                                                 @component('components.crear-lista-form')
+                                               <!-- Utiliza un componente llamado 'components.crear-lista-form' -->
                                                 @endcomponent
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
+                                            <!-- Creación de un grupo de formulario en una fila -->    
                                             <label for="marca"
                                                 class="col-md-4 col-form-label text-md-right">{{ __('Marca fabricante') }}</label>
 
                                             <div class="col-md-6">
+                                                    <!-- Columna que ocupa 6 unidades de ancho en dispositivos medianos -->
                                                 <select class="form-control select2" id="marca" name="marca">
+                                                  <!-- Creación de un selector (dropdown) con clase "select2" -->
                                                     <option value="">Seleccione una marca fabricante</option>
+                                                   <!-- Opción inicial, sin valor, que indica que ninguna marca ha sido seleccionada -->
                                                     @foreach ($maquinas as $id => $nombre)
+                                                    <!-- Ciclo que recorre la lista de marcas fabricantes -->
                                                         <option value="{{ $nombre }}">{{ $nombre }}</option>
+                                                        <!-- Opción que muestra el nombre de la marca fabricante -->
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <!-- Creación de un grupo de formulario en una fila -->
                                             <label for="referencia"
+                                            
                                                 class="col-md-4 col-form-label text-md-right">{{ __('Referencia') }}</label>
 
                                             <div class="col-md-6">

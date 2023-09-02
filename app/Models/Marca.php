@@ -24,6 +24,7 @@ class Marca extends Model
     //relacion uno a muchos entre marcas y pedidos
     public function pedidos()
     {
+        // hace referencia a la tabla pedidos
         return $this->belongsToMany(Pedido::class, 'pedido_marca');
     }
 }

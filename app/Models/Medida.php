@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medida extends Model
 {
+        // referencia a la tabla medidas
     use HasFactory;
 
     protected $fillable = [
@@ -20,6 +21,7 @@ class Medida extends Model
 
     public function articulos()
     {
+        // referencia a la tabla articulos
         return $this->belongsToMany(Articulo::class, 'articulo_medida', 'medida_id', 'articulo_id');
     }
     

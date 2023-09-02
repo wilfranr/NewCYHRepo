@@ -19,6 +19,7 @@ use App\Http\Controllers\ArticuloTemporalController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CosteoController;
+use App\Http\Controllers\CotizacionController;
 
 
 
@@ -143,6 +144,11 @@ Route::put('/articulos/{id}/update', [ArticuloController::class, 'update'])->nam
 Route::delete('/articulos/{id}', [ArticuloController::class, 'destroy'])->name('articulos.destroy');
 Route::post('/articulos/definicion', [ArticuloController::class, 'definicion'])->name('articulos.definicion');
 
+// Ruta para mostrar una cotización específica
+Route::get('/cotizaciones/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');
+
+// Ruta para almacenar una nueva cotización
+Route::post('/cotizaciones', [CotizacionController::class, 'store'])->name('cotizaciones.store');
 
 
 

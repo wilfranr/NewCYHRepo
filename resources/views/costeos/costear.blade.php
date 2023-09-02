@@ -15,10 +15,9 @@
     {{-- Fin de info de pedido --}}
 
     {{-- Formulario --}}
-    <form action="{{ route('pedidos.update', $pedido->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
-
+        
         <!-- info cliente -->
         <div class="card bg-light d-flex flex-fill">
             <div class="card-header text-muted border-bottom-0">
@@ -29,6 +28,7 @@
                     <div class="col-3">
                         <p>Cliente</p>
                         <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}" readonly>
+                        <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
                         <input type="hidden" name="user_id" id="user_id" value="{{ $pedido->user->id }}">
                         <input type="hidden" name="estado" id="estado" value="Costeo">
                         <input type="hidden" name="comentario" id="comentario" value="{{ $pedido->comentario }}">
@@ -410,14 +410,9 @@
                                                 <input type="text" class="form-control" name="utilidad"
                                                     value="">
                                             </td>
-
-                                            <td>
                                                 {{-- Precio de venta --}}
                                                 <input type="hidden" class="form-control" name="precio_venta"
                                                     value="">
-                                            </td>
-
-
                                         </tr>
                                     @endforeach
 
@@ -433,7 +428,7 @@
         @endforeach
 
         <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Enviar cotización</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Generar cotización</button>
         </div>
     </form>
     {{-- <input type="number" class="utilidad2" value="" placeholder="utilidad2" name="utilidad2">

@@ -39,17 +39,7 @@ class Tercero extends Model
         'puntos',
         'indicativo'
     ];
-    protected $guarded = ['marca[]'];
-
-    public function pais()
-    {
-        return $this->belongsTo(Pais::class, 'PaisCodigo', 'PaisCodigo');
-    }
-    public function ciudad()
-    {
-        return $this->belongsTo(Ciudad::class, 'CiudadID', 'CiudadID');
-    }
-
+    
 
     public function pedidos()
     {
@@ -87,5 +77,11 @@ class Tercero extends Model
     public function esProveedor()
     {
         return $this->tipo == 'Proveedor';
+    }
+
+    // Relación uno a muchos con el modelo Cotizacion
+    public function cotizaciones()
+    {
+        return $this->hasMany(Cotizacion::class);
     }
 }
