@@ -495,7 +495,6 @@
             </form>
         </div>
     </div>
-    </div>
 
     {{-- Modal crear máquina --}}
     <div class="modal fade" id="modalMaquinas">

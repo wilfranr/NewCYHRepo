@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CosteoController;
 use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\EmpresaController;
 
 
 
@@ -154,6 +155,7 @@ Route::post('/cotizaciones', [CotizacionController::class, 'store'])->name('coti
 
 
 
+
 Route::group(['middleware' => 'role:superadmin'], function () {
     // rutas accesibles solo para usuarios con rol 'superusuario'
 
@@ -164,6 +166,15 @@ Route::group(['middleware' => 'role:superadmin'], function () {
     Route::get('/listasPadre/{listaPadre}/edit', [ListaPadreController::class, 'edit'])->name('listasPadre.edit');
     Route::put('/listasPadre/{id}/update', [ListaPadreController::class, 'update'])->name('listasPadre.update');
     Route::delete('/listasPadre/{listaPadre}', [ListaPadreController::class, 'destroy'])->name('listasPadre.destroy');
+
+    // Rutas para empresas
+    Route::get('/empresas', [EmpresaController::class, 'index'])->name('empresas.index');
+    Route::get('/empresas/create', [EmpresaController::class, 'create'])->name('empresas.create');
+    Route::post('/empresas', [EmpresaController::class, 'store'])->name('empresas.store');
+    Route::get('/empresas/{empresa}', [EmpresaController::class, 'show'])->name('empresas.show');
+    Route::get('/empresas/{empresa}/edit', [EmpresaController::class, 'edit'])->name('empresas.edit');
+    Route::put('/empresas/{empresa}/update', [EmpresaController::class, 'update'])->name('empresas.update');
+    Route::delete('/empresas/{empresa}', [EmpresaController::class, 'destroy'])->name('empresas.destroy');
 });
 
 Auth::routes();
