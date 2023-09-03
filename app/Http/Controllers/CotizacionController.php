@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cotizacion;
 use App\Models\Pedido;
+use App\Models\Empresa;
+use App\Models\Tercero;
 
 
 
@@ -16,11 +18,27 @@ class CotizacionController extends Controller
         return view('cotizaciones.create');
     }
 
-    public function show(Cotizacion $cotizacion)
+    public function show(Cotizacion $cotizacion, $id)
     {
-        // Muestra la cotización
-        return view('cotizaciones.show', compact('cotizacion'));
+        // Recupera la cotización
+        $cotizacion = Cotizacion::find($id);
+        //Empresas
+        $empresas = Empresa::all();
+        // Recupera el pedido relacionado con la cotización
+        $pedido = Pedido::find($cotizacion->pedido_id);
+
+        // Verifica si se encontró el pedido
+        if (!$pedido) {
+            return redirect()->route('pedidos.index')->with('error', 'Pedido no encontrado.');
+        }
+
+        // Obtén los detalles del tercero relacionado con el pedido
+        $tercero = $pedido->tercero;
+
+        // Muestra la vista de detalles de la cotización, pasando los datos necesarios
+        return view('cotizaciones.show', compact('cotizacion', 'pedido', 'tercero', 'empresas'));
     }
+    
 
     public function store(Request $request)
     {

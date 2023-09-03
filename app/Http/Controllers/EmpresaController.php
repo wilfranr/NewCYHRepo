@@ -53,7 +53,7 @@ class EmpresaController extends Controller
             'ciudad' => 'required|string',
             'pais' => 'required|string',
             'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Ajusta las reglas de validación para el logo
-            'user_id' => 'required|integer'
+            'user_id' => 'required|integer',
         ]);
 
         // Obtener la empresa a actualizar

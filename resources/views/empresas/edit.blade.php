@@ -7,7 +7,7 @@
         Los datos que estás a punto de modificar son los datos generales de la empresa y cualquier cambio afectará todos los componentes de la aplicación. Por favor, asegúrate de realizar cambios con precaución y ten en cuenta su impacto en toda la aplicación.
 
         <h5>Última modificación:</h5>{{$empresa->updated_at}}
-        <h5>Usuario que realizó la modificación:</h5>{{$empresa->updated_at}}
+        <h5>Usuario que realizó la modificación:</h5>{{Auth::user()->name}}
     </div>
         <div class="card card-secondary card-tabs bg-light">
             {{-- Tabs --}}
@@ -109,6 +109,7 @@
                                                     {{-- Logo de la empresa --}}
                                                     <div class="form-group">
                                                         <label for="logo">Logo:</label>
+                                                        <img src="{{ asset('storage/'. $empresa->logo) }}" alt="Logo" width="50%">
                                                         <input type="file" name="logo" id="logo"
                                                             class="form-control-file">
                                                     </div>

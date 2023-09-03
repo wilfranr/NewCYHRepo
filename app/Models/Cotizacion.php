@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pedido;
 
 class Cotizacion extends Model
 {
@@ -20,13 +21,13 @@ class Cotizacion extends Model
     // Relación con el modelo Pedido (Cada cotización pertenece a un pedido)
     public function pedido()
     {
-        return $this->belongsTo(Pedido::class);
+        return $this->belongsTo(Pedido::class, 'pedido_id');
     }
 
     // Relación con el modelo Tercero (Cada cotización pertenece a un tercero)
     public function tercero()
     {
-        return $this->belongsTo(Tercero::class);
+        return $this->belongsTo(Tercero::class, 'tercero_id');
     }
 }
 
