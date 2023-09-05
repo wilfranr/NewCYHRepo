@@ -132,7 +132,7 @@
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td>Need for Speed IV</td>
+                                            <td>3</td>
                                             <td>247-925-726</td>
                                             <td>Wes Anderson umami biodiesel</td>
                                             <td>$50.00</td>
@@ -143,7 +143,7 @@
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td>Monsters DVD</td>
+                                            <td>5</td>
                                             <td>735-845-642</td>
                                             <td>Terry Richardson helvetica tousled street art master</td>
                                             <td>$10.70</td>
@@ -153,7 +153,7 @@
                                         </tr>
                                         <tr>
                                             <td>1</td>
-                                            <td>Grown Ups Blue Ray</td>
+                                            <td>1</td>
                                             <td>422-568-642</td>
                                             <td>Tousled lomo letterpress</td>
                                             <td>$25.99</td>

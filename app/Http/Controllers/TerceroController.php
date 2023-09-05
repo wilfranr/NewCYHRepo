@@ -229,6 +229,9 @@ class TerceroController extends Controller
         $previous = Tercero::where('id', '<', $tercero->id)->orderBy('id', 'desc')->first();
         // Obtener el tercero siguiente
         $next = Tercero::where('id', '>', $tercero->id)->orderBy('id', 'asc')->first();
+
+        //mostrar las cotizaciones del tercero
+        $cotizaciones = DB::table('cotizaciones')->where('tercero_id', $tercero->id)->get();
         $tipo_maquina = Lista::where('tipo', 'Tipo Maquina')->get();
         $modelo = Lista::where('tipo', 'Modelo Maquina')->get();
         $paises = DB::table('pais')->get();
@@ -236,7 +239,7 @@ class TerceroController extends Controller
         $maquinas = Maquina::allWithConcatenatedData();
         $marca = Marca::all();
         $pedidos = Pedido::with(['tercero', 'contacto', 'maquinas'])->where('tercero_id', $tercero->id)->get();
-        return view('terceros.edit', compact('tercero', 'paises', 'ciudades', 'maquinas', 'id', 'tipo_maquina', 'marca', 'modelo', 'pedidos', 'previous', 'next'));
+        return view('terceros.edit', compact('tercero', 'paises', 'ciudades', 'maquinas', 'id', 'tipo_maquina', 'marca', 'modelo', 'pedidos', 'previous', 'next', 'cotizaciones'));
     }
 
     public function update(Request $request, Tercero $tercero, $id)

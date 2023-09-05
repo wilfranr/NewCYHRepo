@@ -17,7 +17,6 @@
     {{-- Formulario --}}
     <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        
         <!-- info cliente -->
         <div class="card bg-light d-flex flex-fill">
             <div class="card-header text-muted border-bottom-0">
@@ -133,10 +132,7 @@
                                         </ul>
                                     @endforeach
                                 </strong>
-
                             </h2>
-
-
                     </div>
                     <div class="col-3 text-center">
                         <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" target="_blank">
@@ -151,9 +147,7 @@
                 <div>
                     Comentarios del pedido: <br>
                     <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
-
                 </div>
-                
             </div>
             <div class="card-footer">
                 <div class="text-right">
@@ -175,7 +169,6 @@
                 @else
                     <div class="card bg-gradient-secondary">
             @endif
-
             <div class="card-header border-0" data-card-widget="collapse">
                 <h3 class="card-title text-uppercase">
                     <i class="fa fa-boxes"></i>
@@ -193,12 +186,10 @@
                 </div>
                 <!-- /. tools -->
             </div>
-
             <!-- /.card-header -->
             <div class="card-body pt-0">
-                
-                <!--Tabla de articulos y proveedores -->
-                <div id="" style="width: 100%">
+                <div>
+                    <!--Tabla de articulos-->
                     <table id="articulos" class="table table-bordered table-striped">
                         <thead class="table-dark">
                             <tr>
@@ -244,36 +235,40 @@
                         </div>
                         <div class="card-body">
                             {{-- Tabla con proveedores --}}
-                            <table id="proveedores" class="table table-bordered table-striped mt-3">
+                            <table id="proveedores" class="table table-striped table-bordered mt-3">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Check</th>
-                                        <th>Proveedor</th>
-                                        <th class="width: 20%;">Marca</th>
-                                        <th class="width: 20%;">Entrega</th>
-                                        <th>Cantidad</th>
-                                        <th>Peso(lbs)</th>
-                                        {{-- <th>Costo $Us</th> --}}
-                                        <th>Costo $Col</th>
-                                        <th>Utilidad (%)</th>
-                                        {{-- <th>Acción</th> --}}
+                                        <th style="width: 5%;">Check</th>
+                                        <th style="width: 10%;">Proveedor</th>
+                                        <th style="width: 15%;">Marca</th>
+                                        <th style="width: 15%;">Entrega</th>
+                                        <th style="width: 5%;">Cant.</th>
+                                        <th style="width: 10%;">Peso(lbs)</th>
+                                        <th style="width: 10%;">Costo $Col</th>
+                                        <th style="width: 10%;">Utilidad (%)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($proveedoresNacionales as $index => $proveedor)
-                                        <tr class="table-secondary">
+                                        <tr>
                                             <td>
-                                                <input type="checkbox" name="" id="">
+                                                <input type="checkbox" class="proveedor-checkbox"
+                                                    name="proveedores[{{ $index }}][seleccionado]">
                                             </td>
                                             <td>
                                                 <div class="d-flex">
-                                                    {{-- parrafo con el nombre del proveedor --}}
-                                                    <p class="text-uppercase">{{ $proveedor->nombre }}</p>
-                                                    {{-- boton para ver el detalle del proveedor --}}
+                                                    {{-- link con el nombre del proveedor --}}
+                                                    <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                        class="text-uppercase" target="_blank">
+                                                        {{ $proveedor->nombre }}</a>
+                                                    {{-- Campo oculto para el id del proveedor --}}
+                                                    <input type="hidden" name="proveedores[{{ $index }}][id]"
+                                                        value="{{ $proveedor->id }}">
                                                 </div>
                                             </td>
                                             <td>
-                                                <select class="form-control" name="marca"
+                                                <select class="form-control"
+                                                    name="proveedores[{{ $index }}][marca]"
                                                     id="marca{{ $index }}">
                                                     @foreach ($proveedor->marcas as $marca)
                                                         <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
@@ -282,27 +277,30 @@
                                             </td>
                                             <td>
                                                 {{-- Select de entrega --}}
-                                                <select name="entrega" id="entrega-nacional{{ $index }}"
+                                                <select name="proveedores[{{ $index }}][entrega]"
+                                                    id="entrega-nacional{{ $index }}"
                                                     class="form-control entrega-selector"
-                                                    data-index="{{ $index }}">
+                                                    data-index="{{ $index }}" required>
                                                     <option value="">Selecione...</option>
                                                     <option value="inmediata">Inmediata</option>
                                                     <option value="programada">Programada</option>
                                                 </select>
                                                 {{-- Campo de entrada de días --}}
-                                                <input type="text" name="dias-nacional"
+                                                <input type="text" name="proveedores[{{ $index }}][dias]"
                                                     id="dias-nacional{{ $index }}" placeholder="Días para entrega"
                                                     class="form-control dias-input">
                                             </td>
                                             <td>
                                                 {{-- Cantidad --}}
                                                 <input type="number" class="form-control cantidad-nacional"
-                                                    name="cantidad" value="{{ $articulo->pivot->cantidad }}"
+                                                    name="proveedores[{{ $index }}][cantidad]"
+                                                    value="{{ $articulo->pivot->cantidad }}"
                                                     data-index="{{ $index }}">
                                             </td>
                                             <td>
                                                 {{-- peso --}}
-                                                <input type="text" class="form-control" name="peso"
+                                                <input type="text" class="form-control"
+                                                    name="proveedores[{{ $index }}][peso]"
                                                     value="{{ $articulo->peso }}" id="peso{{ $index }}">
                                             </td>
                                             {{-- <td>
@@ -312,13 +310,14 @@
                                             <td>
                                                 {{-- costo_Col --}}
                                                 <input type="text" class="form-control costo-nacional"
-                                                    name="costo_nacional" data-index="{{ $index }}">
+                                                    name="proveedores[{{ $index }}][costo]"
+                                                    data-index="{{ $index }}">
                                             </td>
                                             <td>
                                                 {{-- Utilidad --}}
                                                 <input type="text" class="form-control utilidad-nacional"
-                                                    name="utilidad" value="" class="utilidad"
-                                                    data-index="{{ $index }}">
+                                                    name="proveedores[{{ $index }}][utilidad]" value=""
+                                                    class="utilidad" data-index="{{ $index }}">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -336,36 +335,42 @@
                         </div>
                         <div class="card-body">
                             {{-- Tabla con proveedores --}}
-                            <table id="proveedores" class="table table-bordered table-striped mt-3">
+                            <table id="proveedores-internacionales" class="table table-bordered table-striped mt-3">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Check</th>
-                                        <th>Proveedor</th>
-                                        <th>Marca</th>
-                                        <th>Entrega</th>
-                                        <th>Cantidad</th>
-                                        <th>Peso(lbs)</th>
-                                        <th>Costo $Us</th>
-                                        {{-- <th>Costo $Col</th> --}}
-                                        <th>Utilidad (%)</th>
-                                        {{-- <th>Acción</th> --}}
+                                        <th style="width: 5%;">Check</th>
+                                        <th style="width: 10%;">Proveedor</th>
+                                        <th style="width: 15%;">Marca</th>
+                                        <th style="width: 15%;">Entrega</th>
+                                        <th style="width: 5%;">Cant.</th>
+                                        <th style="width: 10%;">Peso(lbs)</th>
+                                        <th style="width: 10%;">Costo $Us</th>
+                                        <th style="width: 10%;">Utilidad (%)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($proveedoresInternacionales as $index => $proveedor)
-                                        <tr class="table-secondary">
+                                        <tr>
                                             <td>
                                                 <input type="checkbox" name="" id="">
                                             </td>
                                             <td>
                                                 <div class="d-flex">
-                                                    {{-- parrafo con el nombre del proveedor --}}
-                                                    <p class="text-uppercase">{{ $proveedor->nombre }}</p>
-                                                    {{-- boton para ver el detalle del proveedor --}}
+                                                    <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                        class="text-uppercase" target="_blank">
+                                                        {{-- enlace con el nombre del proveedor --}}
+                                                        {{ $proveedor->nombre }}
+                                                    </a>
+                                                    {{-- Campo oculto para el id del proveedor --}}
+                                                    <input type="hidden"
+                                                        name="proveedoresInternacionales[{{ $index }}][id]"
+                                                        value="{{ $proveedor->id }}" data-index="{{ $index }}">
                                                 </div>
                                             </td>
                                             <td>
-                                                <select class="form-control" name="marca" id="marca">
+                                                <select class="form-control"
+                                                    name="proveedoresInternacionales[{{ $index }}][marca]"
+                                                    id="marca-internacional{{ $index }}" data-index="{{ $index }}">
                                                     @foreach ($proveedor->marcas as $marca)
                                                         <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
                                                     @endforeach
@@ -373,7 +378,8 @@
                                             </td>
                                             <td>
                                                 {{-- Select de entrega --}}
-                                                <select name="entrega" id="entrega-internacional{{ $index }}"
+                                                <select name="proveedoresInternacionales[{{ $index }}][entrega]"
+                                                    id="entrega-internacional{{ $index }}"
                                                     class="form-control entrega-internacional-selector"
                                                     data-index="{{ $index }}">
                                                     <option value="">Selecione...</option>
@@ -381,62 +387,66 @@
                                                     <option value="programada">Programada</option>
                                                 </select>
                                                 {{-- Campo de entrada de días --}}
-                                                <input type="text" name="dias-internacional"
+                                                <input type="text"
+                                                    name="provedoresInternacionales[{{ $index }}][dias]"
                                                     id="dias-internacional{{ $index }}"
                                                     placeholder="Días para entrega"
-                                                    class="form-control dias-internacional-input">
+                                                    class="form-control dias-internacional-input" data-index="{{ $index }}">
                                             </td>
                                             <td>
                                                 {{-- Cantidad --}}
-                                                <input type="number" class="form-control" name="cantidad"
-                                                    value="{{ $articulo->pivot->cantidad }}">
+                                                <input type="number" class="form-control cantidad-internacional"
+                                                    name="proveedoresInternacionales[{{ $index }}][cantidad-internacional]"
+                                                    value="{{ $articulo->pivot->cantidad }}"
+                                                    data-index="{{ $index }}" data-index="{{ $index }}">
                                             </td>
                                             <td>
                                                 {{-- peso --}}
-                                                <input type="text" class="form-control" name="peso"
-                                                    value="{{ $articulo->peso }}">
+                                                <input type="text" class="form-control peso-internacional"
+                                                    name="proveedoresInternacionales[{{ $index }}][peso]"
+                                                    value="{{ $articulo->peso }}" data-index="{{ $index }}">
                                             </td>
                                             <td>
                                                 {{-- costo_Us --}}
-                                                <input type="text" class="form-control" name="costo_Us"
-                                                    value="">
+                                                <input type="text" class="form-control costo-internacional"
+                                                    name="proveedoresInternacionales[{{ $index }}][costoUs]"
+                                                    value="" data-index="{{ $index }}">
                                             </td>
-                                            {{-- <td>
-                                                <input type="text" class="form-control bg-secondary" name="costo_Col"
-                                                    value="" disabled>
-                                            </td> --}}
                                             <td>
                                                 {{-- Utilidad --}}
-                                                <input type="text" class="form-control" name="utilidad"
-                                                    value="">
+                                                <input type="text" class="form-control utilidad-internacional"
+                                                    name="proveedoresInternacionales[{{ $index }}][utilidad]"
+                                                    value="" data-index="{{ $index }}">
                                             </td>
-                                                {{-- Precio de venta --}}
-                                                <input type="hidden" class="form-control" name="precio_venta"
-                                                    value="">
+                                            {{-- Precio de venta --}}
+                                            <input type="hidden" class="form-control"
+                                                name="proveedoresInternacionales[{{ $index }}][precioVenta]"
+                                                value="" data-index="{{ $index }}">
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- /.card-body -->
             </div>
             <!-- /.card -->
         @endforeach
-
+        {{-- guardar en input desde variable de sesión TRM --}}
+        <input type="hidden" name="trm" class="trm" value="{{ session('trm') }}">
+        {{-- guardar en input desde variable de sesión peso --}}
         <div class="card-footer text-right">
             <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Generar cotización</button>
         </div>
     </form>
+    {{-- Fin de formulario --}}
     {{-- <input type="number" class="utilidad2" value="" placeholder="utilidad2" name="utilidad2">
     <input type="number" class="peso2" value="1" placeholder="peso" name="peso2">
     <input type="number" class="costo_Col2" value="" placeholder="costo" name="costo_Col2">
     <input type="number" class="cantidad" value="3" placeholder="cantidad" name="cantidad2"> --}}
-
-
 @endsection
 
 @section('js')
@@ -480,10 +490,30 @@
             // Calcular el precio del proveedor nacional
             $('.utilidad-nacional').on('keyup', function() {
                 var index = $(this).data('index');
+                console.log('index', index);
                 var utilidad = $(this).val();
                 var cantidad = parseFloat($('.cantidad-nacional[data-index="' + index + '"]').val());
+                console.log('cantidad', cantidad);
                 var costo = parseFloat($('.costo-nacional[data-index="' + index + '"]').val());
                 var precioVenta = ((costo * (utilidad / 100)) + costo) * cantidad;
+                console.log('precioVenta', precioVenta);
+            });
+
+            //Calcular el precio del proveedor internacional
+            $('.utilidad-internacional').on('keyup', function() {
+                var index = $(this).data('index');
+                console.log('index', index);
+                var utilidad = $(this).val();
+                console.log('utilidad', utilidad);
+                var cantidad = parseFloat($('.cantidad-internacional[data-index="' + index + '"]').val());
+                console.log('cantidad', cantidad);
+                var costo = parseFloat($('.costo-internacional[data-index="' + index + '"]').val());
+                console.log('costo', costo);
+                var peso = parseFloat($('.peso-internacional[data-index="' + index + '"]').val());
+                console.log('Peso', peso);
+                var trm = parseFloat($('.trm').val());
+                console.log('trm', trm);
+                var precioVenta = ((peso * 2.15 + costo) * cantidad) * trm;
                 console.log('precioVenta', precioVenta);
             });
         });

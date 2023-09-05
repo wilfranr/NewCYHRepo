@@ -7,11 +7,13 @@
             <div class="card-header p-0 pt-1">
                 <p class="text-bold px-2">{{ $tercero->nombre }}</p>
                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                    {{-- Tab Perfil --}}
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-tabs-one-perfil-tab" data-toggle="pill"
                             href="#custom-tabs-one-perfil" role="tab" aria-controls="custom-tabs-one-perfil"
                             aria-selected="true">Perfil</a>
                     </li>
+                    {{-- Tab Maquinas --}}
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-maquinas-tab" data-toggle="pill"
                             href="#custom-tabs-one-maquinas" role="tab" aria-controls="custom-tabs-one-maquinas"
@@ -23,21 +25,25 @@
                             @endif
                         </a>
                     </li>
+                    {{-- Tab Contactos --}}
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-contactos-tab" data-toggle="pill"
                             href="#custom-tabs-one-contactos" role="tab" aria-controls="custom-tabs-one-contactos"
                             aria-selected="false">Contactos</a>
                     </li>
+                    {{-- Tab Pedidos --}}
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-pedidos-tab" data-toggle="pill"
                             href="#custom-tabs-one-pedidos" role="tab" aria-controls="custom-tabs-one-pedidos"
                             aria-selected="false">Pedidos</a>
                     </li>
+                    {{-- Tab Estadísticas --}}
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-estadisticas-tab" data-toggle="pill"
                             href="#custom-tabs-one-estadisticas" role="tab" aria-controls="custom-tabs-one-estadisticas"
                             aria-selected="false">Estadísticas</a>
                     </li>
+                    {{-- Tab Archivos --}}
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-archivos-tab" data-toggle="pill"
                             href="#custom-tabs-one-archivos" role="tab" aria-controls="custom-tabs-one-archivos"
@@ -61,6 +67,7 @@
                                     <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
                                         <div class="card bg-light d-flex flex-fill">
                                             <div class="row">
+                                                {{-- Columna 1 --}}
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label for="nombre">Razon social</label>
@@ -77,12 +84,22 @@
                                                         <input type="email" name="email" id="email"
                                                             class="form-control" value="{{ $tercero->email }}">
                                                     </div>
+                                                    {{-- Teléfono --}}
                                                     <div class="form-group">
                                                         <label for="telefono">Teléfono</label>
                                                         <input type="text" name="telefono" id="telefono"
                                                             class="form-control" value="{{ $tercero->telefono }}">
                                                     </div>
+
+                                                    {{-- Pais --}}
+                                                    <div class="form-group">
+                                                        <label for="pais_id">País</label>
+                                                        {{-- select para pais --}}
+                                                        
+                                                    </div>
+                                                    <p>{{ $tercero->PaisCodigo }}</p>
                                                 </div>
+                                                {{-- Columna 2 --}}
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label for="tipo">Tipo Tercero</label>
@@ -120,6 +137,14 @@
                                                         <label for="sitioWeb">Sitio Web</label>
                                                         <input type="text" name="sitioWeb" id="sitioWeb"
                                                             class="form-control" value="{{ $tercero->sitio_web }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="ciudad">Ciudad</label>
+
+                                                        <select name="ciudad" id="ciudad" class="form-control select2"
+                                                            required>
+                                                            <option value="">Seleccione una ciudad</option>
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -168,7 +193,8 @@
                                                         </td>
                                                         <td>
                                                             @foreach ($maquina->marcas as $marcaMaquina)
-                                                                <a href="{{ route('maquinas.edit', $maquina->id) }}"> {{ $marcaMaquina->nombre }}
+                                                                <a href="{{ route('maquinas.edit', $maquina->id) }}">
+                                                                    {{ $marcaMaquina->nombre }}
                                                                 </a>
                                                             @endforeach
                                                         </td>
@@ -372,9 +398,66 @@
                         <div class="tab-pane fade show-active" id="custom-tabs-one-estadisticas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-estadisticas-tab">
                             <div class="card-body">
-                                <p>
-                                    Acá van las estadísticas del tercero
-                                </p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h4>Cotizaciones</h4>
+                                        <table class="table table-dark table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ÍTEM</th>
+                                                    <th>CÓDIGO</th>
+                                                    <th>ESTADO</th>
+                                                    <th>FECHA CREACIÓN</th>
+                                                    <th>FECHA ENVÍO</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cotizaciones as $cotizacion)
+                                                    <tr>
+                                                        {{-- index de tabla --}}
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <a href="{{ route('cotizaciones.show', $cotizacion->id) }}">
+                                                                COT000{{ $cotizacion->id }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $cotizacion->estado }}</td>
+                                                        <td>{{ $cotizacion->created_at }}</td>
+                                                        <td>{{ $cotizacion->updated_at }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4>Ventas</h4>
+                                        <table class="table table-dark table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ÍTEM</th>
+                                                    <th>CÓDIGO</th>
+                                                    <th>ESTADO</th>
+                                                    <th>FECHA VENTA</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($pedidos as $pedido)
+                                                    <tr>
+                                                        {{-- index de tabla --}}
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>
+                                                            <a href="{{ route('pedidos.show', $pedido->id) }}">
+                                                                {{ $pedido->id }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $pedido->estado }}</td>
+                                                        <td>{{ $pedido->created_at }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{-- archivos del tercero --}}
@@ -617,10 +700,34 @@
 @endsection
 @section('js')
     <script>
+        const paisSelect = document.getElementById('pais_id');
+        paisSelect.addEventListener('change', function() {
+            const paisCodigo = this.value;
+            fetch('/ciudades/' + paisCodigo)
+                .then(response => response.json())
+                .then(data => {
+                    const ciudadSelect = document.getElementById('ciudad');
+
+                    ciudadSelect.innerHTML = '';
+                    data.ciudades.forEach(ciudad => {
+                        const option = document.createElement('option');
+                        option.value = ciudad.CiudadID;
+                        option.text = ciudad.CiudadNombre;
+                        ciudadSelect.appendChild(option);
+
+                    });
+                });
+
+        });
+      
         $(document).ready(function() {
+            //ocultar boton agregar
             $('.agregarMaquina').hide();
+            //select2
             $('.select2').select2();
+
             let contadorContactos = 1;
+            //agregar contacto
             $('#agregar-contacto').on('click', function() {
                 $('#contactos').append(`
                 <hr>
@@ -647,6 +754,7 @@
                 theme: "bootstrap"
             });
         });
+        //preview de imagen
         $('#btnAgregar').on('click', function() {
             $('.agregarMaquina').show();
             $('#btnAgregar').hide();
