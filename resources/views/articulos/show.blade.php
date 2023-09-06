@@ -1,21 +1,34 @@
 @extends('adminlte::page')
 
 @section('content')
+<!-- Este div crea un contenedor principal para la página -->
     <div class="container">
+            <!-- Aquí se inicia una fila centrada en el contenedor --> 
         <div class="row justify-content-center">
+            <!-- Aquí se crea una columna de 8 espacios para el contenido -->
             <div class="col-md-8">
+                <!-- Aquí se crea una tarjeta -->
                 <div class="card">
+                    <!-- Aquí se crea el encabezado de la tarjeta -->
                     <div class="card-header">{{ $articulo->definicion }}</div>
+                    <!-- Aquí se crea el cuerpo de la tarjeta -->
 
+                    {{-- inicio del cuerpo de la tarjeta --}}
                     <div class="card-body">
+                      <!-- Comienza una fila dentro del cuerpo de la tarjeta -->   
                         <div class="row">
+                            <!-- Primera columna (3 de 12 columnas) que contiene una etiqueta de texto en negrita -->
                             <div class="col-md-3 font-weight-bold">Definición:</div>
+                            <!-- Segunda columna (9 de 12 columnas) que contiene el valor de la definición del artículo -->    
                             <div class="col-md-9">{{ $articulo->definicion }}</div>
+                            <!-- Cierre de la fila dentro del cuerpo de la tarjeta -->        
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 font-weight-bold">Referencia:</div>
+                            <!-- Primera columna (3 de 12 columnas) que contiene una etiqueta de texto en negrita -->
                             <div class="col-md-9">{{ $articulo->referencia }}</div>
+                            <!-- Segunda columna (9 de 12 columnas) que contiene el valor de la referencia del artículo -->
                         </div>
 
                         <div class="row">

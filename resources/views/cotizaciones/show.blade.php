@@ -123,44 +123,34 @@
                                         <tr>
                                             <td>1</td>
                                             <td>4</td>
-                                            <td>N/A</td>
+                                            <td>3050</td>
                                             <td>CASQUETE DE BIELA 0,10</td>
                                             <td>CTP</td>
-                                            <td>INMEDIATA</td>
-                                            <td>$ 1.000.000</td>
-                                            <td>$ 4.000.000</td>
+                                            <td>15 DÍAS</td>
+                                            <td>$ 81.200</td>
+                                            <td>$ 324.800</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>3</td>
-                                            <td>247-925-726</td>
-                                            <td>Wes Anderson umami biodiesel</td>
-                                            <td>$50.00</td>
-                                            <td>$50.00</td>
-                                            <td>$50.00</td>
-                                            <td>$50.00</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
+                                            <td>2</td>
                                             <td>5</td>
-                                            <td>735-845-642</td>
-                                            <td>Terry Richardson helvetica tousled street art master</td>
-                                            <td>$10.70</td>
-                                            <td>$10.70</td>
-                                            <td>$10.70</td>
-                                            <td>$10.70</td>
+                                            <td>1617163 U</td>
+                                            <td>CASQUETE DE BANCADA</td>
+                                            <td>CTP</td>
+                                            <td>INMEDIATA</td>
+                                            <td>$ 95;200</td>
+                                            <td>$ 476.000</td>
                                         </tr>
                                         <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>422-568-642</td>
-                                            <td>Tousled lomo letterpress</td>
-                                            <td>$25.99</td>
-                                            <td>$25.99</td>
-                                            <td>$25.99</td>
-                                            <td>$25.99</td>
+                                            <td>3</td>
+                                            <td>2</td>
+                                            <td>DS14</td>
+                                            <td>ARANDELA AXIAL</td>
+                                            <td>IPD</td>
+                                            <td>INMEDIATA</td>
+                                            <td>$ 147.000</td>
+                                            <td>$ 294.000</td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -185,15 +175,15 @@
                                     <table class="table">
                                         <tr>
                                             <th style="width:50%">Subtotal:</th>
-                                            <td>$250.30</td>
+                                            <td>$ 1.094.800</td>
                                         </tr>
                                         <tr>
                                             <th>Iva (19%)</th>
-                                            <td>$10.34</td>
+                                            <td>$ 208.012</td>
                                         </tr>
                                         <tr class="text-danger">
                                             <th class="text-danger">Total:</th>
-                                            <td>$265.24</td>
+                                            <td>$ 1.302.812</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -231,14 +221,13 @@
                         <div class="row no-print">
                             <div class="col-12">
                                 <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                        class="fas fa-print"></i> Print</a>
+                                        class="fas fa-print"></i> Imprimir</a>
                                 <button type="button" class="btn btn-success float-right"><i
                                         class="far fa-credit-card"></i>
-                                    Submit
-                                    Payment
+                                    Enviar
                                 </button>
                                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                    <i class="fas fa-download"></i> Generate PDF
+                                    <i class="fas fa-download"></i> Descargar PDF
                                 </button>
                             </div>
                         </div>

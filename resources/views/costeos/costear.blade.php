@@ -280,7 +280,7 @@
                                                 <select name="proveedores[{{ $index }}][entrega]"
                                                     id="entrega-nacional{{ $index }}"
                                                     class="form-control entrega-selector"
-                                                    data-index="{{ $index }}" required>
+                                                    data-index="{{ $index }}">
                                                     <option value="">Selecione...</option>
                                                     <option value="inmediata">Inmediata</option>
                                                     <option value="programada">Programada</option>

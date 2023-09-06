@@ -12,12 +12,10 @@ class Articulo extends Model
     //campos de la tabla articulos
     protected $fillable = [
         'marca',
-        'sistema',
         'definicion',
         'referencia',
-        'cantidad',
-        'comentarios',
         'descripcion_especifica',
+        'comentarios',
         'peso',
         'fotoDescriptiva',
     ];
