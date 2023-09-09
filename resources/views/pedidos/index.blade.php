@@ -98,7 +98,7 @@
                 "scrollCollapse": true,
                 "paging": false,
             });
-
+            //Función para eliminar un registro
             $('.delete').click(function(e) {
                 e.preventDefault();
                 Swal.fire({

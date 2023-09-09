@@ -9,11 +9,12 @@ use App\Models\Lista;
 use App\Models\Maquina;
 use App\Models\Medida;
 use App\Models\Pedido;
+use App\Models\RelacionSuplencia;
 
 
 class ArticuloController extends Controller
 {
-        // Método para mostrar la lista de artículos
+    // Método para mostrar la lista de artículos
     public function index()
     {
         $articulos = Articulo::all();
@@ -85,13 +86,13 @@ class ArticuloController extends Controller
         $articulo->peso = $validatedData['peso'];
 
         // Procesar la foto descriptiva del artículo, si se proporcionó
-        if ($request->hasFile('foto-descriptiva')) {//si se sube una foto
-            $fotoDescriptiva = $request->file('foto-descriptiva');//obtener la foto
-            $filename = time() . '_' . $fotoDescriptiva->getClientOriginalName();//obtener el nombre de la foto
-            $filepath = $fotoDescriptiva->storeAs('public/articulos', $filename);//guardar la foto en la carpeta articulos
-            $articulo->fotoDescriptiva = $filename;//guardar el nombre de la foto en la base de datos
-        } else {//si no se sube una foto
-            $articulo->fotoDescriptiva = 'no-imagen.jpg';//guardar una foto por defecto
+        if ($request->hasFile('foto-descriptiva')) { //si se sube una foto
+            $fotoDescriptiva = $request->file('foto-descriptiva'); //obtener la foto
+            $filename = time() . '_' . $fotoDescriptiva->getClientOriginalName(); //obtener el nombre de la foto
+            $filepath = $fotoDescriptiva->storeAs('public/articulos', $filename); //guardar la foto en la carpeta articulos
+            $articulo->fotoDescriptiva = $filename; //guardar el nombre de la foto en la base de datos
+        } else { //si no se sube una foto
+            $articulo->fotoDescriptiva = 'no-imagen.jpg'; //guardar una foto por defecto
         }
 
         // Asociar las máquinas con el artículo
@@ -153,6 +154,20 @@ class ArticuloController extends Controller
             }
         }
 
+        // Crear relaciones de suplencia si se seleccionaron artículos para suplir
+        if ($request->has('cambio')) {
+            foreach ($request->input('cambio') as $suplidorId) {
+                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
+                if ($suplidorId != $articulo->id) {
+                    // Crear una nueva relación de suplencia
+                    RelacionSuplencia::create([
+                        'articulo_id' => $articulo->id, // ID del artículo principal
+                        'suplido_por_id' => $suplidorId, // ID del artículo que lo suple
+                    ]);
+                }
+            }
+        }
+
         //redireccionar recargando la pagina
         return redirect()->route('articulos.index')->with('success', 'Artículo creado correctamente.');
     }
@@ -172,7 +187,7 @@ class ArticuloController extends Controller
     {
         // Obtener el artículo que se va a editar
         $articulo = Articulo::findOrFail($id);
-        
+
         // Obtener el artículo anterior
         $previous = Articulo::where('id', '<', $articulo->id)->orderBy('id', 'desc')->first();
 

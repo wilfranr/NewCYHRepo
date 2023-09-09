@@ -700,27 +700,28 @@
 @endsection
 @section('js')
     <script>
-        const paisSelect = document.getElementById('pais_id');
-        paisSelect.addEventListener('change', function() {
-            const paisCodigo = this.value;
-            fetch('/ciudades/' + paisCodigo)
-                .then(response => response.json())
-                .then(data => {
-                    const ciudadSelect = document.getElementById('ciudad');
+        // const paisSelect = document.getElementById('pais_id');
+        // paisSelect.addEventListener('change', function() {
+        //     const paisCodigo = this.value;
+        //     fetch('/ciudades/' + paisCodigo)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const ciudadSelect = document.getElementById('ciudad');
 
-                    ciudadSelect.innerHTML = '';
-                    data.ciudades.forEach(ciudad => {
-                        const option = document.createElement('option');
-                        option.value = ciudad.CiudadID;
-                        option.text = ciudad.CiudadNombre;
-                        ciudadSelect.appendChild(option);
+        //             ciudadSelect.innerHTML = '';
+        //             data.ciudades.forEach(ciudad => {
+        //                 const option = document.createElement('option');
+        //                 option.value = ciudad.CiudadID;
+        //                 option.text = ciudad.CiudadNombre;
+        //                 ciudadSelect.appendChild(option);
 
-                    });
-                });
+        //             });
+        //         });
 
-        });
+        // });
       
         $(document).ready(function() {
+            console.log('hola');
             //ocultar boton agregar
             $('.agregarMaquina').hide();
             //select2
@@ -754,6 +755,7 @@
                 theme: "bootstrap"
             });
         });
+
         //preview de imagen
         $('#btnAgregar').on('click', function() {
             $('.agregarMaquina').show();

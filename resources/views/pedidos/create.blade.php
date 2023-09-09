@@ -391,9 +391,6 @@
                         </div>
                     </div>
                 </hr>
-                
-
-
             `);
 
                 $('#articulos-temporales').val(contadorArticulos++);
