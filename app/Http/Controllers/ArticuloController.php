@@ -185,8 +185,16 @@ class ArticuloController extends Controller
 
     public function edit($id)
     {
+        $articulos = Articulo::all();
+
         // Obtener el artículo que se va a editar
         $articulo = Articulo::findOrFail($id);
+
+        // Obtener los artículos existentes en la relación de suplencia
+        $articulosEnSuplencia = RelacionSuplencia::where('articulo_id', $articulo->id)
+            ->pluck('suplido_por_id')
+            ->all();
+            // dd($articulosEnSuplencia);
 
         // Obtener el artículo anterior
         $previous = Articulo::where('id', '<', $articulo->id)->orderBy('id', 'desc')->first();
@@ -200,13 +208,23 @@ class ArticuloController extends Controller
         //obtener las definiciones de la lista 
         $definiciones = Lista::where('tipo', 'Definición')->get();
         $tipoMedida = Lista::where('tipo', 'Medida')->pluck('nombre', 'id');
-        $unidades = Lista::where('tipo', 'Unidad medida')->pluck('nombre', 'id');
+        $unidadMedidas = Lista::where('tipo', 'Unidad medida')->pluck('nombre', 'id');
+        $unidades = Lista::where('tipo', 'Unidad medida')->get();
+
+        // Obtener las definiciones con su respectiva foto de medida
+        $definicionesConFoto = Lista::where('tipo', 'Definición')->select('nombre', 'foto')->get();
+
+        // Crear un arreglo asociativo con el nombre de la definición como clave y la foto como valor
+        $definicionesFotoMedida = [];
+        foreach ($definicionesConFoto as $definicion) {
+            $definicionesFotoMedida[$definicion->nombre] = $definicion->foto;
+        }
 
         //obtener la marca
         $marca = Lista::where('tipo', 'marca')->get();
 
         // Mostrar la vista de edición con los datos del artículo y sus medidas
-        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidades', 'tipoMedida', 'previous', 'next'));
+        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades'));
     }
 
     public function update(Request $request, Articulo $articulo, $id)

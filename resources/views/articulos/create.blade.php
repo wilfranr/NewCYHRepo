@@ -36,9 +36,7 @@
                         <div class="tab-pane fade show active" id="custom-tabs-one-datos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-datos-tab">
                             <div class="card-body pb-0">
-                                <input type="hidden" value="{{ isset($pedido) ? $pedido->id : '' }}" name="pedido_id">
                                 <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
-
                                     <div class="row">
                                         <div class="col-6">
                                             {{-- Definición --}}
@@ -64,8 +62,6 @@
                                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
-                                                    
-
                                                 </div>
                                             </div>
 
@@ -526,6 +522,14 @@
             $('#link-foto-medida').attr('href', fotoMedida);
         }
         $(document).ready(function() {
+            // select2
+            $('.select2').select2({
+                placeholder: "Seleccione...",
+                allowClear: true,
+                theme: "bootstrap"
+            });
+
+            // Agregar medidas
             let contadorMedidas = 1;
             $('#agregar-medida').on('click', function() {
                 $('#medidasDatos').append(`
@@ -551,7 +555,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="unidadMedida" >{{ __('Unidad de Medida') }}</label>
                             <select class="form-control" id="unidadMedida" name="unidadMedida[]">
                                 <option value="">Unidad de medida</option>
                                 @foreach ($unidadMedidas as $id => $nombre)
@@ -601,12 +606,7 @@
                 reader.readAsDataURL(e.target.files[0]);
             });
 
-            // select2
-            $('.select2').select2({
-                placeholder: "Seleccione...",
-                allowClear: true,
-                theme: "bootstrap"
-            });
+            
 
             //Tomar datos del input de referencia y ponerlos en el input de referencia-sm
             $('#referencia').on('keyup', function() {
