@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Articulo extends Model
 {
     use HasFactory;
-    
+
     //campos de la tabla articulos
     protected $fillable = [
         'marca',
@@ -46,9 +46,15 @@ class Articulo extends Model
         return $this->hasMany(Imagen::class);
     }
 
-    // public function maquinas()
-    // {
-    //     return $this->belongsToMany(Maquina::class, 'maquina_articulo')
-    //         ->withPivot('id');
-    // }
+    //funcion para buscar cambios por referencia
+    public function suplencias()
+    {
+        return $this->hasMany(RelacionSuplencia::class, 'articulo_id');
+    }
+
+    //funcion para buscar juegos por referencia
+    public function juegos()
+    {
+        return $this->hasMany(JuegoArticulo::class, 'articulo_id');
+    }
 }

@@ -33,6 +33,7 @@
                     @csrf
                     @method('PUT')
                     <div class="tab-content" id="custom-tabs-one-tabContent">
+
                         {{-- Datos básicos --}}
                         <div class="tab-pane fade show active" id="custom-tabs-one-datos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-datos-tab">
@@ -148,7 +149,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- /Datos básicos --}}
+
                         {{-- Medidas --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-medidas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-medidas-tab">
@@ -189,237 +190,262 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- /Medidas --}}
-                    {{-- Juegos y Cruces --}}
-                    <div class="tab-pane fade show-active" id="custom-tabs-one-juegos" role="tabpanel"
-                        aria-labelledby="custom-tabs-one-juegos-tab">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="cambio">{{ __('Cambio') }}</label>
-                                        <select class="select2" name="cambio[]" multiple="multiple" style="width: 100%">
-                                            {{-- Mostrar los nuevos artículos --}}
-                                            @foreach ($articulos as $articuloOption)
-                                                <option value="{{ $articuloOption->id }}">
-                                                    {{ $articuloOption->referencia }}
-                                                </option>
-                                            @endforeach
 
-                                            {{-- Mostrar los artículos existentes en la relación de suplencia y seleccionarlos por defecto --}}
-                                            @foreach ($articulosEnSuplencia as $articuloId)
-                                                @php
-                                                    $articuloExistente = $articulos->find($articuloId);
-                                                @endphp
-                                                <option value="{{ $articuloExistente->id }}" selected>
-                                                    {{ $articuloExistente->referencia }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <ul class="list-group"><b>Cambios actuales</b>
-                                            @foreach ($articulosEnSuplencia as $articuloId)
-                                                @php
-                                                    $articuloExistente = $articulos->find($articuloId);
-                                                @endphp
-                                                <li class="list-group-item">
-                                                    <a href="{{ route('articulos.edit', $articuloExistente->id) }}"
-                                                        target="_blank">{{ $articuloExistente->referencia }} --
-                                                        {{ $articuloExistente->definicion }}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="juego">{{ __('Componentes:') }}</label><br>
-                                        <select class="select2" name="juego[]" multiple="multiple" style="width: 100%">
-                                            @foreach ($articulos as $articulo)
-                                                <option value="{{ $articulo['id'] }}">
-                                                    {{ $articulo['referencia'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                        {{-- Juegos y Cruces --}}
+                        <div class="tab-pane fade show-active" id="custom-tabs-one-juegos" role="tabpanel"
+                            aria-labelledby="custom-tabs-three-one-tab">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="cambio">{{ __('Cambio') }}</label>
+                                            <select class="select2" name="cambio[]" multiple="multiple"
+                                                style="width: 100%">
+                                                {{-- Mostrar los nuevos artículos --}}
+                                                @foreach ($articulos as $articuloOption)
+                                                    <option value="{{ $articuloOption->id }}">
+                                                        {{ $articuloOption->referencia }}
+                                                    </option>
+                                                @endforeach
 
-                                        @error('juego')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                                {{-- Mostrar los artículos existentes en la relación de suplencia y seleccionarlos por defecto --}}
+                                                @foreach ($articulosEnSuplencia as $articuloId)
+                                                    @php
+                                                        $articuloExistente = $articulos->find($articuloId);
+                                                    @endphp
+                                                    <option value="{{ $articuloExistente->id }}" selected>
+                                                        {{ $articuloExistente->referencia }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <ul class="list-group"><b>Cambios actuales</b>
+                                                @foreach ($articulosEnSuplencia as $articuloId)
+                                                    @php
+                                                        $articuloExistente = $articulos->find($articuloId);
+                                                    @endphp
+                                                    <li class="list-group-item">
+                                                        <a href="{{ route('articulos.edit', $articuloExistente->id) }}"
+                                                            target="_blank">{{ $articuloExistente->referencia }} --
+                                                            {{ $articuloExistente->definicion }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="juego">{{ __('Componentes:') }}</label><br>
+                                            <select class="select2" name="juego[]" multiple="multiple"
+                                                style="width: 100%">
+                                                {{-- Mostrar los nuevos artículos --}}
+                                                @foreach ($articulos as $articuloOption)
+                                                    <option value="{{ $articuloOption->id }}">
+                                                        {{ $articuloOption->referencia }}
+                                                    </option>
+                                                @endforeach
+
+                                                {{-- Mostrar los artículos existentes en la relación de suplencia y seleccionarlos por defecto --}}
+                                                @foreach ($articulosEnJuego as $articuloId)
+                                                    @php
+                                                        $articuloExistente = $articulos->find($articuloId);
+                                                    @endphp
+                                                    <option value="{{ $articuloExistente->id }}" selected>
+                                                        {{ $articuloExistente->referencia }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('juego')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <ul class="list-group"><b>Componentes que hacen parte de este juego</b>
+                                                @foreach ($articulosEnJuego as $articuloId)
+                                                    @php
+                                                        $articuloExistente = $articulos->find($articuloId);
+                                                    @endphp
+                                                    <li class="list-group-item">
+                                                        <a href="{{ route('articulos.edit', $articuloExistente->id) }}"
+                                                            target="_blank">{{ $articuloExistente->referencia }} --
+                                                            {{ $articuloExistente->definicion }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </form>
                 {{-- /Formulario --}}
             </div>
         </div>
 
         <!--
-                                                -------------------------------------------------------------------------------------------
-                                                <div class="row justify-content-center">
-                                                    <div class="col-md-8">
-                                                        <div class="card">
-                                                            <div class="card-header">{{ __('Editar Artículo') }}</div>
-                                                            <div class="card-body">
-                                                                <form method="POST" action="{{ route('articulos.update', $articulo->id) }}"
-                                                                    enctype="multipart/form-data" id="form">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="form-group row">
-                                                                        <label for="marca"
-                                                                            class="col-md-4 col-form-label text-md-right">{{ __('Marca fabricante') }}</label>
+                                                        -------------------------------------------------------------------------------------------
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-md-8">
+                                                                <div class="card">
+                                                                    <div class="card-header">{{ __('Editar Artículo') }}</div>
+                                                                    <div class="card-body">
+                                                                        <form method="POST" action="{{ route('articulos.update', $articulo->id) }}"
+                                                                            enctype="multipart/form-data" id="form">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <div class="form-group row">
+                                                                                <label for="marca"
+                                                                                    class="col-md-4 col-form-label text-md-right">{{ __('Marca fabricante') }}</label>
 
-                                                                        <div class="form-group">
+                                                                                <div class="form-group">
 
-                                                                        </div>
-                                                                    </div>
+                                                                                </div>
+                                                                            </div>
 
-                                                                    <div class="form-group row">
-                                                                        <label for="definicion"
-                                                                            class="col-md-4 col-form-label text-md-right">{{ __('Definición') }}</label>
-                                                                        <div class="col-md-6">
-                                                                            {{-- input con definicion --}}
-                                                                            <select class="select2" id="select-definicion" name="select-definicion"
-                                                                                onchange="mostrarFotoMedida(this.value)" required>
-                                                                                <option value="">Seleccione una definición</option>
-                                                                                @foreach ($definiciones as $id => $nombre)
+                                                                            <div class="form-group row">
+                                                                                <label for="definicion"
+                                                                                    class="col-md-4 col-form-label text-md-right">{{ __('Definición') }}</label>
+                                                                                <div class="col-md-6">
+                                                                                    {{-- input con definicion --}}
+                                                                                    <select class="select2" id="select-definicion" name="select-definicion"
+                                                                                        onchange="mostrarFotoMedida(this.value)" required>
+                                                                                        <option value="">Seleccione una definición</option>
+                                                                                        @foreach ($definiciones as $id => $nombre)
     <option value="{{ $d->nombre }}"
-                                                                                        {{ $d->nombre == $articulo->definicion ? 'selected' : '' }}>
-                                                                                        {{ $d->nombre }}</option>
+                                                                                                {{ $d->nombre == $articulo->definicion ? 'selected' : '' }}>
+                                                                                                {{ $d->nombre }}</option>
     @endforeach
-                                                                            </select>
-                                                                            <select class="select2" id="select-definicion" name="select-definicion"
-                                                                                onchange="mostrarFotoMedida(this.value)" required>
-                                                                                <option value="">Seleccione una definición
-                                                                                </option>
-                                                                                @foreach ($definiciones as $id => $nombre)
+                                                                                    </select>
+                                                                                    <select class="select2" id="select-definicion" name="select-definicion"
+                                                                                        onchange="mostrarFotoMedida(this.value)" required>
+                                                                                        <option value="">Seleccione una definición
+                                                                                        </option>
+                                                                                        @foreach ($definiciones as $id => $nombre)
     <option value="{{ $nombre }}">
-                                                                                        {{ $nombre }}
-                                                                                    </option>
+                                                                                                {{ $nombre }}
+                                                                                            </option>
     @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
 
-                                                                    {{-- Referencia --}}
-                                                                    <div class="form-group row">
-                                                                        <label for="referencia"
-                                                                            class="col-md-4 col-form-label text-md-right">{{ __('Referencia') }}</label>
+                                                                            {{-- Referencia --}}
+                                                                            <div class="form-group row">
+                                                                                <label for="referencia"
+                                                                                    class="col-md-4 col-form-label text-md-right">{{ __('Referencia') }}</label>
 
-                                                                        <div class="col-md-6">
-                                                                            {{-- input de referencia --}}
-                                                                            <input id="referencia" type="text"
-                                                                                class="form-control @error('referencia') is-invalid @enderror" name="referencia"
-                                                                                value="{{ $articulo->referencia }}" required>
+                                                                                <div class="col-md-6">
+                                                                                    {{-- input de referencia --}}
+                                                                                    <input id="referencia" type="text"
+                                                                                        class="form-control @error('referencia') is-invalid @enderror" name="referencia"
+                                                                                        value="{{ $articulo->referencia }}" required>
 
-                                                                            {{-- validacion de referencia --}}
-                                                                            @error('referencia')
+                                                                                    {{-- validacion de referencia --}}
+                                                                                    @error('referencia')
         <span class="invalid-feedback" role="alert">
-                                                                                                                            <strong>{{ $message }}</strong>
-                                                                                                                        </span>
+                                                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                                                        </span>
     @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- Peso --}}
+                                                                                </div>
+                                                                            </div>
+                                                                            {{-- Peso --}}
 
-                                                                    <div class="form-group row">
-                                                                        <label for="peso"
-                                                                            class="col-md-4 col-form-label text-md-right">{{ __('Peso') }}</label>
+                                                                            <div class="form-group row">
+                                                                                <label for="peso"
+                                                                                    class="col-md-4 col-form-label text-md-right">{{ __('Peso') }}</label>
 
-                                                                        <div class="col-md-6">
-                                                                            <input type="number" id="peso" class="form-control" name="peso"
-                                                                                step="any" value="{{ $articulo->peso }}">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <label for="comentarios"
-                                                                            class="col-md-4 col-form-label text-md-right">{{ __('Comentarios') }}</label>
+                                                                                <div class="col-md-6">
+                                                                                    <input type="number" id="peso" class="form-control" name="peso"
+                                                                                        step="any" value="{{ $articulo->peso }}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label for="comentarios"
+                                                                                    class="col-md-4 col-form-label text-md-right">{{ __('Comentarios') }}</label>
 
-                                                                        <div class="col-md-6">
-                                                                            <textarea id="comentarios" class="form-control" name="comentarios">{{ $articulo->comentarios }}</textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- Foto descriptiva --}}
-                                                                    <div class="form-group border border-warning p-3 mb-3">
-                                                                        <label for="foto-descriptiva">Foto Descriptiva</label>
-                                                                        <input type="hidden" name="foto_descriptiva_actual"
-                                                                            value="{{ $articulo->fotoDescriptiva }}">
-                                                                        <input type="file" class="form-control-file" name="foto-descriptiva">
-                                                                        <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}" target="_blank">
-                                                                            <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
-                                                                                alt="Foto Descriptiva" width="300px">
-                                                                        </a>
-                                                                    </div>
+                                                                                <div class="col-md-6">
+                                                                                    <textarea id="comentarios" class="form-control" name="comentarios">{{ $articulo->comentarios }}</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{-- Foto descriptiva --}}
+                                                                            <div class="form-group border border-warning p-3 mb-3">
+                                                                                <label for="foto-descriptiva">Foto Descriptiva</label>
+                                                                                <input type="hidden" name="foto_descriptiva_actual"
+                                                                                    value="{{ $articulo->fotoDescriptiva }}">
+                                                                                <input type="file" class="form-control-file" name="foto-descriptiva">
+                                                                                <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}" target="_blank">
+                                                                                    <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                                                                        alt="Foto Descriptiva" width="300px">
+                                                                                </a>
+                                                                            </div>
 
-                                                                    {{-- Foto Medida --}}
-                                                                    <div class="form-group border border-warning p-3 mb-3">
-                                                                        <label for="fotoMedida">Foto Medida</label>
-                                                                        @foreach ($definiciones as $definicion)
+                                                                            {{-- Foto Medida --}}
+                                                                            <div class="form-group border border-warning p-3 mb-3">
+                                                                                <label for="fotoMedida">Foto Medida</label>
+                                                                                @foreach ($definiciones as $definicion)
     @if ($definicion->nombre == $articulo->definicion)
     <a href="{{ asset('storage/listas/' . $definicion->fotoMedida) }}"
-                                                                                    target="_blank">
-                                                                                    <img src="{{ asset('storage/listas/' . $definicion->fotoMedida) }}"
-                                                                                        alt="Foto Medida" width="300px">
-                                                                                </a>
+                                                                                            target="_blank">
+                                                                                            <img src="{{ asset('storage/listas/' . $definicion->fotoMedida) }}"
+                                                                                                alt="Foto Medida" width="300px">
+                                                                                        </a>
     @endif
     @endforeach
-                                                                    </div>
+                                                                            </div>
 
-                                                                    <h2>Medidas</h2>
+                                                                            <h2>Medidas</h2>
 
-                                                                    @foreach ($articulo->medidas as $index => $medida)
+                                                                            @foreach ($articulo->medidas as $index => $medida)
     <div class="form-group">
-                                                                            <label for="tipoMedida{{ $index }}">Tipo de medida {{ $index }}</label>
-                                                                            <select name="tipoMedida" id="tipoMedida" class="form-select">
-                                                                                <option value="">Seleccione un tipo de medida</option>
-                                                                                @foreach ($medidas as $medida)
+                                                                                    <label for="tipoMedida{{ $index }}">Tipo de medida {{ $index }}</label>
+                                                                                    <select name="tipoMedida" id="tipoMedida" class="form-select">
+                                                                                        <option value="">Seleccione un tipo de medida</option>
+                                                                                        @foreach ($medidas as $medida)
     @endforeach
-                                                                                <option value="{{ $medida->id }}"
-                                                                                    {{ $medida->id == $medida->id ? 'selected' : '' }}>
-                                                                                    {{ $medida->nombre }}</option>
-                                                                                @foreach ($tipoMedida as $tipo)
+                                                                                        <option value="{{ $medida->id }}"
+                                                                                            {{ $medida->id == $medida->id ? 'selected' : '' }}>
+                                                                                            {{ $medida->nombre }}</option>
+                                                                                        @foreach ($tipoMedida as $tipo)
     <option value="{{ $tipo }}">{{ $tipo }}</option>
     @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="valor{{ $index }}">Valor {{ $index }}</label>
-                                                                            <input type="text" name="valor" id="valor" value="{{ $medida->valor }}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="unidad{{ $index }}">Unidad {{ $index }}</label>
-                                                                            <select name="unidad" id="unidad" class="form-select">
-                                                                                <option value="">Seleccione una unidad</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="valor{{ $index }}">Valor {{ $index }}</label>
+                                                                                    <input type="text" name="valor" id="valor" value="{{ $medida->valor }}">
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="unidad{{ $index }}">Unidad {{ $index }}</label>
+                                                                                    <select name="unidad" id="unidad" class="form-select">
+                                                                                        <option value="">Seleccione una unidad</option>
 
-                                                                                <option value="{{ $medida->id }}"
-                                                                                    {{ $medida->id == $medida->id ? 'selected' : '' }}>
-                                                                                    {{ $medida->unidad }}</option>
-                                                                                @foreach ($unidades as $unidad)
+                                                                                        <option value="{{ $medida->id }}"
+                                                                                            {{ $medida->id == $medida->id ? 'selected' : '' }}>
+                                                                                            {{ $medida->unidad }}</option>
+                                                                                        @foreach ($unidades as $unidad)
     <option value="{{ $unidad }}">{{ $unidad }}</option>
     @endforeach
-                                                                            </select>
-                                                                        </div>
+                                                                                    </select>
+                                                                                </div>
     @endforeach
 
-                                                                </form>
-                                                                <form action="{{ route('articulos.destroy', $articulo->id) }}" method="POST"
-                                                                    style="display: inline" id="deleteForm">
-                                                                    @csrf
-                                                                    @method('DELETE')
+                                                                        </form>
+                                                                        <form action="{{ route('articulos.destroy', $articulo->id) }}" method="POST"
+                                                                            style="display: inline" id="deleteForm">
+                                                                            @csrf
+                                                                            @method('DELETE')
 
-                                                                </form>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            -->
+                                                    -->
     </div>
     {{-- Modal Definicion --}}
     <div class="modal fade" id="modalDefinicion">
@@ -492,7 +518,7 @@
                         <div class="col-md-8">
                             <select class="form-control" id="tipoMedida${contadorMedidas}" name="tipoMedida[]">
                                 <option value="">Seleccione un tipo de medida</option>
-                                @foreach ($medidas as $id => $nombre)
+                                @foreach ($tipoMedida as $id => $nombre)
                                     <option value="{{ $id }}">{{ $nombre }}</option>
                                 @endforeach
                             </select>

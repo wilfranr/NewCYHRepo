@@ -32,6 +32,7 @@
                 <form method="POST" action="{{ route('articulos.store') }}" enctype="multipart/form-data" id="form">
                     @csrf
                     <div class="tab-content" id="custom-tabs-one-tabContent">
+
                         {{-- Datos básicos --}}
                         <div class="tab-pane fade show active" id="custom-tabs-one-datos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-datos-tab">
@@ -146,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- /Datos básicos --}}
+
                         {{-- Medidas --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-medidas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-medidas-tab">
@@ -176,7 +177,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- /Medidas --}}
+
                         {{-- Juegos y Cruces --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-juegos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-juegos-tab">

@@ -10,6 +10,7 @@ use App\Models\Maquina;
 use App\Models\Medida;
 use App\Models\Pedido;
 use App\Models\RelacionSuplencia;
+use App\Models\JuegoArticulo;
 
 
 class ArticuloController extends Controller
@@ -21,6 +22,7 @@ class ArticuloController extends Controller
 
         return view('articulos.index', compact('articulos'));
     }
+
     // Método para mostrar el formulario de creación de artículo
     public function create()
     {
@@ -168,6 +170,20 @@ class ArticuloController extends Controller
             }
         }
 
+        //crear las relaciones de juego si se seleccionaron artículos para juego
+        if ($request->has('juego')) {
+            foreach ($request->input('juego') as $juegoId) {
+                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
+                if ($juegoId != $articulo->id) {
+                    // Crear una nueva relación de juego
+                    JuegoArticulo::create([
+                        'articulo_id' => $articulo->id, // ID del artículo principal
+                        'juego_por_id' => $juegoId, // ID del artículo que lo suple
+                    ]);
+                }
+            }
+        }
+
         //redireccionar recargando la pagina
         return redirect()->route('articulos.index')->with('success', 'Artículo creado correctamente.');
     }
@@ -194,7 +210,11 @@ class ArticuloController extends Controller
         $articulosEnSuplencia = RelacionSuplencia::where('articulo_id', $articulo->id)
             ->pluck('suplido_por_id')
             ->all();
-            // dd($articulosEnSuplencia);
+
+        //Obtener los artículos existentes en la relación de juego
+        $articulosEnJuego = JuegoArticulo::where('articulo_id', $articulo->id)
+            ->pluck('juego_por_id')
+            ->all();
 
         // Obtener el artículo anterior
         $previous = Articulo::where('id', '<', $articulo->id)->orderBy('id', 'desc')->first();
@@ -224,7 +244,7 @@ class ArticuloController extends Controller
         $marca = Lista::where('tipo', 'marca')->get();
 
         // Mostrar la vista de edición con los datos del artículo y sus medidas
-        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades'));
+        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades', 'articulosEnJuego'));
     }
 
     public function update(Request $request, Articulo $articulo, $id)
@@ -268,6 +288,43 @@ class ArticuloController extends Controller
 
         // Guardar los cambios
         $articulo->save();
+
+        // Si vienen datos de suplencia
+        if ($request->has('cambio')) {
+            // Eliminar todas las relaciones de suplencia antiguas
+            $articulo->suplencias()->delete();
+
+            // Crear las nuevas relaciones de suplencia
+            foreach ($request->input('cambio') as $suplidorId) {
+                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
+                if ($suplidorId != $articulo->id) {
+                    // Crear una nueva relación de suplencia
+                    RelacionSuplencia::create([
+                        'articulo_id' => $articulo->id, // ID del artículo principal
+                        'suplido_por_id' => $suplidorId, // ID del artículo que lo suple
+                    ]);
+                }
+            }
+        }
+
+        // Si vienen datos de juego
+        if ($request->has('juego')) {
+            // Eliminar todas las relaciones de juego antiguas
+            $articulo->juegos()->delete();
+
+            // Crear las nuevas relaciones de juego
+            foreach ($request->input('juego') as $juegoId) {
+                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
+                if ($juegoId != $articulo->id) {
+                    // Crear una nueva relación de juego
+                    JuegoArticulo::create([
+                        'articulo_id' => $articulo->id, // ID del artículo principal
+                        'juego_por_id' => $juegoId, // ID del artículo que lo suple
+                    ]);
+                }
+            }
+        }
+        // dd($request->all());
 
         //si vienen datos de medidas
         if ($request->has('contadorMedidas')) {
@@ -366,5 +423,13 @@ class ArticuloController extends Controller
         } else {
             return redirect()->route('articulos.index')->with('error', 'No se pudo eliminar el artículo');
         }
+        //eliminar las relaciones existentes
+        $articulo->medidas()->detach();
+        $articulo->pedidos()->detach();
+        $articulo->fotos()->delete();
+        $articulo->imagenes()->delete();
+        $articulo->suplencias()->delete();
+        $articulo->juegos()->delete();
+
     }
 }
