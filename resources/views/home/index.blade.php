@@ -8,7 +8,10 @@
                 @foreach ($trm as $t)
                 @endforeach
 
+                 <!-- Este es un formulario web que se enviará al endpoint especificado por la ruta 'home.updateTrm' en Laravel. -->
+
                 <form action="{{ route('home.updateTrm') }}" method="post" id="trm-form">
+                    {{-- genera un token csrf --}}
                     @csrf
                     <input type="hidden" name="trm" id="trm-input"> <!-- Agrega un ID al campo oculto -->
 

@@ -313,6 +313,7 @@ return [
         [
             'text' => 'Pedidos',
             'icon' => 'fas fa-fw fa-shopping-cart',
+            'url'  => '/pedidos',
             'submenu' => [
                 [
                     'text' => 'Ver pedidos',
@@ -329,32 +330,14 @@ return [
         [
             'text' => 'Costeos',
             'icon' => 'fas fa-fw fa-calculator',
-            'submenu' => [
-                [
-                    'text' => 'Ver pedidos en costeo',
-                    'url'  => '/costeos',
-                    'icon' => 'fas fa-fw fa-eye',
-                    // Mostrar cantidad de pedidos nuevos
-                    'label'       => isset($pedidosNuevos) ? $pedidosNuevos : 0,
-                    'label_color' => 'success',
-                ]
-            ],
+            'url'  => '/costeos',
+            
         ],
         [
             'text' => 'Articulos',
             'icon' => 'fas fa-fw fa-boxes',
-            'submenu' => [
-                [
-                    'text' => 'Ver articulos',
-                    'url'  => '/articulos',
-                    'icon' => 'fas fa-fw fa-binoculars',
-                ],
-                [
-                    'text' => 'Crear artículo',
-                    'url'  => '/articulos/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-            ],
+            'url'  => '/articulos',
+           
         ],
         [
             'text' => 'Listas',
@@ -367,62 +350,32 @@ return [
                     'icon' => 'fas fa-fw fa-tasks',
                 ],
                 [
-                    'text' => 'Crear lista',
-                    'url'  => '/listas/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-                [
                     'text' => 'Ver lista Padre',
                     'url'  => '/listasPadre',
                     'icon' => 'fas fa-fw fa-tasks',
                     'can' => 'acceso-lista-padre'
                 ],
-                [
-                    'text' => 'Crear lista Padre',
-                    'url'  => '/listasPadre/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                    'can' => 'acceso-lista-padre'
-                ],
+                
             ],
         ],
         [
             'text' => 'Terceros',
             'icon' => 'fas fa-fw fa-users',
-            'submenu' => [
-                [
-                    'text' => 'Ver terceros',
-                    'url'  => '/terceros',
-                    'icon' => 'fas fa-fw fa-binoculars',
-                ],
-                [
-                    'text' => 'Crear tercero',
-                    'url'  => '/terceros/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-            ],
+            'url'  => '/terceros',
+            
         ],
         [
             'text' => 'Maquinas',
             'icon' => 'fas fa-fw fa-cogs',
-            'submenu' => [
-                [
-                    'text' => 'Ver maquinas',
-                    'url'  => '/maquinas',
-                    'icon' => 'fas fa-fw fa-binoculars',
-                ],
-                [
-                    'text' => 'Crear Maquina',
-                    'url'  => '/maquinas/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-            ],
+            'url'  => '/maquinas',
+            
         ],
 
 
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'users/index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [

@@ -317,7 +317,7 @@
                                                 {{-- Utilidad --}}
                                                 <input type="text" class="form-control utilidad-nacional"
                                                     name="proveedores[{{ $index }}][utilidad]" value=""
-                                                    class="utilidad" data-index="{{ $index }}">
+                                                    class="utilidad" data-index="{{ $index }}" placeholder="7% Sugerida">
                                             </td>
                                         </tr>
                                     @endforeach
