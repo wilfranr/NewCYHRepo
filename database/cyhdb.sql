@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2023 a las 22:48:12
+-- Tiempo de generación: 24-09-2023 a las 19:54:55
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -36,7 +36,7 @@ CREATE TABLE `articulos` (
   `cantidad` int(11) DEFAULT NULL,
   `comentarios` text DEFAULT NULL,
   `descripcionEspecifica` text DEFAULT NULL,
-  `peso` varchar(11) DEFAULT NULL,
+  `peso` double DEFAULT NULL,
   `fotoDescriptiva` varchar(200) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -47,21 +47,74 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`id`, `marca`, `sistema`, `definicion`, `referencia`, `cantidad`, `comentarios`, `descripcionEspecifica`, `peso`, `fotoDescriptiva`, `created_at`, `updated_at`) VALUES
-(1, 'Caterpillar', NULL, 'Tornillo', 'Tornillo-34d', NULL, 'Tornillo', 'Tornillo rosca fina', NULL, '1687104494_R (5).jpeg', '2023-06-18 16:08:14', '2023-06-18 16:08:14'),
-(4, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, 'Diente', NULL, '1688252347_1U3452RC-ATBR_1_1.png', '2023-07-01 22:59:07', '2023-07-01 22:59:07'),
-(6, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, '1', 'Pasador', '1', 'no-imagen.jpg', '2023-07-01 23:08:58', '2023-07-01 23:08:58'),
-(7, 'VEMA TEC', NULL, 'ARANDELA', '8E0469', NULL, '1', 'Arandela', '1', 'no-imagen.jpg', '2023-07-01 23:09:40', '2023-07-01 23:09:40'),
-(8, 'CTP', NULL, 'SOPORTE', '1189935', NULL, '1', 'Soporte', '1', 'no-imagen.jpg', '2023-07-01 23:11:37', '2023-07-01 23:11:37'),
-(9, 'CTP', NULL, 'SOPORTE', '1189936', NULL, NULL, 'Soporte', NULL, 'no-imagen.jpg', '2023-07-01 23:13:16', '2023-07-01 23:13:16'),
-(10, 'Caterpillar', NULL, 'Diente', 'dasd33', NULL, NULL, 'Sello', NULL, 'no-imagen.jpg', '2023-07-02 01:38:03', '2023-07-02 01:38:03'),
-(11, 'COSTEX', NULL, 'BEARING SLEEVE', '9R6515', NULL, NULL, 'Bearing sleeve', NULL, '1688838688_37-768x768.jpg', '2023-07-08 17:51:28', '2023-07-08 17:51:28'),
+(1, 'CATERPILLAR', NULL, 'Tornillo', 'Tornillo-34d', NULL, 'Tornillo', 'Tornillo rosca fina', 1, '1687104494_R (5).jpeg', '2023-06-18 16:08:14', '2023-09-11 01:28:13'),
+(4, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, 'Diente', 200, '1688252347_1U3452RC-ATBR_1_1.png', '2023-07-01 22:59:07', '2023-07-01 22:59:07'),
+(6, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, 'Sin comentarios', 'Pasador', 100, 'no-imagen.jpg', '2023-07-01 23:08:58', '2023-08-13 14:52:01'),
+(7, 'VEMA TEC', NULL, 'ARANDELA', '8E0469', NULL, '1', 'Arandela', 100, 'no-imagen.jpg', '2023-07-01 23:09:40', '2023-08-13 15:28:00'),
+(8, 'CTP', NULL, 'SOPORTE', '1189935', NULL, '1', 'Soporte', 1, 'no-imagen.jpg', '2023-07-01 23:11:37', '2023-07-01 23:11:37'),
+(9, 'CTP', NULL, 'SOPORTE', '1189936', NULL, NULL, 'Soporte', 200, 'no-imagen.jpg', '2023-07-01 23:13:16', '2023-08-13 15:28:20'),
+(10, 'Caterpillar', NULL, 'Diente', 'dasd33', NULL, NULL, 'Sello', 100, 'no-imagen.jpg', '2023-07-02 01:38:03', '2023-08-13 15:28:54'),
+(11, 'COSTEX', NULL, 'BEARING SLEEVE', '9R6515', NULL, NULL, 'Bearing sleeve', 300, '1688838688_37-768x768.jpg', '2023-07-08 17:51:28', '2023-08-13 15:29:06'),
 (12, 'ITR', NULL, 'RUEDA TENSORA', 'VA1821', NULL, NULL, 'Rueda tensora', NULL, '1688857725_37-768x768.jpg', '2023-07-08 23:08:45', '2023-07-08 23:08:45'),
 (13, 'CTP', NULL, 'SOPORTE', '1189935', NULL, NULL, 'Soporte', NULL, 'no-imagen.jpg', '2023-07-08 23:33:21', '2023-07-08 23:33:21'),
 (14, 'KOMATSU', NULL, 'THRUST WASHE(0923313820)', '144-15-22561', NULL, NULL, 'thrust', NULL, '1688859552_thrust-komatsu.jpg', '2023-07-08 23:39:12', '2023-07-08 23:39:12'),
 (15, 'KOMATSU', NULL, 'GEAR', '60235A', NULL, NULL, 'Gear', NULL, 'no-imagen.jpg', '2023-07-08 23:49:57', '2023-07-08 23:49:57'),
 (16, 'OEM', NULL, 'COUPLING', '121900', NULL, NULL, 'Coupling', NULL, 'no-imagen.jpg', '2023-07-08 23:51:47', '2023-07-08 23:51:47'),
 (17, 'OEM', NULL, 'ARANDELA T35', '8E6359', NULL, NULL, 'ARANDELA T35', NULL, 'no-imagen.jpg', '2023-07-15 17:58:33', '2023-07-15 17:58:33'),
-(18, 'PERKINS REMAN', NULL, 'Empaque de culata', '36812134', NULL, NULL, 'Empaque de culata 1.5', '0.1', '1689465435_R (6).jpeg', '2023-07-15 23:57:15', '2023-07-15 23:57:15');
+(20, 'PERKINS REMAN', NULL, 'EMPAQUE DE CULATA', '36812134', NULL, NULL, NULL, NULL, NULL, '2023-08-12 13:55:39', '2023-08-12 13:55:39'),
+(21, 'Caterpillar', NULL, 'BEAARING SLEEVE (2602552)', 'dasd33', NULL, NULL, 'Bearing sleeve', NULL, '1691849056_OIP (12).jpeg', '2023-08-12 14:04:16', '2023-08-12 14:04:16'),
+(22, 'Caterpillar', NULL, 'SOPORTE', 'Tornillo-34d', NULL, 'Tornillo', NULL, NULL, NULL, '2023-08-13 14:10:14', '2023-08-13 14:10:14'),
+(23, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:35:23', '2023-08-13 14:35:23'),
+(24, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:39:41', '2023-08-13 14:39:41'),
+(25, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:39:56', '2023-08-13 14:39:56'),
+(26, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:41:51', '2023-08-13 14:41:51'),
+(27, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 2, NULL, '2023-08-13 14:41:58', '2023-08-13 14:41:58'),
+(28, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:42:50', '2023-08-13 14:42:50'),
+(29, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:43:09', '2023-08-13 14:43:09'),
+(30, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:43:56', '2023-08-13 14:43:56'),
+(31, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:44:10', '2023-08-13 14:44:10'),
+(32, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, '1', NULL, NULL, NULL, '2023-08-13 14:44:21', '2023-08-13 14:44:21'),
+(33, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, '1', NULL, NULL, NULL, '2023-08-13 14:45:05', '2023-08-13 14:45:05'),
+(34, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 200, NULL, '2023-08-13 14:47:43', '2023-08-13 14:47:43'),
+(35, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, '1', NULL, 100, NULL, '2023-08-13 14:48:03', '2023-08-13 14:48:03'),
+(36, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, 'qwqw', NULL, 233, NULL, '2023-08-13 14:48:44', '2023-08-13 14:48:44'),
+(37, 'ITR', NULL, 'RUEDA TENSORA', 'VA1821', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:49:32', '2023-08-13 14:49:32'),
+(38, 'IPD', NULL, 'ARANDELA AXIAL', 'DS14', NULL, NULL, 'ARANDELA AXIAL', 0.4, '1693884065_arandelas-axiales.jpg', '2023-09-05 03:21:05', '2023-09-05 03:21:05'),
+(39, 'CTP', NULL, 'CASQUETE BIELA', '3050', NULL, NULL, 'CASQUETE DE BIELA', 0.1, '1693884195_19270.jpg', '2023-09-05 03:23:15', '2023-09-05 03:23:15'),
+(40, 'CTP', NULL, 'CASQUETE BANCADA', '1617163 U', NULL, NULL, 'CASQUETE BANCADA', 0.1, '1693884285_S_848015-MCO25198138852_12016-O.jpg', '2023-09-05 03:24:46', '2023-09-05 03:24:46'),
+(41, 'KOMATSU', NULL, 'Diente', 'ljklkll', NULL, NULL, 'Seal', 1, '1694282105_S_848015-MCO25198138852_12016-O.jpg', '2023-09-09 17:55:05', '2023-09-09 17:55:05'),
+(42, 'CTP', NULL, 'SHIM', '3088785', NULL, 'REVISAR PESO, SE COLOCÓ UNO APROXIMADO', 'SHIM', 0.5, '1694307724_2V7390.jpg', '2023-09-10 01:02:04', '2023-09-10 01:02:04'),
+(43, 'COSTEX', NULL, 'GOBERNADOR', '567878B', NULL, NULL, 'GOBERNADOR', 0.2, 'no-imagen.jpg', '2023-09-11 02:11:30', '2023-09-11 02:11:30'),
+(44, 'CTP', NULL, 'Diente', 'arandela', NULL, NULL, 'Sello', 200, 'no-imagen.jpg', '2023-09-14 02:41:15', '2023-09-14 02:41:15'),
+(45, 'OEM', NULL, 'O-RING (KIT)', '15080', NULL, NULL, NULL, 0.5, 'no-imagen.jpg', '2023-09-14 02:48:54', '2023-09-14 02:48:54');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articulos_juegos`
+--
+
+CREATE TABLE `articulos_juegos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `articulo_id` bigint(20) UNSIGNED NOT NULL,
+  `juego_por_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `articulos_juegos`
+--
+
+INSERT INTO `articulos_juegos` (`id`, `articulo_id`, `juego_por_id`, `created_at`, `updated_at`) VALUES
+(4, 42, 1, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
+(5, 41, 7, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
+(6, 1, 4, '2023-09-11 02:06:58', '2023-09-11 02:06:58'),
+(8, 43, 4, '2023-09-11 02:12:17', '2023-09-11 02:12:17'),
+(9, 45, 6, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
+(10, 45, 7, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
+(11, 45, 8, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
+(12, 45, 9, '2023-09-14 02:48:54', '2023-09-14 02:48:54');
 
 -- --------------------------------------------------------
 
@@ -82,7 +135,12 @@ CREATE TABLE `articulo_medida` (
 --
 
 INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `updated_at`) VALUES
-(95, 18, 1, NULL, NULL);
+(105, 6, 11, NULL, NULL),
+(115, 4, 21, NULL, NULL),
+(117, 42, 23, NULL, NULL),
+(118, 41, 24, NULL, NULL),
+(119, 1, 25, NULL, NULL),
+(122, 43, 28, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -97,6 +155,30 @@ CREATE TABLE `articulo_pedido` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `articulo_pedido`
+--
+
+INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `cantidad`, `created_at`, `updated_at`) VALUES
+(1, 7, 3, '2023-09-02 15:48:50', '2023-09-02 15:48:50'),
+(2, 6, 1, '2023-09-02 15:52:28', '2023-09-02 15:52:28'),
+(3, 38, 2, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
+(3, 39, 4, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
+(3, 40, 4, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
+(4, 39, 4, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
+(4, 40, 5, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
+(4, 38, 2, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
+(5, 39, 4, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
+(5, 40, 5, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
+(5, 38, 1, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
+(6, 39, 4, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
+(6, 40, 5, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
+(6, 38, 2, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
+(7, 1, 1, '2023-09-09 17:18:35', '2023-09-09 17:18:35'),
+(8, 42, 1, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
+(9, 14, 1, '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
+(12, 1, 1, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
 
 -- --------------------------------------------------------
 
@@ -120,78 +202,9 @@ CREATE TABLE `articulo_temporal` (
 --
 
 INSERT INTO `articulo_temporal` (`id`, `referencia`, `definicion`, `sistema`, `cantidad`, `comentarios`, `created_at`, `updated_at`) VALUES
-(2, 'Tornillo-34d', 'Tornillo', 'Transmisión', 1, NULL, '2023-07-15 14:44:31', '2023-07-15 14:44:31'),
-(3, 'Tornillo-34d', NULL, NULL, 2, NULL, '2023-07-15 14:52:30', '2023-07-15 14:52:30'),
-(4, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 14:52:37', '2023-07-15 14:52:37'),
-(5, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 14:52:47', '2023-07-15 14:52:47'),
-(6, '8E0469', NULL, NULL, 3, NULL, '2023-07-15 14:53:14', '2023-07-15 14:53:14'),
-(7, 'dasd33', NULL, NULL, 3, NULL, '2023-07-15 14:53:27', '2023-07-15 14:53:27'),
-(8, 'dasd33', NULL, NULL, 3, NULL, '2023-07-15 15:01:47', '2023-07-15 15:01:47'),
-(9, 'Tornillo-34d', 'Tornillo', NULL, 1, NULL, '2023-07-15 15:02:46', '2023-07-15 15:02:46'),
-(10, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:02:54', '2023-07-15 15:02:54'),
-(11, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:03:19', '2023-07-15 15:03:19'),
-(12, 'Tornillo-34d', NULL, NULL, 4, NULL, '2023-07-15 15:03:25', '2023-07-15 15:03:25'),
-(13, 'Tornillo-34d', NULL, NULL, 1, NULL, '2023-07-15 15:03:36', '2023-07-15 15:03:36'),
-(14, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:04:03', '2023-07-15 15:04:03'),
-(15, 'Tornillo-34d', NULL, NULL, 5, NULL, '2023-07-15 15:04:53', '2023-07-15 15:04:53'),
-(16, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:06:24', '2023-07-15 15:06:24'),
-(17, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:16:28', '2023-07-15 15:16:28'),
-(18, 'Tornillo-34d', NULL, NULL, 5, NULL, '2023-07-15 15:16:34', '2023-07-15 15:16:34'),
-(19, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:23:04', '2023-07-15 15:23:04'),
-(20, 'Tornillo-34d', 'Tornillo rosca fina', NULL, 4, NULL, '2023-07-15 15:23:42', '2023-07-15 15:23:42'),
-(21, '8E0468', NULL, NULL, 3, NULL, '2023-07-15 15:26:10', '2023-07-15 15:26:10'),
-(22, '8E0468', NULL, NULL, 3, NULL, '2023-07-15 15:31:03', '2023-07-15 15:31:03'),
-(23, '8E0468', NULL, NULL, 3, NULL, '2023-07-15 15:31:09', '2023-07-15 15:31:09'),
-(24, '8E0468', NULL, NULL, 3, NULL, '2023-07-15 15:31:11', '2023-07-15 15:31:11'),
-(25, 'Tornillo-34d', 'Tornillo rosca fina', NULL, 7, NULL, '2023-07-15 15:31:25', '2023-07-15 15:31:25'),
-(26, 'Tornillo-34d', NULL, NULL, 3, NULL, '2023-07-15 15:31:57', '2023-07-15 15:31:57'),
-(27, 'Tornillo-34d', NULL, NULL, 5, NULL, '2023-07-15 15:32:01', '2023-07-15 15:32:01'),
-(28, '1U3452RCV', 'Diente', NULL, 1, NULL, '2023-07-15 15:32:34', '2023-07-15 15:32:34'),
-(29, 'dasd33', 'Diente', NULL, 1, NULL, '2023-07-15 15:32:34', '2023-07-15 15:32:34'),
-(30, '1189935', 'SOPORTE', NULL, 1, NULL, '2023-07-15 15:32:34', '2023-07-15 15:32:34'),
-(31, '1U3452RCV', NULL, NULL, 3, NULL, '2023-07-15 15:32:47', '2023-07-15 15:32:47'),
-(32, 'dasd33', NULL, NULL, 3, NULL, '2023-07-15 15:32:47', '2023-07-15 15:32:47'),
-(33, '1189935', NULL, NULL, 3, NULL, '2023-07-15 15:32:47', '2023-07-15 15:32:47'),
-(34, NULL, NULL, NULL, 1, 'Tornillo de empaque', '2023-07-15 15:33:17', '2023-07-15 15:33:17'),
-(35, '8E0469', 'ARANDELA', NULL, 1, NULL, '2023-07-15 15:33:17', '2023-07-15 15:33:17'),
-(36, 'Tornillo-34d', NULL, NULL, 4, NULL, '2023-07-15 15:33:35', '2023-07-15 15:33:35'),
-(37, '8E0469', NULL, NULL, 1, NULL, '2023-07-15 15:33:35', '2023-07-15 15:33:35'),
-(38, 'Tornillo-34d', 'Tornillo rosca fina', NULL, 4, NULL, '2023-07-15 15:36:05', '2023-07-15 15:36:05'),
-(39, '8E0469', 'ARANDELA', NULL, 3, NULL, '2023-07-15 15:36:05', '2023-07-15 15:36:05'),
-(40, '1U3452RCV', 'Diente', NULL, 3, NULL, '2023-07-15 15:36:37', '2023-07-15 15:36:37'),
-(41, 'dasd33', 'Diente', NULL, 3, NULL, '2023-07-15 15:36:37', '2023-07-15 15:36:37'),
-(42, '1189935', 'SOPORTE', NULL, 3, NULL, '2023-07-15 15:36:37', '2023-07-15 15:36:37'),
-(43, 'arandela', NULL, NULL, 5, NULL, '2023-07-15 15:37:15', '2023-07-15 15:37:15'),
-(44, '8E6359', NULL, NULL, 3, NULL, '2023-07-15 17:59:01', '2023-07-15 17:59:01'),
-(45, '1U3452RCV', 'Diente', NULL, 3, NULL, '2023-07-15 17:59:14', '2023-07-15 17:59:14'),
-(46, 'dasd33', 'Diente', NULL, 3, NULL, '2023-07-15 17:59:14', '2023-07-15 17:59:14'),
-(47, '1189935', 'SOPORTE', NULL, 3, NULL, '2023-07-15 17:59:14', '2023-07-15 17:59:14'),
-(48, '8E6359', 'ARANDELA T35', 'Transmisión', 1, NULL, '2023-07-15 18:04:55', '2023-07-15 18:04:55'),
-(49, '8E0469', 'ARANDELA T35', NULL, 1, NULL, '2023-07-15 18:06:16', '2023-07-15 18:06:16'),
-(50, '1U3452RCV', 'Diente', 'Transmisión', 1, NULL, '2023-07-15 18:08:59', '2023-07-15 18:08:59'),
-(51, 'arandela', 'Tornillo', NULL, 1, NULL, '2023-07-15 18:12:22', '2023-07-15 18:12:22'),
-(52, '121900', 'COUPLING', NULL, 1, NULL, '2023-07-15 18:15:55', '2023-07-15 18:15:55'),
-(53, '60235A', 'GEAR', NULL, 1, NULL, '2023-07-15 18:16:24', '2023-07-15 18:16:24'),
-(54, '144-15-22561', 'THRUST WASHE(0923313820)', NULL, 1, NULL, '2023-07-15 18:19:28', '2023-07-15 18:19:28'),
-(55, '121900', 'COUPLING', NULL, 1, NULL, '2023-07-15 18:20:59', '2023-07-15 18:20:59'),
-(56, 'dasd33', 'Diente', NULL, 1, NULL, '2023-07-15 18:24:42', '2023-07-15 18:24:42'),
-(57, 'VA1821', 'RUEDA TENSORA', NULL, 1, NULL, '2023-07-15 18:34:46', '2023-07-15 18:34:46'),
-(58, 'VA1821', 'ARANDELA T35', NULL, 3, NULL, '2023-07-15 18:35:40', '2023-07-15 18:35:40'),
-(59, '8E0469', 'Diente', NULL, 1, NULL, '2023-07-15 18:44:11', '2023-07-15 18:44:11'),
-(60, '121900', 'COUPLING', NULL, 1, NULL, '2023-07-15 18:44:58', '2023-07-15 18:44:58'),
-(61, '144-15-22561', 'THRUST WASHE(0923313820)', NULL, 4, NULL, '2023-07-15 23:34:47', '2023-07-15 23:34:47'),
-(62, '8E6359', 'ARANDELA T35', 'Transmisión', 1, 'Pequeña', '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(63, NULL, NULL, NULL, 3, 'Empaque de culata', '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(64, '1U3452RCV', 'Diente', NULL, 1, NULL, '2023-07-15 23:39:18', '2023-07-15 23:39:18'),
-(65, NULL, NULL, NULL, 1, 'empaque de culata', '2023-07-15 23:40:02', '2023-07-15 23:40:02'),
-(66, '36812134', NULL, NULL, 4, NULL, '2023-07-16 00:02:51', '2023-07-16 00:02:51'),
-(67, NULL, NULL, NULL, 1, 'Tren de rodaje con cadenas de 49', '2023-07-16 00:36:50', '2023-07-16 00:36:50'),
-(68, 'Tornillo-34d', NULL, NULL, 1, NULL, '2023-07-16 00:39:19', '2023-07-16 00:39:19'),
-(69, NULL, NULL, NULL, 1, NULL, '2023-07-23 15:58:10', '2023-07-23 15:58:10'),
-(70, 'Tornillo-34d', 'Tornillo', NULL, 4, NULL, '2023-08-07 19:58:03', '2023-08-07 19:58:03'),
-(71, 'Tornillo-34d', 'Tornillo', NULL, 4, NULL, '2023-08-07 19:58:18', '2023-08-07 19:58:18'),
-(72, NULL, NULL, NULL, 1, 'Tornillo de motor', '2023-08-07 20:15:37', '2023-08-07 20:15:37'),
-(73, 'Tornillo-34d', NULL, NULL, 4, NULL, '2023-08-07 20:16:22', '2023-08-07 20:16:22');
+(1, NULL, NULL, NULL, 2, 'emaque para el motor', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(2, NULL, NULL, NULL, 2, 'emaque para el motor', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(3, '121900', NULL, NULL, 4, NULL, '2023-09-14 02:54:49', '2023-09-14 02:54:49');
 
 -- --------------------------------------------------------
 
@@ -4617,6 +4630,55 @@ INSERT INTO `contacto_tercero` (`id`, `contacto_id`, `tercero_id`, `created_at`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cotizaciones`
+--
+
+CREATE TABLE `cotizaciones` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `estado` varchar(255) NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `tercero_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cotizaciones`
+--
+
+INSERT INTO `cotizaciones` (`id`, `estado`, `pedido_id`, `tercero_id`, `created_at`, `updated_at`) VALUES
+(1, 'pendiente', 1, 1, '2023-09-02 21:43:32', '2023-09-02 21:43:32'),
+(2, 'pendiente', 1, 1, '2023-09-03 12:57:52', '2023-09-03 12:57:52'),
+(3, 'pendiente', 2, 5, '2023-09-03 15:12:35', '2023-09-03 15:12:35'),
+(4, 'pendiente', 3, 1, '2023-09-05 03:30:26', '2023-09-05 03:30:26'),
+(5, 'pendiente', 4, 1, '2023-09-05 03:52:57', '2023-09-05 03:52:57'),
+(6, 'pendiente', 5, 1, '2023-09-05 03:59:53', '2023-09-05 03:59:53'),
+(7, 'pendiente', 6, 1, '2023-09-05 04:04:32', '2023-09-05 04:04:32'),
+(8, 'pendiente', 7, 1, '2023-09-09 17:19:43', '2023-09-09 17:19:43'),
+(9, 'pendiente', 8, 1, '2023-09-11 02:25:27', '2023-09-11 02:25:27'),
+(10, 'pendiente', 6, 1, '2023-09-14 03:20:52', '2023-09-14 03:20:52'),
+(11, 'pendiente', 6, 1, '2023-09-14 03:23:56', '2023-09-14 03:23:56'),
+(12, 'pendiente', 6, 1, '2023-09-14 03:27:01', '2023-09-14 03:27:01'),
+(13, 'pendiente', 6, 1, '2023-09-14 03:27:25', '2023-09-14 03:27:25'),
+(14, 'pendiente', 6, 1, '2023-09-14 03:32:06', '2023-09-14 03:32:06');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cotizacion_pedido`
+--
+
+CREATE TABLE `cotizacion_pedido` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cotizacion_id` bigint(20) UNSIGNED NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `departamentos`
 --
 
@@ -4627,6 +4689,35 @@ CREATE TABLE `departamentos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `empresa`
+--
+
+CREATE TABLE `empresa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `celular` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `nit` varchar(255) NOT NULL,
+  `representante` varchar(255) NOT NULL,
+  `ciudad` varchar(255) NOT NULL,
+  `pais` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `nombre`, `direccion`, `telefono`, `celular`, `email`, `logo`, `nit`, `representante`, `ciudad`, `pais`, `created_at`, `updated_at`) VALUES
+(1, 'IMPORTACIONES E INVERSIONES CYH S.A.S', 'CRA 69D NO. 1-45 SUR - TORRE 2 APTO 1214', '8012642', '3103311634', 'importacioneseinversionescyh@gmail.com', 'logos/El6EuqE0FiYdllgRTpHtx9Idoq0g3DJ4I4xnrwNF.png', '901.377.993-5', '', 'Bogotá', 'Colombia', '2023-09-02 23:42:05', '2023-09-03 12:40:36');
 
 -- --------------------------------------------------------
 
@@ -4663,10 +4754,8 @@ CREATE TABLE `fotos_articulo_temporal` (
 --
 
 INSERT INTO `fotos_articulo_temporal` (`id`, `articulo_temporal_id`, `foto_path`, `created_at`, `updated_at`) VALUES
-(1, 62, '64b32de973dad.jpg', '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(2, 64, '64b32e26ea7e5.jpg', '2023-07-15 23:39:18', '2023-07-15 23:39:18'),
-(3, 65, '64b32e5300550.jpg', '2023-07-15 23:40:03', '2023-07-15 23:40:03'),
-(4, 72, '64d150e940210.jpg', '2023-08-07 20:15:37', '2023-08-07 20:15:37');
+(1, 1, '650275b856796.jpg', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(2, 2, '650275b89ed52.jpg', '2023-09-14 02:53:44', '2023-09-14 02:53:44');
 
 -- --------------------------------------------------------
 
@@ -4719,7 +4808,7 @@ CREATE TABLE `listas` (
 --
 
 INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`, `created_at`, `updated_at`) VALUES
-(2, 'Marca', 'Caterpillar', 'Caterpillar', '1687104103_cat.jpg', 'no-imagen.jpg', '2023-06-18 16:01:43', '2023-06-18 16:01:43'),
+(2, 'Marca', 'CATERPILLAR', 'CATERPILLAR', '1687104103_cat.jpg', 'no-imagen.jpg', '2023-06-18 16:01:43', '2023-08-21 11:17:48'),
 (3, 'Marca', 'KOMATSU', 'Komatsu', '1687614788_R (3).png', 'no-imagen.jpg', '2023-06-24 13:53:08', '2023-06-24 13:53:08'),
 (4, 'Tipo Maquina', 'Bulldozer', 'Es una máquina de construcción usada para la expansión y movimiento de tierras', '1687614897_OIP (4).jpeg', 'no-imagen.jpg', '2023-06-24 13:54:57', '2023-06-24 13:54:57'),
 (5, 'Sistema', 'Transmisión', 'Es un mecanismo encargado de transmitir potencia entre dos o más elementos dentro de una máquina.', '1687614992_tap-149-las-transmisiones-y-las-nuevas-tecnicas-04.jpg', 'no-imagen.jpg', '2023-06-24 13:56:32', '2023-06-24 13:56:32'),
@@ -4770,7 +4859,7 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 (89, 'Definición', 'BOMBA ACEITE', 'BOMBA ACEITE', NULL, NULL, NULL, NULL),
 (90, 'Definición', 'EJE', 'EJE', NULL, NULL, NULL, NULL),
 (91, 'Definición', 'COUPLING', 'COUPLING', NULL, NULL, NULL, NULL),
-(92, 'Definición', 'SHIM', 'SHIM', NULL, NULL, NULL, NULL),
+(92, 'Definición', 'SHIM', 'SHIM', '1694307099_2807-0811-1000-Schematic.png', NULL, NULL, '2023-09-10 00:51:39'),
 (93, 'Definición', 'SHIMM', 'SHIMM', NULL, NULL, NULL, NULL),
 (94, 'Definición', 'PIN AS', 'PIN AS', NULL, NULL, NULL, NULL),
 (95, 'Definición', 'PASADOR', 'PASADOR', NULL, NULL, NULL, NULL),
@@ -4784,7 +4873,6 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 (103, 'Definición', 'BEAARING SLEEVE (2602552)', 'BEAARING SLEEVE (2602552)', NULL, NULL, NULL, NULL),
 (104, 'Definición', 'RUEDA TENSORA', 'RUEDA TENSORA', '1688857628_8198_0.jpg_0.jpg', NULL, NULL, '2023-07-08 23:07:08'),
 (105, 'Definición', 'GOBERNADOR', 'GOBERNADOR', NULL, NULL, NULL, NULL),
-(106, 'Marca', 'VEMA TEC', 'VEMA TEC', NULL, NULL, NULL, NULL),
 (107, 'Marca', 'CTP', 'CTP', NULL, NULL, NULL, NULL),
 (109, 'Marca', 'COSTEX', 'COSTEX', NULL, NULL, NULL, NULL),
 (111, 'Marca', 'ITR', 'ITR', NULL, NULL, NULL, NULL),
@@ -4809,13 +4897,32 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 (131, 'Marca', 'TRASTEEL', 'TRASTEEL', NULL, NULL, NULL, NULL),
 (132, 'Marca', 'VMT', 'VMT', NULL, NULL, NULL, NULL),
 (133, 'Definición', 'ARANDELA T35', 'ARANDELA T35', '1690050387_R (7).jpeg', 'no-imagen.jpg', '2023-07-15 17:57:35', '2023-07-22 18:26:27'),
-(134, 'Definición', 'EMPAQUE DE CULATA', 'Empaque que va entre la culata y el bloque del motor', 'no-imagen.jpg', '1689465002_empaque-de-culata.jpg', '2023-07-15 23:50:02', '2023-07-22 14:17:08'),
+(134, 'Definición', 'EMPAQUE DE CULATA', 'Empaque que va entre la culata y el bloque del motor', '1691845635_A4420160420MBB.jpg', '1689465002_empaque-de-culata.jpg', '2023-07-15 23:50:02', '2023-08-12 13:07:16'),
 (135, 'Definición', 'BEARING', 'BEARING', '1690043577_miniature-bearing-dimensions-mr84zz.jpg', NULL, '2023-07-22 16:30:46', '2023-07-22 18:25:06'),
 (136, 'Tipo Medida', 'Largo', 'Largo', 'no-imagen.jpg', NULL, '2023-07-22 18:47:14', '2023-07-22 18:47:14'),
 (141, 'Tipo Medida', 'Alto', 'Alto', 'no-imagen.jpg', NULL, '2023-07-24 15:50:44', '2023-07-24 15:50:44'),
 (143, 'Tipo Medida', 'Largo2', 'Largo2', '1690221725_E16.png', NULL, '2023-07-24 18:02:05', '2023-07-24 18:02:05'),
 (151, 'Tipo Maquina', 'Excavadora', 'Una excavadora es una máquina empleada para la excavación y movimiento de tierras u otros materiales. La excavadora se considera un vehículo autopropulsado porque se puede desplazar de un lugar a otro pero esta no es su función …', '1691325397_OIP (12).jpeg', NULL, '2023-08-06 12:36:38', '2023-08-06 12:36:38'),
-(152, 'Modelo Maquina', 'PC1250', 'Excavadora de Komatsu', '1691325879_OIP (12).jpeg', NULL, '2023-08-06 12:44:39', '2023-08-06 12:44:39');
+(152, 'Modelo Maquina', 'PC1250', 'Excavadora de Komatsu', '1691325879_OIP (12).jpeg', NULL, '2023-08-06 12:44:39', '2023-08-06 12:44:39'),
+(153, 'Marca', 'VEMA TEC', 'VEMA TEC', 'no-imagen.jpg', NULL, '2023-08-21 11:09:17', '2023-08-21 11:09:17'),
+(155, 'Sistema', 'Sistema de prueba', 'Sistema de prueba', '1693075164_OIP (11).jpeg', NULL, '2023-08-26 18:33:49', '2023-08-26 18:39:24'),
+(156, 'Marca', 'IPD', 'IPD', 'no-imagen.jpg', NULL, '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
+(157, 'Definición', 'Tornillo', 'Tornillo', 'no-imagen.jpg', NULL, '2023-09-09 16:45:19', '2023-09-09 16:45:19'),
+(158, 'Definición', 'Tornillo de prueba', 'Tornillo de prueba', '1694278655_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 16:57:35', '2023-09-09 16:57:35'),
+(159, 'Definición', 'Tornillo de prueba 2', 'Tornillo de prueba 2', '1694278742_arandelas-axiales.jpg', NULL, '2023-09-09 16:59:02', '2023-09-09 16:59:02'),
+(160, 'Definición', 'Tornillo de prueba 3', 'Tornillo de prueba 3', 'no-imagen.jpg', NULL, '2023-09-09 17:00:15', '2023-09-09 17:00:15'),
+(161, 'Definición', 'Tornillo de prueba 4', 'Tornillo de prueba 4', 'no-imagen.jpg', NULL, '2023-09-09 17:01:58', '2023-09-09 17:01:58'),
+(162, 'Definición', 'Tornillo de prueba 5', 'Tornillo de prueba 5', 'no-imagen.jpg', NULL, '2023-09-09 17:02:22', '2023-09-09 17:02:22'),
+(163, 'Definición', 'Diente 2', 'Diente 2', '1694279384_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 17:09:44', '2023-09-09 17:09:44'),
+(164, 'Definición', 'Pasador 2', 'Pasador 2', '1694279422_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 17:10:22', '2023-09-09 17:10:22'),
+(165, 'Unidad medida', 'mm', 'Milímetros', 'no-imagen.jpg', NULL, '2023-09-10 00:58:55', '2023-09-10 00:58:55'),
+(166, 'Unidad medida', 'cc', 'Centímetros', 'no-imagen.jpg', NULL, '2023-09-10 00:59:09', '2023-09-10 00:59:09'),
+(167, 'Unidad medida', 'lb', 'Libras', 'no-imagen.jpg', NULL, '2023-09-10 00:59:27', '2023-09-10 00:59:27'),
+(168, 'Unidad medida', 'm', 'metros', 'no-imagen.jpg', NULL, '2023-09-10 00:59:49', '2023-09-10 00:59:49'),
+(169, 'Definición', 'definicion de prueba', 'Definicion de prueba', '1694658667_19270.jpg', NULL, '2023-09-14 02:31:08', '2023-09-14 02:31:08'),
+(170, 'Definición', 'O-RING (KIT)', 'analista@ejemplo.com', 'no-imagen.jpg', NULL, '2023-09-14 02:48:07', '2023-09-14 02:48:07'),
+(171, 'Sistema', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:14:40', '2023-09-14 03:14:40'),
+(172, 'Marca', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:16:41', '2023-09-14 03:16:41');
 
 -- --------------------------------------------------------
 
@@ -4854,7 +4961,7 @@ INSERT INTO `lista_padres` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `maquinas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tipo` varchar(255) NOT NULL,
-  `marca` varchar(255) NOT NULL,
+  `marca` varchar(250) DEFAULT NULL,
   `modelo` varchar(255) NOT NULL,
   `serie` varchar(255) NOT NULL,
   `arreglo` varchar(255) NOT NULL,
@@ -4869,13 +4976,9 @@ CREATE TABLE `maquinas` (
 --
 
 INSERT INTO `maquinas` (`id`, `tipo`, `marca`, `modelo`, `serie`, `arreglo`, `foto`, `fotoId`, `created_at`, `updated_at`) VALUES
-(1, 'Cargador', 'KOMATSU', '936', '33Z01760', '1SD32F14', '1682958957_OIP (4).jpeg', 'NULL', '2023-04-02 03:10:15', '2023-05-01 21:35:57'),
-(2, 'Motor', 'PERKINS', '4.108', 'AA70228', '2SAD3F1A', '1682954255_OIP (5).jpeg', 'NULL', '0000-00-00 00:00:00', '2023-05-01 20:17:35'),
-(3, 'Cargador', 'KOMATSU', '4FRT555T', '5T5666Y', '45566HTY666', '1682954062_OIP (4).jpeg', '', '2023-04-29 03:07:55', '2023-05-01 20:14:22'),
-(4, 'Bulldozer', 'CATERPILLAR', 'D6R', '12345', '12345', '1682954019_R.jpeg', NULL, '2023-04-29 10:21:56', '2023-05-01 20:13:39'),
-(5, 'Bulldozer', 'CATERPILLAR', '936', '12345', '12345', '1682748621_OIP (1).jpeg', NULL, '2023-04-29 11:10:21', '2023-04-29 13:01:38'),
-(6, 'Motoniveladora', 'CATERPILLAR', '120M', 'xjr00210', '12345', '1682773013_OIP (3).jpeg', NULL, '2023-04-29 17:56:53', '2023-04-29 17:56:53'),
-(12, 'Excavadora', 'KOMATSU', 'PC1250', 'K70873', 'N/A', '1691325991_OIP (12).jpeg', '1691325991_OIP (11).jpeg', '2023-08-05 17:28:21', '2023-08-07 01:54:53');
+(15, 'Bulldozer', 'KOMATSU', 'Modelo de prueba', 'Serie de prueba 3', 'Arreglo de prueba 3', '1692627074_R (8).jpeg', NULL, '2023-08-21 13:02:13', '2023-08-21 14:11:14'),
+(16, 'Bulldozer', 'CATERPILLAR', 'PC1250', 'xjr00210', 'N/A222', '1692626921_OIP (4).jpeg', '1692626921_OIP (11).jpeg', '2023-08-21 14:08:41', '2023-08-21 14:08:41'),
+(17, 'Excavadora', 'KOMATSU', 'Modelo de prueba', '12345', 'N/A', '1692626990_OIP (12).jpeg', NULL, '2023-08-21 14:09:50', '2023-08-21 14:09:50');
 
 -- --------------------------------------------------------
 
@@ -4896,23 +4999,19 @@ CREATE TABLE `maquinas_pedido` (
 --
 
 INSERT INTO `maquinas_pedido` (`id`, `maquina_id`, `pedido_id`, `created_at`, `updated_at`) VALUES
-(3, 5, 3, '2023-07-15 15:02:46', '2023-07-15 15:02:46'),
-(4, 2, 4, '2023-07-15 15:32:34', '2023-07-15 15:32:34'),
-(6, 5, 6, '2023-07-15 18:04:55', '2023-07-15 18:04:55'),
-(7, 3, 7, '2023-07-15 18:08:59', '2023-07-15 18:08:59'),
-(8, 4, 8, '2023-07-15 18:12:22', '2023-07-15 18:12:22'),
-(9, 2, 9, '2023-07-15 18:15:55', '2023-07-15 18:15:55'),
-(10, 3, 10, '2023-07-15 18:16:24', '2023-07-15 18:16:24'),
-(11, 5, 11, '2023-07-15 18:19:28', '2023-07-15 18:19:28'),
-(12, 5, 12, '2023-07-15 18:20:59', '2023-07-15 18:20:59'),
-(13, 3, 13, '2023-07-15 18:24:42', '2023-07-15 18:24:42'),
-(14, 5, 14, '2023-07-15 18:34:46', '2023-07-15 18:34:46'),
-(15, 4, 15, '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(16, 5, 15, '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(18, 2, 17, '2023-07-15 23:40:02', '2023-07-15 23:40:02'),
-(19, 4, 18, '2023-07-16 00:36:50', '2023-07-16 00:36:50'),
-(20, 3, 21, '2023-08-07 19:58:03', '2023-08-07 19:58:03'),
-(21, 2, 22, '2023-08-07 20:15:37', '2023-08-07 20:15:37');
+(1, 17, 1, '2023-09-02 15:40:15', '2023-09-02 15:40:15'),
+(2, 17, 1, '2023-09-02 15:48:50', '2023-09-02 15:48:50'),
+(3, 16, 2, '2023-09-02 15:52:28', '2023-09-02 15:52:28'),
+(4, 16, 3, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
+(5, 16, 4, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
+(6, 16, 5, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
+(7, 16, 6, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
+(8, 16, 7, '2023-09-09 17:18:35', '2023-09-09 17:18:35'),
+(9, 16, 8, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
+(10, 17, 9, '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
+(11, 17, 10, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(12, 17, 11, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(13, 15, 12, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
 
 -- --------------------------------------------------------
 
@@ -4927,6 +5026,28 @@ CREATE TABLE `maquina_articulo` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `maquina_marca`
+--
+
+CREATE TABLE `maquina_marca` (
+  `maquina_id` bigint(20) UNSIGNED NOT NULL,
+  `marca_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `maquina_marca`
+--
+
+INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at`) VALUES
+(15, 2, NULL, NULL),
+(16, 1, NULL, NULL),
+(17, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4946,9 +5067,36 @@ CREATE TABLE `marcas` (
 --
 
 INSERT INTO `marcas` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
-(1, 'Caterpillar', '0000-00-00 00:00:00', NULL),
-(2, 'Komatsu', '2023-05-28 16:45:14', '2023-05-28 05:00:00'),
-(3, 'Hitachi', '2023-05-27 16:44:43', '2023-05-27 16:44:43');
+(1, 'CATERPILLAR', '0000-00-00 00:00:00', NULL),
+(2, 'KOMATSU', '2023-05-28 16:45:14', '2023-05-28 05:00:00'),
+(3, 'HITACHI', '2023-05-27 16:44:43', '2023-05-27 16:44:43'),
+(4, 'PERKINS', '2023-08-21 10:56:09', '2023-08-21 05:00:00'),
+(6, 'CTP', '2023-08-21 11:11:40', '2023-08-21 11:11:40'),
+(7, 'COSTEX', '2023-08-21 11:12:06', '2023-08-21 11:12:06'),
+(8, 'ITR', '2023-08-21 11:12:13', '2023-08-21 11:12:13'),
+(9, 'HB30', '2023-08-21 11:12:22', '2023-08-21 11:12:22'),
+(10, 'ATS', '2023-08-21 11:12:33', '2023-08-21 11:12:33'),
+(11, 'EMMARK', '2023-08-21 11:12:39', '2023-08-21 11:12:39'),
+(12, 'OEM', '2023-08-21 11:12:51', '2023-08-21 11:12:51'),
+(13, 'DOOSAN', '2023-08-21 11:13:00', '2023-08-21 11:13:00'),
+(14, 'PERKINS REMAN', '2023-08-21 11:13:08', '2023-08-21 11:13:08'),
+(15, 'BLUMAQ', '2023-08-21 11:13:21', '2023-08-21 11:13:21'),
+(16, 'SKU', '2023-08-21 11:14:35', '2023-08-21 11:14:35'),
+(17, 'KOREANA', '2023-08-21 11:14:42', '2023-08-21 11:14:42'),
+(18, 'WPS', '2023-08-21 11:14:49', '2023-08-21 11:14:49'),
+(19, 'CUMMINS', '2023-08-21 11:14:59', '2023-08-21 11:14:59'),
+(20, 'JEIL', '2023-08-21 11:15:06', '2023-08-21 11:15:06'),
+(21, 'NOK', '2023-08-21 11:15:15', '2023-08-21 11:15:15'),
+(22, 'VEMA', '2023-08-21 11:15:38', '2023-08-21 11:15:38'),
+(23, 'TRACK LINK', '2023-08-21 11:15:50', '2023-08-21 11:15:50'),
+(24, 'BLACK CAT', '2023-08-21 11:16:07', '2023-08-21 11:16:07'),
+(25, 'KSK', '2023-08-21 11:16:14', '2023-08-21 11:16:14'),
+(27, 'ETP', '2023-08-21 11:16:47', '2023-08-21 11:16:47'),
+(28, 'TRASTEEL', '2023-08-21 11:16:55', '2023-08-21 11:16:55'),
+(29, 'VMT', '2023-08-21 11:17:03', '2023-08-21 11:17:03'),
+(30, 'VEMA TEC', '2023-08-21 11:17:17', '2023-08-21 11:17:17'),
+(32, 'IPD', '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
+(33, 'Todos', '2023-09-14 03:16:41', '2023-09-14 03:16:41');
 
 -- --------------------------------------------------------
 
@@ -4973,7 +5121,13 @@ CREATE TABLE `medidas` (
 --
 
 INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `foto`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 23:57:15', '2023-07-15 23:57:15');
+(1, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 23:57:15', '2023-07-15 23:57:15'),
+(11, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 01:35:01', '2023-09-11 01:35:01'),
+(21, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:03:04', '2023-09-11 02:03:04'),
+(23, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
+(24, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
+(25, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:06:58', '2023-09-11 02:06:58'),
+(28, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:12:17', '2023-09-11 02:12:17');
 
 -- --------------------------------------------------------
 
@@ -5022,7 +5176,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2023_05_28_163813_create_terceros_marcas_table', 23),
 (38, '2023_05_28_192729_create_sistemas_table', 24),
 (39, '2023_06_02_235815_create_fotos_articulo_temporal_table', 25),
-(40, '2023_06_10_122428_create_articulo_pedido_table', 26);
+(40, '2023_06_10_122428_create_articulo_pedido_table', 26),
+(41, '2023_08_19_070423_create_trm_table', 27),
+(42, '2023_08_21_072033_create_maquina_marca_table', 28),
+(43, '2023_08_26_203842_create_pedido_marca_table', 29),
+(44, '2023_08_27_100208_create_pedido_sistema_table', 30),
+(45, '2023_09_02_121135_create_cotizaciones_table', 31),
+(46, '2023_09_02_182937_create_empresa_table', 32),
+(47, '2023_09_03_075532_create_cotizacion_pedido_table', 33),
+(48, '2023_09_09_123911_create_relacion_suplencia_table', 34),
+(49, '2023_09_10_162450_create_articulos_juegos_table', 35);
 
 -- --------------------------------------------------------
 
@@ -5031,267 +5194,264 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `pais` (
-  `PaisCodigo` char(3) NOT NULL DEFAULT '',
-  `PaisNombre` char(52) NOT NULL DEFAULT '',
-  `PaisContinente` varchar(50) NOT NULL DEFAULT 'Asia',
-  `PaisRegion` varchar(26) NOT NULL DEFAULT '',
-  `PaisArea` float NOT NULL DEFAULT 0,
-  `PaisIndependencia` smallint(6) DEFAULT NULL,
-  `PaisPoblacion` int(11) NOT NULL DEFAULT 0,
-  `PaisExpectativaDeVida` float DEFAULT NULL,
-  `PaisProductoInternoBruto` float DEFAULT NULL,
-  `PaisProductoInternoBrutoAntiguo` float DEFAULT NULL,
-  `PaisNombreLocal` varchar(45) NOT NULL DEFAULT '',
-  `PaisGobierno` varchar(45) NOT NULL DEFAULT '',
-  `PaisJefeDeEstado` varchar(60) DEFAULT NULL,
-  `PaisCapital` int(11) DEFAULT NULL,
-  `PaisCodigo2` char(2) NOT NULL DEFAULT ''
+  `PaisNombre` varchar(100) NOT NULL,
+  `PaisCodigo` varchar(10) NOT NULL,
+  `phone_code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pais`
 --
 
-INSERT INTO `pais` (`PaisCodigo`, `PaisNombre`, `PaisContinente`, `PaisRegion`, `PaisArea`, `PaisIndependencia`, `PaisPoblacion`, `PaisExpectativaDeVida`, `PaisProductoInternoBruto`, `PaisProductoInternoBrutoAntiguo`, `PaisNombreLocal`, `PaisGobierno`, `PaisJefeDeEstado`, `PaisCapital`, `PaisCodigo2`) VALUES
-('ABW', 'Aruba', 'North America', 'Caribbean', 193, NULL, 103000, 78.4, 828, 793, 'Aruba', 'Nonmetropolitan Territory of The Netherlands', 'Beatrix', 129, 'AW'),
-('AFG', 'Afghanistan', 'Asia', 'Southern and Central Asia', 652090, 1919, 22720000, 45.9, 5976, NULL, 'Afganistan/Afqanestan', 'Islamic Emirate', 'Mohammad Omar', 1, 'AF'),
-('AGO', 'Angola', 'Africa', 'Central Africa', 1246700, 1975, 12878000, 38.3, 6648, 7984, 'Angola', 'Republic', 'José Eduardo dos Santos', 56, 'AO'),
-('AIA', 'Anguilla', 'North America', 'Caribbean', 96, NULL, 8000, 76.1, 63.2, NULL, 'Anguilla', 'Dependent Territory of the UK', 'Elisabeth II', 62, 'AI'),
-('ALB', 'Albania', 'Europe', 'Southern Europe', 28748, 1912, 3401200, 71.6, 3205, 2500, 'Shqipëria', 'Republic', 'Rexhep Mejdani', 34, 'AL'),
-('AND', 'Andorra', 'Europe', 'Southern Europe', 468, 1278, 78000, 83.5, 1630, NULL, 'Andorra', 'Parliamentary Coprincipality', '', 55, 'AD'),
-('ANT', 'Netherlands Antilles', 'North America', 'Caribbean', 800, NULL, 217000, 74.7, 1941, NULL, 'Nederlandse Antillen', 'Nonmetropolitan Territory of The Netherlands', 'Beatrix', 33, 'AN'),
-('ARE', 'United Arab Emirates', 'Asia', 'Middle East', 83600, 1971, 2441000, 74.1, 37966, 36846, 'Al-Imarat al-´Arabiya al-Muttahida', 'Emirate Federation', 'Zayid bin Sultan al-Nahayan', 65, 'AE'),
-('ARG', 'Argentina', 'South America', 'South America', 2780400, 1816, 37032000, 75.1, 340238, 323310, 'Argentina', 'Federal Republic', 'Fernando de la Rúa', 69, 'AR'),
-('ARM', 'Armenia', 'Asia', 'Middle East', 29800, 1991, 3520000, 66.4, 1813, 1627, 'Hajastan', 'Republic', 'Robert Kotšarjan', 126, 'AM'),
-('ASM', 'American Samoa', 'Oceania', 'Polynesia', 199, NULL, 68000, 75.1, 334, NULL, 'Amerika Samoa', 'US Territory', 'George W. Bush', 54, 'AS'),
-('ATA', 'Antarctica', 'Antarctica', 'Antarctica', 13120000, NULL, 0, NULL, 0, NULL, '–', 'Co-administrated', '', NULL, 'AQ'),
-('ATF', 'French Southern territories', 'Antarctica', 'Antarctica', 7780, NULL, 0, NULL, 0, NULL, 'Terres australes françaises', 'Nonmetropolitan Territory of France', 'Jacques Chirac', NULL, 'TF'),
-('ATG', 'Antigua and Barbuda', 'North America', 'Caribbean', 442, 1981, 68000, 70.5, 612, 584, 'Antigua and Barbuda', 'Constitutional Monarchy', 'Elisabeth II', 63, 'AG'),
-('AUS', 'Australia', 'Oceania', 'Australia and New Zealand', 7741220, 1901, 18886000, 79.8, 351182, 392911, 'Australia', 'Constitutional Monarchy, Federation', 'Elisabeth II', 135, 'AU'),
-('AUT', 'Austria', 'Europe', 'Western Europe', 83859, 1918, 8091800, 77.7, 211860, 206025, 'Österreich', 'Federal Republic', 'Thomas Klestil', 1523, 'AT'),
-('AZE', 'Azerbaijan', 'Asia', 'Middle East', 86600, 1991, 7734000, 62.9, 4127, 4100, 'Azärbaycan', 'Federal Republic', 'Heydär Äliyev', 144, 'AZ'),
-('BDI', 'Burundi', 'Africa', 'Eastern Africa', 27834, 1962, 6695000, 46.2, 903, 982, 'Burundi/Uburundi', 'Republic', 'Pierre Buyoya', 552, 'BI'),
-('BEL', 'Belgium', 'Europe', 'Western Europe', 30518, 1830, 10239000, 77.8, 249704, 243948, 'België/Belgique', 'Constitutional Monarchy, Federation', 'Albert II', 179, 'BE'),
-('BEN', 'Benin', 'Africa', 'Western Africa', 112622, 1960, 6097000, 50.2, 2357, 2141, 'Bénin', 'Republic', 'Mathieu Kérékou', 187, 'BJ'),
-('BFA', 'Burkina Faso', 'Africa', 'Western Africa', 274000, 1960, 11937000, 46.7, 2425, 2201, 'Burkina Faso', 'Republic', 'Blaise Compaoré', 549, 'BF'),
-('BGD', 'Bangladesh', 'Asia', 'Southern and Central Asia', 143998, 1971, 129155000, 60.2, 32852, 31966, 'Bangladesh', 'Republic', 'Shahabuddin Ahmad', 150, 'BD'),
-('BGR', 'Bulgaria', 'Europe', 'Eastern Europe', 110994, 1908, 8190900, 70.9, 12178, 10169, 'Balgarija', 'Republic', 'Petar Stojanov', 539, 'BG'),
-('BHR', 'Bahrain', 'Asia', 'Middle East', 694, 1971, 617000, 73, 6366, 6097, 'Al-Bahrayn', 'Monarchy (Emirate)', 'Hamad ibn Isa al-Khalifa', 149, 'BH'),
-('BHS', 'Bahamas', 'North America', 'Caribbean', 13878, 1973, 307000, 71.1, 3527, 3347, 'The Bahamas', 'Constitutional Monarchy', 'Elisabeth II', 148, 'BS'),
-('BIH', 'Bosnia and Herzegovina', 'Europe', 'Southern Europe', 51197, 1992, 3972000, 71.5, 2841, NULL, 'Bosna i Hercegovina', 'Federal Republic', 'Ante Jelavic', 201, 'BA'),
-('BLR', 'Belarus', 'Europe', 'Eastern Europe', 207600, 1991, 10236000, 68, 13714, NULL, 'Belarus', 'Republic', 'Aljaksandr Lukašenka', 3520, 'BY'),
-('BLZ', 'Belize', 'North America', 'Central America', 22696, 1981, 241000, 70.9, 630, 616, 'Belize', 'Constitutional Monarchy', 'Elisabeth II', 185, 'BZ'),
-('BMU', 'Bermuda', 'North America', 'North America', 53, NULL, 65000, 76.9, 2328, 2190, 'Bermuda', 'Dependent Territory of the UK', 'Elisabeth II', 191, 'BM'),
-('BOL', 'Bolivia', 'South America', 'South America', 1098580, 1825, 8329000, 63.7, 8571, 7967, 'Bolivia', 'Republic', 'Hugo Bánzer Suárez', 194, 'BO'),
-('BRA', 'Brazil', 'South America', 'South America', 8547400, 1822, 170115000, 62.9, 776739, 804108, 'Brasil', 'Federal Republic', 'Fernando Henrique Cardoso', 211, 'BR'),
-('BRB', 'Barbados', 'North America', 'Caribbean', 430, 1966, 270000, 73, 2223, 2186, 'Barbados', 'Constitutional Monarchy', 'Elisabeth II', 174, 'BB'),
-('BRN', 'Brunei', 'Asia', 'Southeast Asia', 5765, 1984, 328000, 73.6, 11705, 12460, 'Brunei Darussalam', 'Monarchy (Sultanate)', 'Haji Hassan al-Bolkiah', 538, 'BN'),
-('BTN', 'Bhutan', 'Asia', 'Southern and Central Asia', 47000, 1910, 2124000, 52.4, 372, 383, 'Druk-Yul', 'Monarchy', 'Jigme Singye Wangchuk', 192, 'BT'),
-('BVT', 'Bouvet Island', 'Antarctica', 'Antarctica', 59, NULL, 0, NULL, 0, NULL, 'Bouvetøya', 'Dependent Territory of Norway', 'Harald V', NULL, 'BV'),
-('BWA', 'Botswana', 'Africa', 'Southern Africa', 581730, 1966, 1622000, 39.3, 4834, 4935, 'Botswana', 'Republic', 'Festus G. Mogae', 204, 'BW'),
-('CAF', 'Central African Republic', 'Africa', 'Central Africa', 622984, 1960, 3615000, 44, 1054, 993, 'Centrafrique/Bê-Afrîka', 'Republic', 'Ange-Félix Patassé', 1889, 'CF'),
-('CAN', 'Canada', 'North America', 'North America', 9970610, 1867, 31147000, 79.4, 598862, 625626, 'Canada', 'Constitutional Monarchy, Federation', 'Elisabeth II', 1822, 'CA'),
-('CCK', 'Cocos (Keeling) Islands', 'Oceania', 'Australia and New Zealand', 14, NULL, 600, NULL, 0, NULL, 'Cocos (Keeling) Islands', 'Territory of Australia', 'Elisabeth II', 2317, 'CC'),
-('CHE', 'Switzerland', 'Europe', 'Western Europe', 41284, 1499, 7160400, 79.6, 264478, 256092, 'Schweiz/Suisse/Svizzera/Svizra', 'Federation', 'Adolf Ogi', 3248, 'CH'),
-('CHL', 'Chile', 'South America', 'South America', 756626, 1810, 15211000, 75.7, 72949, 75780, 'Chile', 'Republic', 'Ricardo Lagos Escobar', 554, 'CL'),
-('CHN', 'China', 'Asia', 'Eastern Asia', 9572900, -1523, 1277558000, 71.4, 982268, 917719, 'Zhongquo', 'People\'sRepublic', 'Jiang Zemin', 1891, 'CN'),
-('CIV', 'Côte d’Ivoire', 'Africa', 'Western Africa', 322463, 1960, 14786000, 45.2, 11345, 10285, 'Côte d’Ivoire', 'Republic', 'Laurent Gbagbo', 2814, 'CI'),
-('CMR', 'Cameroon', 'Africa', 'Central Africa', 475442, 1960, 15085000, 54.8, 9174, 8596, 'Cameroun/Cameroon', 'Republic', 'Paul Biya', 1804, 'CM'),
-('COD', 'Congo, The Democratic Republic of the', 'Africa', 'Central Africa', 2344860, 1960, 51654000, 48.8, 6964, 2474, 'République Démocratique du Congo', 'Republic', 'Joseph Kabila', 2298, 'CD'),
-('COG', 'Congo', 'Africa', 'Central Africa', 342000, 1960, 2943000, 47.4, 2108, 2287, 'Congo', 'Republic', 'Denis Sassou-Nguesso', 2296, 'CG'),
-('COK', 'Cook Islands', 'Oceania', 'Polynesia', 236, NULL, 20000, 71.1, 100, NULL, 'The Cook Islands', 'Nonmetropolitan Territory of New Zealand', 'Elisabeth II', 583, 'CK'),
-('COL', 'Colombia', 'South America', 'South America', 1138910, 1810, 42321000, 70.3, 102896, 105116, 'Colombia', 'Republic', 'Andrés Pastrana Arango', 2257, 'CO'),
-('COM', 'Comoros', 'Africa', 'Eastern Africa', 1862, 1975, 578000, 60, 4401, 4361, 'Komori/Comores', 'Republic', 'Azali Assoumani', 2295, 'KM'),
-('CPV', 'Cape Verde', 'Africa', 'Western Africa', 4033, 1975, 428000, 68.9, 435, 420, 'Cabo Verde', 'Republic', 'António Mascarenhas Monteiro', 1859, 'CV'),
-('CRI', 'Costa Rica', 'North America', 'Central America', 51100, 1821, 4023000, 75.8, 10226, 9757, 'Costa Rica', 'Republic', 'Miguel Ángel Rodríguez Echeverría', 584, 'CR'),
-('CUB', 'Cuba', 'North America', 'Caribbean', 110861, 1902, 11201000, 76.2, 17843, 18862, 'Cuba', 'Socialistic Republic', 'Fidel Castro Ruz', 2413, 'CU'),
-('CXR', 'Christmas Island', 'Oceania', 'Australia and New Zealand', 135, NULL, 2500, NULL, 0, NULL, 'Christmas Island', 'Territory of Australia', 'Elisabeth II', 1791, 'CX'),
-('CYM', 'Cayman Islands', 'North America', 'Caribbean', 264, NULL, 38000, 78.9, 1263, 1186, 'Cayman Islands', 'Dependent Territory of the UK', 'Elisabeth II', 553, 'KY'),
-('CYP', 'Cyprus', 'Asia', 'Middle East', 9251, 1960, 754700, 76.7, 9333, 8246, 'Kýpros/Kibris', 'Republic', 'Glafkos Klerides', 2430, 'CY'),
-('CZE', 'Czech Republic', 'Europe', 'Eastern Europe', 78866, 1993, 10278100, 74.5, 55017, 52037, '¸esko', 'Republic', 'Václav Havel', 3339, 'CZ'),
-('DEU', 'Germany', 'Europe', 'Western Europe', 357022, 1955, 82164700, 77.4, 2133370, 2102830, 'Deutschland', 'Federal Republic', 'Johannes Rau', 3068, 'DE'),
-('DJI', 'Djibouti', 'Africa', 'Eastern Africa', 23200, 1977, 638000, 50.8, 382, 373, 'Djibouti/Jibuti', 'Republic', 'Ismail Omar Guelleh', 585, 'DJ'),
-('DMA', 'Dominica', 'North America', 'Caribbean', 751, 1978, 71000, 73.4, 256, 243, 'Dominica', 'Republic', 'Vernon Shaw', 586, 'DM'),
-('DNK', 'Denmark', 'Europe', 'Nordic Countries', 43094, 800, 5330000, 76.5, 174099, 169264, 'Danmark', 'Constitutional Monarchy', 'Margrethe II', 3315, 'DK'),
-('DOM', 'Dominican Republic', 'North America', 'Caribbean', 48511, 1844, 8495000, 73.2, 15846, 15076, 'República Dominicana', 'Republic', 'Hipólito Mejía Domínguez', 587, 'DO'),
-('DZA', 'Algeria', 'Africa', 'Northern Africa', 2381740, 1962, 31471000, 69.7, 49982, 46966, 'Al-Jaza’ir/Algérie', 'Republic', 'Abdelaziz Bouteflika', 35, 'DZ'),
-('ECU', 'Ecuador', 'South America', 'South America', 283561, 1822, 12646000, 71.1, 19770, 19769, 'Ecuador', 'Republic', 'Gustavo Noboa Bejarano', 594, 'EC'),
-('EGY', 'Egypt', 'Africa', 'Northern Africa', 1001450, 1922, 68470000, 63.3, 82710, 75617, 'Misr', 'Republic', 'Hosni Mubarak', 608, 'EG'),
-('ERI', 'Eritrea', 'Africa', 'Eastern Africa', 117600, 1993, 3850000, 55.8, 650, 755, 'Ertra', 'Republic', 'Isayas Afewerki [Isaias Afwerki]', 652, 'ER'),
-('ESH', 'Western Sahara', 'Africa', 'Northern Africa', 266000, NULL, 293000, 49.8, 60, NULL, 'As-Sahrawiya', 'Occupied by Marocco', 'Mohammed Abdel Aziz', 2453, 'EH'),
-('ESP', 'Spain', 'Europe', 'Southern Europe', 505992, 1492, 39441700, 78.8, 553233, 532031, 'España', 'Constitutional Monarchy', 'Juan Carlos I', 653, 'ES'),
-('EST', 'Estonia', 'Europe', 'Baltic Countries', 45227, 1991, 1439200, 69.5, 5328, 3371, 'Eesti', 'Republic', 'Lennart Meri', 3791, 'EE'),
-('ETH', 'Ethiopia', 'Africa', 'Eastern Africa', 1104300, -1000, 62565000, 45.2, 6353, 6180, 'YeItyop´iya', 'Republic', 'Negasso Gidada', 756, 'ET'),
-('FIN', 'Finland', 'Europe', 'Nordic Countries', 338145, 1917, 5171300, 77.4, 121914, 119833, 'Suomi', 'Republic', 'Tarja Halonen', 3236, 'FI'),
-('FJI', 'Fiji Islands', 'Oceania', 'Melanesia', 18274, 1970, 817000, 67.9, 1536, 2149, 'Fiji Islands', 'Republic', 'Josefa Iloilo', 764, 'FJ'),
-('FLK', 'Falkland Islands', 'South America', 'South America', 12173, NULL, 2000, NULL, 0, NULL, 'Falkland Islands', 'Dependent Territory of the UK', 'Elisabeth II', 763, 'FK'),
-('FRA', 'France', 'Europe', 'Western Europe', 551500, 843, 59225700, 78.8, 1424280, 1392450, 'France', 'Republic', 'Jacques Chirac', 2974, 'FR'),
-('FRO', 'Faroe Islands', 'Europe', 'Nordic Countries', 1399, NULL, 43000, 78.4, 0, NULL, 'Føroyar', 'Part of Denmark', 'Margrethe II', 901, 'FO'),
-('FSM', 'Micronesia, Federated States of', 'Oceania', 'Micronesia', 702, 1990, 119000, 68.6, 212, NULL, 'Micronesia', 'Federal Republic', 'Leo A. Falcam', 2689, 'FM'),
-('GAB', 'Gabon', 'Africa', 'Central Africa', 267668, 1960, 1226000, 50.1, 5493, 5279, 'Le Gabon', 'Republic', 'Omar Bongo', 902, 'GA'),
-('GBR', 'United Kingdom', 'Europe', 'British Islands', 242900, 1066, 59623400, 77.7, 1378330, 1296830, 'United Kingdom', 'Constitutional Monarchy', 'Elisabeth II', 456, 'GB'),
-('GEO', 'Georgia', 'Asia', 'Middle East', 69700, 1991, 4968000, 64.5, 6064, 5924, 'Sakartvelo', 'Republic', 'Eduard Ševardnadze', 905, 'GE'),
-('GHA', 'Ghana', 'Africa', 'Western Africa', 238533, 1957, 20212000, 57.4, 7137, 6884, 'Ghana', 'Republic', 'John Kufuor', 910, 'GH'),
-('GIB', 'Gibraltar', 'Europe', 'Southern Europe', 6, NULL, 25000, 79, 258, NULL, 'Gibraltar', 'Dependent Territory of the UK', 'Elisabeth II', 915, 'GI'),
-('GIN', 'Guinea', 'Africa', 'Western Africa', 245857, 1958, 7430000, 45.6, 2352, 2383, 'Guinée', 'Republic', 'Lansana Conté', 926, 'GN'),
-('GLP', 'Guadeloupe', 'North America', 'Caribbean', 1705, NULL, 456000, 77, 3501, NULL, 'Guadeloupe', 'Overseas Department of France', 'Jacques Chirac', 919, 'GP'),
-('GMB', 'Gambia', 'Africa', 'Western Africa', 11295, 1965, 1305000, 53.2, 320, 325, 'The Gambia', 'Republic', 'Yahya Jammeh', 904, 'GM'),
-('GNB', 'Guinea-Bissau', 'Africa', 'Western Africa', 36125, 1974, 1213000, 49, 293, 272, 'Guiné-Bissau', 'Republic', 'Kumba Ialá', 927, 'GW'),
-('GNQ', 'Equatorial Guinea', 'Africa', 'Central Africa', 28051, 1968, 453000, 53.6, 283, 542, 'Guinea Ecuatorial', 'Republic', 'Teodoro Obiang Nguema Mbasogo', 2972, 'GQ'),
-('GRC', 'Greece', 'Europe', 'Southern Europe', 131626, 1830, 10545700, 78.4, 120724, 119946, 'Elláda', 'Republic', 'Kostis Stefanopoulos', 2401, 'GR'),
-('GRD', 'Grenada', 'North America', 'Caribbean', 344, 1974, 94000, 64.5, 318, NULL, 'Grenada', 'Constitutional Monarchy', 'Elisabeth II', 916, 'GD'),
-('GRL', 'Greenland', 'North America', 'North America', 2166090, NULL, 56000, 68.1, 0, NULL, 'Kalaallit Nunaat/Grønland', 'Part of Denmark', 'Margrethe II', 917, 'GL'),
-('GTM', 'Guatemala', 'North America', 'Central America', 108889, 1821, 11385000, 66.2, 19008, 17797, 'Guatemala', 'Republic', 'Alfonso Portillo Cabrera', 922, 'GT'),
-('GUF', 'French Guiana', 'South America', 'South America', 90000, NULL, 181000, 76.1, 681, NULL, 'Guyane française', 'Overseas Department of France', 'Jacques Chirac', 3014, 'GF'),
-('GUM', 'Guam', 'Oceania', 'Micronesia', 549, NULL, 168000, 77.8, 1197, 1136, 'Guam', 'US Territory', 'George W. Bush', 921, 'GU'),
-('GUY', 'Guyana', 'South America', 'South America', 214969, 1966, 861000, 64, 722, 743, 'Guyana', 'Republic', 'Bharrat Jagdeo', 928, 'GY'),
-('HKG', 'Hong Kong', 'Asia', 'Eastern Asia', 1075, NULL, 6782000, 79.5, 166448, 173610, 'Xianggang/Hong Kong', 'Special Administrative Region of China', 'Jiang Zemin', 937, 'HK'),
-('HMD', 'Heard Island and McDonald Islands', 'Antarctica', 'Antarctica', 359, NULL, 0, NULL, 0, NULL, 'Heard and McDonald Islands', 'Territory of Australia', 'Elisabeth II', NULL, 'HM'),
-('HND', 'Honduras', 'North America', 'Central America', 112088, 1838, 6485000, 69.9, 5333, 4697, 'Honduras', 'Republic', 'Carlos Roberto Flores Facussé', 933, 'HN'),
-('HRV', 'Croatia', 'Europe', 'Southern Europe', 56538, 1991, 4473000, 73.7, 20208, 19300, 'Hrvatska', 'Republic', 'Štipe Mesic', 2409, 'HR'),
-('HTI', 'Haiti', 'North America', 'Caribbean', 27750, 1804, 8222000, 49.2, 3459, 3107, 'Haïti/Dayti', 'Republic', 'Jean-Bertrand Aristide', 929, 'HT'),
-('HUN', 'Hungary', 'Europe', 'Eastern Europe', 93030, 1918, 10043200, 71.4, 48267, 45914, 'Magyarország', 'Republic', 'Ferenc Mádl', 3483, 'HU'),
-('IDN', 'Indonesia', 'Asia', 'Southeast Asia', 1904570, 1945, 212107000, 68, 84982, 215002, 'Indonesia', 'Republic', 'Abdurrahman Wahid', 939, 'ID'),
-('IND', 'India', 'Asia', 'Southern and Central Asia', 3287260, 1947, 1013662000, 62.5, 447114, 430572, 'Bharat/India', 'Federal Republic', 'Kocheril Raman Narayanan', 1109, 'IN'),
-('IOT', 'British Indian Ocean Territory', 'Africa', 'Eastern Africa', 78, NULL, 0, NULL, 0, NULL, 'British Indian Ocean Territory', 'Dependent Territory of the UK', 'Elisabeth II', NULL, 'IO'),
-('IRL', 'Ireland', 'Europe', 'British Islands', 70273, 1921, 3775100, 76.8, 75921, 73132, 'Ireland/Éire', 'Republic', 'Mary McAleese', 1447, 'IE'),
-('IRN', 'Iran', 'Asia', 'Southern and Central Asia', 1648200, 1906, 67702000, 69.7, 195746, 160151, 'Iran', 'Islamic Republic', 'Ali Mohammad Khatami-Ardakani', 1380, 'IR'),
-('IRQ', 'Iraq', 'Asia', 'Middle East', 438317, 1932, 23115000, 66.5, 11500, NULL, 'Al-´Iraq', 'Republic', 'Saddam Hussein al-Takriti', 1365, 'IQ'),
-('ISL', 'Iceland', 'Europe', 'Nordic Countries', 103000, 1944, 279000, 79.4, 8255, 7474, 'Ísland', 'Republic', 'Ólafur Ragnar Grímsson', 1449, 'IS'),
-('ISR', 'Israel', 'Asia', 'Middle East', 21056, 1948, 6217000, 78.6, 97477, 98577, 'Yisra’el/Isra’il', 'Republic', 'Moshe Katzav', 1450, 'IL'),
-('ITA', 'Italy', 'Europe', 'Southern Europe', 301316, 1861, 57680000, 79, 1161760, 1145370, 'Italia', 'Republic', 'Carlo Azeglio Ciampi', 1464, 'IT'),
-('JAM', 'Jamaica', 'North America', 'Caribbean', 10990, 1962, 2583000, 75.2, 6871, 6722, 'Jamaica', 'Constitutional Monarchy', 'Elisabeth II', 1530, 'JM'),
-('JOR', 'Jordan', 'Asia', 'Middle East', 88946, 1946, 5083000, 77.4, 7526, 7051, 'Al-Urdunn', 'Constitutional Monarchy', 'Abdullah II', 1786, 'JO'),
-('JPN', 'Japan', 'Asia', 'Eastern Asia', 377829, -660, 126714000, 80.7, 3787040, 4192640, 'Nihon/Nippon', 'Constitutional Monarchy', 'Akihito', 1532, 'JP'),
-('KAZ', 'Kazakstan', 'Asia', 'Southern and Central Asia', 2724900, 1991, 16223000, 63.2, 24375, 23383, 'Qazaqstan', 'Republic', 'Nursultan Nazarbajev', 1864, 'KZ'),
-('KEN', 'Kenya', 'Africa', 'Eastern Africa', 580367, 1963, 30080000, 48, 9217, 10241, 'Kenya', 'Republic', 'Daniel arap Moi', 1881, 'KE'),
-('KGZ', 'Kyrgyzstan', 'Asia', 'Southern and Central Asia', 199900, 1991, 4699000, 63.4, 1626, 1767, 'Kyrgyzstan', 'Republic', 'Askar Akajev', 2253, 'KG'),
-('KHM', 'Cambodia', 'Asia', 'Southeast Asia', 181035, 1953, 11168000, 56.5, 5121, 5670, 'Kâmpuchéa', 'Constitutional Monarchy', 'Norodom Sihanouk', 1800, 'KH'),
-('KIR', 'Kiribati', 'Oceania', 'Micronesia', 726, 1979, 83000, 59.8, 40.7, NULL, 'Kiribati', 'Republic', 'Teburoro Tito', 2256, 'KI'),
-('KNA', 'Saint Kitts and Nevis', 'North America', 'Caribbean', 261, 1983, 38000, 70.7, 299, NULL, 'Saint Kitts and Nevis', 'Constitutional Monarchy', 'Elisabeth II', 3064, 'KN'),
-('KOR', 'South Korea', 'Asia', 'Eastern Asia', 99434, 1948, 46844000, 74.4, 320749, 442544, 'Taehan Min’guk (Namhan)', 'Republic', 'Kim Dae-jung', 2331, 'KR'),
-('KWT', 'Kuwait', 'Asia', 'Middle East', 17818, 1961, 1972000, 76.1, 27037, 30373, 'Al-Kuwayt', 'Constitutional Monarchy (Emirate)', 'Jabir al-Ahmad al-Jabir al-Sabah', 2429, 'KW'),
-('LAO', 'Laos', 'Asia', 'Southeast Asia', 236800, 1953, 5433000, 53.1, 1292, 1746, 'Lao', 'Republic', 'Khamtay Siphandone', 2432, 'LA'),
-('LBN', 'Lebanon', 'Asia', 'Middle East', 10400, 1941, 3282000, 71.3, 17121, 15129, 'Lubnan', 'Republic', 'Émile Lahoud', 2438, 'LB'),
-('LBR', 'Liberia', 'Africa', 'Western Africa', 111369, 1847, 3154000, 51, 2012, NULL, 'Liberia', 'Republic', 'Charles Taylor', 2440, 'LR'),
-('LBY', 'Libyan Arab Jamahiriya', 'Africa', 'Northern Africa', 1759540, 1951, 5605000, 75.5, 44806, 40562, 'Libiya', 'Socialistic State', 'Muammar al-Qadhafi', 2441, 'LY'),
-('LCA', 'Saint Lucia', 'North America', 'Caribbean', 622, 1979, 154000, 72.3, 571, NULL, 'Saint Lucia', 'Constitutional Monarchy', 'Elisabeth II', 3065, 'LC'),
-('LIE', 'Liechtenstein', 'Europe', 'Western Europe', 160, 1806, 32300, 78.8, 1119, 1084, 'Liechtenstein', 'Constitutional Monarchy', 'Hans-Adam II', 2446, 'LI'),
-('LKA', 'Sri Lanka', 'Asia', 'Southern and Central Asia', 65610, 1948, 18827000, 71.8, 15706, 15091, 'Sri Lanka/Ilankai', 'Republic', 'Chandrika Kumaratunga', 3217, 'LK'),
-('LSO', 'Lesotho', 'Africa', 'Southern Africa', 30355, 1966, 2153000, 50.8, 1061, 1161, 'Lesotho', 'Constitutional Monarchy', 'Letsie III', 2437, 'LS'),
-('LTU', 'Lithuania', 'Europe', 'Baltic Countries', 65301, 1991, 3698500, 69.1, 10692, 9585, 'Lietuva', 'Republic', 'Valdas Adamkus', 2447, 'LT'),
-('LUX', 'Luxembourg', 'Europe', 'Western Europe', 2586, 1867, 435700, 77.1, 16321, 15519, 'Luxembourg/Lëtzebuerg', 'Constitutional Monarchy', 'Henri', 2452, 'LU'),
-('LVA', 'Latvia', 'Europe', 'Baltic Countries', 64589, 1991, 2424200, 68.4, 6398, 5639, 'Latvija', 'Republic', 'Vaira Vike-Freiberga', 2434, 'LV'),
-('MAC', 'Macao', 'Asia', 'Eastern Asia', 18, NULL, 473000, 81.6, 5749, 5940, 'Macau/Aomen', 'Special Administrative Region of China', 'Jiang Zemin', 2454, 'MO'),
-('MAR', 'Morocco', 'Africa', 'Northern Africa', 446550, 1956, 28351000, 69.1, 36124, 33514, 'Al-Maghrib', 'Constitutional Monarchy', 'Mohammed VI', 2486, 'MA'),
-('MCO', 'Monaco', 'Europe', 'Western Europe', 1.5, 1861, 34000, 78.8, 776, NULL, 'Monaco', 'Constitutional Monarchy', 'Rainier III', 2695, 'MC'),
-('MDA', 'Moldova', 'Europe', 'Eastern Europe', 33851, 1991, 4380000, 64.5, 1579, 1872, 'Moldova', 'Republic', 'Vladimir Voronin', 2690, 'MD'),
-('MDG', 'Madagascar', 'Africa', 'Eastern Africa', 587041, 1960, 15942000, 55, 3750, 3545, 'Madagasikara/Madagascar', 'Federal Republic', 'Didier Ratsiraka', 2455, 'MG'),
-('MDV', 'Maldives', 'Asia', 'Southern and Central Asia', 298, 1965, 286000, 62.2, 199, NULL, 'Dhivehi Raajje/Maldives', 'Republic', 'Maumoon Abdul Gayoom', 2463, 'MV'),
-('MEX', 'Mexico', 'North America', 'Central America', 1958200, 1810, 98881000, 71.5, 414972, 401461, 'México', 'Federal Republic', 'Vicente Fox Quesada', 2515, 'MX'),
-('MHL', 'Marshall Islands', 'Oceania', 'Micronesia', 181, 1990, 64000, 65.5, 97, NULL, 'Marshall Islands/Majol', 'Republic', 'Kessai Note', 2507, 'MH'),
-('MKD', 'Macedonia', 'Europe', 'Southern Europe', 25713, 1991, 2024000, 73.8, 1694, 1915, 'Makedonija', 'Republic', 'Boris Trajkovski', 2460, 'MK'),
-('MLI', 'Mali', 'Africa', 'Western Africa', 1240190, 1960, 11234000, 46.7, 2642, 2453, 'Mali', 'Republic', 'Alpha Oumar Konaré', 2482, 'ML'),
-('MLT', 'Malta', 'Europe', 'Southern Europe', 316, 1964, 380200, 77.9, 3512, 3338, 'Malta', 'Republic', 'Guido de Marco', 2484, 'MT'),
-('MMR', 'Myanmar', 'Asia', 'Southeast Asia', 676578, 1948, 45611000, 54.9, 180375, 171028, 'Myanma Pye', 'Republic', 'kenraali Than Shwe', 2710, 'MM'),
-('MNG', 'Mongolia', 'Asia', 'Eastern Asia', 1566500, 1921, 2662000, 67.3, 1043, 933, 'Mongol Uls', 'Republic', 'Natsagiin Bagabandi', 2696, 'MN'),
-('MNP', 'Northern Mariana Islands', 'Oceania', 'Micronesia', 464, NULL, 78000, 75.5, 0, NULL, 'Northern Mariana Islands', 'Commonwealth of the US', 'George W. Bush', 2913, 'MP'),
-('MOZ', 'Mozambique', 'Africa', 'Eastern Africa', 801590, 1975, 19680000, 37.5, 2891, 2711, 'Moçambique', 'Republic', 'Joaquím A. Chissano', 2698, 'MZ'),
-('MRT', 'Mauritania', 'Africa', 'Western Africa', 1025520, 1960, 2670000, 50.8, 998, 1081, 'Muritaniya/Mauritanie', 'Republic', 'Maaouiya Ould Sid´Ahmad Taya', 2509, 'MR'),
-('MSR', 'Montserrat', 'North America', 'Caribbean', 102, NULL, 11000, 78, 109, NULL, 'Montserrat', 'Dependent Territory of the UK', 'Elisabeth II', 2697, 'MS'),
-('MTQ', 'Martinique', 'North America', 'Caribbean', 1102, NULL, 395000, 78.3, 2731, 2559, 'Martinique', 'Overseas Department of France', 'Jacques Chirac', 2508, 'MQ'),
-('MUS', 'Mauritius', 'Africa', 'Eastern Africa', 2040, 1968, 1158000, 71, 4251, 4186, 'Mauritius', 'Republic', 'Cassam Uteem', 2511, 'MU'),
-('MWI', 'Malawi', 'Africa', 'Eastern Africa', 118484, 1964, 10925000, 37.6, 1687, 2527, 'Malawi', 'Republic', 'Bakili Muluzi', 2462, 'MW'),
-('MYS', 'Malaysia', 'Asia', 'Southeast Asia', 329758, 1957, 22244000, 70.8, 69213, 97884, 'Malaysia', 'Constitutional Monarchy, Federation', 'Salahuddin Abdul Aziz Shah Alhaj', 2464, 'MY'),
-('MYT', 'Mayotte', 'Africa', 'Eastern Africa', 373, NULL, 149000, 59.5, 0, NULL, 'Mayotte', 'Territorial Collectivity of France', 'Jacques Chirac', 2514, 'YT'),
-('NAM', 'Namibia', 'Africa', 'Southern Africa', 824292, 1990, 1726000, 42.5, 3101, 3384, 'Namibia', 'Republic', 'Sam Nujoma', 2726, 'NA'),
-('NCL', 'New Caledonia', 'Oceania', 'Melanesia', 18575, NULL, 214000, 72.8, 3563, NULL, 'Nouvelle-Calédonie', 'Nonmetropolitan Territory of France', 'Jacques Chirac', 3493, 'NC'),
-('NER', 'Niger', 'Africa', 'Western Africa', 1267000, 1960, 10730000, 41.3, 1706, 1580, 'Niger', 'Republic', 'Mamadou Tandja', 2738, 'NE'),
-('NFK', 'Norfolk Island', 'Oceania', 'Australia and New Zealand', 36, NULL, 2000, NULL, 0, NULL, 'Norfolk Island', 'Territory of Australia', 'Elisabeth II', 2806, 'NF'),
-('NGA', 'Nigeria', 'Africa', 'Western Africa', 923768, 1960, 111506000, 51.6, 65707, 58623, 'Nigeria', 'Federal Republic', 'Olusegun Obasanjo', 2754, 'NG'),
-('NIC', 'Nicaragua', 'North America', 'Central America', 130000, 1838, 5074000, 68.7, 1988, 2023, 'Nicaragua', 'Republic', 'Arnoldo Alemán Lacayo', 2734, 'NI'),
-('NIU', 'Niue', 'Oceania', 'Polynesia', 260, NULL, 2000, NULL, 0, NULL, 'Niue', 'Nonmetropolitan Territory of New Zealand', 'Elisabeth II', 2805, 'NU'),
-('NLD', 'Netherlands', 'Europe', 'Western Europe', 41526, 1581, 15864000, 78.3, 371362, 360478, 'Nederland', 'Constitutional Monarchy', 'Beatrix', 5, 'NL'),
-('NOR', 'Norway', 'Europe', 'Nordic Countries', 323877, 1905, 4478500, 78.7, 145895, 153370, 'Norge', 'Constitutional Monarchy', 'Harald V', 2807, 'NO'),
-('NPL', 'Nepal', 'Asia', 'Southern and Central Asia', 147181, 1769, 23930000, 57.8, 4768, 4837, 'Nepal', 'Constitutional Monarchy', 'Gyanendra Bir Bikram', 2729, 'NP'),
-('NRU', 'Nauru', 'Oceania', 'Micronesia', 21, 1968, 12000, 60.8, 197, NULL, 'Naoero/Nauru', 'Republic', 'Bernard Dowiyogo', 2728, 'NR'),
-('NZL', 'New Zealand', 'Oceania', 'Australia and New Zealand', 270534, 1907, 3862000, 77.8, 54669, 64960, 'New Zealand/Aotearoa', 'Constitutional Monarchy', 'Elisabeth II', 3499, 'NZ'),
-('OMN', 'Oman', 'Asia', 'Middle East', 309500, 1951, 2542000, 71.8, 16904, 16153, '´Uman', 'Monarchy (Sultanate)', 'Qabus ibn Sa´id', 2821, 'OM'),
-('PAK', 'Pakistan', 'Asia', 'Southern and Central Asia', 796095, 1947, 156483000, 61.1, 61289, 58549, 'Pakistan', 'Republic', 'Mohammad Rafiq Tarar', 2831, 'PK'),
-('PAN', 'Panama', 'North America', 'Central America', 75517, 1903, 2856000, 75.5, 9131, 8700, 'Panamá', 'Republic', 'Mireya Elisa Moscoso Rodríguez', 2882, 'PA'),
-('PCN', 'Pitcairn', 'Oceania', 'Polynesia', 49, NULL, 50, NULL, 0, NULL, 'Pitcairn', 'Dependent Territory of the UK', 'Elisabeth II', 2912, 'PN'),
-('PER', 'Peru', 'South America', 'South America', 1285220, 1821, 25662000, 70, 64140, 65186, 'Perú/Piruw', 'Republic', 'Valentin Paniagua Corazao', 2890, 'PE'),
-('PHL', 'Philippines', 'Asia', 'Southeast Asia', 300000, 1946, 75967000, 67.5, 65107, 82239, 'Pilipinas', 'Republic', 'Gloria Macapagal-Arroyo', 766, 'PH'),
-('PLW', 'Palau', 'Oceania', 'Micronesia', 459, 1994, 19000, 68.6, 105, NULL, 'Belau/Palau', 'Republic', 'Kuniwo Nakamura', 2881, 'PW'),
-('PNG', 'Papua New Guinea', 'Oceania', 'Melanesia', 462840, 1975, 4807000, 63.1, 4988, 6328, 'Papua New Guinea/Papua Niugini', 'Constitutional Monarchy', 'Elisabeth II', 2884, 'PG'),
-('POL', 'Poland', 'Europe', 'Eastern Europe', 323250, 1918, 38653600, 73.2, 151697, 135636, 'Polska', 'Republic', 'Aleksander Kwasniewski', 2928, 'PL'),
-('PRI', 'Puerto Rico', 'North America', 'Caribbean', 8875, NULL, 3869000, 75.6, 34100, 32100, 'Puerto Rico', 'Commonwealth of the US', 'George W. Bush', 2919, 'PR'),
-('PRK', 'North Korea', 'Asia', 'Eastern Asia', 120538, 1948, 24039000, 70.7, 5332, NULL, 'Choson Minjujuui In´min Konghwaguk (Bukhan)', 'Socialistic Republic', 'Kim Jong-il', 2318, 'KP'),
-('PRT', 'Portugal', 'Europe', 'Southern Europe', 91982, 1143, 9997600, 75.8, 105954, 102133, 'Portugal', 'Republic', 'Jorge Sampãio', 2914, 'PT'),
-('PRY', 'Paraguay', 'South America', 'South America', 406752, 1811, 5496000, 73.7, 8444, 9555, 'Paraguay', 'Republic', 'Luis Ángel González Macchi', 2885, 'PY'),
-('PSE', 'Palestine', 'Asia', 'Middle East', 6257, NULL, 3101000, 71.4, 4173, NULL, 'Filastin', 'Autonomous Area', 'Yasser (Yasir) Arafat', 4074, 'PS'),
-('PYF', 'French Polynesia', 'Oceania', 'Polynesia', 4000, NULL, 235000, 74.8, 818, 781, 'Polynésie française', 'Nonmetropolitan Territory of France', 'Jacques Chirac', 3016, 'PF'),
-('QAT', 'Qatar', 'Asia', 'Middle East', 11000, 1971, 599000, 72.4, 9472, 8920, 'Qatar', 'Monarchy', 'Hamad ibn Khalifa al-Thani', 2973, 'QA'),
-('REU', 'Réunion', 'Africa', 'Eastern Africa', 2510, NULL, 699000, 72.7, 8287, 7988, 'Réunion', 'Overseas Department of France', 'Jacques Chirac', 3017, 'RE'),
-('ROM', 'Romania', 'Europe', 'Eastern Europe', 238391, 1878, 22455500, 69.9, 38158, 34843, 'România', 'Republic', 'Ion Iliescu', 3018, 'RO'),
-('RUS', 'Russian Federation', 'Europe', 'Eastern Europe', 17075400, 1991, 146934000, 67.2, 276608, 442989, 'Rossija', 'Federal Republic', 'Vladimir Putin', 3580, 'RU'),
-('RWA', 'Rwanda', 'Africa', 'Eastern Africa', 26338, 1962, 7733000, 39.3, 2036, 1863, 'Rwanda/Urwanda', 'Republic', 'Paul Kagame', 3047, 'RW'),
-('SAU', 'Saudi Arabia', 'Asia', 'Middle East', 2149690, 1932, 21607000, 67.8, 137635, 146171, 'Al-´Arabiya as-Sa´udiya', 'Monarchy', 'Fahd ibn Abdul-Aziz al-Sa´ud', 3173, 'SA'),
-('SDN', 'Sudan', 'Africa', 'Northern Africa', 2505810, 1956, 29490000, 56.6, 10162, NULL, 'As-Sudan', 'Islamic Republic', 'Omar Hassan Ahmad al-Bashir', 3225, 'SD'),
-('SEN', 'Senegal', 'Africa', 'Western Africa', 196722, 1960, 9481000, 62.2, 4787, 4542, 'Sénégal/Sounougal', 'Republic', 'Abdoulaye Wade', 3198, 'SN'),
-('SGP', 'Singapore', 'Asia', 'Southeast Asia', 618, 1965, 3567000, 80.1, 86503, 96318, 'Singapore/Singapura/Xinjiapo/Singapur', 'Republic', 'Sellapan Rama Nathan', 3208, 'SG'),
-('SGS', 'South Georgia and the South Sandwich Islands', 'Antarctica', 'Antarctica', 3903, NULL, 0, NULL, 0, NULL, 'South Georgia and the South Sandwich Islands', 'Dependent Territory of the UK', 'Elisabeth II', NULL, 'GS'),
-('SHN', 'Saint Helena', 'Africa', 'Western Africa', 314, NULL, 6000, 76.8, 0, NULL, 'Saint Helena', 'Dependent Territory of the UK', 'Elisabeth II', 3063, 'SH'),
-('SJM', 'Svalbard and Jan Mayen', 'Europe', 'Nordic Countries', 62422, NULL, 3200, NULL, 0, NULL, 'Svalbard og Jan Mayen', 'Dependent Territory of Norway', 'Harald V', 938, 'SJ'),
-('SLB', 'Solomon Islands', 'Oceania', 'Melanesia', 28896, 1978, 444000, 71.3, 182, 220, 'Solomon Islands', 'Constitutional Monarchy', 'Elisabeth II', 3161, 'SB'),
-('SLE', 'Sierra Leone', 'Africa', 'Western Africa', 71740, 1961, 4854000, 45.3, 746, 858, 'Sierra Leone', 'Republic', 'Ahmed Tejan Kabbah', 3207, 'SL'),
-('SLV', 'El Salvador', 'North America', 'Central America', 21041, 1841, 6276000, 69.7, 11863, 11203, 'El Salvador', 'Republic', 'Francisco Guillermo Flores Pérez', 645, 'SV'),
-('SMR', 'San Marino', 'Europe', 'Southern Europe', 61, 885, 27000, 81.1, 510, NULL, 'San Marino', 'Republic', NULL, 3171, 'SM'),
-('SOM', 'Somalia', 'Africa', 'Eastern Africa', 637657, 1960, 10097000, 46.2, 935, NULL, 'Soomaaliya', 'Republic', 'Abdiqassim Salad Hassan', 3214, 'SO'),
-('SPM', 'Saint Pierre and Miquelon', 'North America', 'North America', 242, NULL, 7000, 77.6, 0, NULL, 'Saint-Pierre-et-Miquelon', 'Territorial Collectivity of France', 'Jacques Chirac', 3067, 'PM'),
-('STP', 'Sao Tome and Principe', 'Africa', 'Central Africa', 964, 1975, 147000, 65.3, 6, NULL, 'São Tomé e Príncipe', 'Republic', 'Miguel Trovoada', 3172, 'ST'),
-('SUR', 'Suriname', 'South America', 'South America', 163265, 1975, 417000, 71.4, 870, 706, 'Suriname', 'Republic', 'Ronald Venetiaan', 3243, 'SR'),
-('SVK', 'Slovakia', 'Europe', 'Eastern Europe', 49012, 1993, 5398700, 73.7, 20594, 19452, 'Slovensko', 'Republic', 'Rudolf Schuster', 3209, 'SK'),
-('SVN', 'Slovenia', 'Europe', 'Southern Europe', 20256, 1991, 1987800, 74.9, 19756, 18202, 'Slovenija', 'Republic', 'Milan Kucan', 3212, 'SI'),
-('SWE', 'Sweden', 'Europe', 'Nordic Countries', 449964, 836, 8861400, 79.6, 226492, 227757, 'Sverige', 'Constitutional Monarchy', 'Carl XVI Gustaf', 3048, 'SE'),
-('SWZ', 'Swaziland', 'Africa', 'Southern Africa', 17364, 1968, 1008000, 40.4, 1206, 1312, 'kaNgwane', 'Monarchy', 'Mswati III', 3244, 'SZ'),
-('SYC', 'Seychelles', 'Africa', 'Eastern Africa', 455, 1976, 77000, 70.4, 536, 539, 'Sesel/Seychelles', 'Republic', 'France-Albert René', 3206, 'SC'),
-('SYR', 'Syria', 'Asia', 'Middle East', 185180, 1941, 16125000, 68.5, 65984, 64926, 'Suriya', 'Republic', 'Bashar al-Assad', 3250, 'SY'),
-('TCA', 'Turks and Caicos Islands', 'North America', 'Caribbean', 430, NULL, 17000, 73.3, 96, NULL, 'The Turks and Caicos Islands', 'Dependent Territory of the UK', 'Elisabeth II', 3423, 'TC'),
-('TCD', 'Chad', 'Africa', 'Central Africa', 1284000, 1960, 7651000, 50.5, 1208, 1102, 'Tchad/Tshad', 'Republic', 'Idriss Déby', 3337, 'TD'),
-('TGO', 'Togo', 'Africa', 'Western Africa', 56785, 1960, 4629000, 54.7, 1449, 1400, 'Togo', 'Republic', 'Gnassingbé Eyadéma', 3332, 'TG'),
-('THA', 'Thailand', 'Asia', 'Southeast Asia', 513115, 1350, 61399000, 68.6, 116416, 153907, 'Prathet Thai', 'Constitutional Monarchy', 'Bhumibol Adulyadej', 3320, 'TH'),
-('TJK', 'Tajikistan', 'Asia', 'Southern and Central Asia', 143100, 1991, 6188000, 64.1, 1990, 1056, 'Toçikiston', 'Republic', 'Emomali Rahmonov', 3261, 'TJ'),
-('TKL', 'Tokelau', 'Oceania', 'Polynesia', 12, NULL, 2000, NULL, 0, NULL, 'Tokelau', 'Nonmetropolitan Territory of New Zealand', 'Elisabeth II', 3333, 'TK'),
-('TKM', 'Turkmenistan', 'Asia', 'Southern and Central Asia', 488100, 1991, 4459000, 60.9, 4397, 2000, 'Türkmenostan', 'Republic', 'Saparmurad Nijazov', 3419, 'TM'),
-('TMP', 'East Timor', 'Asia', 'Southeast Asia', 14874, NULL, 885000, 46, 0, NULL, 'Timor Timur', 'Administrated by the UN', 'José Alexandre Gusmão', 1522, 'TP'),
-('TON', 'Tonga', 'Oceania', 'Polynesia', 650, 1970, 99000, 67.9, 146, 170, 'Tonga', 'Monarchy', 'Taufa\'ahau Tupou IV', 3334, 'TO'),
-('TTO', 'Trinidad and Tobago', 'North America', 'Caribbean', 5130, 1962, 1295000, 68, 6232, 5867, 'Trinidad and Tobago', 'Republic', 'Arthur N. R. Robinson', 3336, 'TT'),
-('TUN', 'Tunisia', 'Africa', 'Northern Africa', 163610, 1956, 9586000, 73.7, 20026, 18898, 'Tunis/Tunisie', 'Republic', 'Zine al-Abidine Ben Ali', 3349, 'TN'),
-('TUR', 'Turkey', 'Asia', 'Middle East', 774815, 1923, 66591000, 71, 210721, 189122, 'Türkiye', 'Republic', 'Ahmet Necdet Sezer', 3358, 'TR'),
-('TUV', 'Tuvalu', 'Oceania', 'Polynesia', 26, 1978, 12000, 66.3, 6, NULL, 'Tuvalu', 'Constitutional Monarchy', 'Elisabeth II', 3424, 'TV'),
-('TWN', 'Taiwan', 'Asia', 'Eastern Asia', 36188, 1945, 22256000, 76.4, 256254, 263451, 'T’ai-wan', 'Republic', 'Chen Shui-bian', 3263, 'TW'),
-('TZA', 'Tanzania', 'Africa', 'Eastern Africa', 883749, 1961, 33517000, 52.3, 8005, 7388, 'Tanzania', 'Republic', 'Benjamin William Mkapa', 3306, 'TZ'),
-('UGA', 'Uganda', 'Africa', 'Eastern Africa', 241038, 1962, 21778000, 42.9, 6313, 6887, 'Uganda', 'Republic', 'Yoweri Museveni', 3425, 'UG'),
-('UKR', 'Ukraine', 'Europe', 'Eastern Europe', 603700, 1991, 50456000, 66, 42168, 49677, 'Ukrajina', 'Republic', 'Leonid Kutšma', 3426, 'UA'),
-('UMI', 'United States Minor Outlying Islands', 'Oceania', 'Micronesia/Caribbean', 16, NULL, 0, NULL, 0, NULL, 'United States Minor Outlying Islands', 'Dependent Territory of the US', 'George W. Bush', NULL, 'UM'),
-('URY', 'Uruguay', 'South America', 'South America', 175016, 1828, 3337000, 75.2, 20831, 19967, 'Uruguay', 'Republic', 'Jorge Batlle Ibáñez', 3492, 'UY'),
-('USA', 'United States', 'North America', 'North America', 9363520, 1776, 278357000, 77.1, 8510700, 8110900, 'United States', 'Federal Republic', 'George W. Bush', 3813, 'US'),
-('UZB', 'Uzbekistan', 'Asia', 'Southern and Central Asia', 447400, 1991, 24318000, 63.7, 14194, 21300, 'Uzbekiston', 'Republic', 'Islam Karimov', 3503, 'UZ'),
-('VAT', 'Holy See (Vatican City State)', 'Europe', 'Southern Europe', 0.4, 1929, 1000, NULL, 9, NULL, 'Santa Sede/Città del Vaticano', 'Independent Church State', 'Johannes Paavali II', 3538, 'VA'),
-('VCT', 'Saint Vincent and the Grenadines', 'North America', 'Caribbean', 388, 1979, 114000, 72.3, 285, NULL, 'Saint Vincent and the Grenadines', 'Constitutional Monarchy', 'Elisabeth II', 3066, 'VC'),
-('VEN', 'Venezuela', 'South America', 'South America', 912050, 1811, 24170000, 73.1, 95023, 88434, 'Venezuela', 'Federal Republic', 'Hugo Chávez Frías', 3539, 'VE'),
-('VGB', 'Virgin Islands, British', 'North America', 'Caribbean', 151, NULL, 21000, 75.4, 612, 573, 'British Virgin Islands', 'Dependent Territory of the UK', 'Elisabeth II', 537, 'VG'),
-('VIR', 'Virgin Islands, U.S.', 'North America', 'Caribbean', 347, NULL, 93000, 78.1, 0, NULL, 'Virgin Islands of the United States', 'US Territory', 'George W. Bush', 4067, 'VI'),
-('VNM', 'Vietnam', 'Asia', 'Southeast Asia', 331689, 1945, 79832000, 69.3, 21929, 22834, 'Viêt Nam', 'Socialistic Republic', 'Trân Duc Luong', 3770, 'VN'),
-('VUT', 'Vanuatu', 'Oceania', 'Melanesia', 12189, 1980, 190000, 60.6, 261, 246, 'Vanuatu', 'Republic', 'John Bani', 3537, 'VU'),
-('WLF', 'Wallis and Futuna', 'Oceania', 'Polynesia', 200, NULL, 15000, NULL, 0, NULL, 'Wallis-et-Futuna', 'Nonmetropolitan Territory of France', 'Jacques Chirac', 3536, 'WF'),
-('WSM', 'Samoa', 'Oceania', 'Polynesia', 2831, 1962, 180000, 69.2, 141, 157, 'Samoa', 'Parlementary Monarchy', 'Malietoa Tanumafili II', 3169, 'WS'),
-('YEM', 'Yemen', 'Asia', 'Middle East', 527968, 1918, 18112000, 59.8, 6041, 5729, 'Al-Yaman', 'Republic', 'Ali Abdallah Salih', 1780, 'YE'),
-('YUG', 'Yugoslavia', 'Europe', 'Southern Europe', 102173, 1918, 10640000, 72.4, 17000, NULL, 'Jugoslavija', 'Federal Republic', 'Vojislav Koštunica', 1792, 'YU'),
-('ZAF', 'South Africa', 'Africa', 'Southern Africa', 1221040, 1910, 40377000, 51.1, 116729, 129092, 'South Africa', 'Republic', 'Thabo Mbeki', 716, 'ZA'),
-('ZMB', 'Zambia', 'Africa', 'Eastern Africa', 752618, 1964, 9169000, 37.2, 3377, 3922, 'Zambia', 'Republic', 'Frederick Chiluba', 3162, 'ZM'),
-('ZWE', 'Zimbabwe', 'Africa', 'Eastern Africa', 390757, 1980, 11669000, 37.8, 5951, 8670, 'Zimbabwe', 'Republic', 'Robert G. Mugabe', 4068, 'ZW');
+INSERT INTO `pais` (`PaisNombre`, `PaisCodigo`, `phone_code`) VALUES
+('Aruba', 'ABW', '297'),
+('Afganistan', 'AFG', '93'),
+('Angola', 'AGO', '244'),
+('Anguila', 'AIA', '1 264'),
+('Islas de Islandia', 'ALA', '358'),
+('Albania', 'ALB', '355'),
+('Andorra', 'AND', '376'),
+('Emiratos Arabes Unidos', 'ARE', '971'),
+('Argentina', 'ARG', '54'),
+('Armenia', 'ARM', '374'),
+('Samoa Americana', 'ASM', '1 684'),
+('Antartida', 'ATA', '672'),
+('Territorios Australes y Antarticas Franceses', 'ATF', NULL),
+('Antigua y Barbuda', 'ATG', '1 268'),
+('Australia', 'AUS', '61'),
+('Austria', 'AUT', '43'),
+('Azerbaiyan', 'AZE', '994'),
+('Burundi', 'BDI', '257'),
+('Belgica', 'BEL', '32'),
+('Benin', 'BEN', '229'),
+('Burkina Faso', 'BFA', '226'),
+('Bangladesh', 'BGD', '880'),
+('Bulgaria', 'BGR', '359'),
+('Bahrein', 'BHR', '973'),
+('Bahamas', 'BHS', '1 242'),
+('Bosnia y Herzegovina', 'BIH', '387'),
+('San Bartolome', 'BLM', '590'),
+('Bielorrusia', 'BLR', '375'),
+('Belice', 'BLZ', '501'),
+('Islas Bermudas', 'BMU', '1 441'),
+('Bolivia', 'BOL', '591'),
+('Brasil', 'BRA', '55'),
+('Barbados', 'BRB', '1 246'),
+('Brunei', 'BRN', '673'),
+('Bhutan', 'BTN', '975'),
+('Isla Bouvet', 'BVT', NULL),
+('Botsuana', 'BWA', '267'),
+('Republica Centroafricana', 'CAF', '236'),
+('Canada', 'CAN', '1'),
+('Islas Cocos (Keeling)', 'CCK', '61'),
+('Suiza', 'CHE', '41'),
+('Chile', 'CHL', '56'),
+('China', 'CHN', '86'),
+('Costa de Marfil', 'CIV', '225'),
+('Camerun', 'CMR', '237'),
+('Republica Democratica del Congo', 'COD', '243'),
+('Republica del Congo', 'COG', '242'),
+('Islas Cook', 'COK', '682'),
+('Colombia', 'COL', '57'),
+('Comoras', 'COM', '269'),
+('Cabo Verde', 'CPV', '238'),
+('Costa Rica', 'CRI', '506'),
+('Cuba', 'CUB', '53'),
+('Curazao', 'CWU', '5999'),
+('Isla de Navidad', 'CXR', '61'),
+('Islas Caiman', 'CYM', '1 345'),
+('Chipre', 'CYP', '357'),
+('Republica Checa', 'CZE', '420'),
+('Alemania', 'DEU', '49'),
+('Yibuti', 'DJI', '253'),
+('Dominica', 'DMA', '1 767'),
+('Dinamarca', 'DNK', '45'),
+('Republica Dominicana', 'DOM', '1 809'),
+('Argelia', 'DZA', '213'),
+('Ecuador', 'ECU', '593'),
+('Egipto', 'EGY', '20'),
+('Eritrea', 'ERI', '291'),
+('Sahara Occidental', 'ESH', '212'),
+('Espana', 'ESP', '34'),
+('Estonia', 'EST', '372'),
+('Etiopia', 'ETH', '251'),
+('Finlandia', 'FIN', '358'),
+('Fiyi', 'FJI', '679'),
+('Islas Malvinas', 'FLK', '500'),
+('Francia', 'FRA', '33'),
+('Islas Feroe', 'FRO', '298'),
+('Micronesia', 'FSM', '691'),
+('Gabon', 'GAB', '241'),
+('Reino Unido', 'GBR', '44'),
+('Georgia', 'GEO', '995'),
+('Guernsey', 'GGY', '44'),
+('Ghana', 'GHA', '233'),
+('Gibraltar', 'GIB', '350'),
+('Guinea', 'GIN', '224'),
+('Guadalupe', 'GLP', '590'),
+('Gambia', 'GMB', '220'),
+('Guinea-Bissau', 'GNB', '245'),
+('Guinea Ecuatorial', 'GNQ', '240'),
+('Grecia', 'GRC', '30'),
+('Granada', 'GRD', '1 473'),
+('Groenlandia', 'GRL', '299'),
+('Guatemala', 'GTM', '502'),
+('Guayana Francesa', 'GUF', '594'),
+('Guam', 'GUM', '1 671'),
+('Guyana', 'GUY', '592'),
+('Hong Kong', 'HKG', '852'),
+('Islas Heard y McDonald', 'HMD', NULL),
+('Honduras', 'HND', '504'),
+('Croacia', 'HRV', '385'),
+('Haiti', 'HTI', '509'),
+('Hungria', 'HUN', '36'),
+('Indonesia', 'IDN', '62'),
+('Isla de Man', 'IMN', '44'),
+('India', 'IND', '91'),
+('Territorio Britanico del Oceano Indico', 'IOT', '246'),
+('Irlanda', 'IRL', '353'),
+('Iran', 'IRN', '98'),
+('Irak', 'IRQ', '964'),
+('Islandia', 'ISL', '354'),
+('Israel', 'ISR', '972'),
+('Italia', 'ITA', '39'),
+('Jamaica', 'JAM', '1 876'),
+('Jersey', 'JEY', '44'),
+('Jordania', 'JOR', '962'),
+('Japon', 'JPN', '81'),
+('Kazajistan', 'KAZ', '7'),
+('Kenia', 'KEN', '254'),
+('Kirguistan', 'KGZ', '996'),
+('Camboya', 'KHM', '855'),
+('Kiribati', 'KIR', '686'),
+('San Cristobal y Nieves', 'KNA', '1 869'),
+('Corea del Sur', 'KOR', '82'),
+('Kuwait', 'KWT', '965'),
+('Laos', 'LAO', '856'),
+('Libano', 'LBN', '961'),
+('Liberia', 'LBR', '231'),
+('Libia', 'LBY', '218'),
+('Santa Lucia', 'LCA', '1 758'),
+('Liechtenstein', 'LIE', '423'),
+('Sri Lanka', 'LKA', '94'),
+('Lesoto', 'LSO', '266'),
+('Lituania', 'LTU', '370'),
+('Luxemburgo', 'LUX', '352'),
+('Letonia', 'LVA', '371'),
+('Macao', 'MAC', '853'),
+('San Martin (Francia)', 'MAF', '1 599'),
+('Marruecos', 'MAR', '212'),
+('Monaco', 'MCO', '377'),
+('Moldavia', 'MDA', '373'),
+('Madagascar', 'MDG', '261'),
+('Islas Maldivas', 'MDV', '960'),
+('Mexico', 'MEX', '52'),
+('Islas Marshall', 'MHL', '692'),
+('Macedonia', 'MKD', '389'),
+('Mali', 'MLI', '223'),
+('Malta', 'MLT', '356'),
+('Birmania', 'MMR', '95'),
+('Montenegro', 'MNE', '382'),
+('Mongolia', 'MNG', '976'),
+('Islas Marianas del Norte', 'MNP', '1 670'),
+('Mozambique', 'MOZ', '258'),
+('Mauritania', 'MRT', '222'),
+('Montserrat', 'MSR', '1 664'),
+('Martinica', 'MTQ', '596'),
+('Mauricio', 'MUS', '230'),
+('Malawi', 'MWI', '265'),
+('Malasia', 'MYS', '60'),
+('Mayotte', 'MYT', '262'),
+('Namibia', 'NAM', '264'),
+('Nueva Caledonia', 'NCL', '687'),
+('Niger', 'NER', '227'),
+('Isla Norfolk', 'NFK', '672'),
+('Nigeria', 'NGA', '234'),
+('Nicaragua', 'NIC', '505'),
+('Niue', 'NIU', '683'),
+('Paises Bajos', 'NLD', '31'),
+('Noruega', 'NOR', '47'),
+('Nepal', 'NPL', '977'),
+('Nauru', 'NRU', '674'),
+('Nueva Zelanda', 'NZL', '64'),
+('Oman', 'OMN', '968'),
+('Pakistan', 'PAK', '92'),
+('Panama', 'PAN', '507'),
+('Islas Pitcairn', 'PCN', '870'),
+('Peru', 'PER', '51'),
+('Filipinas', 'PHL', '63'),
+('Palau', 'PLW', '680'),
+('Papua Nueva Guinea', 'PNG', '675'),
+('Polonia', 'POL', '48'),
+('Puerto Rico', 'PRI', '1'),
+('Corea del Norte', 'PRK', '850'),
+('Portugal', 'PRT', '351'),
+('Paraguay', 'PRY', '595'),
+('Palestina', 'PSE', '970'),
+('Polinesia Francesa', 'PYF', '689'),
+('Qatar', 'QAT', '974'),
+('Reunion', 'REU', '262'),
+('Rumania', 'ROU', '40'),
+('Rusia', 'RUS', '7'),
+('Ruanda', 'RWA', '250'),
+('Arabia Saudita', 'SAU', '966'),
+('Sudan', 'SDN', '249'),
+('Senegal', 'SEN', '221'),
+('Singapur', 'SGP', '65'),
+('Islas Georgias del Sur y Sandwich del Sur', 'SGS', '500'),
+('Santa Elena', 'SHN', '290'),
+('Svalbard y Jan Mayen', 'SJM', '47'),
+('Islas Salomon', 'SLB', '677'),
+('Sierra Leona', 'SLE', '232'),
+('El Salvador', 'SLV', '503'),
+('San Marino', 'SMR', '378'),
+('Sint Maarten', 'SMX', '1 721'),
+('Somalia', 'SOM', '252'),
+('San Pedro y Miquelon', 'SPM', '508'),
+('Serbia', 'SRB', '381'),
+('Republica de Sudan del Sur', 'SSD', '211'),
+('Santo Tome y Principe', 'STP', '239'),
+('Surinam', 'SUR', '597'),
+('Eslovaquia', 'SVK', '421'),
+('Eslovenia', 'SVN', '386'),
+('Suecia', 'SWE', '46'),
+('Swazilandia', 'SWZ', '268'),
+('Seychelles', 'SYC', '248'),
+('Siria', 'SYR', '963'),
+('Islas Turcas y Caicos', 'TCA', '1 649'),
+('Chad', 'TCD', '235'),
+('Togo', 'TGO', '228'),
+('Tailandia', 'THA', '66'),
+('Tayikistan', 'TJK', '992'),
+('Tokelau', 'TKL', '690'),
+('Turkmenistan', 'TKM', '993'),
+('Timor Oriental', 'TLS', '670'),
+('Tonga', 'TON', '676'),
+('Trinidad y Tobago', 'TTO', '1 868'),
+('Tunez', 'TUN', '216'),
+('Turquia', 'TUR', '90'),
+('Tuvalu', 'TUV', '688'),
+('Taiwan', 'TWN', '886'),
+('Tanzania', 'TZA', '255'),
+('Uganda', 'UGA', '256'),
+('Ucrania', 'UKR', '380'),
+('Islas Ultramarinas Menores de Estados Unidos', 'UMI', '246'),
+('Uruguay', 'URY', '598'),
+('Estados Unidos de America', 'USA', '1'),
+('Uzbekistan', 'UZB', '998'),
+('Ciudad del Vaticano', 'VAT', '39'),
+('San Vicente y las Granadinas', 'VCT', '1 784'),
+('Venezuela', 'VEN', '58'),
+('Islas Virgenes Britanicas', 'VGB', '1 284'),
+('Islas Virgenes de los Estados Unidos', 'VIR', '1 340'),
+('Vietnam', 'VNM', '84'),
+('Vanuatu', 'VUT', '678'),
+('Wallis y Futuna', 'WLF', '681'),
+('Samoa', 'WSM', '685'),
+('Yemen', 'YEM', '967'),
+('Sudafrica', 'ZAF', '27'),
+('Zambia', 'ZMB', '260'),
+('Zimbabue', 'ZWE', '263');
 
 -- --------------------------------------------------------
 
@@ -5377,24 +5537,18 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `user_id`, `tercero_id`, `comentario`, `contacto_id`, `estado`, `created_at`, `updated_at`) VALUES
-(3, 1, 1, NULL, 1, 'Costeo', '2023-07-15 15:02:46', '2023-07-15 17:59:01'),
-(4, 1, 5, NULL, 4, 'Costeo', '2023-07-15 15:32:34', '2023-07-15 17:59:14'),
-(6, 1, 1, NULL, 1, 'Costeo', '2023-07-15 18:04:55', '2023-07-15 18:06:16'),
-(7, 1, 5, NULL, 4, 'Nuevo', '2023-07-15 18:08:59', '2023-07-15 18:08:59'),
-(8, 1, 1, NULL, 1, 'Nuevo', '2023-07-15 18:12:22', '2023-07-15 18:12:22'),
-(9, 1, 5, NULL, 4, 'Nuevo', '2023-07-15 18:15:55', '2023-07-15 18:15:55'),
-(10, 1, 5, NULL, 4, 'Nuevo', '2023-07-15 18:16:24', '2023-07-15 18:16:24'),
-(11, 1, 1, NULL, 1, 'Costeo', '2023-07-15 18:19:28', '2023-07-15 23:34:47'),
-(12, 1, 1, NULL, 1, 'Costeo', '2023-07-15 18:20:59', '2023-07-15 18:44:58'),
-(13, 1, 5, NULL, 4, 'Costeo', '2023-07-15 18:24:42', '2023-07-15 18:44:11'),
-(14, 1, 1, NULL, 1, 'Costeo', '2023-07-15 18:34:46', '2023-07-15 18:35:39'),
-(15, 1, 1, 'Comentario de pedido', 1, 'Nuevo', '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(17, 1, 5, NULL, 4, 'Costeo', '2023-07-15 23:40:02', '2023-07-16 00:02:51'),
-(18, 1, 1, NULL, 1, 'Costeo', '2023-07-16 00:36:50', '2023-07-16 00:39:19'),
-(19, 1, 1, NULL, 1, 'Nuevo', '2023-07-23 15:56:35', '2023-07-23 15:56:35'),
-(20, 1, 1, NULL, 1, 'Nuevo', '2023-07-23 15:58:10', '2023-07-23 15:58:10'),
-(21, 1, 5, NULL, 4, 'Costeo', '2023-08-07 19:58:03', '2023-08-07 19:58:18'),
-(22, 1, 1, NULL, 1, 'Costeo', '2023-08-07 20:15:37', '2023-08-07 20:16:22');
+(1, 1, 1, NULL, 1, 'Costeo', '2023-09-02 15:48:50', '2023-09-02 21:12:32'),
+(2, 1, 5, NULL, NULL, 'Costeo', '2023-09-02 15:52:28', '2023-09-02 15:52:48'),
+(3, 1, 1, NULL, 1, 'Costeo', '2023-09-05 03:26:20', '2023-09-05 03:27:41'),
+(4, 1, 1, NULL, 2, 'Costeo', '2023-09-05 03:50:49', '2023-09-05 03:51:11'),
+(5, 1, 1, NULL, 2, 'Costeo', '2023-09-05 03:57:47', '2023-09-05 03:58:05'),
+(6, 1, 1, NULL, 1, 'Costeo', '2023-09-05 04:02:51', '2023-09-05 04:03:11'),
+(7, 1, 1, NULL, 2, 'Costeo', '2023-09-09 17:18:35', '2023-09-09 17:19:10'),
+(8, 1, 1, NULL, 1, 'Costeo', '2023-09-11 02:24:40', '2023-09-11 02:24:59'),
+(9, 1, 1, NULL, 1, 'Nuevo', '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
+(10, 1, 1, NULL, 2, 'Nuevo', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(11, 1, 1, NULL, 2, 'Costeo', '2023-09-14 02:53:44', '2023-09-14 02:54:49'),
+(12, 1, 5, NULL, NULL, 'Costeo', '2023-09-14 02:56:24', '2023-09-14 02:56:31');
 
 -- --------------------------------------------------------
 
@@ -5415,25 +5569,61 @@ CREATE TABLE `pedidos_articulos_temporales` (
 --
 
 INSERT INTO `pedidos_articulos_temporales` (`id`, `pedido_id`, `articulo_temporal_id`, `created_at`, `updated_at`) VALUES
-(29, 3, 44, '2023-07-15 17:59:01', '2023-07-15 17:59:01'),
-(30, 4, 45, '2023-07-15 17:59:15', '2023-07-15 17:59:15'),
-(31, 4, 46, '2023-07-15 17:59:15', '2023-07-15 17:59:15'),
-(32, 4, 47, '2023-07-15 17:59:15', '2023-07-15 17:59:15'),
-(34, 6, 49, '2023-07-15 18:06:16', '2023-07-15 18:06:16'),
-(35, 7, 50, '2023-07-15 18:08:59', '2023-07-15 18:08:59'),
-(36, 8, 51, '2023-07-15 18:12:22', '2023-07-15 18:12:22'),
-(37, 9, 52, '2023-07-15 18:15:55', '2023-07-15 18:15:55'),
-(38, 10, 53, '2023-07-15 18:16:24', '2023-07-15 18:16:24'),
-(43, 14, 58, '2023-07-15 18:35:40', '2023-07-15 18:35:40'),
-(44, 13, 59, '2023-07-15 18:44:11', '2023-07-15 18:44:11'),
-(45, 12, 60, '2023-07-15 18:44:58', '2023-07-15 18:44:58'),
-(46, 11, 61, '2023-07-15 23:34:47', '2023-07-15 23:34:47'),
-(47, 15, 62, '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(48, 15, 63, '2023-07-15 23:38:17', '2023-07-15 23:38:17'),
-(51, 17, 66, '2023-07-16 00:02:51', '2023-07-16 00:02:51'),
-(53, 18, 68, '2023-07-16 00:39:19', '2023-07-16 00:39:19'),
-(54, 20, 69, '2023-07-23 15:58:10', '2023-07-23 15:58:10'),
-(56, 21, 71, '2023-08-07 19:58:18', '2023-08-07 19:58:18');
+(1, 10, 1, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
+(3, 11, 3, '2023-09-14 02:54:49', '2023-09-14 02:54:49');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido_marca`
+--
+
+CREATE TABLE `pedido_marca` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `marca_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedido_marca`
+--
+
+INSERT INTO `pedido_marca` (`id`, `pedido_id`, `marca_id`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, NULL, NULL),
+(2, 1, 2, NULL, NULL),
+(3, 1, 2, NULL, NULL),
+(4, 3, 1, NULL, NULL),
+(5, 4, 1, NULL, NULL),
+(6, 5, 1, NULL, NULL),
+(7, 6, 1, NULL, NULL),
+(8, 7, 1, NULL, NULL),
+(9, 8, 1, NULL, NULL),
+(10, 11, 2, NULL, NULL),
+(11, 12, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido_sistema`
+--
+
+CREATE TABLE `pedido_sistema` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pedido_id` bigint(20) UNSIGNED NOT NULL,
+  `sistema_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedido_sistema`
+--
+
+INSERT INTO `pedido_sistema` (`id`, `pedido_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
+(1, 8, 3, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
+(2, 12, 3, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
 
 -- --------------------------------------------------------
 
@@ -5477,6 +5667,32 @@ CREATE TABLE `referencias_articulos` (
   `articulo_id` bigint(20) NOT NULL,
   `referencia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion_suplencia`
+--
+
+CREATE TABLE `relacion_suplencia` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `articulo_id` bigint(20) UNSIGNED NOT NULL,
+  `suplido_por_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `relacion_suplencia`
+--
+
+INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `created_at`, `updated_at`) VALUES
+(12, 4, 6, '2023-09-11 02:03:04', '2023-09-11 02:03:04'),
+(15, 42, 37, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
+(16, 42, 39, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
+(17, 41, 4, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
+(18, 41, 8, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
+(22, 43, 7, '2023-09-11 02:12:16', '2023-09-11 02:12:16');
 
 -- --------------------------------------------------------
 
@@ -5537,14 +5753,16 @@ CREATE TABLE `terceros` (
 --
 
 INSERT INTO `terceros` (`id`, `nombre`, `tipo_documento`, `numero_documento`, `direccion`, `telefono`, `email`, `dv`, `CiudadID`, `PaisCodigo`, `codigo_postal`, `estado`, `forma_pago`, `email_factura_electronica`, `rut`, `certificacion_bancaria`, `camara_comercio`, `cedula_representante_legal`, `sitio_web`, `puntos`, `created_at`, `updated_at`, `tipo`, `Indicativo`) VALUES
-(1, 'Carlos Osorio', 'CC', '3456778', 'Dirección', '6578676', 'carlos.osorio@gmail.com', NULL, NULL, NULL, NULL, 'activo', NULL, 'facturacion@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-24 14:49:23', '2023-08-07 20:08:04', 'Cliente', '+57'),
-(5, 'maira perez', 'CC', '545345', 'asdf', '3016490698', 'w@q', NULL, NULL, NULL, NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-08 18:21:31', '2023-08-07 02:02:22', 'Cliente', '+57'),
-(6, 'Proveedor nacional 1', 'NIT', '123', 'asdf', '6578676', 'wilfranr@gmail.com', '4', NULL, NULL, NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:33:52', '2023-08-06 12:27:49', 'Proveedor', '+57'),
+(1, 'Carlos Osorio', 'CC', '3456778', 'Dirección123', '6578676', 'carlos.osorio@gmail.com', NULL, 2260, 'COL', NULL, 'activo', NULL, 'facturacion@gmail.com', 'rut/pa5Rt6aYqLGxjKwE32OdNchA0YbCtbTlQI7ikhtr.pdf', 'certificacion_bancaria/rjKMgdUjFgXf2IAIR4irQUZkoKcOrb5L3IjE15EJ.pdf', 'camara_comercio/icHeP6kG611d2CdH713Rf16XC0WlwLbZUo36awOA.pdf', 'cedula_representante_legal/nRSjhGNvE0uFjfJ1oahdd6hkJGysLcEY6lyyKtMy.pdf', NULL, NULL, '2023-06-24 14:49:23', '2023-08-21 23:56:11', 'Cliente', '+57'),
+(5, 'Maira Perez', 'CC', '545345', 'asdf', '3016490698', 'w@q', NULL, 2260, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-08 18:21:31', '2023-08-12 14:39:32', 'Cliente', '+57'),
+(6, 'Proveedor nacional 1', 'NIT', '123', 'asdf', '6578676', 'wilfranr@gmail.com', '4', 2260, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:33:52', '2023-08-06 12:27:49', 'Proveedor', '+57'),
 (9, 'Proveedor internacional 1', 'NIT', '645645', 'asdf', '6578676', 'w@q', '3', 2515, 'MEX', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:38:13', '2023-07-15 16:38:13', 'Proveedor', '+57'),
-(10, 'Proveedor internacional 2', 'NIT', '645645', 'asdf', '6578676', 'w@q', '3', NULL, NULL, NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:39:04', '2023-08-05 21:12:14', 'Proveedor', '+57'),
+(10, 'Proveedor internacional 2', 'NIT', '645645', 'asdf', '6578676', 'w@q', '3', 2515, 'MEX', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:39:04', '2023-08-05 21:12:14', 'Proveedor', '+57'),
 (11, 'Proveedor nacional 2', 'NIT', '657677', 'asdf', '6578676', 'w@q', '3', 2260, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:39:36', '2023-07-15 16:39:36', 'Proveedor', '+57'),
 (12, 'Proveedor Nacional 3', 'NIT', '98797987', 'asdf', '6578676', 'w@q', '5', 2257, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:41:52', '2023-07-15 16:41:52', 'Proveedor', '+57'),
-(13, 'proveedor internacional 3', 'CE', '7865765756', 'asdf', '6578676', 'w@q', NULL, 653, 'ESP', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:42:53', '2023-07-15 16:42:53', 'Proveedor', '+57');
+(13, 'proveedor internacional 3', 'CE', '7865765756', 'asdf', '6578676', 'w@q', NULL, 653, 'ESP', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:42:53', '2023-07-15 16:42:53', 'Proveedor', '+57'),
+(72, 'Proveedor Perkins', 'CC', '6456546456', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-08-21 11:03:33', '2023-08-21 11:03:33', 'Proveedor', '+57'),
+(73, 'cliente con marca', 'CC', '80896995', 'Counting objects: 100% (439/439), done.', '6578676', 'wilfranr@gmail.com', NULL, 3173, 'SAU', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'www.provvedor.com', NULL, '2023-08-26 20:38:15', '2023-08-26 20:38:15', 'Cliente', '+57');
 
 -- --------------------------------------------------------
 
@@ -5579,9 +5797,13 @@ CREATE TABLE `tercero_maquina` (
 --
 
 INSERT INTO `tercero_maquina` (`id`, `tercero_id`, `maquina_id`, `created_at`, `updated_at`) VALUES
-(3, 5, 2, NULL, NULL),
-(4, 5, 3, NULL, NULL),
-(8, 1, 2, NULL, NULL);
+(19, 1, 17, NULL, NULL),
+(20, 5, 15, NULL, NULL),
+(21, 5, 16, NULL, NULL),
+(22, 73, 15, NULL, NULL),
+(23, 73, 16, NULL, NULL),
+(24, 73, 17, NULL, NULL),
+(25, 1, 16, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5601,6 +5823,7 @@ CREATE TABLE `tercero_marca` (
 --
 
 INSERT INTO `tercero_marca` (`tercero_id`, `marca_id`, `created_at`, `updated_at`) VALUES
+(1, 15, NULL, NULL),
 (6, 1, NULL, NULL),
 (6, 2, NULL, NULL),
 (9, 2, NULL, NULL),
@@ -5609,7 +5832,8 @@ INSERT INTO `tercero_marca` (`tercero_id`, `marca_id`, `created_at`, `updated_at
 (11, 1, NULL, NULL),
 (11, 3, NULL, NULL),
 (12, 1, NULL, NULL),
-(13, 3, NULL, NULL);
+(13, 3, NULL, NULL),
+(72, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5631,6 +5855,26 @@ CREATE TABLE `tercero_sistema` (
 
 INSERT INTO `tercero_sistema` (`id`, `tercero_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
 (25, 10, 3, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `trm`
+--
+
+CREATE TABLE `trm` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `trm` double(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `trm`
+--
+
+INSERT INTO `trm` (`id`, `trm`, `created_at`, `updated_at`) VALUES
+(1, 3900.00, NULL, '2023-09-14 02:11:22');
 
 -- --------------------------------------------------------
 
@@ -5657,7 +5901,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `email`, `email_verified_at`, `role`, `foto`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Yoseth Rivera', '3137038949', 'wilfranr@gmail.com', NULL, 'superadmin', 'user1-128x128.jpg', '$2y$10$uCj6u2QsheieL8U2GyXc/u27B5BOVBuvnDGjGB130W5LUp6gfv.LK', 'UrjqKpxs8PtH5GDZqSUQjceN1g3OYPfG01E7RW4BrmtWcgicXYLXeT71Bh99', '2023-06-19 13:46:04', '2023-06-19 13:46:04'),
+(1, 'Yoseth Rivera', '3137038949', 'wilfranr@gmail.com', NULL, 'superadmin', 'user1-128x128.jpg', '$2y$10$uCj6u2QsheieL8U2GyXc/u27B5BOVBuvnDGjGB130W5LUp6gfv.LK', 'AfzQwsASvZXogFYiAMxfs70ldbAdo2tPuzKvjBwMHlxox2hNF2rqUJH5SzAf', '2023-06-19 13:46:04', '2023-06-19 13:46:04'),
 (3, 'Maira Perez', '3137038949', 'm@q.com', NULL, 'admin', 'user3-128x128.jpg', '$2y$10$etQHot3WhyNT.da5I0EIEOdUL9KKOgRwpk.TB7YDe82RU1ZXo9g6y', NULL, '2023-06-28 03:45:53', '2023-06-28 03:45:53'),
 (4, 'Analista de partes', '3137038949', 'analista@ejemplo.com', NULL, 'partes', 'user4-128x128.jpg', '$2y$10$RMo1vLBppgxsjkhYW2pm4.Pupth.sYv5LOFAklLKWGySugRcYIj/O', NULL, '2023-07-01 17:34:45', '2023-07-01 17:34:45'),
 (5, 'Vendedor', '3137038949', 'vendedor@ejemplo.com', NULL, 'vendedor', 'user7-128x128.jpg', '$2y$10$4kZaNzrbcHv37tnBDeVWieohTFpRfEQ8SiaEZXD0vhJ8aMkLqxFfG', NULL, '2023-07-01 18:07:09', '2023-07-01 18:07:09'),
@@ -5676,6 +5920,14 @@ INSERT INTO `users` (`id`, `name`, `phone`, `email`, `email_verified_at`, `role`
 --
 ALTER TABLE `articulos`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `articulos_juegos`
+--
+ALTER TABLE `articulos_juegos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `articulos_juegos_articulo_id_foreign` (`articulo_id`),
+  ADD KEY `articulos_juegos_juego_por_id_foreign` (`juego_por_id`);
 
 --
 -- Indices de la tabla `articulo_medida`
@@ -5725,11 +5977,33 @@ ALTER TABLE `contacto_tercero`
   ADD KEY `contacto_tercero_tercero_id_foreign` (`tercero_id`);
 
 --
+-- Indices de la tabla `cotizaciones`
+--
+ALTER TABLE `cotizaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cotizaciones_pedido_id_foreign` (`pedido_id`),
+  ADD KEY `cotizaciones_tercero_id_foreign` (`tercero_id`);
+
+--
+-- Indices de la tabla `cotizacion_pedido`
+--
+ALTER TABLE `cotizacion_pedido`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cotizacion_pedido_cotizacion_id_foreign` (`cotizacion_id`),
+  ADD KEY `cotizacion_pedido_pedido_id_foreign` (`pedido_id`);
+
+--
 -- Indices de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `departamentos_pais_id_foreign` (`pais_id`);
+
+--
+-- Indices de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -5792,6 +6066,13 @@ ALTER TABLE `maquina_articulo`
   ADD KEY `maquina_articulo_articulo_id_foreign` (`articulo_id`);
 
 --
+-- Indices de la tabla `maquina_marca`
+--
+ALTER TABLE `maquina_marca`
+  ADD PRIMARY KEY (`maquina_id`,`marca_id`),
+  ADD KEY `maquina_marca_marca_id_foreign` (`marca_id`);
+
+--
 -- Indices de la tabla `marcas`
 --
 ALTER TABLE `marcas`
@@ -5842,6 +6123,22 @@ ALTER TABLE `pedidos_articulos_temporales`
   ADD KEY `pedidos_articulos_temporales_articulo_temporal_id_foreign` (`articulo_temporal_id`);
 
 --
+-- Indices de la tabla `pedido_marca`
+--
+ALTER TABLE `pedido_marca`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedido_marca_pedido_id_foreign` (`pedido_id`),
+  ADD KEY `pedido_marca_marca_id_foreign` (`marca_id`);
+
+--
+-- Indices de la tabla `pedido_sistema`
+--
+ALTER TABLE `pedido_sistema`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedido_sistema_pedido_id_foreign` (`pedido_id`),
+  ADD KEY `pedido_sistema_sistema_id_foreign` (`sistema_id`);
+
+--
 -- Indices de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
@@ -5863,6 +6160,14 @@ ALTER TABLE `referencias_articulos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `referencia` (`referencia_id`),
   ADD KEY `articulo_id` (`articulo_id`) USING BTREE;
+
+--
+-- Indices de la tabla `relacion_suplencia`
+--
+ALTER TABLE `relacion_suplencia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `relacion_suplencia_articulo_id_foreign` (`articulo_id`),
+  ADD KEY `relacion_suplencia_suplido_por_id_foreign` (`suplido_por_id`);
 
 --
 -- Indices de la tabla `sistemas`
@@ -5906,6 +6211,12 @@ ALTER TABLE `tercero_sistema`
   ADD KEY `terceros_sistemas_sistema_id_foreign` (`sistema_id`);
 
 --
+-- Indices de la tabla `trm`
+--
+ALTER TABLE `trm`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -5920,19 +6231,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT de la tabla `articulos_juegos`
+--
+ALTER TABLE `articulos_juegos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_medida`
 --
 ALTER TABLE `articulo_medida`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_temporal`
 --
 ALTER TABLE `articulo_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudades`
@@ -5953,10 +6270,28 @@ ALTER TABLE `contacto_tercero`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT de la tabla `cotizaciones`
+--
+ALTER TABLE `cotizaciones`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `cotizacion_pedido`
+--
+ALTER TABLE `cotizacion_pedido`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -5968,7 +6303,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `fotos_articulo_temporal`
 --
 ALTER TABLE `fotos_articulo_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `foto_articulo`
@@ -5986,7 +6321,7 @@ ALTER TABLE `imagenes_articulo`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_padres`
@@ -5998,13 +6333,13 @@ ALTER TABLE `lista_padres`
 -- AUTO_INCREMENT de la tabla `maquinas`
 --
 ALTER TABLE `maquinas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas_pedido`
 --
 ALTER TABLE `maquinas_pedido`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `maquina_articulo`
@@ -6016,19 +6351,19 @@ ALTER TABLE `maquina_articulo`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `medidas`
 --
 ALTER TABLE `medidas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
@@ -6040,13 +6375,25 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_articulos_temporales`
 --
 ALTER TABLE `pedidos_articulos_temporales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido_marca`
+--
+ALTER TABLE `pedido_marca`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido_sistema`
+--
+ALTER TABLE `pedido_sistema`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -6067,6 +6414,12 @@ ALTER TABLE `referencias_articulos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `relacion_suplencia`
+--
+ALTER TABLE `relacion_suplencia`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT de la tabla `sistemas`
 --
 ALTER TABLE `sistemas`
@@ -6076,7 +6429,7 @@ ALTER TABLE `sistemas`
 -- AUTO_INCREMENT de la tabla `terceros`
 --
 ALTER TABLE `terceros`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `terceros_sistemas`
@@ -6088,13 +6441,19 @@ ALTER TABLE `terceros_sistemas`
 -- AUTO_INCREMENT de la tabla `tercero_maquina`
 --
 ALTER TABLE `tercero_maquina`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `tercero_sistema`
 --
 ALTER TABLE `tercero_sistema`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de la tabla `trm`
+--
+ALTER TABLE `trm`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -6105,6 +6464,13 @@ ALTER TABLE `users`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `articulos_juegos`
+--
+ALTER TABLE `articulos_juegos`
+  ADD CONSTRAINT `articulos_juegos_articulo_id_foreign` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+  ADD CONSTRAINT `articulos_juegos_juego_por_id_foreign` FOREIGN KEY (`juego_por_id`) REFERENCES `articulos` (`id`);
 
 --
 -- Filtros para la tabla `articulo_medida`
@@ -6126,6 +6492,20 @@ ALTER TABLE `articulo_pedido`
 ALTER TABLE `contacto_tercero`
   ADD CONSTRAINT `contacto_tercero_contacto_id_foreign` FOREIGN KEY (`contacto_id`) REFERENCES `contactos` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `contacto_tercero_tercero_id_foreign` FOREIGN KEY (`tercero_id`) REFERENCES `terceros` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `cotizaciones`
+--
+ALTER TABLE `cotizaciones`
+  ADD CONSTRAINT `cotizaciones_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`),
+  ADD CONSTRAINT `cotizaciones_tercero_id_foreign` FOREIGN KEY (`tercero_id`) REFERENCES `terceros` (`id`);
+
+--
+-- Filtros para la tabla `cotizacion_pedido`
+--
+ALTER TABLE `cotizacion_pedido`
+  ADD CONSTRAINT `cotizacion_pedido_cotizacion_id_foreign` FOREIGN KEY (`cotizacion_id`) REFERENCES `cotizaciones` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cotizacion_pedido_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `departamentos`
@@ -6154,11 +6534,39 @@ ALTER TABLE `maquina_articulo`
   ADD CONSTRAINT `maquina_articulo_maquina_id_foreign` FOREIGN KEY (`maquina_id`) REFERENCES `maquinas` (`id`) ON DELETE CASCADE;
 
 --
+-- Filtros para la tabla `maquina_marca`
+--
+ALTER TABLE `maquina_marca`
+  ADD CONSTRAINT `maquina_marca_maquina_id_foreign` FOREIGN KEY (`maquina_id`) REFERENCES `maquinas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `maquina_marca_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `pedidos_articulos_temporales`
 --
 ALTER TABLE `pedidos_articulos_temporales`
   ADD CONSTRAINT `pedidos_articulos_temporales_articulo_temporal_id_foreign` FOREIGN KEY (`articulo_temporal_id`) REFERENCES `articulo_temporal` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pedidos_articulos_temporales_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `pedido_marca`
+--
+ALTER TABLE `pedido_marca`
+  ADD CONSTRAINT `pedido_marca_marca_id_foreign` FOREIGN KEY (`marca_id`) REFERENCES `marcas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pedido_marca_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `pedido_sistema`
+--
+ALTER TABLE `pedido_sistema`
+  ADD CONSTRAINT `pedido_sistema_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pedido_sistema_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `relacion_suplencia`
+--
+ALTER TABLE `relacion_suplencia`
+  ADD CONSTRAINT `relacion_suplencia_articulo_id_foreign` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+  ADD CONSTRAINT `relacion_suplencia_suplido_por_id_foreign` FOREIGN KEY (`suplido_por_id`) REFERENCES `articulos` (`id`);
 
 --
 -- Filtros para la tabla `tercero_maquina`
