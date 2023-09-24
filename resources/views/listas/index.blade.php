@@ -32,7 +32,7 @@
                                     <th style="width: 30%">Definicion</th>
                                     <th>Foto</th>
                                     <th>Creación</th>
-                                    <th>Acciones</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>

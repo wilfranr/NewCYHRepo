@@ -6,6 +6,7 @@ use App\Models\Lista;
 use Illuminate\Http\Request;
 use App\Models\ListaPadre;
 use App\Models\Marca;
+use App\Models\Sistemas;
 
 
 
@@ -60,6 +61,13 @@ class ListaController extends Controller
             $marca = new Marca;
             $marca->nombre = $request->nombre;
             $marca->save();
+        }
+
+        //si viene tipo = sistema, entonces se debe crear un registro en la tabla sistemas
+        if ($request->tipo == 'Sistema') {
+            $sistema = new Sistemas;
+            $sistema->nombre = $request->nombre;
+            $sistema->save();
         }
 
         return redirect()->route('listas.index')->with('success', 'La lista ha sido creada exitosamente.');
