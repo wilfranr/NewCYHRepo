@@ -194,6 +194,7 @@
                         <thead class="table-dark">
                             <tr>
                                 <th style="width: 45%;">Referencia</th>
+                                <th style="width: 25%;">Sistema</th>
                                 <th style="width: 10%;">Cantidad</th>
                                 <th style="width: 30%;">Comentarios</th>
                                 <th style="width: 10%;">Imágen</th>
@@ -206,6 +207,16 @@
                                         <input type="text" value="{{ $articulo->referencia }}" class="form-control"
                                             name="referencia{{ $index + 1 }}" disabled>
                                     </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
+                                        <input type="text" value="{{ $articulo->sistemas[0]->nombre }}" class="form-control" name="sistema{{ $index + 1 }}" disabled>
+                                        @else
+                                        <input type="text" value="N/A" class="form-control" name="sistema{{ $index + 1 }}" disabled>
+                                        @endif
+                                    </div>
+                                    
                                 </td>
                                 <td>
                                     <input type="number" class="form-control" name="cantidad{{ $index + 1 }}"
@@ -226,7 +237,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    {{-- Proveedores naciones --}}
+                    {{-- Proveedores nacionales --}}
                     <div class="card bg-gradient-light">
                         <div class="card-header border-0">
                             <h3 class="card-title text-uppercase">
@@ -416,7 +427,7 @@
                                                 {{-- Utilidad --}}
                                                 <input type="text" class="form-control utilidad-internacional"
                                                     name="proveedoresInternacionales[{{ $index }}][utilidad]"
-                                                    value="" data-index="{{ $index }}">
+                                                    value="" data-index="{{ $index }}" placeholder="7% Sugerida">
                                             </td>
                                             {{-- Precio de venta --}}
                                             <input type="hidden" class="form-control"

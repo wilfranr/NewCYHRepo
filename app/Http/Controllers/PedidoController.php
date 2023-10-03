@@ -104,11 +104,17 @@ class PedidoController extends Controller
                 $articuloTemporal = new ArticuloTemporal();
                 $articuloTemporal->referencia = $request->input("referencia{$i}");
                 $articuloTemporal->definicion = $request->input("definicion{$i}");
-                $articuloTemporal->sistema = $request->input("sistema{$i}");
                 $articuloTemporal->cantidad = $request->input("cantidad{$i}");
                 $articuloTemporal->comentarios = $request->input("comentarios{$i}");
 
                 $articuloTemporal->save();
+
+                //Si vienen sistemas
+ 
+                if ($request->input("sistema{$i}") != null) {
+                    // Asociar el sistema al artículo temporal
+                    $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
+                }
 
                 // Obtener las fotos del formulario
                 $fotos = $request->file("fotos{$i}");
@@ -136,20 +142,31 @@ class PedidoController extends Controller
                 $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
                 // dd($articulo);
                 $pedido->articulos()->attach($articulo->id);
-                //guuardar cantidad en tabla pivot
+                //guardar cantidad en tabla pivot
                 $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
-            }
 
-            // Asociar el sistema al pedido
-            $pedido->sistemas()->attach($request->input("sistema{$i}"));
+                //Si vienen sistemas
+                if ($request->input("sistema{$i}") != null) {
+                    // Asociar el sistema al artículo 
+                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
+                }
+            }
         }
-        return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
+        return redirect()->route('pedidos.index')->with('success!!', 'Pedido creado exitosamente.');
     }
 
     public function show(Pedido $pedido, $id)
     {
         // Obtener el pedido con sus relaciones
-        $pedido = Pedido::with(['tercero', 'contacto', 'maquinas', 'articulosTemporales.fotosArticuloTemporal', 'articulos'])->find($id);
+        $pedido = Pedido::with([
+            'tercero',
+            'contacto',
+            'maquinas',
+            'articulosTemporales.fotosArticuloTemporal',
+            'articulos',
+            'articulosTemporales.sistemas',
+            'articulos.sistemas'
+        ])->find($id);
 
         //obtener el pedido anterior
         $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
@@ -161,7 +178,7 @@ class PedidoController extends Controller
         //obtener todas las referencias de los articulos
         $referencias = Articulo::all();
 
-        $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
+        $sistemas = Sistemas::all();
         $definiciones = Lista::where('tipo', 'Definición')->pluck('nombre');
 
         // Obtener las definiciones con su respectiva foto de medida
@@ -260,25 +277,43 @@ class PedidoController extends Controller
                 $articuloTemporal->save();
 
                 $articulosTemporales[] = $articuloTemporalId;
-            } else {
-                // Crear un nuevo artículo temporal
-                $articuloTemporal = new ArticuloTemporal();
-                $articuloTemporal->referencia = $request->input("referencia{$i}");
-                $articuloTemporal->definicion = $request->input("definicion{$i}");
-                $articuloTemporal->sistema = $request->input("sistema{$i}");
-                $articuloTemporal->cantidad = $request->input("cantidad{$i}");
-                $articuloTemporal->comentarios = $request->input("comentarios{$i}");
-                $articuloTemporal->save();
 
-                $articulosTemporales[] = $articuloTemporal->id;
+                //Crear relación entre artículo y pedido
+                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+                dd($articulo);
+                $pedido->articulos()->attach($articulo->id);
+                //guardar cantidad en tabla pivot
+                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
+
+                //Si vienen sistemas
+                if ($request->input("sistema{$i}") != null) {
+                    // Asociar el sistema al artículo 
+                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
+                }
+
+            }else{
+                //Crear relación entre artículo y pedido
+                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+                //dd($articulo);
+                $pedido->articulos()->attach($articulo->id);
+                //guardar cantidad en tabla pivot
+                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
+
+                //Si vienen sistemas
+                if ($request->input("sistema{$i}") != null) {
+                    // Asociar el sistema al artículo 
+                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
+                }
             }
         }
 
-        $pedido->articulosTemporales()->sync($articulosTemporales);
+        //$pedido->articulosTemporales()->sync($articulosTemporales);
+        // Asociar el sistema al artículo temporal
+        // $articulo->sistemas()->attach($request->input("sistema{$i}"));
 
         // Redirigir o hacer cualquier otra acción necesaria
         // ...
-        return redirect()->route('pedidos.index', $id)->with('success', 'El pedido ha sido enviado a costeo.');
+        return redirect()->route('pedidos.index', $id)->with('success!!', 'El pedido ha sido enviado a costeo.');
     }
 
     public function costear($id)

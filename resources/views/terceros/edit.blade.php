@@ -249,7 +249,9 @@
                                         <ul>
                                             @foreach ($tercero->marcas as $marcaTercero)
                                                 <li>
-                                                    {{ $marcaTercero->nombre }}
+                                                    <a href="{{ route('marcas.show', $marcaTercero->id) }}">
+                                                        {{ $marcaTercero->nombre }}
+                                                    </a>
                                                 </li>
                                             @endforeach
                                         </ul>

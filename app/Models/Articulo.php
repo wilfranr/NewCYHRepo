@@ -57,4 +57,10 @@ class Articulo extends Model
     {
         return $this->hasMany(JuegoArticulo::class, 'articulo_id');
     }
+
+    //definir relacion uno a muchos con la tabla sistemas_articulos
+    public function sistemas()
+    {
+        return $this->belongsToMany(Sistemas::class, 'sistemas_articulos', 'articulo_id', 'sistema_id')->withTimestamps();
+    }
 }

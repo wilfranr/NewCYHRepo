@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Pedido;
+use App\Models\FotoArticuloTemporal;
+use App\Models\Sistemas;
 
 class ArticuloTemporal extends Model
 {
@@ -41,5 +43,11 @@ class ArticuloTemporal extends Model
     {
         
         return $this->hasMany(FotoArticuloTemporal::class);
+    }
+
+    //define la relacióm muchos a muchos con la tabla sistemas
+    public function sistemas()
+    {
+        return $this->belongsToMany(Sistemas::class, 'sistemas_articulos_temporales', 'articulo_temporal_id', 'sistema_id')->withTimestamps();
     }
 }

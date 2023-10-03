@@ -21,6 +21,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CosteoController;
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\MarcaController;
 
 
 
@@ -88,6 +89,11 @@ Route::get('/maquinas/{id}', [MaquinaController::class, 'show'])->name('maquinas
 Route::get('/maquinas/{id}/edit', [MaquinaController::class, 'edit'])->name('maquinas.edit');
 Route::put('/maquinas/{id}/update', [MaquinaController::class, 'update'])->name('maquinas.update');
 Route::delete('/maquinas/{id}', [MaquinaController::class, 'destroy'])->name('maquinas.destroy');
+
+//rutas marcas
+Route::get('/marcas/{id}', [MarcaController::class, 'show'])->name('marcas.show');
+Route::delete('/marcas/{id}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
+
 
 //ruta listas
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');

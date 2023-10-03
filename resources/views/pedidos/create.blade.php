@@ -239,7 +239,8 @@
                         response.forEach(maquina => {
                             $('#maquina_id').append($('<option>', {
                                 value: maquina.id,
-                                text: maquina.tipo + ' - ' + maquina.modelo + ' - ' + maquina.serie +
+                                text: maquina.tipo + ' - ' + maquina.modelo +
+                                    ' - ' + maquina.serie +
                                     ' - ' + maquina.marca
                             }));
                         });
@@ -358,15 +359,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="sistema">Sistema</label>
-                                <select name="sistema${contadorArticulos}" class="form-control" id="sistema${contadorArticulos}">
+                                <select name="sistema${contadorArticulos}" class="form-control select2" id="sistema${contadorArticulos}">
                                     <option value="">Ninguno</option>
-                                    @foreach ($sistemas as $id => $sistema)
-                                    <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
-                                    @endforeach
+                                        @foreach ($sistemas as $id => $sistema)
+                                            <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -426,6 +428,7 @@
                 allowClear: true,
                 theme: "bootstrap"
             });
+
 
         });
         if ($('#cantidad').val() == '') {

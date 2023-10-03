@@ -137,11 +137,12 @@
                                                     <p>
                                                         @foreach ($maquina->marcas as $marcaMaquina)
                                                             {{ $marcaMaquina->nombre }}
-                                                            <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
-                                                        @endforeach
-                                                               value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
+                                                            <input type="hidden"
+                                                                name="maquinas[{{ $maquina->id }}][marcas][]"
+                                                                @endforeach
+                                                            value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
                                                     </p>
-                                                    
+
                                                     <p>{{ $maquina->modelo }}</p>
                                                 </li>
                                             </ul>
@@ -186,11 +187,10 @@
                             <tr>
                                 <th style="width: 3%">#</th>
                                 <th style="width: 35%;">Referencia--Definición</th>
+                                <th style="width: 25%;">Sistema</th>
                                 <th style="width: 10%;">Cantidad</th>
                                 <th style="width: 30%;">Comentarios</th>
-
                                 <th style="width: 10%;">Imágen</th>
-
                                 <th style="width: 3%;"></th>
                             </tr>
                         </thead>
@@ -217,6 +217,40 @@
                                                         name="definicion{{ $index + 1 }}">
                                                 </select>
                                                 @error('referencia')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
+                                                    <select class="form-control select2" style="width: 100%;"
+                                                        name="sistema{{ $index + 1 }}" required>
+                                                        <option value="{{ $articulo->sistemas[0]->id }}">
+                                                            {{ $articulo->sistemas[0]->nombre }}
+                                                        </option>
+                                                        @foreach ($articulo->sistemas as $sistema)
+                                                            @if ($sistema->id !== $articulo->sistemas[0]->id)
+                                                                <option value="{{ $sistema->id }}">
+                                                                    {{ $sistema->nombre }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <select class="form-control select2" style="width: 100%;"
+                                                        name="sistema{{ $index + 1 }}" required>
+                                                        <option value="">Seleccione un sistema</option>
+                                                        @foreach ($sistemas as $sistema)
+                                                            <option value="{{ $sistema->id }}">
+                                                                {{ $sistema->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                                @error('sistema')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -262,6 +296,7 @@
                                     </tr>
                                 @endforeach
                             @else
+                                {{-- Recorrer los articulos reales --}}
                                 @foreach ($pedido->articulos as $index => $articulo)
                                     <tr>
                                         <td>
@@ -271,7 +306,7 @@
                                         <td>
                                             <div class="d-flex">
                                                 <select class="form-control select2" style="width: 100%;"
-                                                    name="referencia{{ $index + 1 }}">
+                                                    name="referencia{{ $index + 1 }}" required>
                                                     <option value="{{ $articulo->referencia }}">
                                                         {{ $articulo->referencia }}--{{ $articulo->definicion }}
                                                     </option>
@@ -283,6 +318,35 @@
                                                     <input type="hidden" value="{{ $articulo->definicion }}"
                                                         name="definicion{{ $index + 1 }}">
                                                 </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
+                                                    <select class="form-control select2" style="width: 100%;"
+                                                        name="sistema{{ $index + 1 }}" required>
+                                                        <option value="{{ $articulo->sistemas[0]->id }}">
+                                                            {{ $articulo->sistemas[0]->nombre }}
+                                                        </option>
+                                                        @foreach ($articulo->sistemas as $sistema)
+                                                            @if ($sistema->id !== $articulo->sistemas[0]->id)
+                                                                <option value="{{ $sistema->id }}">
+                                                                    {{ $sistema->nombre }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <select class="form-control select2" style="width: 100%;"
+                                                        name="sistema{{ $index + 1 }}" required>
+                                                        <option value="">Seleccione un sistema</option>
+                                                        @foreach ($sistemas as $sistema)
+                                                            <option value="{{ $sistema->id }}">
+                                                                {{ $sistema->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
