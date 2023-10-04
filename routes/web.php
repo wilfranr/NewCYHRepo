@@ -22,12 +22,7 @@ use App\Http\Controllers\CosteoController;
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
-
-
-
-
-
-
+use App\Http\Controllers\SistemaController;
 
 
 /*
@@ -91,9 +86,21 @@ Route::put('/maquinas/{id}/update', [MaquinaController::class, 'update'])->name(
 Route::delete('/maquinas/{id}', [MaquinaController::class, 'destroy'])->name('maquinas.destroy');
 
 //rutas marcas
+Route::get('/marcas', [MarcaController::class, 'index'])->name('marcas.index');
+Route::get('/marcas/create', [MarcaController::class, 'create'])->name('marcas.create');
+Route::post('/marcas', [MarcaController::class, 'store'])->name('marcas.store');
 Route::get('/marcas/{id}', [MarcaController::class, 'show'])->name('marcas.show');
+Route::get('/marcas/{id}/edit', [MarcaController::class, 'edit'])->name('marcas.edit');
+Route::put('/marcas/{id}/update', [MarcaController::class, 'update'])->name('marcas.update');
 Route::delete('/marcas/{id}', [MarcaController::class, 'destroy'])->name('marcas.destroy');
 
+//rutas sistemas
+Route::get('/sistemas', [SistemaController::class, 'index'])->name('sistemas.index');
+Route::get('/sistemas/create', [SistemaController::class, 'create'])->name('sistemas.create');
+Route::post('/sistemas', [SistemaController::class, 'store'])->name('sistemas.store');
+Route::get('/sistemas/{id}/edit', [SistemaController::class, 'edit'])->name('sistemas.edit');
+Route::put('/sistemas/{id}/update', [SistemaController::class, 'update'])->name('sistemas.update');
+Route::delete('/sistemas/{id}', [SistemaController::class, 'destroy'])->name('sistemas.destroy');
 
 //ruta listas
 Route::get('/listas', [ListaController::class, 'index'])->name('listas.index');

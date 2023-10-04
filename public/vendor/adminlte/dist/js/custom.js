@@ -10,7 +10,7 @@ document.getElementById('btnGuardar').style.display = 'none';
 var ruta = window.location.href;
 
 
-if (ruta == 'http://127.0.0.1:8000/listas' || ruta == 'http://127.0.0.1:8000/listasPadre' || ruta == 'http://127.0.0.1:8000/maquinas') {
+if (ruta == 'http://127.0.0.1:8000/listas' || ruta == 'http://127.0.0.1:8000/listasPadre' || ruta == 'http://127.0.0.1:8000/maquinas' || 'http://127.0.0.1:8000/marcas') {
     document.getElementById('btnNuevo').style.display = 'block';
 
     //Abrir modal data-toggle="modal" data-target="#modal-crear"

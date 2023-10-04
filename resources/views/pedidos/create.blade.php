@@ -5,7 +5,7 @@
         <h1>Pedido # {{ $ultimoPedido }}</h1>
         <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-
+            {{-- Botón para crear pedido --}}
             <div class="form-group">
                 {{-- boton para buscar cliente --}}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes"><i
@@ -16,6 +16,8 @@
                 <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
                         class="fas fa-plus"></i>Agregar cliente</a>
             </div>
+
+            {{-- Bloque de datos del cliente --}}
             <div class="row">
                 {{-- Bloque izquierdo --}}
                 <div class="col-md-6">
@@ -75,6 +77,7 @@
 
                 </div>
             </div>
+
             {{-- maquina --}}
             <div class="row" id="maquina">
                 <div class="col-6">
@@ -94,6 +97,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Detalle --}}
             <div class="row" id="div-detalle">
                 <div class="form-group mt-3">
                     <button class="btn btn-outline-primary mb-5" id="boton-agregar-articulo" type="button">
@@ -107,9 +112,8 @@
 
             </div>
 
-
+            {{-- comentarios del pedido --}}
             <div id="comentariosPedido">
-                {{-- comentarios del pedido --}}
                 <label for="comentario">Comentarios del pedido</label>
                 <textarea name="comentario" id="comentario" cols="20" rows="5" class="form-control"></textarea>
 
@@ -137,7 +141,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>No. Documento</th>
-                                <th>direccion</th>
+                                <th>Direccion</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
                                 <th>Seleccionar</th>

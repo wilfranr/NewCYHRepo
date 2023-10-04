@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Marca extends Model
 {
     protected $table = 'marcas';
-    protected $fillable = ['nombre'];
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'imagen'
+    ];
+
 
     // Relación muchos a muchos entre terceros y marcas
     public function terceros()

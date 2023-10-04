@@ -368,6 +368,24 @@ return [
             'text' => 'Maquinas',
             'icon' => 'fas fa-fw fa-cogs',
             'url'  => '/maquinas',
+            'submenu' => [
+                [
+                    'text' => 'Ver Maquinas',
+                    'url'  => '/maquinas',
+                    'icon' => 'fas fa-fw fa-eye',
+                ],
+                [
+                    'text' => 'Ver Marcas',
+                    'url'  => '/marcas',
+                    'icon' => 'fas fa-fw fa-eye',
+                ],
+                [
+                    'text' => 'Ver Sistemas',
+                    'url'  => '/sistemas',
+                    'icon' => 'fas fa-fw fa-eye',
+                ],
+            ],
+            
             
         ],
 

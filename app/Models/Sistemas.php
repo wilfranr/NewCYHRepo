@@ -15,7 +15,11 @@ class Sistemas extends Model
     // Indica la tabla de la base de datos a la que este modelo está asociado.
     protected $table = 'sistemas';
     // Define los campos que pueden ser asignados en masa.  
-    protected $fillable = ['nombre'];
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'imagen'
+    ];
     // Define una relación "muchos a muchos" con el modelo Tercero.
     public function terceros()
     {

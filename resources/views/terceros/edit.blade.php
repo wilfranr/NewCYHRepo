@@ -164,7 +164,7 @@
                             <!-- /.card-body -->
 
                         </div>
-                        {{-- Maquinas asociadas al tercero --}}
+                        {{-- Maquinas o Marcas/Sistemas asociadas al tercero --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-maquinas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-admin-tab">
                             <div class="form-group border border-warning mt-4 p-3">
@@ -237,7 +237,8 @@
                                         <ul>
                                             <li>
                                                 @foreach ($tercero->sistemas as $sistema)
-                                                    {{ $sistema->nombre }}
+                                                <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
+                                                    
                                                 @endforeach
                                             </li>
                                         </ul>
@@ -249,7 +250,7 @@
                                         <ul>
                                             @foreach ($tercero->marcas as $marcaTercero)
                                                 <li>
-                                                    <a href="{{ route('marcas.show', $marcaTercero->id) }}">
+                                                    <a href="{{ route('marcas.edit', $marcaTercero->id) }}">
                                                         {{ $marcaTercero->nombre }}
                                                     </a>
                                                 </li>
