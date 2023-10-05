@@ -59,7 +59,7 @@
                                     'La TRM ha sido actualizada correctamente.',
                                     'success'
                                 )
-                            }, 1000);
+                            }, 1500);
                         }
                     });
                 });

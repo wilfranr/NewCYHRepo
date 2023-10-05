@@ -43,8 +43,11 @@ class PedidoController extends Controller
         $paises = Pais::all();
 
         //obtener maquinas con sus marcas
-        $maquinas = Maquina::with('marcas')->get();
+        $maquinas = Maquina::all();
         // dd($maquinas);
+
+        //obtener el modelo de las máquinas
+        $modelo = Lista::where('tipo', 'Modelo Maquina')->get();
 
         //obtener marcas del tercero
         $marcas = Marca::all();
@@ -55,8 +58,11 @@ class PedidoController extends Controller
         //obtener articulos
         $articulos = Articulo::all();
 
+        //obtener los tipos de maquinas
+        $tipo_maquina = Lista::where('tipo', 'Tipo Maquina')->get();
+
         //retornar la vista con los datos
-        return view('pedidos.create')->with('ultimoPedido', $ultimoPedido)->with('usuario', $usuario)->with('Terceros', $Terceros)->with('paises', $paises)->with('maquinas', $maquinas)->with('sistemas', $sistemas)->with('articulos', $articulos)->with('marcas', $marcas)->with('marcasUnicas');
+        return view('pedidos.create')->with(compact('ultimoPedido', 'usuario', 'Terceros', 'paises', 'maquinas', 'modelo', 'marcas', 'sistemas', 'articulos', 'tipo_maquina'));
     }
 
     public function store(Request $request)
@@ -110,7 +116,7 @@ class PedidoController extends Controller
                 $articuloTemporal->save();
 
                 //Si vienen sistemas
- 
+
                 if ($request->input("sistema{$i}") != null) {
                     // Asociar el sistema al artículo temporal
                     $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
@@ -149,6 +155,8 @@ class PedidoController extends Controller
                 if ($request->input("sistema{$i}") != null) {
                     // Asociar el sistema al artículo 
                     $articulo->sistemas()->attach($request->input("sistema{$i}"));
+                    //asociar el sistema con el pedido
+                    $pedido->sistemas()->attach($request->input("sistema{$i}"));
                 }
             }
         }
@@ -290,8 +298,7 @@ class PedidoController extends Controller
                     // Asociar el sistema al artículo 
                     $articulo->sistemas()->attach($request->input("sistema{$i}"));
                 }
-
-            }else{
+            } else {
                 //Crear relación entre artículo y pedido
                 $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
                 //dd($articulo);
@@ -349,6 +356,63 @@ class PedidoController extends Controller
         $pedido->articulos()->detach($articuloId);
 
         return redirect()->back()->with('message', 'La relación entre el pedido y el artículo ha sido eliminada.');
+    }
+
+    public function crearMaquina(Request $request)
+    {
+        // validar los datos del formulario
+        $validatedData = $request->validate([
+            'tipo_maquina' => 'required',
+            'marca' => 'required',
+            'modelo' => 'required',
+            'serie' => 'required',
+            'arreglo' => 'required',
+            'fotoMaquina' => 'nullable|image|max:2048',
+            'fotoId' => 'nullable|image|max:2048',
+        ]);
+
+        $maquina = new Maquina();
+        $maquina->tipo = $validatedData['tipo_maquina'];
+        $maquina->modelo = $validatedData['modelo'];
+        $maquina->serie = $validatedData['serie'];
+        $maquina->arreglo = $validatedData['arreglo'];
+
+        //buscar la marca en la tabla marcas y extraer el nombre de la marca
+        $marca = Marca::find($request->input('marca'));
+        $maquina->marca = $marca->nombre;
+
+
+        // Procesar la foto de la máquina, si se proporcionó
+        if ($request->hasFile('fotoMaquina')) {
+            $foto = $request->file('fotoMaquina');
+            $filename = time() . '_' . $foto->getClientOriginalName();
+            $filepath = $foto->storeAs('public/maquinas', $filename);
+            $maquina->foto = $filename;
+        }
+
+        // Procesar la foto del ID, si se proporcionó
+        if ($request->hasFile('fotoId')) {
+            $fotoId = $request->file('fotoId');
+            $filename = time() . '_' . $fotoId->getClientOriginalName();
+            $filepath = $fotoId->storeAs('public/maquinas', $filename);
+            $maquina->fotoId = $filename;
+        }
+
+        $maquina->save();
+
+        // Obtener la marca seleccionada
+        $marca = Marca::find($request->input('marca'));
+
+        // Asociar la marca a la máquina a través de la relación belongsToMany
+        $maquina->marcas()->attach($marca);
+
+        //obtener el id del tercero
+        $terceroId = $request->input('tercero_id_maquina');
+
+        //relacionar la maquina con el tercero
+        $maquina->terceros()->attach($terceroId);
+
+        return redirect()->route('pedidos.create')->with('success', 'La máquina ha sido creada exitosamente.');
     }
 
 

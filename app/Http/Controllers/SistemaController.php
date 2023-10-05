@@ -76,6 +76,18 @@ class SistemaController extends Controller
     {
         $sistemas = Sistemas::find($id);
         $sistemas->nombre = $request->nombre;
+        $sistemas->descripcion = $request->descripcion;
+        
+        //amacenar imagen si viene
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $filepath = $file->storeAs('public/sistemas', $name);
+            $sistemas->imagen = $name;
+        }else{
+            $sistemas->imagen = 'no-imagen.jpg';
+        }
+
         $sistemas->save();
 
         return redirect()->route('sistemas.index')->with('message', 'Sistema actualizado con exito!!');

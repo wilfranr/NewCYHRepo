@@ -32,29 +32,16 @@ class CosteoController extends Controller
     }
 
 
-    //función para obtener proveedores por marcas y sistemas
+    // Función para obtener proveedores por marcas y sistemas
     public function obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas)
     {
         $proveedoresNacionales = collect();
         $proveedoresInternacionales = collect();
 
-        // Obtener proveedores por marcas
+        // Obtener proveedores que manejen las marcas y sistemas especificados
         foreach ($marcas as $marca) {
             foreach ($marca->terceros as $tercero) {
-                if ($tercero->esProveedor()) {
-                    if ($tercero->PaisCodigo === 'COL') {
-                        $proveedoresNacionales->push($tercero);
-                    } else {
-                        $proveedoresInternacionales->push($tercero);
-                    }
-                }
-            }
-        }
-
-        // Obtener proveedores por sistemas
-        foreach ($sistemas as $sistema) {
-            foreach ($sistema->terceros as $tercero) {
-                if ($tercero->esProveedor()) {
+                if ($tercero->esProveedor() && $this->proveedorManejaSistemas($tercero, $sistemas)) {
                     if ($tercero->PaisCodigo === 'COL') {
                         $proveedoresNacionales->push($tercero);
                     } else {
@@ -70,18 +57,30 @@ class CosteoController extends Controller
         ];
     }
 
+    // Función auxiliar para verificar si un proveedor maneja los sistemas especificados
+    private function proveedorManejaSistemas($proveedor, $sistemas)
+    {
+        foreach ($sistemas as $sistema) {
+            if (!$proveedor->manejaSistema($sistema)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public function costear(Pedido $pedido, $id)
     {
         //traer el pedido con sus relaciones
         $pedido = Pedido::with([
-            'tercero', 
-            'contacto', 
-            'maquinas', 
-            'articulosTemporales.fotosArticuloTemporal', 
+            'tercero',
+            'contacto',
+            'maquinas',
+            'articulosTemporales.fotosArticuloTemporal',
             'articulos.sistemas',
-            'articulos', 
+            'articulos',
             'marcas'
-            ])->find($id);
+        ])->find($id);
 
         //obtener el pedido anterior
         $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
@@ -115,7 +114,6 @@ class CosteoController extends Controller
             $proveedoresPorMarcasYSistemas = $this->obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas);
             $proveedoresNacionales = $proveedoresPorMarcasYSistemas['proveedoresNacionales'];
             $proveedoresInternacionales = $proveedoresPorMarcasYSistemas['proveedoresInternacionales'];
-            
         }
 
         return view('costeos.costear', compact('pedido', 'maquinas', 'marcas', 'previous', 'next', 'proveedoresNacionales', 'proveedoresInternacionales'));

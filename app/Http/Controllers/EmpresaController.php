@@ -46,6 +46,7 @@ class EmpresaController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'nombre' => 'required|string|max:100',
+            'siglas' => 'nullable|string|max:10',
             'direccion' => 'required|string',
             'telefono' => 'required|string',
             'correo' => 'required|email',
@@ -61,12 +62,16 @@ class EmpresaController extends Controller
 
         // Actualizar los datos de la empresa
         $empresa->nombre = $request->nombre;
+        $empresa->siglas = $request->siglas;
         $empresa->direccion = $request->direccion;
         $empresa->telefono = $request->telefono;
         $empresa->email = $request->correo;
         $empresa->nit = $request->nit;
         $empresa->ciudad = $request->ciudad;
         $empresa->pais = $request->pais;
+
+        //guardar siglas de la empresa en variable de sesion
+        session(['siglas' => $empresa->siglas]);
 
         // Actualizar el logo si se proporciona uno nuevo
         if ($request->hasFile('logo')) {

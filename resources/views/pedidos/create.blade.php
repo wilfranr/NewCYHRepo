@@ -173,19 +173,120 @@
             </div>
         </div>
     </div>
-    {{-- Modal de maquinas --}}
-    <div class="modal fade" id="modalMaquinas" tabindex="-1" aria-labelledby="modalMaquinasLabel" aria-hidden="true">
+
+    {{-- Modal crear máquina --}}
+    <div class="modal fade" id="modalMaquinas">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content bg-secondary">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalMaquinasLabel">Crear máquina</h5>
-                    <button type="button" class="close" data-dismiss="modal" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title">Crear máquina para <span id="tercero-nombre"></span></h4>
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- Componente de agregar maquina a cliente --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('pedidos.crearMaquina') }}"
+                                enctype="multipart/form-data">
+                                @csrf
 
+                                <input type="hidden" id="tercero_id_maquina" name="tercero_id_maquina">
+
+                                <div class="form-group row">
+                                    <label for="tipoMaquina"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Tipo de máquina') }}</label>
+
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="tipo_maquina" name="tipo_maquina">
+                                            <option value="">Seleccione un tipo de máquina</option>
+                                            @foreach ($tipo_maquina as $t)
+                                                <option value="{{ $t->nombre }}">{{ $t->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="marca"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Marca Fabricante') }}</label>
+
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="marca" name="marca" required>
+                                            <option value="">Seleccione una marca fabricante</option>
+                                            {{-- traer todas las marcas --}}
+                                            @foreach ($marcas as $m)
+                                                <option value="{{ $m->id }}">{{ $m->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="modelo"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Modelo') }}</label>
+
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="modelo" id="modelo">
+                                            <option value="">Seleccione un modelo</option>
+                                            @foreach ($modelo as $mo)
+                                                <option value="{{ $mo->nombre }}">{{ $mo->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="serie"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Serie') }}</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="serie" id="serie">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="arreglo"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Arreglo') }}</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="arreglo" id="arreglo">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="fotoMaquina"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Foto Maquina') }}</label>
+                                    <div class="col-md-6">
+                                        {{-- @if ('') --}}
+                                        <input type="file" class="form-control" name="fotoMaquina" id="fotoMaquina">
+                                        <img id="preview" src="#" alt="Vista previa de la imagen"
+                                            style="max-width: 200px; max-height: 200px;">
+                                        <button id="borrar-foto2" type="button" style="display: none;"
+                                            class="btn btn-outline-danger">X</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="fotoId"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Foto ID') }}</label>
+                                    <div class="col-md-6">
+                                        <input type="file" class="form-control" name="fotoId" id="fotoId">
+                                        <img id="preview2" src="#" alt="Vista previa de la imagen"
+                                            style="max-width: 200px; max-height: 200px;">
+                                        <button id="borrar-foto" type="button" style="display: none;"
+                                            class="btn btn-outline-danger">X</button>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Crear') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,9 +320,10 @@
                 $('#direccion').val($(this).data('direccion'));
                 $('#telefono').val($(this).data('telefono'));
                 $('#wp_cliente').attr('href', 'https://wa.me/+57' + $(this).data('telefono'));
-
-
                 $('#email').val($(this).data('email'));
+                //actualizar el campo tercero en el modal maquinas
+                $('#tercero_id_maquina').val($(this).data('id'));
+                $('#tercero-nombre').html($(this).data('nombre'));
                 cargarMaquinas();
                 cargarContactos();
                 cargarMarcas();
@@ -238,7 +340,6 @@
                     url: `/terceros/${tercero_id}/maquinas`,
                     method: 'GET',
                     success: function(response) {
-                        console.log(response);
                         $('#maquina_id').empty();
                         response.forEach(maquina => {
                             $('#maquina_id').append($('<option>', {

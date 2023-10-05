@@ -14,9 +14,12 @@ return [
     |
     */
 
-    'title' => 'CYH Importaciones',
+    //traer el título desde la session('siglas')
+    'title' => 'CYH',
+
     'title_prefix' => '',
     'title_postfix' => '',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -331,13 +334,13 @@ return [
             'text' => 'Costeos',
             'icon' => 'fas fa-fw fa-calculator',
             'url'  => '/costeos',
-            
+
         ],
         [
             'text' => 'Articulos',
             'icon' => 'fas fa-fw fa-boxes',
             'url'  => '/articulos',
-           
+
         ],
         [
             'text' => 'Listas',
@@ -355,14 +358,14 @@ return [
                     'icon' => 'fas fa-fw fa-tasks',
                     'can' => 'acceso-lista-padre'
                 ],
-                
+
             ],
         ],
         [
             'text' => 'Terceros',
             'icon' => 'fas fa-fw fa-users',
             'url'  => '/terceros',
-            
+
         ],
         [
             'text' => 'Maquinas',
@@ -385,8 +388,8 @@ return [
                     'icon' => 'fas fa-fw fa-eye',
                 ],
             ],
-            
-            
+
+
         ],
 
 

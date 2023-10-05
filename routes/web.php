@@ -121,6 +121,8 @@ Route::put('/pedidos/{id}/update', [PedidoController::class, 'update'])->name('p
 Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy'])->name('pedidos.destroy');
 //Cambiar estado de pedido
 Route::put('/pedidos/{id}/cambiarEstado', [PedidoController::class, 'cambiarEstado'])->name('pedidos.cambiarEstado');
+//Crear máquina desde pedido
+Route::post('/pedidos/crearMaquina', [PedidoController::class, 'crearMaquina'])->name('pedidos.crearMaquina');
 
 
 //rutas costeo

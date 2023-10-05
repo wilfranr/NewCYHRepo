@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 // Agregar el modelo Trm
 use App\Models\Trm;
+// Agregar el modelo Empresa
+use App\Models\Empresa;
 
 
 class LoginController extends Controller
@@ -55,6 +57,12 @@ class LoginController extends Controller
         
         //guardar el valor de trm en la sesion
         session(['trm' => $trm]);
+
+        //obtener el valor de siglas empresa
+        $siglasEmpresa = Empresa::all()->first()->siglas;
+
+        //guardar el valor de siglas en la sesion
+        session(['siglas' => $siglasEmpresa]);
 
     }
 }

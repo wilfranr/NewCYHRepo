@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Editar Empresa')
 @section('content')
     <div class="container">
+        <p>Siglas: {{ session('siglas') }}</p>
       <div class="callout callout-info">
         <h5><i class="fas fa-info"></i> Advertencia:</h5>
         Los datos que estás a punto de modificar son los datos generales de la empresa y cualquier cambio afectará todos los componentes de la aplicación. Por favor, asegúrate de realizar cambios con precaución y ten en cuenta su impacto en toda la aplicación.
@@ -58,6 +58,14 @@
                                                         <input type="text" name="nombre" id="nombre"
                                                             class="form-control"
                                                             value="{{ old('nombre', $empresa->nombre) }}">
+                                                    </div>
+
+                                                    {{-- Siglas de la empresa --}}
+                                                    <div class="form-group">
+                                                        <label for="siglas">Siglas:</label>
+                                                        <input type="text" name="siglas" id="siglas"
+                                                            class="form-control"
+                                                            value="{{ old('siglas', $empresa->siglas) }}">
                                                     </div>
 
                                                     {{-- Dirección de la empresa --}}

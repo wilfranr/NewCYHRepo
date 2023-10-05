@@ -123,4 +123,14 @@ function cambiarTRM() {
     }, 1000);
 }
 
+//funcion para definir el titulo de la página según la ruta
+function titulo() {
+    var ruta = window.location.href;
+    var titulo = '';
+    if (ruta == 'http://127.0.0.1:8000/listas') {
+        titulo = 'Listas';
+        document.title = titulo;
+    }
+}
+
 

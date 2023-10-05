@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Medida;
+use App\Models\Pedido;
+use App\Models\Foto;
+use App\Models\Imagen;
+use App\Models\RelacionSuplencia;
+use App\Models\JuegoArticulo;
+use App\Models\Sistemas;
+
 
 class Articulo extends Model
 {

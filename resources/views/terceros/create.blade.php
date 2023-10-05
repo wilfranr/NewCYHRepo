@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Crear tercero')
+@section('title', 'CYH | Terceros')
 
 @section('content')
     <div class="content-fluid mt-3">
@@ -17,7 +17,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-maquinas-tab" data-toggle="pill"
                             href="#custom-tabs-one-maquinas" role="tab" aria-controls="custom-tabs-one-maquinas"
-                            aria-selected="false"><span id="tab-maquina">Máquinas</span></a>
+                            aria-selected="false"><span id="tab-maquina">Máquinas | Marcas | Sistemas</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-one-contactos-tab" data-toggle="pill"
@@ -157,11 +157,12 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- Fin perfil de tercero --}}
+
                         {{-- Maquinas --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-maquinas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-admin-tab">
                             <div class="form-group mt-4">
+                                {{-- Para Cliente --}}
                                 <div class="form-group maquina border border-warning p-2">
                                     <div class="row">
                                         <div class="col-6">
@@ -187,11 +188,12 @@
 
                                     </div>
                                 </div>
+                                {{-- Para Proveedor --}}
                                 <div class="form-group border border-warning mt-4 p-3" id="rango">
-                                    <label for="rango">Rango de productos</label>
+                                    <label for="rango">Rango de productos que maneja el Proveedor</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h4>Marca</h4>
+                                            <h4>Marcas</h4>
                                             <ul>
                                                 @foreach ($marcas as $marca)
                                                     <li>
@@ -220,9 +222,12 @@
 
                                     </div>
                                 </div>
+                                <div class="no-seleccionado">
+                                    <p><ion-icon name="warning-outline"></ion-icon> Debe seleccionar el tipo de tercero</p>
+                                </div>
                             </div>
                         </div>
-                        {{-- Fin maquinas --}}
+
                         {{-- Contactos --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-contactos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-contactos-tab">
@@ -238,7 +243,7 @@
                                 <hr>
                             </div>
                         </div>
-                        {{-- Fin contactos --}}
+
                         {{-- Archivos --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-archivos" role="tabpanel"
                             aria-labelledby="custom-tabs-one-archivos-tab">
@@ -351,11 +356,13 @@
                 $('#rango').hide();
                 //cambiar el texto del span con id #tab-maquina por "Maquinas"
                 $('#tab-maquina').text('Máquinas');
-            } else {
+                $('.no-seleccionado').hide();
+            } if (tipoTerceroSelect.value === 'Proveedor') {
                 $('.maquina').hide();
                 $('#rango').show();
                 //cambiar el texto del span con id #tab-maquina por "Marca-Sistema"
-                $('#tab-maquina').text('Marcas/Sistemas');
+                $('#tab-maquina').text('Marcas | Sistemas');
+                $('.no-seleccionado').hide();
             }
         });
         //select2

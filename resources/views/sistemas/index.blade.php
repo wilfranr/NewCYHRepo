@@ -1,5 +1,4 @@
 @extends('adminlte::page')
-@section('title', 'CYH | Sistemas')
 
 @section('content')
     <div class="container">

@@ -1,5 +1,4 @@
 @extends('adminlte::page')
-@section('title', 'CYH | Marcas')
 @section('content')
     <div class="content-fluid mt-3">
         <div class="card card-secondary card-tabs bg-light">
