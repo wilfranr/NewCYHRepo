@@ -211,12 +211,14 @@
                                 <td>
                                     <div class="d-flex">
                                         @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
-                                        <input type="text" value="{{ $articulo->sistemas[0]->nombre }}" class="form-control" name="sistema{{ $index + 1 }}" disabled>
+                                            <input type="text" value="{{ $articulo->sistemas[0]->nombre }}"
+                                                class="form-control" name="sistema{{ $index + 1 }}" disabled>
                                         @else
-                                        <input type="text" value="N/A" class="form-control" name="sistema{{ $index + 1 }}" disabled>
+                                            <input type="text" value="N/A" class="form-control"
+                                                name="sistema{{ $index + 1 }}" disabled>
                                         @endif
                                     </div>
-                                    
+
                                 </td>
                                 <td>
                                     <input type="number" class="form-control" name="cantidad{{ $index + 1 }}"
@@ -260,78 +262,92 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($proveedoresNacionales as $index => $proveedor)
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" class="proveedor-checkbox"
-                                                    name="proveedores[{{ $index }}][seleccionado]">
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    {{-- link con el nombre del proveedor --}}
-                                                    <a href="{{ route('terceros.edit', $proveedor->id) }}"
-                                                        class="text-uppercase" target="_blank">
-                                                        {{ $proveedor->nombre }}</a>
-                                                    {{-- Campo oculto para el id del proveedor --}}
-                                                    <input type="hidden" name="proveedores[{{ $index }}][id]"
-                                                        value="{{ $proveedor->id }}">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <select class="form-control"
-                                                    name="proveedores[{{ $index }}][marca]"
-                                                    id="marca{{ $index }}">
-                                                    @foreach ($proveedor->marcas as $marca)
-                                                        <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td>
-                                                {{-- Select de entrega --}}
-                                                <select name="proveedores[{{ $index }}][entrega]"
-                                                    id="entrega-nacional{{ $index }}"
-                                                    class="form-control entrega-selector"
-                                                    data-index="{{ $index }}">
-                                                    <option value="">Selecione...</option>
-                                                    <option value="inmediata">Inmediata</option>
-                                                    <option value="programada">Programada</option>
-                                                </select>
-                                                {{-- Campo de entrada de días --}}
-                                                <input type="text" name="proveedores[{{ $index }}][dias]"
-                                                    id="dias-nacional{{ $index }}" placeholder="Días para entrega"
-                                                    class="form-control dias-input">
-                                            </td>
-                                            <td>
-                                                {{-- Cantidad --}}
-                                                <input type="number" class="form-control cantidad-nacional"
-                                                    name="proveedores[{{ $index }}][cantidad]"
-                                                    value="{{ $articulo->pivot->cantidad }}"
-                                                    data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- peso --}}
-                                                <input type="text" class="form-control"
-                                                    name="proveedores[{{ $index }}][peso]"
-                                                    value="{{ $articulo->peso }}" id="peso{{ $index }}">
-                                            </td>
-                                            {{-- <td>
+                                    @if ($proveedoresNacionales->count() >= 1)
+                                        @foreach ($proveedoresNacionales as $index => $proveedor)
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="proveedor-checkbox"
+                                                        name="proveedores[{{ $index }}][seleccionado]">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        {{-- link con el nombre del proveedor --}}
+                                                        <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                            class="text-uppercase" target="_blank">
+                                                            {{ $proveedor->nombre }}</a>
+                                                        {{-- Campo oculto para el id del proveedor --}}
+                                                        <input type="hidden" name="proveedores[{{ $index }}][id]"
+                                                            value="{{ $proveedor->id }}">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control"
+                                                        name="proveedores[{{ $index }}][marca]"
+                                                        id="marca{{ $index }}">
+                                                        @foreach ($proveedor->marcas as $marca)
+                                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    {{-- Select de entrega --}}
+                                                    <select name="proveedores[{{ $index }}][entrega]"
+                                                        id="entrega-nacional{{ $index }}"
+                                                        class="form-control entrega-selector"
+                                                        data-index="{{ $index }}">
+                                                        <option value="">Selecione...</option>
+                                                        <option value="inmediata">Inmediata</option>
+                                                        <option value="programada">Programada</option>
+                                                    </select>
+                                                    {{-- Campo de entrada de días --}}
+                                                    <input type="text" name="proveedores[{{ $index }}][dias]"
+                                                        id="dias-nacional{{ $index }}"
+                                                        placeholder="Días para entrega" class="form-control dias-input">
+                                                </td>
+                                                <td>
+                                                    {{-- Cantidad --}}
+                                                    <input type="number" class="form-control cantidad-nacional"
+                                                        name="proveedores[{{ $index }}][cantidad]"
+                                                        value="{{ $articulo->pivot->cantidad }}"
+                                                        data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- peso --}}
+                                                    <input type="text" class="form-control"
+                                                        name="proveedores[{{ $index }}][peso]"
+                                                        value="{{ $articulo->peso }}" id="peso{{ $index }}">
+                                                </td>
+                                                {{-- <td>
                                                 <input type="text" class="form-control bg-secondary" name="costo_Us"
                                                     value="" id="costo-Us{{ $index }}" disabled>
                                             </td> --}}
-                                            <td>
-                                                {{-- costo_Col --}}
-                                                <input type="text" class="form-control costo-nacional"
-                                                    name="proveedores[{{ $index }}][costo]"
-                                                    data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- Utilidad --}}
-                                                <input type="text" class="form-control utilidad-nacional"
-                                                    name="proveedores[{{ $index }}][utilidad]" value=""
-                                                    class="utilidad" data-index="{{ $index }}" placeholder="7% Sugerida">
+                                                <td>
+                                                    {{-- costo_Col --}}
+                                                    <input type="text" class="form-control costo-nacional"
+                                                        name="proveedores[{{ $index }}][costo]"
+                                                        data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- Utilidad --}}
+                                                    <input type="text" class="form-control utilidad-nacional"
+                                                        name="proveedores[{{ $index }}][utilidad]" value=""
+                                                        class="utilidad" data-index="{{ $index }}"
+                                                        placeholder="7% Sugerida">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="alert alert-warning text-center">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    No hay proveedores nacionales que manejen la marca y el sistema de este
+                                                    artículo
+                                                </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endif
 
                                 </tbody>
                             </table>
@@ -360,81 +376,100 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($proveedoresInternacionales as $index => $proveedor)
+                                    @if ($proveedoresInternacionales->count() >= 1)
+                                        @foreach ($proveedoresInternacionales as $index => $proveedor)
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="" id="">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                            class="text-uppercase" target="_blank">
+                                                            {{-- enlace con el nombre del proveedor --}}
+                                                            {{ $proveedor->nombre }}
+                                                        </a>
+                                                        {{-- Campo oculto para el id del proveedor --}}
+                                                        <input type="hidden"
+                                                            name="proveedoresInternacionales[{{ $index }}][id]"
+                                                            value="{{ $proveedor->id }}"
+                                                            data-index="{{ $index }}">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control"
+                                                        name="proveedoresInternacionales[{{ $index }}][marca]"
+                                                        id="marca-internacional{{ $index }}"
+                                                        data-index="{{ $index }}">
+                                                        @foreach ($proveedor->marcas as $marca)
+                                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    {{-- Select de entrega --}}
+                                                    <select
+                                                        name="proveedoresInternacionales[{{ $index }}][entrega]"
+                                                        id="entrega-internacional{{ $index }}"
+                                                        class="form-control entrega-internacional-selector"
+                                                        data-index="{{ $index }}">
+                                                        <option value="">Selecione...</option>
+                                                        <option value="inmediata">Inmediata</option>
+                                                        <option value="programada">Programada</option>
+                                                    </select>
+                                                    {{-- Campo de entrada de días --}}
+                                                    <input type="text"
+                                                        name="provedoresInternacionales[{{ $index }}][dias]"
+                                                        id="dias-internacional{{ $index }}"
+                                                        placeholder="Días para entrega"
+                                                        class="form-control dias-internacional-input"
+                                                        data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- Cantidad --}}
+                                                    <input type="number" class="form-control cantidad-internacional"
+                                                        name="proveedoresInternacionales[{{ $index }}][cantidad-internacional]"
+                                                        value="{{ $articulo->pivot->cantidad }}"
+                                                        data-index="{{ $index }}"
+                                                        data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- peso --}}
+                                                    <input type="text" class="form-control peso-internacional"
+                                                        name="proveedoresInternacionales[{{ $index }}][peso]"
+                                                        value="{{ $articulo->peso }}" data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- costo_Us --}}
+                                                    <input type="text" class="form-control costo-internacional"
+                                                        name="proveedoresInternacionales[{{ $index }}][costoUs]"
+                                                        value="" data-index="{{ $index }}">
+                                                </td>
+                                                <td>
+                                                    {{-- Utilidad --}}
+                                                    <input type="text" class="form-control utilidad-internacional"
+                                                        name="proveedoresInternacionales[{{ $index }}][utilidad]"
+                                                        value="" data-index="{{ $index }}"
+                                                        placeholder="7% Sugerida">
+                                                </td>
+                                                {{-- Precio de venta --}}
+                                                <input type="hidden" class="form-control"
+                                                    name="proveedoresInternacionales[{{ $index }}][precioVenta]"
+                                                    value="" data-index="{{ $index }}">
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" name="" id="">
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('terceros.edit', $proveedor->id) }}"
-                                                        class="text-uppercase" target="_blank">
-                                                        {{-- enlace con el nombre del proveedor --}}
-                                                        {{ $proveedor->nombre }}
-                                                    </a>
-                                                    {{-- Campo oculto para el id del proveedor --}}
-                                                    <input type="hidden"
-                                                        name="proveedoresInternacionales[{{ $index }}][id]"
-                                                        value="{{ $proveedor->id }}" data-index="{{ $index }}">
+                                            <td colspan="8">
+                                                <div class="alert alert-warning text-center">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    No hay proveedores internacionales que manejen la marca y el sistema de
+                                                    este artículo
                                                 </div>
                                             </td>
-                                            <td>
-                                                <select class="form-control"
-                                                    name="proveedoresInternacionales[{{ $index }}][marca]"
-                                                    id="marca-internacional{{ $index }}" data-index="{{ $index }}">
-                                                    @foreach ($proveedor->marcas as $marca)
-                                                        <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td>
-                                                {{-- Select de entrega --}}
-                                                <select name="proveedoresInternacionales[{{ $index }}][entrega]"
-                                                    id="entrega-internacional{{ $index }}"
-                                                    class="form-control entrega-internacional-selector"
-                                                    data-index="{{ $index }}">
-                                                    <option value="">Selecione...</option>
-                                                    <option value="inmediata">Inmediata</option>
-                                                    <option value="programada">Programada</option>
-                                                </select>
-                                                {{-- Campo de entrada de días --}}
-                                                <input type="text"
-                                                    name="provedoresInternacionales[{{ $index }}][dias]"
-                                                    id="dias-internacional{{ $index }}"
-                                                    placeholder="Días para entrega"
-                                                    class="form-control dias-internacional-input" data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- Cantidad --}}
-                                                <input type="number" class="form-control cantidad-internacional"
-                                                    name="proveedoresInternacionales[{{ $index }}][cantidad-internacional]"
-                                                    value="{{ $articulo->pivot->cantidad }}"
-                                                    data-index="{{ $index }}" data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- peso --}}
-                                                <input type="text" class="form-control peso-internacional"
-                                                    name="proveedoresInternacionales[{{ $index }}][peso]"
-                                                    value="{{ $articulo->peso }}" data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- costo_Us --}}
-                                                <input type="text" class="form-control costo-internacional"
-                                                    name="proveedoresInternacionales[{{ $index }}][costoUs]"
-                                                    value="" data-index="{{ $index }}">
-                                            </td>
-                                            <td>
-                                                {{-- Utilidad --}}
-                                                <input type="text" class="form-control utilidad-internacional"
-                                                    name="proveedoresInternacionales[{{ $index }}][utilidad]"
-                                                    value="" data-index="{{ $index }}" placeholder="7% Sugerida">
-                                            </td>
-                                            {{-- Precio de venta --}}
-                                            <input type="hidden" class="form-control"
-                                                name="proveedoresInternacionales[{{ $index }}][precioVenta]"
-                                                value="" data-index="{{ $index }}">
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

@@ -83,7 +83,6 @@
             var borrarFotoButton = document.getElementById('borrar-foto');
             borrarFotoButton.style.display = 'none';
         });
-        //guardarDatos();
         
     </script>
 @endsection

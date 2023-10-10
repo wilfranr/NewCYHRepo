@@ -160,7 +160,7 @@ class PedidoController extends Controller
                 }
             }
         }
-        return redirect()->route('pedidos.index')->with('success!!', 'Pedido creado exitosamente.');
+        return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
     }
 
     public function show(Pedido $pedido, $id)
@@ -320,7 +320,7 @@ class PedidoController extends Controller
 
         // Redirigir o hacer cualquier otra acción necesaria
         // ...
-        return redirect()->route('pedidos.index', $id)->with('success!!', 'El pedido ha sido enviado a costeo.');
+        return redirect()->route('pedidos.index', $id)->with('success', 'El pedido ha sido enviado a costeo.');
     }
 
     public function costear($id)

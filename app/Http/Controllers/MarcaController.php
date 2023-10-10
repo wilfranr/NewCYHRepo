@@ -41,6 +41,15 @@ class MarcaController extends Controller
 
     public function store(Request $request)
     {
+        //validar datos del formulario
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'nullable',
+            'imagen' => 'image|nullable'
+        ], $messages = [
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            'imagen.image' => 'El archivo debe ser una imagen.'
+        ]);
         $marca = new Marca();
         $marca->nombre = $request->nombre;
         $marca->descripcion = $request->descripcion;
@@ -61,7 +70,16 @@ class MarcaController extends Controller
         $lista->nombre = $request->nombre;
         $lista->tipo = 'Marca';
         $lista->definicion = $request->descripcion;
-        $lista->foto = $marca->imagen;
+
+        //almacenar imagen si viene
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $filepath = $file->storeAs('public/marcas', $name);
+            $lista->foto = $name;
+        }else{
+            $lista->foto = 'no-imagen.jpg';
+        }
         $lista->save();
 
 
@@ -99,6 +117,10 @@ class MarcaController extends Controller
     {
         $marca = Marca::find($id);
         $marca->delete();
+
+        //eliminar de la tabla listas
+        $lista = Lista::where('nombre', $marca->nombre)->first();
+        $lista->delete();
         return redirect()->route('marcas.index')->with('success', 'Marca eliminada');
     }
 

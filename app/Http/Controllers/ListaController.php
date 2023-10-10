@@ -33,9 +33,14 @@ class ListaController extends Controller
         $request->validate([
             'tipo' => 'required',
             'nombre' => 'required',
-            'definicion' => 'required',
+            'definicion' => 'nullable',
             'fotoLista' => 'image|nullable',
             'fotoMedida' => 'image|nullable'
+        ], $messages = [
+            'tipo.required' => 'El campo tipo es obligatorio.',
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            'fotoLista.image' => 'El archivo debe ser una imagen.',
+            'fotoMedida.image' => 'El archivo debe ser una imagen.'
         ]);
 
         $lista = new Lista;
@@ -60,6 +65,14 @@ class ListaController extends Controller
         if ($request->tipo == 'Marca') {
             $marca = new Marca;
             $marca->nombre = $request->nombre;
+            
+            //guardar la foto de la marca
+            if ($request->hasFile('fotoLista')) {
+                $foto = $request->file('fotoLista');
+                $filename = time() . '_' . $foto->getClientOriginalName();
+                $filepath = $foto->storeAs('public/marcas', $filename);
+                $marca->imagen = $filename;
+            }
             $marca->save();
         }
 
@@ -132,6 +145,7 @@ class ListaController extends Controller
     public function destroy($id)
     {
         $lista = Lista::findOrFail($id);
+        
         //si viene tipo = marca, entonces se debe eliminar el registro en la tabla marcas
         if ($lista->tipo == 'Marca') {
             $marca = Marca::where('nombre', $lista->nombre)->first();
