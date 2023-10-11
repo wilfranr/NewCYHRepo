@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 24-09-2023 a las 19:54:55
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.1.12
+-- Servidor: localhost
+-- Tiempo de generación: 11-10-2023 a las 16:14:15
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -109,12 +109,12 @@ CREATE TABLE `articulos_juegos` (
 INSERT INTO `articulos_juegos` (`id`, `articulo_id`, `juego_por_id`, `created_at`, `updated_at`) VALUES
 (4, 42, 1, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
 (5, 41, 7, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(6, 1, 4, '2023-09-11 02:06:58', '2023-09-11 02:06:58'),
 (8, 43, 4, '2023-09-11 02:12:17', '2023-09-11 02:12:17'),
 (9, 45, 6, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
 (10, 45, 7, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
 (11, 45, 8, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(12, 45, 9, '2023-09-14 02:48:54', '2023-09-14 02:48:54');
+(12, 45, 9, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
+(13, 1, 4, '2023-10-02 13:31:31', '2023-10-02 13:31:31');
 
 -- --------------------------------------------------------
 
@@ -139,8 +139,8 @@ INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `
 (115, 4, 21, NULL, NULL),
 (117, 42, 23, NULL, NULL),
 (118, 41, 24, NULL, NULL),
-(119, 1, 25, NULL, NULL),
-(122, 43, 28, NULL, NULL);
+(122, 43, 28, NULL, NULL),
+(123, 1, 29, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,24 +161,7 @@ CREATE TABLE `articulo_pedido` (
 --
 
 INSERT INTO `articulo_pedido` (`pedido_id`, `articulo_id`, `cantidad`, `created_at`, `updated_at`) VALUES
-(1, 7, 3, '2023-09-02 15:48:50', '2023-09-02 15:48:50'),
-(2, 6, 1, '2023-09-02 15:52:28', '2023-09-02 15:52:28'),
-(3, 38, 2, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
-(3, 39, 4, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
-(3, 40, 4, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
-(4, 39, 4, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
-(4, 40, 5, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
-(4, 38, 2, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
-(5, 39, 4, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
-(5, 40, 5, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
-(5, 38, 1, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
-(6, 39, 4, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
-(6, 40, 5, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
-(6, 38, 2, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
-(7, 1, 1, '2023-09-09 17:18:35', '2023-09-09 17:18:35'),
-(8, 42, 1, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
-(9, 14, 1, '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
-(12, 1, 1, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
+(1, 1, 1, '2023-10-10 21:16:01', '2023-10-10 21:16:01');
 
 -- --------------------------------------------------------
 
@@ -196,15 +179,6 @@ CREATE TABLE `articulo_temporal` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `articulo_temporal`
---
-
-INSERT INTO `articulo_temporal` (`id`, `referencia`, `definicion`, `sistema`, `cantidad`, `comentarios`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 2, 'emaque para el motor', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(2, NULL, NULL, NULL, 2, 'emaque para el motor', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(3, '121900', NULL, NULL, 4, NULL, '2023-09-14 02:54:49', '2023-09-14 02:54:49');
 
 -- --------------------------------------------------------
 
@@ -4583,25 +4557,7 @@ CREATE TABLE `contactos` (
 --
 
 INSERT INTO `contactos` (`id`, `nombre`, `telefono`, `email`, `created_at`, `updated_at`) VALUES
-(1, 'Margarita Osorio', '3016490698', 'margarita.osorio@gmail.com', '2023-06-24 14:49:23', '2023-06-24 14:49:23'),
-(2, 'Nicolas Osorio', '3137038949', 'nicolas.osorio@gmail.com', '2023-06-24 14:49:23', '2023-06-24 14:49:23'),
-(3, 'contacto de proveedor5', '8786678', 'proveedor@gmail.com', '2023-06-24 19:46:44', '2023-06-24 19:46:44'),
-(4, 'contacto de cliente 5', '3016490698', 'w@q', '2023-07-08 18:21:31', '2023-07-08 18:21:31'),
-(5, 'Contacto de proveedor nacional 2', '3242423423', 'w@q', '2023-07-15 16:35:06', '2023-07-15 16:35:06'),
-(6, 'Contacto de proveedor nacional 3', '3016490698', 'email@factura', '2023-07-15 16:41:52', '2023-07-15 16:41:52'),
-(7, 'contacto de cliente 1', '6578676', 'w@q', '2023-08-06 15:48:02', '2023-08-06 15:48:02'),
-(8, 'contacto de cliente 1', '6578676', 'email@fact', '2023-08-06 15:49:12', '2023-08-06 15:49:12'),
-(9, 'contacto 1', '6578676', 'wilfranr@gmail.com', '2023-08-06 16:14:07', '2023-08-06 16:14:07'),
-(10, 'contacto 2', '6578676', 'email@fact', '2023-08-06 16:14:07', '2023-08-06 16:14:07'),
-(11, 'contacto 1', '6578676', 'email@fact', '2023-08-06 16:14:41', '2023-08-06 16:14:41'),
-(12, 'contacto 1', '6578676', 'email@fact', '2023-08-07 00:28:31', '2023-08-07 00:28:31'),
-(13, 'contacto 2', '6578676', 'wilfranr@gmail.com', '2023-08-07 00:28:31', '2023-08-07 00:28:31'),
-(14, 'contacto 1', '6578676', 'email@fact', '2023-08-07 00:30:22', '2023-08-07 00:30:22'),
-(15, 'contacto 1', '6578676', 'email@fact', '2023-08-07 00:31:03', '2023-08-07 00:31:03'),
-(16, 'contacto 2', '6578676', 'email@fact', '2023-08-07 00:31:03', '2023-08-07 00:31:03'),
-(17, 'contacto 1', '6578676', 'email@fact', '2023-08-07 00:31:41', '2023-08-07 00:31:41'),
-(18, 'contacto 2', '6578676', 'wilfranr@gmail.com', '2023-08-07 00:31:41', '2023-08-07 00:31:41'),
-(19, 'contacto 3', '6578676', 'email@fact', '2023-08-07 00:31:41', '2023-08-07 00:31:41');
+(1, 'Maria Transmateriales', '3016490698', 'maria@transmateriales.com', '2023-10-10 19:28:53', '2023-10-10 19:28:53');
 
 -- --------------------------------------------------------
 
@@ -4622,10 +4578,7 @@ CREATE TABLE `contacto_tercero` (
 --
 
 INSERT INTO `contacto_tercero` (`id`, `contacto_id`, `tercero_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL),
-(2, 2, 1, NULL, NULL),
-(4, 4, 5, NULL, NULL),
-(6, 6, 12, NULL, NULL);
+(1, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4641,26 +4594,6 @@ CREATE TABLE `cotizaciones` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `cotizaciones`
---
-
-INSERT INTO `cotizaciones` (`id`, `estado`, `pedido_id`, `tercero_id`, `created_at`, `updated_at`) VALUES
-(1, 'pendiente', 1, 1, '2023-09-02 21:43:32', '2023-09-02 21:43:32'),
-(2, 'pendiente', 1, 1, '2023-09-03 12:57:52', '2023-09-03 12:57:52'),
-(3, 'pendiente', 2, 5, '2023-09-03 15:12:35', '2023-09-03 15:12:35'),
-(4, 'pendiente', 3, 1, '2023-09-05 03:30:26', '2023-09-05 03:30:26'),
-(5, 'pendiente', 4, 1, '2023-09-05 03:52:57', '2023-09-05 03:52:57'),
-(6, 'pendiente', 5, 1, '2023-09-05 03:59:53', '2023-09-05 03:59:53'),
-(7, 'pendiente', 6, 1, '2023-09-05 04:04:32', '2023-09-05 04:04:32'),
-(8, 'pendiente', 7, 1, '2023-09-09 17:19:43', '2023-09-09 17:19:43'),
-(9, 'pendiente', 8, 1, '2023-09-11 02:25:27', '2023-09-11 02:25:27'),
-(10, 'pendiente', 6, 1, '2023-09-14 03:20:52', '2023-09-14 03:20:52'),
-(11, 'pendiente', 6, 1, '2023-09-14 03:23:56', '2023-09-14 03:23:56'),
-(12, 'pendiente', 6, 1, '2023-09-14 03:27:01', '2023-09-14 03:27:01'),
-(13, 'pendiente', 6, 1, '2023-09-14 03:27:25', '2023-09-14 03:27:25'),
-(14, 'pendiente', 6, 1, '2023-09-14 03:32:06', '2023-09-14 03:32:06');
 
 -- --------------------------------------------------------
 
@@ -4699,6 +4632,7 @@ CREATE TABLE `departamentos` (
 CREATE TABLE `empresa` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `siglas` varchar(11) DEFAULT NULL,
   `direccion` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
   `celular` varchar(255) NOT NULL,
@@ -4716,8 +4650,8 @@ CREATE TABLE `empresa` (
 -- Volcado de datos para la tabla `empresa`
 --
 
-INSERT INTO `empresa` (`id`, `nombre`, `direccion`, `telefono`, `celular`, `email`, `logo`, `nit`, `representante`, `ciudad`, `pais`, `created_at`, `updated_at`) VALUES
-(1, 'IMPORTACIONES E INVERSIONES CYH S.A.S', 'CRA 69D NO. 1-45 SUR - TORRE 2 APTO 1214', '8012642', '3103311634', 'importacioneseinversionescyh@gmail.com', 'logos/El6EuqE0FiYdllgRTpHtx9Idoq0g3DJ4I4xnrwNF.png', '901.377.993-5', '', 'Bogotá', 'Colombia', '2023-09-02 23:42:05', '2023-09-03 12:40:36');
+INSERT INTO `empresa` (`id`, `nombre`, `siglas`, `direccion`, `telefono`, `celular`, `email`, `logo`, `nit`, `representante`, `ciudad`, `pais`, `created_at`, `updated_at`) VALUES
+(1, 'IMPORTACIONES E INVERSIONES CYH S.A.S', 'CYH', 'CRA 69D NO. 1-45 SUR - TORRE 2 APTO 1214', '8012642', '3103311634', 'importacioneseinversionescyh@gmail.com', 'logos/El6EuqE0FiYdllgRTpHtx9Idoq0g3DJ4I4xnrwNF.png', '901.377.993-5', '', 'Bogotá', 'Colombia', '2023-09-02 23:42:05', '2023-10-05 13:43:11');
 
 -- --------------------------------------------------------
 
@@ -4748,14 +4682,6 @@ CREATE TABLE `fotos_articulo_temporal` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `fotos_articulo_temporal`
---
-
-INSERT INTO `fotos_articulo_temporal` (`id`, `articulo_temporal_id`, `foto_path`, `created_at`, `updated_at`) VALUES
-(1, 1, '650275b856796.jpg', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(2, 2, '650275b89ed52.jpg', '2023-09-14 02:53:44', '2023-09-14 02:53:44');
 
 -- --------------------------------------------------------
 
@@ -4922,7 +4848,33 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 (169, 'Definición', 'definicion de prueba', 'Definicion de prueba', '1694658667_19270.jpg', NULL, '2023-09-14 02:31:08', '2023-09-14 02:31:08'),
 (170, 'Definición', 'O-RING (KIT)', 'analista@ejemplo.com', 'no-imagen.jpg', NULL, '2023-09-14 02:48:07', '2023-09-14 02:48:07'),
 (171, 'Sistema', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:14:40', '2023-09-14 03:14:40'),
-(172, 'Marca', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:16:41', '2023-09-14 03:16:41');
+(172, 'Marca', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:16:41', '2023-09-14 03:16:41'),
+(174, 'Sistema', 'Tren de Rodaje', 'Tren de Rodaje', '1695562238_OIP.jpeg', NULL, '2023-09-24 13:30:38', '2023-09-24 13:30:38'),
+(175, 'Definición', 'definicion de prueba', 'Definicion de prueba', 'no-imagen.jpg', NULL, '2023-10-02 14:12:16', '2023-10-02 14:12:16'),
+(176, 'Marca', 'Marca de prueba', 'Marca de prueba', 'no-imagen.jpg', NULL, '2023-10-02 14:14:59', '2023-10-02 14:14:59'),
+(178, 'Marca', 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443801_R (2).jpeg', NULL, '2023-10-04 18:23:21', '2023-10-04 18:23:21'),
+(179, 'sistema', 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443858_R (2).jpeg', NULL, '2023-10-04 18:24:18', '2023-10-04 18:24:18'),
+(180, 'sistema', 'Iluminación', 'Proporciona iluminación adecuada para trabajar en condiciones de poca luz o de noche.', '1696444098_luz-led-de-trabajo-recargable-caterpillar-lampara-D_NQ_NP_549515-MLM25265490006_012017-F.jpg', NULL, '2023-10-04 18:28:18', '2023-10-04 18:28:18'),
+(181, 'Definición', 'definicion de prueba', 'Def', 'no-imagen.jpg', NULL, '2023-10-10 14:56:50', '2023-10-10 14:56:50'),
+(182, 'Tipo Maquina', 'Excavadora de Oruga', 'Excavadora de Oruga', 'no-imagen.jpg', NULL, '2023-10-10 15:01:08', '2023-10-10 15:01:08'),
+(188, 'Modelo Maquina', 'Modelo creado desde máquinas', 'Modelo desde maquinas', '1696951605_OIP (2).jpeg', NULL, '2023-10-10 15:26:45', '2023-10-10 15:26:45'),
+(189, 'Modelo Maquina', 'CAT 336F', 'Excavadora de brazo largo para aplicaciones de demolición', '1696951737_OIP (3).jpeg', NULL, '2023-10-10 15:28:57', '2023-10-10 15:28:57'),
+(190, 'Tipo Maquina', 'Cargadora Frontal', 'Cucharón de alta capacidad para manipulación de materiales a granel', 'no-imagen.jpg', NULL, '2023-10-10 15:30:34', '2023-10-10 15:30:34'),
+(191, 'Modelo Maquina', 'CAT 950M', 'CARGADORA FRONTAL', '1696951925_maxresdefault.jpg', NULL, '2023-10-10 15:32:05', '2023-10-10 15:32:05'),
+(192, 'Tipo Maquina', 'Motoniveladora', 'Cuchilla frontal ajustable para nivelación precisa en obras de construcción', 'no-imagen.jpg', NULL, '2023-10-10 15:33:32', '2023-10-10 15:33:32'),
+(193, 'Modelo Maquina', 'CAT 140M', NULL, 'no-imagen.jpg', NULL, '2023-10-10 16:19:07', '2023-10-10 16:19:07'),
+(194, 'Modelo Maquina', 'D65EX-17', 'Hoja semi universal para movimiento eficiente de tierra', 'no-imagen.jpg', NULL, '2023-10-10 17:12:29', '2023-10-10 17:12:29'),
+(195, 'Tipo Maquina', 'Excavadora de Ruedas', 'Brazo extensible para excavación a profundidades mayores', '1696958093_OIP (5).jpeg', NULL, '2023-10-10 17:14:53', '2023-10-10 17:14:53'),
+(196, 'Modelo Maquina', 'PW148-10', 'Brazo extensible para excavación a profundidades mayores', 'no-imagen.jpg', NULL, '2023-10-10 17:15:24', '2023-10-10 17:15:24'),
+(197, 'Modelo Maquina', 'ZX350LC-5', 'Excavadora de gran capacidad para excavación profunda', 'no-imagen.jpg', NULL, '2023-10-10 17:22:05', '2023-10-10 17:22:05'),
+(198, 'Modelo Maquina', 'L220H', 'Cucharón de alta capacidad para cargas pesadas', 'no-imagen.jpg', NULL, '2023-10-10 17:22:51', '2023-10-10 17:22:51'),
+(199, 'Modelo Maquina', '672GP', 'Cuchilla frontal ajustable para nivelación precisa en carreteras y caminos', 'no-imagen.jpg', NULL, '2023-10-10 17:23:15', '2023-10-10 17:23:15'),
+(200, 'Marca', 'VOLVO', 'Volvo es una marca líder en maquinaria pesada reconocida por su compromiso con la calidad y la innovación. Ofreciendo una amplia gama de equipos, desde excavadoras hasta camiones volquete articulados, Volvo se destaca por su enfoque en la eficiencia energética, la seguridad del operador y la sostenibilidad ambiental. Su reputación se basa en la durabilidad y el rendimiento de sus máquinas, respaldados por una sólida red de servicio a nivel mundial, brindando a los clientes la confianza de contar con equipos confiables para proyectos de construcción y trabajo pesado.', '1696958816_R (4).jpeg', NULL, '2023-10-10 17:26:56', '2023-10-10 17:26:56'),
+(201, 'Modelo Maquina', '672GP', 'Cuchilla frontal ajustable para nivelación precisa en carreteras y caminos', 'no-imagen.jpg', NULL, '2023-10-10 17:28:56', '2023-10-10 17:28:56'),
+(202, 'Marca', 'JHON DEERE', 'John Deere es una marca icónica en la industria de la maquinaria pesada, conocida por su compromiso con la calidad y la innovación en equipos agrícolas y de construcción. Sus máquinas, que incluyen tractores, retroexcavadoras y motoniveladoras, destacan por su durabilidad y desempeño excepcional en el campo. La marca se ha ganado la confianza de los clientes gracias a su legado de más de 180 años en la fabricación de maquinaria de alta calidad, respaldada por una red global de servicio y soporte que garantiza la longevidad y el rendimiento de sus equipos en diversos entornos de trabajo pesado.', '1696959058_John-Deere-Logo.png', NULL, '2023-10-10 17:30:58', '2023-10-10 17:30:58'),
+(203, 'Tipo Maquina', 'Retroexcavadora', 'Una retroexcavadora es una máquina versátil de maquinaria pesada que combina las funciones de una excavadora y una cargadora frontal en un solo equipo. Está diseñada con un brazo extensible y un cucharón en la parte delantera para excavar y cargar materiales. Esto la hace ideal para tareas de excavación, excavación de zanjas, movimiento de tierra, carga de camiones y diversas aplicaciones de construcción. Las retroexcavadoras son apreciadas por su capacidad de trabajo en espacios reducidos y su versatilidad en una variedad de proyectos de construcción y obras públicas.', 'no-imagen.jpg', NULL, '2023-10-10 21:32:50', '2023-10-10 21:32:50'),
+(204, 'Marca', 'CASE', 'Case es una marca de maquinaria pesada con una sólida reputación en la industria de la construcción y la agricultura. Con una herencia que se remonta a más de 175 años, Case se destaca por fabricar equipos confiables, duraderos y de alto rendimiento. Sus productos incluyen excavadoras, retroexcavadoras, cargadoras, tractores, y otros equipos utilizados en una amplia variedad de aplicaciones. Case se caracteriza por su enfoque en la innovación tecnológica, la eficiencia y la comodidad del operador, lo que la convierte en una elección popular para contratistas y operadores de maquinaria pesada en todo el mundo.', '1696973721_Case_IH_Logo.png', NULL, '2023-10-10 21:35:21', '2023-10-10 21:35:21'),
+(205, 'Modelo Maquina', '580N', 'Equipada con un brazo extensible y cargador frontal, esta retroexcavadora de Case es versátil y eficaz para excavaciones, carga de materiales y tareas de construcción en general. La marca Case es conocida por su rendimiento y durabilidad en equipos de construcción.', '1696973808_OIP (8).jpeg', NULL, '2023-10-10 21:36:48', '2023-10-10 21:36:48');
 
 -- --------------------------------------------------------
 
@@ -4976,9 +4928,15 @@ CREATE TABLE `maquinas` (
 --
 
 INSERT INTO `maquinas` (`id`, `tipo`, `marca`, `modelo`, `serie`, `arreglo`, `foto`, `fotoId`, `created_at`, `updated_at`) VALUES
-(15, 'Bulldozer', 'KOMATSU', 'Modelo de prueba', 'Serie de prueba 3', 'Arreglo de prueba 3', '1692627074_R (8).jpeg', NULL, '2023-08-21 13:02:13', '2023-08-21 14:11:14'),
-(16, 'Bulldozer', 'CATERPILLAR', 'PC1250', 'xjr00210', 'N/A222', '1692626921_OIP (4).jpeg', '1692626921_OIP (11).jpeg', '2023-08-21 14:08:41', '2023-08-21 14:08:41'),
-(17, 'Excavadora', 'KOMATSU', 'Modelo de prueba', '12345', 'N/A', '1692626990_OIP (12).jpeg', NULL, '2023-08-21 14:09:50', '2023-08-21 14:09:50');
+(1, 'Excavadora de Oruga', NULL, 'CAT 336F', 'CXY01234', 'xxxxxxx', '1696951769_OIP (3).jpeg', NULL, '2023-10-10 15:29:29', '2023-10-10 15:29:29'),
+(2, 'Cargadora Frontal', NULL, 'CAT 950M', 'BAZ56789', 'XXXXXXXXXXXX', '1696951956_maxresdefault.jpg', NULL, '2023-10-10 15:32:36', '2023-10-10 15:32:36'),
+(3, 'Motoniveladora', NULL, 'CAT 140M', 'DRT12345', 'xxxxxxxxxx', '1696955541_R (3).jpeg', NULL, '2023-10-10 16:32:21', '2023-10-10 16:32:21'),
+(4, 'Bulldozer', NULL, 'D65EX-17', 'YTA67890', 'xxxxxxxxxxxxx', '1696958030_OIP (4).jpeg', NULL, '2023-10-10 17:13:50', '2023-10-10 17:13:50'),
+(5, 'Excavadora de Ruedas', NULL, 'PW148-10', 'KPL43210', 'xxxxxxxxxxx', '1696958180_R (1).png', NULL, '2023-10-10 17:16:20', '2023-10-10 17:16:20'),
+(6, 'Excavadora de Oruga', NULL, 'ZX350LC-5', 'HIT12345', 'xxxxxxxxxxx', '1696958686_OIP (6).jpeg', NULL, '2023-10-10 17:24:46', '2023-10-10 17:24:46'),
+(7, 'Cargadora Frontal', NULL, 'L220H', 'VOL45678', 'xxxxxx', '1696958891_R (5).jpeg', NULL, '2023-10-10 17:28:11', '2023-10-10 17:28:11'),
+(8, 'Motoniveladora', NULL, '672GP', 'JD78901', 'xxxxxxxxxxx', '1696959129_OIP (7).jpeg', NULL, '2023-10-10 17:32:09', '2023-10-10 17:32:09'),
+(9, 'Retroexcavadora', '48', '580N', 'ABC12345', 'xxxxxxxxxx', '1696973860_OIP (9).jpeg', NULL, '2023-10-10 21:37:40', '2023-10-10 21:37:40');
 
 -- --------------------------------------------------------
 
@@ -4999,19 +4957,7 @@ CREATE TABLE `maquinas_pedido` (
 --
 
 INSERT INTO `maquinas_pedido` (`id`, `maquina_id`, `pedido_id`, `created_at`, `updated_at`) VALUES
-(1, 17, 1, '2023-09-02 15:40:15', '2023-09-02 15:40:15'),
-(2, 17, 1, '2023-09-02 15:48:50', '2023-09-02 15:48:50'),
-(3, 16, 2, '2023-09-02 15:52:28', '2023-09-02 15:52:28'),
-(4, 16, 3, '2023-09-05 03:26:20', '2023-09-05 03:26:20'),
-(5, 16, 4, '2023-09-05 03:50:49', '2023-09-05 03:50:49'),
-(6, 16, 5, '2023-09-05 03:57:47', '2023-09-05 03:57:47'),
-(7, 16, 6, '2023-09-05 04:02:51', '2023-09-05 04:02:51'),
-(8, 16, 7, '2023-09-09 17:18:35', '2023-09-09 17:18:35'),
-(9, 16, 8, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
-(10, 17, 9, '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
-(11, 17, 10, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(12, 17, 11, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(13, 15, 12, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
+(1, 5, 1, '2023-10-10 21:16:01', '2023-10-10 21:16:01');
 
 -- --------------------------------------------------------
 
@@ -5045,9 +4991,15 @@ CREATE TABLE `maquina_marca` (
 --
 
 INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(15, 2, NULL, NULL),
-(16, 1, NULL, NULL),
-(17, 2, NULL, NULL);
+(1, 1, NULL, NULL),
+(2, 1, NULL, NULL),
+(3, 1, NULL, NULL),
+(4, 2, NULL, NULL),
+(5, 2, NULL, NULL),
+(6, 3, NULL, NULL),
+(7, 46, NULL, NULL),
+(8, 47, NULL, NULL),
+(9, 48, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5058,6 +5010,8 @@ INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at
 CREATE TABLE `marcas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `imagen` varchar(300) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5066,37 +5020,39 @@ CREATE TABLE `marcas` (
 -- Volcado de datos para la tabla `marcas`
 --
 
-INSERT INTO `marcas` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
-(1, 'CATERPILLAR', '0000-00-00 00:00:00', NULL),
-(2, 'KOMATSU', '2023-05-28 16:45:14', '2023-05-28 05:00:00'),
-(3, 'HITACHI', '2023-05-27 16:44:43', '2023-05-27 16:44:43'),
-(4, 'PERKINS', '2023-08-21 10:56:09', '2023-08-21 05:00:00'),
-(6, 'CTP', '2023-08-21 11:11:40', '2023-08-21 11:11:40'),
-(7, 'COSTEX', '2023-08-21 11:12:06', '2023-08-21 11:12:06'),
-(8, 'ITR', '2023-08-21 11:12:13', '2023-08-21 11:12:13'),
-(9, 'HB30', '2023-08-21 11:12:22', '2023-08-21 11:12:22'),
-(10, 'ATS', '2023-08-21 11:12:33', '2023-08-21 11:12:33'),
-(11, 'EMMARK', '2023-08-21 11:12:39', '2023-08-21 11:12:39'),
-(12, 'OEM', '2023-08-21 11:12:51', '2023-08-21 11:12:51'),
-(13, 'DOOSAN', '2023-08-21 11:13:00', '2023-08-21 11:13:00'),
-(14, 'PERKINS REMAN', '2023-08-21 11:13:08', '2023-08-21 11:13:08'),
-(15, 'BLUMAQ', '2023-08-21 11:13:21', '2023-08-21 11:13:21'),
-(16, 'SKU', '2023-08-21 11:14:35', '2023-08-21 11:14:35'),
-(17, 'KOREANA', '2023-08-21 11:14:42', '2023-08-21 11:14:42'),
-(18, 'WPS', '2023-08-21 11:14:49', '2023-08-21 11:14:49'),
-(19, 'CUMMINS', '2023-08-21 11:14:59', '2023-08-21 11:14:59'),
-(20, 'JEIL', '2023-08-21 11:15:06', '2023-08-21 11:15:06'),
-(21, 'NOK', '2023-08-21 11:15:15', '2023-08-21 11:15:15'),
-(22, 'VEMA', '2023-08-21 11:15:38', '2023-08-21 11:15:38'),
-(23, 'TRACK LINK', '2023-08-21 11:15:50', '2023-08-21 11:15:50'),
-(24, 'BLACK CAT', '2023-08-21 11:16:07', '2023-08-21 11:16:07'),
-(25, 'KSK', '2023-08-21 11:16:14', '2023-08-21 11:16:14'),
-(27, 'ETP', '2023-08-21 11:16:47', '2023-08-21 11:16:47'),
-(28, 'TRASTEEL', '2023-08-21 11:16:55', '2023-08-21 11:16:55'),
-(29, 'VMT', '2023-08-21 11:17:03', '2023-08-21 11:17:03'),
-(30, 'VEMA TEC', '2023-08-21 11:17:17', '2023-08-21 11:17:17'),
-(32, 'IPD', '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
-(33, 'Todos', '2023-09-14 03:16:41', '2023-09-14 03:16:41');
+INSERT INTO `marcas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `updated_at`) VALUES
+(1, 'CATERPILLAR', 'Caterpillar es el mayor fabricante del mundo de maquinarias de construcción y de minería, de motores diesel y de gas natural, de turbinas industriales y de locomotoras diesel-eléctricas. También es el proveedor líder en servicios financieros a través de Caterpillar Financial Services.', '1696438341_R (1).jpeg', '2023-10-04 13:56:00', '2023-10-04 16:52:21'),
+(2, 'KOMATSU', NULL, '1696439064_R.png', '2023-05-28 16:45:14', '2023-10-04 17:04:24'),
+(3, 'HITACHI', 'Marca Hitachi', '1696440182_hitachi-logo.jpg', '2023-05-27 16:44:43', '2023-10-04 17:23:02'),
+(4, 'PERKINS', 'Perkins es una reconocida marca de motores diésel utilizados comúnmente en maquinaria pesada. Sus motores son apreciados por su durabilidad, eficiencia y potencia, lo que los hace ideales para equipos de construcción, generadores, maquinaria agrícola y otros vehículos industriales. Los motores Perkins son conocidos por su calidad y fiabilidad, respaldados por décadas de experiencia en la industria y una amplia presencia global en el mercado de maquinaria pesada.', '1696523575_Perkins_Logo.png', '2023-08-21 10:56:09', '2023-10-05 16:32:55'),
+(6, 'CTP', NULL, NULL, '2023-08-21 11:11:40', '2023-08-21 11:11:40'),
+(7, 'COSTEX', NULL, NULL, '2023-08-21 11:12:06', '2023-08-21 11:12:06'),
+(8, 'ITR', NULL, NULL, '2023-08-21 11:12:13', '2023-08-21 11:12:13'),
+(9, 'HB30', NULL, NULL, '2023-08-21 11:12:22', '2023-08-21 11:12:22'),
+(10, 'ATS', NULL, NULL, '2023-08-21 11:12:33', '2023-08-21 11:12:33'),
+(11, 'EMMARK', NULL, NULL, '2023-08-21 11:12:39', '2023-08-21 11:12:39'),
+(12, 'OEM', NULL, NULL, '2023-08-21 11:12:51', '2023-08-21 11:12:51'),
+(13, 'DOOSAN', NULL, NULL, '2023-08-21 11:13:00', '2023-08-21 11:13:00'),
+(14, 'PERKINS REMAN', NULL, NULL, '2023-08-21 11:13:08', '2023-08-21 11:13:08'),
+(15, 'BLUMAQ', NULL, NULL, '2023-08-21 11:13:21', '2023-08-21 11:13:21'),
+(16, 'SKU', NULL, NULL, '2023-08-21 11:14:35', '2023-08-21 11:14:35'),
+(17, 'KOREANA', NULL, NULL, '2023-08-21 11:14:42', '2023-08-21 11:14:42'),
+(18, 'WPS', NULL, NULL, '2023-08-21 11:14:49', '2023-08-21 11:14:49'),
+(19, 'CUMMINS', NULL, NULL, '2023-08-21 11:14:59', '2023-08-21 11:14:59'),
+(20, 'JEIL', NULL, NULL, '2023-08-21 11:15:06', '2023-08-21 11:15:06'),
+(21, 'NOK', NULL, NULL, '2023-08-21 11:15:15', '2023-08-21 11:15:15'),
+(22, 'VEMA', NULL, NULL, '2023-08-21 11:15:38', '2023-08-21 11:15:38'),
+(23, 'TRACK LINK', NULL, NULL, '2023-08-21 11:15:50', '2023-08-21 11:15:50'),
+(24, 'BLACK CAT', NULL, NULL, '2023-08-21 11:16:07', '2023-08-21 11:16:07'),
+(25, 'KSK', NULL, NULL, '2023-08-21 11:16:14', '2023-08-21 11:16:14'),
+(27, 'ETP', NULL, NULL, '2023-08-21 11:16:47', '2023-08-21 11:16:47'),
+(28, 'TRASTEEL', NULL, NULL, '2023-08-21 11:16:55', '2023-08-21 11:16:55'),
+(29, 'VMT', NULL, NULL, '2023-08-21 11:17:03', '2023-08-21 11:17:03'),
+(30, 'VEMA TEC', NULL, NULL, '2023-08-21 11:17:17', '2023-08-21 11:17:17'),
+(32, 'IPD', NULL, NULL, '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
+(46, 'VOLVO', 'Volvo es una marca líder en maquinaria pesada reconocida por su compromiso con la calidad y la innovación. Ofreciendo una amplia gama de equipos, desde excavadoras hasta camiones volquete articulados, Volvo se destaca por su enfoque en la eficiencia energética, la seguridad del operador y la sostenibilidad ambiental. Su reputación se basa en la durabilidad y el rendimiento de sus máquinas, respaldados por una sólida red de servicio a nivel mundial, brindando a los clientes la confianza de contar con equipos confiables para proyectos de construcción y trabajo pesado.', '1696958816_R (4).jpeg', '2023-10-10 17:26:56', '2023-10-10 17:26:56'),
+(47, 'JHON DEERE', 'John Deere es una marca icónica en la industria de la maquinaria pesada, conocida por su compromiso con la calidad y la innovación en equipos agrícolas y de construcción. Sus máquinas, que incluyen tractores, retroexcavadoras y motoniveladoras, destacan por su durabilidad y desempeño excepcional en el campo. La marca se ha ganado la confianza de los clientes gracias a su legado de más de 180 años en la fabricación de maquinaria de alta calidad, respaldada por una red global de servicio y soporte que garantiza la longevidad y el rendimiento de sus equipos en diversos entornos de trabajo pesado.', '1696959058_John-Deere-Logo.png', '2023-10-10 17:30:58', '2023-10-10 17:30:58'),
+(48, 'CASE', 'Case es una marca de maquinaria pesada con una sólida reputación en la industria de la construcción y la agricultura. Con una herencia que se remonta a más de 175 años, Case se destaca por fabricar equipos confiables, duraderos y de alto rendimiento. Sus productos incluyen excavadoras, retroexcavadoras, cargadoras, tractores, y otros equipos utilizados en una amplia variedad de aplicaciones. Case se caracteriza por su enfoque en la innovación tecnológica, la eficiencia y la comodidad del operador, lo que la convierte en una elección popular para contratistas y operadores de maquinaria pesada en todo el mundo.', '1696973721_Case_IH_Logo.png', '2023-10-10 21:35:21', '2023-10-10 21:35:21');
 
 -- --------------------------------------------------------
 
@@ -5126,8 +5082,8 @@ INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `f
 (21, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:03:04', '2023-09-11 02:03:04'),
 (23, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
 (24, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(25, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:06:58', '2023-09-11 02:06:58'),
-(28, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:12:17', '2023-09-11 02:12:17');
+(28, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:12:17', '2023-09-11 02:12:17'),
+(29, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-10-02 13:31:31', '2023-10-02 13:31:31');
 
 -- --------------------------------------------------------
 
@@ -5185,7 +5141,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (46, '2023_09_02_182937_create_empresa_table', 32),
 (47, '2023_09_03_075532_create_cotizacion_pedido_table', 33),
 (48, '2023_09_09_123911_create_relacion_suplencia_table', 34),
-(49, '2023_09_10_162450_create_articulos_juegos_table', 35);
+(49, '2023_09_10_162450_create_articulos_juegos_table', 35),
+(50, '2023_10_02_103955_create_sistemas_articulos_table', 36);
 
 -- --------------------------------------------------------
 
@@ -5537,18 +5494,7 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `user_id`, `tercero_id`, `comentario`, `contacto_id`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, 1, 'Costeo', '2023-09-02 15:48:50', '2023-09-02 21:12:32'),
-(2, 1, 5, NULL, NULL, 'Costeo', '2023-09-02 15:52:28', '2023-09-02 15:52:48'),
-(3, 1, 1, NULL, 1, 'Costeo', '2023-09-05 03:26:20', '2023-09-05 03:27:41'),
-(4, 1, 1, NULL, 2, 'Costeo', '2023-09-05 03:50:49', '2023-09-05 03:51:11'),
-(5, 1, 1, NULL, 2, 'Costeo', '2023-09-05 03:57:47', '2023-09-05 03:58:05'),
-(6, 1, 1, NULL, 1, 'Costeo', '2023-09-05 04:02:51', '2023-09-05 04:03:11'),
-(7, 1, 1, NULL, 2, 'Costeo', '2023-09-09 17:18:35', '2023-09-09 17:19:10'),
-(8, 1, 1, NULL, 1, 'Costeo', '2023-09-11 02:24:40', '2023-09-11 02:24:59'),
-(9, 1, 1, NULL, 1, 'Nuevo', '2023-09-14 02:52:41', '2023-09-14 02:52:41'),
-(10, 1, 1, NULL, 2, 'Nuevo', '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(11, 1, 1, NULL, 2, 'Costeo', '2023-09-14 02:53:44', '2023-09-14 02:54:49'),
-(12, 1, 5, NULL, NULL, 'Costeo', '2023-09-14 02:56:24', '2023-09-14 02:56:31');
+(1, 1, 1, NULL, 1, 'Costeo', '2023-10-10 21:16:01', '2023-10-10 21:16:11');
 
 -- --------------------------------------------------------
 
@@ -5563,14 +5509,6 @@ CREATE TABLE `pedidos_articulos_temporales` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `pedidos_articulos_temporales`
---
-
-INSERT INTO `pedidos_articulos_temporales` (`id`, `pedido_id`, `articulo_temporal_id`, `created_at`, `updated_at`) VALUES
-(1, 10, 1, '2023-09-14 02:53:44', '2023-09-14 02:53:44'),
-(3, 11, 3, '2023-09-14 02:54:49', '2023-09-14 02:54:49');
 
 -- --------------------------------------------------------
 
@@ -5591,17 +5529,7 @@ CREATE TABLE `pedido_marca` (
 --
 
 INSERT INTO `pedido_marca` (`id`, `pedido_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, NULL, NULL),
-(2, 1, 2, NULL, NULL),
-(3, 1, 2, NULL, NULL),
-(4, 3, 1, NULL, NULL),
-(5, 4, 1, NULL, NULL),
-(6, 5, 1, NULL, NULL),
-(7, 6, 1, NULL, NULL),
-(8, 7, 1, NULL, NULL),
-(9, 8, 1, NULL, NULL),
-(10, 11, 2, NULL, NULL),
-(11, 12, 2, NULL, NULL);
+(1, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5622,8 +5550,7 @@ CREATE TABLE `pedido_sistema` (
 --
 
 INSERT INTO `pedido_sistema` (`id`, `pedido_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
-(1, 8, 3, '2023-09-11 02:24:40', '2023-09-11 02:24:40'),
-(2, 12, 3, '2023-09-14 02:56:24', '2023-09-14 02:56:24');
+(1, 1, 5, '2023-10-10 21:16:01', '2023-10-10 21:16:01');
 
 -- --------------------------------------------------------
 
@@ -5692,7 +5619,8 @@ INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `create
 (16, 42, 39, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
 (17, 41, 4, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
 (18, 41, 8, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(22, 43, 7, '2023-09-11 02:12:16', '2023-09-11 02:12:16');
+(22, 43, 7, '2023-09-11 02:12:16', '2023-09-11 02:12:16'),
+(23, 1, 4, '2023-10-02 13:31:31', '2023-10-02 13:31:31');
 
 -- --------------------------------------------------------
 
@@ -5703,6 +5631,8 @@ INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `create
 CREATE TABLE `sistemas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `imagen` varchar(300) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5711,9 +5641,60 @@ CREATE TABLE `sistemas` (
 -- Volcado de datos para la tabla `sistemas`
 --
 
-INSERT INTO `sistemas` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
-(3, 'Motor', '2023-05-01 20:23:09', '2023-05-01 20:23:09'),
-(4, 'Bomba hidráulica', '2023-05-21 20:23:09', '2023-05-21 20:23:09');
+INSERT INTO `sistemas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `updated_at`) VALUES
+(3, 'Motor', 'Un motor de una excavadora es un componente fundamental de la máquina que proporciona la potencia necesaria para impulsar el movimiento de la excavadora y operar sus diversas funciones, como la excavación y el levantamiento de carga. Estos motores suelen ser motores diésel de alta potencia diseñados para soportar cargas pesadas y condiciones de trabajo adversas en la construcción y excavación. Generalmente, son motores de combustión interna que convierten la energía del combustible diésel en movimiento mecánico para alimentar el sistema hidráulico y las partes móviles de la excavadora.', NULL, '2023-05-01 20:23:09', '2023-05-01 20:23:09'),
+(4, 'Bomba hidráulica', NULL, NULL, '2023-05-21 20:23:09', '2023-05-21 20:23:09'),
+(5, 'Tren de Rodaje', 'Es el conjunto de componentes que conforman la base y la movilidad de la máquina. Incluye ruedas o cadenas, sistemas de suspensión y transmisión, así como los elementos que permiten el desplazamiento de la maquinaria sobre terrenos variados y soportar cargas pesadas. El tren de rodaje asegura la estabilidad, la tracción y la capacidad de maniobra de la maquinaria, lo que es esencial para su funcionamiento eficiente en actividades como la construcción o la minería.', '1696523397_OIP (2).jpeg', '2023-09-24 13:30:38', '2023-10-05 16:29:57'),
+(6, 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443858_R (2).jpeg', '2023-10-04 18:24:18', '2023-10-04 18:24:18'),
+(7, 'Iluminación', 'Proporciona iluminación adecuada para trabajar en condiciones de poca luz o de noche.', '1696444098_luz-led-de-trabajo-recargable-caterpillar-lampara-D_NQ_NP_549515-MLM25265490006_012017-F.jpg', '2023-10-04 18:28:18', '2023-10-04 18:28:18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_articulos`
+--
+
+CREATE TABLE `sistemas_articulos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `sistema_id` bigint(20) UNSIGNED NOT NULL,
+  `articulo_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `sistemas_articulos`
+--
+
+INSERT INTO `sistemas_articulos` (`id`, `sistema_id`, `articulo_id`, `created_at`, `updated_at`) VALUES
+(1, 4, 10, '2023-10-03 13:15:34', '2023-10-03 13:15:34'),
+(2, 4, 17, '2023-10-03 14:28:34', '2023-10-03 14:28:34'),
+(3, 5, 6, '2023-10-03 14:31:48', '2023-10-03 14:31:48'),
+(4, 3, 7, '2023-10-03 14:33:20', '2023-10-03 14:33:20'),
+(5, 4, 1, '2023-10-03 14:51:16', '2023-10-03 14:51:16'),
+(6, 5, 4, '2023-10-04 17:35:53', '2023-10-04 17:35:53'),
+(7, 5, 6, '2023-10-05 16:40:27', '2023-10-05 16:40:27'),
+(8, 5, 20, '2023-10-05 16:47:14', '2023-10-05 16:47:14'),
+(9, 5, 20, '2023-10-05 16:52:04', '2023-10-05 16:52:04'),
+(10, 3, 1, '2023-10-09 19:30:41', '2023-10-09 19:30:41'),
+(11, 6, 1, '2023-10-09 19:30:41', '2023-10-09 19:30:41'),
+(12, 4, 1, '2023-10-09 19:32:22', '2023-10-09 19:32:22'),
+(13, 5, 6, '2023-10-09 19:32:22', '2023-10-09 19:32:22'),
+(14, 5, 1, '2023-10-10 21:16:01', '2023-10-10 21:16:01');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistemas_articulos_temporales`
+--
+
+CREATE TABLE `sistemas_articulos_temporales` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `sistema_id` bigint(20) UNSIGNED NOT NULL,
+  `articulo_temporal_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -5753,16 +5734,10 @@ CREATE TABLE `terceros` (
 --
 
 INSERT INTO `terceros` (`id`, `nombre`, `tipo_documento`, `numero_documento`, `direccion`, `telefono`, `email`, `dv`, `CiudadID`, `PaisCodigo`, `codigo_postal`, `estado`, `forma_pago`, `email_factura_electronica`, `rut`, `certificacion_bancaria`, `camara_comercio`, `cedula_representante_legal`, `sitio_web`, `puntos`, `created_at`, `updated_at`, `tipo`, `Indicativo`) VALUES
-(1, 'Carlos Osorio', 'CC', '3456778', 'Dirección123', '6578676', 'carlos.osorio@gmail.com', NULL, 2260, 'COL', NULL, 'activo', NULL, 'facturacion@gmail.com', 'rut/pa5Rt6aYqLGxjKwE32OdNchA0YbCtbTlQI7ikhtr.pdf', 'certificacion_bancaria/rjKMgdUjFgXf2IAIR4irQUZkoKcOrb5L3IjE15EJ.pdf', 'camara_comercio/icHeP6kG611d2CdH713Rf16XC0WlwLbZUo36awOA.pdf', 'cedula_representante_legal/nRSjhGNvE0uFjfJ1oahdd6hkJGysLcEY6lyyKtMy.pdf', NULL, NULL, '2023-06-24 14:49:23', '2023-08-21 23:56:11', 'Cliente', '+57'),
-(5, 'Maira Perez', 'CC', '545345', 'asdf', '3016490698', 'w@q', NULL, 2260, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-08 18:21:31', '2023-08-12 14:39:32', 'Cliente', '+57'),
-(6, 'Proveedor nacional 1', 'NIT', '123', 'asdf', '6578676', 'wilfranr@gmail.com', '4', 2260, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:33:52', '2023-08-06 12:27:49', 'Proveedor', '+57'),
-(9, 'Proveedor internacional 1', 'NIT', '645645', 'asdf', '6578676', 'w@q', '3', 2515, 'MEX', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:38:13', '2023-07-15 16:38:13', 'Proveedor', '+57'),
-(10, 'Proveedor internacional 2', 'NIT', '645645', 'asdf', '6578676', 'w@q', '3', 2515, 'MEX', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:39:04', '2023-08-05 21:12:14', 'Proveedor', '+57'),
-(11, 'Proveedor nacional 2', 'NIT', '657677', 'asdf', '6578676', 'w@q', '3', 2260, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:39:36', '2023-07-15 16:39:36', 'Proveedor', '+57'),
-(12, 'Proveedor Nacional 3', 'NIT', '98797987', 'asdf', '6578676', 'w@q', '5', 2257, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:41:52', '2023-07-15 16:41:52', 'Proveedor', '+57'),
-(13, 'proveedor internacional 3', 'CE', '7865765756', 'asdf', '6578676', 'w@q', NULL, 653, 'ESP', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 16:42:53', '2023-07-15 16:42:53', 'Proveedor', '+57'),
-(72, 'Proveedor Perkins', 'CC', '6456546456', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '2023-08-21 11:03:33', '2023-08-21 11:03:33', 'Proveedor', '+57'),
-(73, 'cliente con marca', 'CC', '80896995', 'Counting objects: 100% (439/439), done.', '6578676', 'wilfranr@gmail.com', NULL, 3173, 'SAU', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'www.provvedor.com', NULL, '2023-08-26 20:38:15', '2023-08-26 20:38:15', 'Cliente', '+57');
+(1, 'TRANSMATERIALES', 'CC', '53465876876', 'DIRECCION TRANSAMATERIALES', '31254', 'TRANSMATERIALES@EJEMPLO.COM', NULL, 2257, 'COL', NULL, 'activo', NULL, 'transmateriales@ejemplo.com', 'rut/kYEqfCz6tdEXbooqMeUGPed1cEm6EpSGuWGHPqWT.pdf', 'certificaciones/IkTOVpqyTnZhPobK1TYURXR7UXshZHeDmhXUgtVF.pdf', 'camara_comercio/RLPJqKJl4cwNvhFNRHbiOhPoXuox0X5ZlAKDjRYj.pdf', 'cedula_representante_legal/tbKdne4QN9g7Mn240zK39GeKNGSEVdAqeHWuWCNN.pdf', 'www.transmateriales.com', NULL, '2023-10-10 19:28:53', '2023-10-10 19:28:53', 'Cliente', '+57'),
+(2, 'MARCELIANO MANCERA', 'NIT', '800298437', 'DIRECCION MARCELIANO', '3137038949', 'marceliano@ejemplo.com', '8', 2257, 'COL', NULL, 'activo', NULL, 'marceliano@ejemplo.com', NULL, NULL, NULL, NULL, 'www.marceliano.com', NULL, '2023-10-10 19:32:15', '2023-10-10 19:32:15', 'Cliente', '+57'),
+(3, 'TRACTOPESADOS', 'NIT', '23712378228', 'DIRECCION TRACTOPESADOS', '31397827722', 'tractopesados@ejemplo.com', '8', 2257, 'COL', NULL, 'activo', NULL, 'tractopesados@ejemplo.com', NULL, NULL, NULL, NULL, 'www.tractopesados.com', NULL, '2023-10-10 19:35:11', '2023-10-10 19:35:11', 'Proveedor', '+57'),
+(4, 'COSTEX', 'NIT', '453433345455', 'DIRECCION COSTEX', '545348934', 'costex@ejemplo.com', '3', 2257, 'COL', NULL, 'activo', NULL, 'costex@ejemplo.com', NULL, NULL, NULL, NULL, 'www.costex.com', NULL, '2023-10-10 19:37:46', '2023-10-10 19:37:46', 'Proveedor', '+57');
 
 -- --------------------------------------------------------
 
@@ -5797,13 +5772,11 @@ CREATE TABLE `tercero_maquina` (
 --
 
 INSERT INTO `tercero_maquina` (`id`, `tercero_id`, `maquina_id`, `created_at`, `updated_at`) VALUES
-(19, 1, 17, NULL, NULL),
-(20, 5, 15, NULL, NULL),
-(21, 5, 16, NULL, NULL),
-(22, 73, 15, NULL, NULL),
-(23, 73, 16, NULL, NULL),
-(24, 73, 17, NULL, NULL),
-(25, 1, 16, NULL, NULL);
+(1, 1, 2, NULL, NULL),
+(2, 1, 5, NULL, NULL),
+(3, 2, 5, NULL, NULL),
+(4, 2, 7, NULL, NULL),
+(5, 2, 8, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5823,17 +5796,12 @@ CREATE TABLE `tercero_marca` (
 --
 
 INSERT INTO `tercero_marca` (`tercero_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(1, 15, NULL, NULL),
-(6, 1, NULL, NULL),
-(6, 2, NULL, NULL),
-(9, 2, NULL, NULL),
-(9, 3, NULL, NULL),
-(10, 1, NULL, NULL),
-(11, 1, NULL, NULL),
-(11, 3, NULL, NULL),
-(12, 1, NULL, NULL),
-(13, 3, NULL, NULL),
-(72, 4, NULL, NULL);
+(3, 1, NULL, NULL),
+(3, 6, NULL, NULL),
+(3, 28, NULL, NULL),
+(3, 29, NULL, NULL),
+(3, 30, NULL, NULL),
+(4, 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5854,7 +5822,13 @@ CREATE TABLE `tercero_sistema` (
 --
 
 INSERT INTO `tercero_sistema` (`id`, `tercero_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
-(25, 10, 3, NULL, NULL);
+(1, 3, 3, NULL, NULL),
+(2, 3, 5, NULL, NULL),
+(3, 4, 3, NULL, NULL),
+(4, 4, 4, NULL, NULL),
+(5, 4, 5, NULL, NULL),
+(6, 4, 6, NULL, NULL),
+(7, 4, 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5874,7 +5848,7 @@ CREATE TABLE `trm` (
 --
 
 INSERT INTO `trm` (`id`, `trm`, `created_at`, `updated_at`) VALUES
-(1, 3900.00, NULL, '2023-09-14 02:11:22');
+(1, 4077.00, NULL, '2023-10-02 01:58:30');
 
 -- --------------------------------------------------------
 
@@ -5901,7 +5875,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `email`, `email_verified_at`, `role`, `foto`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Yoseth Rivera', '3137038949', 'wilfranr@gmail.com', NULL, 'superadmin', 'user1-128x128.jpg', '$2y$10$uCj6u2QsheieL8U2GyXc/u27B5BOVBuvnDGjGB130W5LUp6gfv.LK', 'AfzQwsASvZXogFYiAMxfs70ldbAdo2tPuzKvjBwMHlxox2hNF2rqUJH5SzAf', '2023-06-19 13:46:04', '2023-06-19 13:46:04'),
+(1, 'Yoseth Rivera', '3137038949', 'wilfranr@gmail.com', NULL, 'superadmin', 'user1-128x128.jpg', '$2y$10$uCj6u2QsheieL8U2GyXc/u27B5BOVBuvnDGjGB130W5LUp6gfv.LK', 'BBWGrILlrMHagiqm5u6YzLSEFnd6mTWKtmJlCOO1kBttsuEi7s5jbBdKKA4l', '2023-06-19 13:46:04', '2023-06-19 13:46:04'),
 (3, 'Maira Perez', '3137038949', 'm@q.com', NULL, 'admin', 'user3-128x128.jpg', '$2y$10$etQHot3WhyNT.da5I0EIEOdUL9KKOgRwpk.TB7YDe82RU1ZXo9g6y', NULL, '2023-06-28 03:45:53', '2023-06-28 03:45:53'),
 (4, 'Analista de partes', '3137038949', 'analista@ejemplo.com', NULL, 'partes', 'user4-128x128.jpg', '$2y$10$RMo1vLBppgxsjkhYW2pm4.Pupth.sYv5LOFAklLKWGySugRcYIj/O', NULL, '2023-07-01 17:34:45', '2023-07-01 17:34:45'),
 (5, 'Vendedor', '3137038949', 'vendedor@ejemplo.com', NULL, 'vendedor', 'user7-128x128.jpg', '$2y$10$4kZaNzrbcHv37tnBDeVWieohTFpRfEQ8SiaEZXD0vhJ8aMkLqxFfG', NULL, '2023-07-01 18:07:09', '2023-07-01 18:07:09'),
@@ -6176,6 +6150,22 @@ ALTER TABLE `sistemas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `sistemas_articulos`
+--
+ALTER TABLE `sistemas_articulos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sistemas_articulos_sistema_id_foreign` (`sistema_id`),
+  ADD KEY `sistemas_articulos_articulo_id_foreign` (`articulo_id`);
+
+--
+-- Indices de la tabla `sistemas_articulos_temporales`
+--
+ALTER TABLE `sistemas_articulos_temporales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sistemas_articulos_temporales_sistema_id_foreign` (`sistema_id`),
+  ADD KEY `sistemas_articulos_temporales_articulo_temporal_id_foreign` (`articulo_temporal_id`);
+
+--
 -- Indices de la tabla `terceros`
 --
 ALTER TABLE `terceros`
@@ -6237,19 +6227,19 @@ ALTER TABLE `articulos`
 -- AUTO_INCREMENT de la tabla `articulos_juegos`
 --
 ALTER TABLE `articulos_juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_medida`
 --
 ALTER TABLE `articulo_medida`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_temporal`
 --
 ALTER TABLE `articulo_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudades`
@@ -6261,19 +6251,19 @@ ALTER TABLE `ciudades`
 -- AUTO_INCREMENT de la tabla `contactos`
 --
 ALTER TABLE `contactos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto_tercero`
 --
 ALTER TABLE `contacto_tercero`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizaciones`
 --
 ALTER TABLE `cotizaciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizacion_pedido`
@@ -6303,7 +6293,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `fotos_articulo_temporal`
 --
 ALTER TABLE `fotos_articulo_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `foto_articulo`
@@ -6321,7 +6311,7 @@ ALTER TABLE `imagenes_articulo`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_padres`
@@ -6333,13 +6323,13 @@ ALTER TABLE `lista_padres`
 -- AUTO_INCREMENT de la tabla `maquinas`
 --
 ALTER TABLE `maquinas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas_pedido`
 --
 ALTER TABLE `maquinas_pedido`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `maquina_articulo`
@@ -6351,19 +6341,19 @@ ALTER TABLE `maquina_articulo`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `medidas`
 --
 ALTER TABLE `medidas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
@@ -6375,25 +6365,25 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_articulos_temporales`
 --
 ALTER TABLE `pedidos_articulos_temporales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_marca`
 --
 ALTER TABLE `pedido_marca`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_sistema`
 --
 ALTER TABLE `pedido_sistema`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
@@ -6417,19 +6407,31 @@ ALTER TABLE `referencias_articulos`
 -- AUTO_INCREMENT de la tabla `relacion_suplencia`
 --
 ALTER TABLE `relacion_suplencia`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas`
 --
 ALTER TABLE `sistemas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `sistemas_articulos`
+--
+ALTER TABLE `sistemas_articulos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `sistemas_articulos_temporales`
+--
+ALTER TABLE `sistemas_articulos_temporales`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `terceros`
 --
 ALTER TABLE `terceros`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `terceros_sistemas`
@@ -6441,13 +6443,13 @@ ALTER TABLE `terceros_sistemas`
 -- AUTO_INCREMENT de la tabla `tercero_maquina`
 --
 ALTER TABLE `tercero_maquina`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tercero_sistema`
 --
 ALTER TABLE `tercero_sistema`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `trm`
@@ -6567,6 +6569,20 @@ ALTER TABLE `pedido_sistema`
 ALTER TABLE `relacion_suplencia`
   ADD CONSTRAINT `relacion_suplencia_articulo_id_foreign` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
   ADD CONSTRAINT `relacion_suplencia_suplido_por_id_foreign` FOREIGN KEY (`suplido_por_id`) REFERENCES `articulos` (`id`);
+
+--
+-- Filtros para la tabla `sistemas_articulos`
+--
+ALTER TABLE `sistemas_articulos`
+  ADD CONSTRAINT `sistemas_articulos_articulo_id_foreign` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+  ADD CONSTRAINT `sistemas_articulos_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`);
+
+--
+-- Filtros para la tabla `sistemas_articulos_temporales`
+--
+ALTER TABLE `sistemas_articulos_temporales`
+  ADD CONSTRAINT `sistemas_articulos_temporales_articulo_temporal_id_foreign` FOREIGN KEY (`articulo_temporal_id`) REFERENCES `articulo_temporal` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `sistemas_articulos_temporales_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tercero_maquina`
