@@ -1,5 +1,5 @@
 //const { set } = require("lodash");
-
+console.log('custom.js');
 //ocultar botones
 document.getElementById('btnNuevo').style.display = 'none';
 document.getElementById('btnNuevo').style.display = 'none';
