@@ -125,7 +125,7 @@
 
     {{-- Modal de clientes --}}
     <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content bg-secondary">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalClientesLabel">Buscar cliente</h5>
@@ -134,7 +134,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Buscar">
+                    <input type="text" class="mb-3" name="search" id="search" class="form-control" placeholder="Buscar">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -386,9 +386,6 @@
 
 
             };
-
-
-
 
             // Capturar el evento de cambio en el campo de búsqueda de clientes
             $('#search').on('keyup', function() {

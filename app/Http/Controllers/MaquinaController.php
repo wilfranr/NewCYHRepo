@@ -54,6 +54,7 @@ class MaquinaController extends Controller
         $maquina->modelo = $validatedData['modelo'];
         $maquina->serie = $validatedData['serie'];
         $maquina->arreglo = $validatedData['arreglo'];
+        $maquina->marca = $validatedData['marca'];
 
         // Procesar la foto de la máquina, si se proporcionó
         if ($request->hasFile('fotoMaquina')) {

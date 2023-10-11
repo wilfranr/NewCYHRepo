@@ -96,6 +96,9 @@ class CosteoController extends Controller
         $maquinas = $pedido->maquinas;
         //dd($maquinas);
 
+        //traer la marca de la maquina
+        $marca = $maquinas->first()->marca;
+
         //traer las marcas asociadas a este pedido
         $marcas = $pedido->marcas;
         // dd($marcas);
