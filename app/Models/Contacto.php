@@ -15,6 +15,7 @@ class Contacto extends Model
         'nombre',
         'telefono',
         'email',
+        'cargo'
     ];
 
     // Definir una relación muchos a muchos que indica que este modelo se relaciona con varios Terceros.    

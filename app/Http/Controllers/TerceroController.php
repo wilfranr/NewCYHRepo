@@ -166,6 +166,7 @@ class TerceroController extends Controller
                     $contacto->nombre = $dataContacto['nombre'];
                     $contacto->telefono = $dataContacto['telefono'];
                     $contacto->email = $dataContacto['email'];
+                    $contacto->cargo = $dataContacto['cargo'];
                     $contacto->save();
 
                     // Agregar la relación a la tabla intermedia
@@ -177,6 +178,7 @@ class TerceroController extends Controller
                 $contacto->nombre = $data['nombre'];
                 $contacto->telefono = $data['telefono'];
                 $contacto->email = $data['email'];
+                $contacto->cargo = $data['cargo'];
                 $contacto->save();
 
                 // Agregar la relación a la tabla intermedia

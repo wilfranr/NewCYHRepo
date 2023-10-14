@@ -95,7 +95,7 @@
                                                     <div class="form-group">
                                                         <label for="pais_id">País</label>
                                                         {{-- select para pais --}}
-                                                        
+
                                                     </div>
                                                     <p>{{ $tercero->PaisCodigo }}</p>
                                                 </div>
@@ -141,8 +141,8 @@
                                                     <div class="form-group">
                                                         <label for="ciudad">Ciudad</label>
 
-                                                        <select name="ciudad" id="ciudad" class="form-control select2"
-                                                            required>
+                                                        <select name="ciudad" id="ciudad"
+                                                            class="form-control select2" required>
                                                             <option value="">Seleccione una ciudad</option>
                                                         </select>
                                                     </div>
@@ -237,8 +237,8 @@
                                         <ul>
                                             <li>
                                                 @foreach ($tercero->sistemas as $sistema)
-                                                <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
-                                                    
+                                                    <a
+                                                        href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
                                                 @endforeach
                                             </li>
                                         </ul>
@@ -320,6 +320,12 @@
                                                     <input type="text" name="email_contacto_{{ $loop->iteration }}"
                                                         id="email_contacto_{{ $loop->iteration }}" class="form-control"
                                                         value="{{ $contacto->email }}" required>
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label for="cargo_contacto_{{ $loop->iteration }}">Cargo:</label>
+                                                    <input type="text" name="cargo_contacto_{{ $loop->iteration }}"
+                                                        id="cargo_contacto_{{ $loop->iteration }}" class="form-control"
+                                                        value="{{ $contacto->cargo }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -722,7 +728,7 @@
         //         });
 
         // });
-      
+
         $(document).ready(function() {
             console.log('hola');
             //ocultar boton agregar
@@ -746,6 +752,10 @@
                 <div class="form-group">
                     <label for="email_contacto_${contadorContactos}">Correo electrónico:</label>
                     <input type="email" name="email_contacto_${contadorContactos}" id="email_contacto_${contadorContactos}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="contactos[${contadorContactos}][cargo]">Cargo:</label>
+                    <input type="text" name="contactos[${contadorContactos}][cargo]" id="cargo_contacto_${contadorContactos}" class="form-control">
                 </div>
                 </hr>
             `);

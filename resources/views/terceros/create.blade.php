@@ -337,6 +337,10 @@
                         <label for="contactos[${contadorContactos}][email]">Correo electrónico:</label>
                         <input type="email" name="contactos[${contadorContactos}][email]" id="email_contacto_${contadorContactos}" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="contactos[${contadorContactos}][cargo]">Cargo:</label>
+                        <input type="text" name="contactos[${contadorContactos}][cargo]" id="cargo_contacto_${contadorContactos}" class="form-control">
+                    </div>
                     </hr>
                 `);
 

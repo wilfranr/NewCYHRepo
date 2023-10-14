@@ -10,21 +10,21 @@ document.getElementById('btnGuardar').style.display = 'none';
 var ruta = window.location.href;
 
 
-if (ruta == 'http://localhost:8000/listas' || ruta == 'http://localhost:8000/listasPadre' || 'http://localhost:8000/marcas') {
+if (ruta == 'http://127.0.0.1:8000/listas' || ruta == 'http://127.0.0.1:8000/listasPadre' || 'http://127.0.0.1:8000/marcas') {
     document.getElementById('btnNuevo').style.display = 'block';
 
     //Abrir modal data-toggle="modal" data-target="#modal-crear"
     document.getElementById('btnNuevo').setAttribute('data-toggle', 'modal');
     document.getElementById('btnNuevo').setAttribute('data-target', '#modal-crear');
 }
-if (ruta == 'http://localhost:8000/articulos' || ruta == 'http://localhost:8000/pedidos' || ruta == 'http://localhost:8000/maquinas' || ruta == 'http://localhost:8000/terceros') {
+if (ruta == 'http://127.0.0.1:8000/articulos' || ruta == 'http://127.0.0.1:8000/pedidos' || ruta == 'http://127.0.0.1:8000/maquinas' || ruta == 'http://127.0.0.1:8000/terceros') {
     console.log('estoy en articulos');
     document.getElementById('btnNuevo').style.display = 'block';
     //función de boton nuevo para que redirija a la vista de crear
     document.getElementById('btnNuevo').setAttribute('onclick', 'nuevo()');
     
 }
-if (ruta == 'http://localhost:8000/users') {
+if (ruta == 'http://127.0.0.1:8000/users') {
     document.getElementById('btnNuevo').style.display = 'block';
     //función de boton nuevo para que redirija a la vista de registro de usuario
     document.getElementById('btnNuevo').setAttribute('onclick', 'registrar()');
@@ -44,7 +44,7 @@ if (ruta.includes('create')) {
 
 //funcion de boton que redirija a la vista de registro de usuario
 function registrar() {
-    window.location.href = 'http://localhost:8000/register';
+    window.location.href = 'http://127.0.0.1:8000/register';
 }
 
 //función de boton que redirija a la vista de crear

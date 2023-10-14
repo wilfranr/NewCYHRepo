@@ -84,4 +84,10 @@ class Tercero extends Model
     {
         return $this->hasMany(Cotizacion::class);
     }
+
+    //Relación con ciudad
+    // public function Ciudad()
+    // {
+    //     return $this->hasMany(Ciudad::class);
+    // }
 }

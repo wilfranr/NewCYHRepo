@@ -54,7 +54,10 @@ class MaquinaController extends Controller
         $maquina->modelo = $validatedData['modelo'];
         $maquina->serie = $validatedData['serie'];
         $maquina->arreglo = $validatedData['arreglo'];
-        $maquina->marca = $validatedData['marca'];
+
+        // Obtener la marca seleccionada
+        $marca = Marca::find($request->input('marca'));
+        $maquina->marca = $marca->nombre;
 
         // Procesar la foto de la máquina, si se proporcionó
         if ($request->hasFile('fotoMaquina')) {
@@ -74,8 +77,6 @@ class MaquinaController extends Controller
 
         $maquina->save();
 
-        // Obtener la marca seleccionada
-        $marca = Marca::find($request->input('marca'));
 
         // Asociar la marca a la máquina a través de la relación belongsToMany
         $maquina->marcas()->attach($marca);

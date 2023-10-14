@@ -20,4 +20,10 @@ class Ciudad extends Model
         // Utilizar el método belongsTo para establecer una relación de pertenencia con el modelo Pais.
         return $this->belongsTo(Pais::class, 'PaisCodigo');
     }
+
+    //Relación con Terceros
+    // public function Terceros()
+    // {
+    //     return $this->belongsTo(Tercero::class);
+    // }
 }

@@ -1,114 +1,254 @@
 @extends('adminlte::page')
 
 @section('content')
-    <div class="container">
-        <h1>Pedido # {{ $ultimoPedido }}</h1>
-        <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            {{-- Botón para crear pedido --}}
-            <div class="form-group">
-                {{-- boton para buscar cliente --}}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes"><i
-                        class="fa fa-search" aria-hidden="true"></i>
-                    Buscar cliente
-                </button>
-                {{-- dirigir a crear tercero --}}
-                <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
-                        class="fas fa-plus"></i>Agregar cliente</a>
+    {{-- Info de pedido --}}
+    <div class="mt-3 mb-5">
+        <h4>
+            <span class="badge badge-warning"><i class="fas fa-shopping-cart"></i>Pedido #{{ $ultimoPedido }}</span>
+            <small class="float-right">Fecha y hora actual: {{ \Carbon\Carbon::now() }}</small><br>
+        </h4>
+    </div>
+
+    <!-- info cliente -->
+    <div id="info-cliente">
+        <div class="card bg-light d-flex flex-fill">
+            <div class="card-header text-muted border-bottom-0">
+                Datos del cliente
             </div>
+            <div class="card-body pt-0">
+                <div class="row">
+                    <div class="col-3">
+                        <p>Cliente</p>
+                        <input type="hidden" name="tercero_id" id="tercero_id" value="">
+                        <input type="hidden" name="pedido_id" value="">
+                        <input type="hidden" name="estado" id="estado" value="Nuevo">
 
-            {{-- Bloque de datos del cliente --}}
-            <div class="row">
-                {{-- Bloque izquierdo --}}
-                <div class="col-md-6">
-
-                    <div class="form-group">
-                        {{-- mostrar cliente seleccionado --}}
+                        <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
+                                        id="nombre_cliente"></strong></a></b></h2>
+                        <p class="text-muted text-sm">
+                            <b>
+                                <i class="fas fa-lg fa-id-card"></i> <span id="tipo_documento"></span>
+                            </b><span id="documento"></span>-<span id="dv"></span>
+                        </p>
+                        <p class="text-muted text-sm">
+                            <b>
+                                <span><i class="fas fa-lg fa-building"></i> Dirección:</span>
+                            </b> <span id="direccion_cliente"></span>
+                        </p>
+                        <p class="text-muted text-sm">
+                            <b>
+                                <span class=""><i class="fa fa-phone" aria-hidden="true"></i>
+                                    Teléfono:</span>
+                            </b><span id="telefono"></span>
+                        </p>
+                        <p class="text-muted text-sm">
+                            <b>
+                                <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                            </b><span id="email"></span>
+                        </p>
+                    </div>
+                    <div class="col-3">
+                        <p>Contactos del cliente</p>
                         <div class="form-group">
-                            <label for="tercero_id">Cliente</label>
-                            <input type="hidden" name="tercero_id" id="tercero_id" value="" required>
-                            <input type="text" class="form-control" id="cliente_nombre" value="" readonly required>
-                            <input for="estado" type="hidden" name="estado" value="Nuevo">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <input type="text" name="direccion" id="direccion" class="form-control" value="" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" class="form-control" value="" readonly>
-                    </div>
+                            <div class="d-flex align-items-center">
+                                <select name="contactoTercero" id="contactoTercero" class="form-control">
+                                    <option value="">Seleccione</option>
+                                    <!-- Otras opciones del select aquí -->
+                                </select>
 
-                </div>
-
-
-                {{-- Bloque derecho --}}
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="numero_documento">No. Documento</label>
-                        <input type="text" name="numero_documento" id="numero_documento" class="form-control" readonly
-                            required>
-                        <input type="hidden" name="puntos" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <div class="d-flex align-items-center">
-                            <input type="text" name="telefono" id="telefono" class="form-control" value=""
-                                readonly>
-                            <a href="" id="wp_cliente" target="_blank" class="ml-2"><i
-                                    class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="contactoTercero">Contacto</label>
-                        <div class="d-flex align-items-center">
-                            <select name="contactoTercero" id="contactoTercero" class="form-control">
-                                <option value="">Seleccione</option>
-                                <!-- Otras opciones del select aquí -->
-                            </select>
-                            <div id="divContactoTercero" class="ml-2">
-                                <a href="" id="wp_contacto" target="_blank"><i class="fab fa-whatsapp"></i></a>
                             </div>
                         </div>
+                        <div id="divContactoTercero" class="ml-2">
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <i class="fab fa-2x fa-whatsapp"></i>
+                                    <span class="">Teléfono:</span>
+                                </b>
+                                <a href="" id="wp_contacto" target="_blank">
+                                    <span id="contacto_telefono"></span>
+                                </a>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                </b>
+                                <a href="" id="email-contacto">
+                                    <span id="email_contacto"></span>
+                                </a>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-briefcase"></i>
+                                        Cargo:</span>
+                                </b><span id="cargo_contacto"></span>
+                            </p>
+                        </div>
                     </div>
-
+                    <div class="col-3">
+                        <p>Máquinas del cliente</p>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            {{-- maquina --}}
-            <div class="row" id="maquina">
-                <div class="col-6">
-                    <div class="form-group mt-3">
-                        <label for="maquina_id">Máquina:</label>
-                        <select name="maquina_id[]" id="maquina_id" class="form-select" multiple style="width: 79%">
+    {{-- Formulario de creación de pedido --}}
+    <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            {{-- boton para buscar cliente --}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes"><i
+                    class="fa fa-search" aria-hidden="true"></i>
+                Buscar cliente
+            </button>
+            {{-- dirigir a crear tercero --}}
+            <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
+                    class="fas fa-plus"></i>Agregar cliente</a>
+        </div>
 
-                            @foreach ($maquinas as $id => $maquina)
-                                <option value="{{ $id }}">{{ $maquina->tipo }}</option>
-                            @endforeach
+        {{-- Bloque de datos del cliente --}}
+        <div class="row">
+            {{-- Bloque izquierdo --}}
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    {{-- mostrar cliente seleccionado --}}
+                    <div class="form-group">
+                        <label for="tercero_id">Cliente</label>
+                        <input type="hidden" name="tercero_id" id="tercero_id" value="" required>
+                        <input type="text" class="form-control" id="cliente_nombre" value="" readonly required>
+                        <input for="estado" type="hidden" name="estado" value="Nuevo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" name="direccion" id="direccion" class="form-control" value="" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" value="" readonly>
+                </div>
+
+            </div>
+
+
+            {{-- Bloque derecho --}}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="numero_documento">No. Documento</label>
+                    <input type="text" name="numero_documento" id="numero_documento" class="form-control" readonly
+                        required>
+                    <input type="hidden" name="puntos" value="">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <div class="d-flex align-items-center">
+                        <input type="text" name="telefono" id="telefono" class="form-control" value=""
+                            readonly>
+                        <a href="" id="wp_cliente" target="_blank" class="ml-2"><i
+                                class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="contactoTercero">Contacto</label>
+                    <div class="d-flex align-items-center">
+                        <select name="contactoTercero" id="contactoTercero" class="form-control">
+                            <option value="">Seleccione</option>
+                            <!-- Otras opciones del select aquí -->
                         </select>
-                        {{-- Boton modal para crear maquina --}}
-                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                            data-target="#modalMaquinas"><i class="fa fa-plus" aria-hidden="true"></i>
-
-                        </button>
+                        <div id="divContactoTercero" class="ml-2">
+                            <a href="" id="wp_contacto" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {{-- Detalle --}}
-            <div class="row" id="div-detalle">
+            </div>
+        </div>
+
+        {{-- maquina --}}
+        <div class="row" id="maquina">
+            <div class="col-6">
                 <div class="form-group mt-3">
-                    <button class="btn btn-outline-primary mb-5" id="boton-agregar-articulo" type="button">
-                        <i class="fas fa-plus"></i>
-                        Agregar artículo
+                    <label for="maquina_id">Máquina:</label>
+                    <select name="maquina_id[]" id="maquina_id" class="form-select" multiple>
+
+                        @foreach ($maquinas as $id => $maquina)
+                            <option value="{{ $id }}">{{ $maquina->tipo }}</option>
+                        @endforeach
+                    </select>
+                    {{-- Boton modal para crear maquina --}}
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                        data-target="#modalMaquinas"><i class="fa fa-plus" aria-hidden="true"></i>
+
                     </button>
                 </div>
             </div>
-            <div id="articulos">
-                <input type="hidden" name="articulos-temporales" id="articulos-temporales">
+        </div>
+
+        {{-- Detalle --}}
+        <div class="row" id="div-detalle">
+            <div class="form-group mt-3">
+                <button class="btn btn-outline-primary mb-5" id="boton-agregar-articulo" type="button">
+                    <i class="fas fa-plus"></i>
+                    Agregar artículo
+                </button>
+            </div>
+        </div>
+        <div id="articulos">
+            <input type="hidden" name="articulos-temporales" id="articulos-temporales">
+            {{-- tabla --}}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Referencia</th>
+                            <th>Sistema</th>
+                            <th>Comentarios</th>
+                            <th>Cantidad</th>
+                            <th>Fotos</th>
+                            <th>Agregar otro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="referencia" id="referencia" class="form-control select2">
+                                    <option value="">Ninguno</option>
+                                    @foreach ($articulos as $id => $articulo)
+                                        <option value="{{ $articulo->referencia }}">{{ $articulo->definicion }}
+                                            --{{ $articulo->referencia }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <select name="sistema" class="form-control select2" id="sistema">
+                                    <option value="">Ninguno</option>
+                                    @foreach ($sistemas as $id => $sistema)
+                                        <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <textarea name="comentarios" id="comentarios" cols="20" rows="5" class="form-control"
+                                    placeholder="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
+                            </td>
+                            <td>
+                                <input type="number" name="cantidad" class="form-control" id="cantidad"
+                                    value="1" required>
+                            </td>
+                            <td>
+                                <input type="file" name="fotos[]" multiple class="form-control" id="fotos">
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary" id="boton-agregar-articulo" type="button">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
 
@@ -120,8 +260,7 @@
                 <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-cart-plus" aria-hidden="true"></i>
                     Crear pedido</button>
             </div>
-        </form>
-    </div>
+    </form>
 
     {{-- Modal de clientes --}}
     <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
@@ -134,17 +273,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="mb-3" name="search" id="search" class="form-control" placeholder="Buscar">
-                    <table class="table table-bordered table-hover">
+                    <input type="text" class="mb-3" name="search" id="search" class="form-control"
+                        placeholder="Buscar">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
+                                <th>Tipo Documento</th>
                                 <th>No. Documento</th>
-                                <th>Direccion</th>
+                                <th>Ciudad</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Seleccionar</th>
+                                <th><i class="fa fa-check"></i>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,16 +293,20 @@
                                 <tr>
                                     <td>{{ $tercero->id }}</td>
                                     <td>{{ $tercero->nombre }}</td>
+                                    <td>{{ $tercero->tipo_documento }}</td>
                                     <td>{{ $tercero->numero_documento }}</td>
-                                    <td>{{ $tercero->direccion }}</td>
+                                    <td>{{ $tercero->ciudad }}</td>
                                     <td>{{ $tercero->telefono }}</td>
                                     <td>{{ $tercero->email }}</td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary seleccionar-cliente"
                                             data-id="{{ $tercero->id }}" data-nombre="{{ $tercero->nombre }}"
+                                            data-tipo_documento="{{ $tercero->tipo_documento }}"
                                             data-identificacion="{{ $tercero->numero_documento }}"
                                             data-direccion="{{ $tercero->direccion }}"
-                                            data-telefono="{{ $tercero->telefono }}" data-email="{{ $tercero->email }}"
+                                            data-telefono="{{ $tercero->telefono }}" 
+                                            data-email="{{ $tercero->email }}"
+                                            data-dv="{{ $tercero->dv }}"
                                             data-dismiss="modal" data-bs-dismiss="modal"><i class="fa fa-check"
                                                 aria-hidden="true"></i>
                                     </td>
@@ -180,7 +325,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Crear máquina para <span id="tercero-nombre"></span></h4>
-                    
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -297,7 +442,8 @@
         //busqueda dinámica en tabla terceros
         $(document).ready(function() {
 
-
+            //ocultar div info-cliente
+            $('#info-cliente').hide();
             //ocultar div maquina
             $('#maquina').hide();
             //ocultar botoon de agregar articulo
@@ -309,21 +455,32 @@
 
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
             $(document).on('click', '.seleccionar-cliente', function() {
+                //mostrar div info-cliente
+                $('#info-cliente').show();
                 //mostrar div maquina
                 $('#maquina').show();
                 // Cerramos el modal
                 $('#modalClientes').modal('hide');
                 // Actualizar los datos del formulario de crear pedido con los datos del cliente seleccionado
                 $('#tercero_id').val($(this).data('id'));
+                //actualizar el enlace link_cliente y redirigir a terceros.edit
+                $('#link_cliente').attr('href', '/terceros/' + $(this).data('id') + '/edit');
                 $('#cliente_nombre').val($(this).data('nombre'));
                 $('#numero_documento').val($(this).data('identificacion'));
+                $('#documento').html($(this).data('identificacion'));
                 $('#direccion').val($(this).data('direccion'));
+                $('#direccion_cliente').html($(this).data('direccion'));
                 $('#telefono').val($(this).data('telefono'));
+                $('#telefono').html($(this).data('telefono'));
                 $('#wp_cliente').attr('href', 'https://wa.me/+57' + $(this).data('telefono'));
                 $('#email').val($(this).data('email'));
+                $('#email').html($(this).data('email'));
                 //actualizar el campo tercero en el modal maquinas
                 $('#tercero_id_maquina').val($(this).data('id'));
                 $('#tercero-nombre').html($(this).data('nombre'));
+                $('#nombre_cliente').html($(this).data('nombre'));
+                $('#tipo_documento').html($(this).data('tipo_documento'));
+                $('#dv').html($(this).data('dv'));
                 cargarMaquinas();
                 cargarContactos();
                 cargarMarcas();
@@ -333,6 +490,7 @@
 
             // Cargar maquinas
             function cargarMaquinas() {
+                console.log('funcion cargar máquinas');
                 var tercero_id = $('#tercero_id').val();
                 var filtro_marca = $('#filtro_marca').val(); // Obtener el valor seleccionado en el filtro de marca
 
@@ -340,6 +498,7 @@
                     url: `/terceros/${tercero_id}/maquinas`,
                     method: 'GET',
                     success: function(response) {
+                        console.log(response);
                         $('#maquina_id').empty();
                         response.forEach(maquina => {
                             $('#maquina_id').append($('<option>', {
@@ -383,8 +542,6 @@
                         console.error(error);
                     }
                 });
-
-
             };
 
             // Capturar el evento de cambio en el campo de búsqueda de clientes
@@ -426,6 +583,11 @@
                                 if (contactoEncontrado) {
                                     $('#wp_contacto').attr('href', 'https://wa.me/+57' +
                                         contactoEncontrado.telefono);
+                                    $('#contacto_telefono').html(contactoEncontrado.telefono);
+                                    $('#email_contacto').html(contactoEncontrado.email);
+                                    $('#email-contacto').attr('href', 'mailto:' +
+                                        contactoEncontrado.email);
+                                    $('#cargo_contacto').html(contactoEncontrado.cargo);
                                 } else {
                                     console.log('No se encontró el contacto');
                                 }
@@ -526,6 +688,11 @@
             });
             //select2
             $('.form-select').select2({
+                placeholder: "Seleccione...",
+                allowClear: true,
+                theme: "bootstrap"
+            });
+            $('.select2').select2({
                 placeholder: "Seleccione...",
                 allowClear: true,
                 theme: "bootstrap"
