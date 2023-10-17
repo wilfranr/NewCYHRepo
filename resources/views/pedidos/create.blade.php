@@ -14,12 +14,18 @@
         <div class="form-group">
             {{-- boton para buscar cliente --}}
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes"><i
-                    class="fa fa-search" aria-hidden="true"></i>
+                    class="fa fa-search" aria-hidden="true" id="btn-buscar-cliente"></i>
                 Buscar cliente
             </button>
             {{-- dirigir a crear tercero --}}
             <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
                     class="fas fa-plus"></i>Agregar cliente</a>
+            {{-- <i class="fa fa-question-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" 
+                      title="
+                      Este es un tooltip de ejemplo.
+                      Es aquí donde se puede definir toda clase de ayuda respecto a diferentes secciones de la aplicación.
+                      "></i> --}}
+
         </div>
 
         <!-- info cliente -->
@@ -64,9 +70,10 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <p>Contactos del cliente</p>
 
-                                {{-- Boton modal para crear maquina --}}
+                                {{-- Boton modal para crear contacto --}}
                                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                    data-target="#modalContacto"><i class="fa fa-plus" aria-hidden="true"></i>
+                                    data-target="#modalContacto" title="Crear Contacto"><i class="fa fa-plus"
+                                        aria-hidden="true"></i>
                                 </button>
                             </div>
                             <div class="form-group">
@@ -106,19 +113,54 @@
                         <div class="col-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p>Máquinas del cliente</p>
+                                <div>
+                                    {{-- Botón para buscar las máquinas del tercero --}}
+                                    <button type="button" class="btn btn-outline-success btn-sm" id="boton-buscar-maquinas"
+                                        title="Buscar Máquinas Asociadas al Cliente" data-toggle="modal"
+                                        data-target="#modalBuscarMaquinas"><i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
 
-                                {{-- Boton modal para crear maquina --}}
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                    data-target="#modalMaquinas"><i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
+                                    {{-- Boton modal para crear maquina --}}
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                        data-target="#modalCrearMaquinas" title="Crear Máquina y Asociarla al Cliente"><i
+                                            class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div>
-                                {{-- maquina --}}
-                                <select name="maquina_id" id="maquina_id" class="select2">
-                                    @foreach ($maquinas as $id => $maquina)
-                                        <option value="{{ $id }}">{{ $maquina->tipo }}</option>
-                                    @endforeach
-                                </select>
+                                <h2 class="lead"><b><a id="link_maquina" href="" target="_blank"><strong
+                                                id="nombre_maquina"></strong></a></b></h2>
+                            </div>
+                            <p class="text-muted text-sm">
+                                <b><span>Marca:</span></b>
+                                <span id="marca"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b><span>Modelo:</span></b>
+                                <span id="modelo"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b><span>Serie:</span></b>
+                                <span id="serie"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b><span>Arreglo:</span></b>
+                                <span id="arreglo"></span>
+                            </p>
+
+                        </div>
+                        <div class="col-3">
+                            {{-- mostrar foto de imágen de máquina --}}
+                            <div class="text-center mb-3">
+                                <a href="" id="foto_maquina_link" target="_blank">
+                                    <img src="" class="img-circle img-fluid" id="foto_maquina" width="200">
+                                </a>
+                            </div>
+                            {{-- mostrar foto de imágen de Id de máquina --}}
+                            <div class="text-center">
+                                <a href="" id="foto_id_link" target="_blank">
+                                <img src="" class=" border border-warning" id="foto_id" width="200">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -286,7 +328,7 @@
                                 <th>Ciudad</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th><i class="fa fa-check"></i>
+                                <th><i class="fa fa-check"></i></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -318,8 +360,40 @@
         </div>
     </div>
 
+    {{-- Modal seleccionar máquinas del cliente --}}
+    <div class="modal fade" id="modalBuscarMaquinas" tabindex="-1" aria-labelledby="modalBuscarMaquinasLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalClientesLabel">Maquinas Asociadas a <span
+                            id="tercero_nombre_maquina"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <table id="maquinas" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Serie</th>
+                            <th>Arreglo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal crear máquina --}}
-    <div class="modal fade" id="modalMaquinas">
+    <div class="modal fade" id="modalCrearMaquinas">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -459,9 +533,9 @@
                                     <label for="nombre">{{ __('Nombre') }}</label>
                                     <input type="text" class="form-control" name="nombre" id="nombre" required>
                                 </div>
-                                
+
                                 <div class="form-group">
-                                    <label for="telefono">{{  __('Telefono') }}</label>
+                                    <label for="telefono">{{ __('Telefono') }}</label>
                                     <input type="text" class="form-control" name="telefono" id="telefono">
                                 </div>
 
@@ -493,6 +567,10 @@
 @endsection
 @section('js')
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
         //busqueda dinámica en tabla terceros
         $(document).ready(function() {
 
@@ -505,8 +583,11 @@
             //ocultar boton de whatsapp
             $('#wp_contacto').hide();
 
+
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
             $(document).on('click', '.seleccionar-cliente', function() {
+                //limpiar select contactoTercero
+                $('#contactoTercero').empty();
                 //mostrar div info-cliente
                 $('#info-cliente').show();
                 //mostrar div maquina
@@ -529,6 +610,7 @@
                 $('#email').html($(this).data('email'));
                 //actualizar el campo tercero en el modal maquinas
                 $('#tercero_id_maquina').val($(this).data('id'));
+                $('#tercero_nombre_maquina').html($(this).data('nombre'));
                 $('#tercero_id_contacto').val($(this).data('id'));
                 $('#tercero-nombre').html($(this).data('nombre'));
                 $('#tercero-nombre2').html($(this).data('nombre'));
@@ -571,34 +653,63 @@
                 });
             };
 
-            // Cargar maquinas
             function cargarMaquinas() {
-                console.log('funcion cargar máquinas');
+                //llenar tabla con maquinas del tercero
                 var tercero_id = $('#tercero_id').val();
                 var filtro_marca = $('#filtro_marca').val(); // Obtener el valor seleccionado en el filtro de marca
 
-                $.ajax({
-                    url: `/terceros/${tercero_id}/maquinas`,
-                    method: 'GET',
-                    success: function(response) {
-                        console.log(response);
-                        $('#maquina_id').empty();
-                        response.forEach(maquina => {
-                            $('#maquina_id').append($('<option>', {
-                                value: maquina.id,
-                                text: maquina.tipo + ' - ' + maquina.modelo +
-                                    ' - ' + maquina.serie +
-                                    ' - ' + maquina.marca
-                            }));
-                        });
-                    },
-                    error: function(error) {
+                axios.get(`/terceros/${tercero_id}/maquinas`)
+                    .then(response => {
+                        $('#maquinas tbody').empty();
+                        if (response.data.length === 0) {
+                            $('#maquinas tbody').append(`
+                            <tr>
+                                <td colspan="8">No se encontraron máquinas asociadas al cliente, debe crear al menos una.</td>
+
+                            </tr>
+                            `);
+                        } else {
+                            response.data.forEach(maquina => {
+                                $('#maquinas tbody').append(`
+                            <tr>
+                                <td>${maquina.tipo}</td>
+                                <td>${maquina.marca}</td>
+                                <td>${maquina.modelo}</td>
+                                <td>${maquina.serie}</td>
+                                <td>${maquina.arreglo}</td>
+                                <td><button type="button" class="btn btn-sm btn-primary seleccionar-maquina" data-id="${maquina.id}" data-tipo="${maquina.tipo}" data-marca="${maquina.marca}" data-modelo="${maquina.modelo}" data-serie="${maquina.serie}" data-arreglo="${maquina.arreglo}" data-foto="${maquina.foto}" 
+                                    data-foto_id="${maquina.fotoId}" data-dismiss="modal" data-bs-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i></button></td>
+                                </tr>
+                                `);
+                            });
+                        }
+                    })
+                    .catch(error => {
                         console.error(error);
-                    }
-                });
+
+                    })
+
+
             }
 
-
+            //capturar evento de seleccionar maquina
+            $(document).on('click', '.seleccionar-maquina', function() {
+                console.log('seleccionar maquina');
+                // Cerramos el modal
+                $('#modalBuscarMaquinas').modal('hide');
+                // Actualizar los datos del formulario de crear pedido con los datos de la maquina seleccionada
+                $('#maquina_id').val($(this).data('id'));
+                $('#link_maquina').attr('href', '/maquinas/' + $(this).data('id') + '/edit');
+                $('#nombre_maquina').html($(this).data('tipo'));
+                $('#marca').html($(this).data('marca'));
+                $('#modelo').html($(this).data('modelo'));
+                $('#serie').html($(this).data('serie'));
+                $('#arreglo').html($(this).data('arreglo'));
+                $('#foto_maquina_link').attr('href', '/storage/maquinas/' + $(this).data('foto'));
+                $('#foto_id_link').attr('href', '/storage/maquinas/' + $(this).data('foto_id'));
+                $('#foto_maquina').attr('src', '/storage/maquinas/' + $(this).data('foto'));
+                $('#foto_id').attr('src', '/storage/maquinas/' + $(this).data('foto_id'));
+            });
 
             // Capturar el evento de cambio en el campo de búsqueda de clientes
             $('#search').on('keyup', function() {
@@ -615,45 +726,26 @@
                 // Hacer una petición Axios al servidor para obtener los contactos del tercero
                 axios.get(`/terceros/${tercero_id}/contactos`)
                     .then(response => {
-                        document.getElementById("contactoTercero").innerHTML += `
-                            
-                            `;
-                        response.data.forEach(contacto => {
-                            // Agregar una opción al select de contactos
-                            document.getElementById("contactoTercero").innerHTML += `
-                                <option value="${contacto.id}">${contacto.nombre}</option>
-                            `;
+                        document.getElementById("contactoTercero").innerHTML = ''; // Limpiar el select
 
-                            //cambiar telefono de contacto segun seleccione
-                            $('#contactoTercero').change(function() {
-                                //mostrar botn de whatsapp
-                                $('#wp_contacto').show();
-                                var contacto_id = $(this).val();
-                                console.log(contacto_id);
-                                // Buscar el contacto en la lista de contactos
-                                var contactoEncontrado = response.data.find(function(
-                                    contacto) {
-                                    return contacto.id == contacto_id;
-                                });
-                                console.log(contactoEncontrado);
-                                if (contactoEncontrado) {
-                                    $('#wp_contacto').attr('href', 'https://wa.me/+57' +
-                                        contactoEncontrado.telefono);
-                                    $('#contacto_telefono').html(contactoEncontrado.telefono);
-                                    $('#email_contacto').html(contactoEncontrado.email);
-                                    $('#email-contacto').attr('href', 'mailto:' +
-                                        contactoEncontrado.email);
-                                    $('#cargo_contacto').html(contactoEncontrado.cargo);
-                                } else {
-                                    console.log('No se encontró el contacto');
-                                }
+                        if (response.data.length === 0) {
+                            // No se encontraron contactos, puedes mostrar un mensaje o realizar alguna otra acción.
+                            document.getElementById("contactoTercero").innerHTML =
+                                '<option value="">No se encontraron contactos</option>';
+                        } else {
+                            response.data.forEach(contacto => {
+                                // Agregar una opción al select de contactos
+                                document.getElementById("contactoTercero").innerHTML += `
+                        <option value="${contacto.id}">${contacto.nombre}</option>
+                    `;
                             });
-                        });
+                        }
                     })
                     .catch(error => {
                         console.log(error);
                     });
             }
+
 
             let contadorArticulos = 1;
 
@@ -749,7 +841,6 @@
                 theme: "bootstrap"
             });
             $('.select2').select2({
-                placeholder: "Seleccione...",
                 allowClear: true,
                 theme: "bootstrap"
             });
