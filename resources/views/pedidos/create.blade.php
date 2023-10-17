@@ -80,7 +80,6 @@
                                 <div class="d-flex align-items-center">
                                     <select name="contactoTercero" id="contactoTercero" class="form-control">
                                         <option value="">Seleccione</option>
-                                        <!-- Otras opciones del select aquí -->
                                     </select>
                                 </div>
                             </div>
@@ -159,7 +158,7 @@
                             {{-- mostrar foto de imágen de Id de máquina --}}
                             <div class="text-center">
                                 <a href="" id="foto_id_link" target="_blank">
-                                <img src="" class=" border border-warning" id="foto_id" width="200">
+                                    <img src="" class=" border border-warning" id="foto_id" width="200">
                                 </a>
                             </div>
                         </div>
@@ -581,7 +580,7 @@
             // ocultar div comentarios de pedido
             $('#comentariosPedido').hide();
             //ocultar boton de whatsapp
-            $('#wp_contacto').hide();
+            // $('#wp_contacto').hide();
 
 
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
@@ -718,42 +717,60 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
             //cargar contactos de tercero
             function cargarContactos() {
                 // Obtener el valor del ID del tercero seleccionado
                 const tercero_id = document.getElementById("tercero_id").value;
-
                 // Hacer una petición Axios al servidor para obtener los contactos del tercero
                 axios.get(`/terceros/${tercero_id}/contactos`)
-                    .then(response => {
-                        document.getElementById("contactoTercero").innerHTML = ''; // Limpiar el select
-
-                        if (response.data.length === 0) {
-                            // No se encontraron contactos, puedes mostrar un mensaje o realizar alguna otra acción.
-                            document.getElementById("contactoTercero").innerHTML =
-                                '<option value="">No se encontraron contactos</option>';
-                        } else {
-                            response.data.forEach(contacto => {
-                                // Agregar una opción al select de contactos
-                                document.getElementById("contactoTercero").innerHTML += `
-                        <option value="${contacto.id}">${contacto.nombre}</option>
-                    `;
+                .then(response => {
+                        document.getElementById("contactoTercero").innerHTML += `
+                        <option value="">Seleccionar contacto</option>
+                            `;
+                        response.data.forEach(contacto => {
+                            // Agregar una opción al select de contactos
+                            document.getElementById("contactoTercero").innerHTML += `
+                                <option value="${contacto.id}">${contacto.nombre}</option>
+                            `;
+                            //cambiar telefono de contacto segun seleccione
+                            $('#contactoTercero').change(function() {
+                                //mostrar botn de whatsapp
+                                $('#wp_contacto').show();
+                                var contacto_id = $(this).val();
+                                console.log(contacto_id);
+                                // Buscar el contacto en la lista de contactos
+                                var contactoEncontrado = response.data.find(function(
+                                    contacto) {
+                                    return contacto.id == contacto_id;
+                                });
+                                console.log(contactoEncontrado);
+                                if (contactoEncontrado) {
+                                    $('#wp_contacto').attr('href', 'https://wa.me/+57' +
+                                        contactoEncontrado.telefono);
+                                    $('#contacto_telefono').html(contactoEncontrado.telefono);
+                                    $('#email_contacto').html(contactoEncontrado.email);
+                                    $('#email-contacto').attr('href', 'mailto:' +
+                                        contactoEncontrado.email);
+                                    $('#cargo_contacto').html(contactoEncontrado.cargo);
+                                } else {
+                                    console.log('No se encontró el contacto');
+                                }
                             });
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
+                        });
                     });
-            }
+            };
 
 
-            let contadorArticulos = 1;
 
-            $('#boton-agregar-articulo').on('click', function() {
-                //mostrar div comentarios de pedido
-                $('#comentariosPedido').show();
 
-                $('#articulos').append(`
+        let contadorArticulos = 1;
+
+        $('#boton-agregar-articulo').on('click', function() {
+            //mostrar div comentarios de pedido
+            $('#comentariosPedido').show();
+
+            $('#articulos').append(`
 
                 <hr>
                     <div class="row">
@@ -807,43 +824,43 @@
                 </hr>
             `);
 
-                $('#articulos-temporales').val(contadorArticulos++);
+            $('#articulos-temporales').val(contadorArticulos++);
 
-                // Almacenar los datos de $articulos en una variable JavaScript
-                var articulos = {!! json_encode($articulos) !!};
-                console.log(articulos);
+            // Almacenar los datos de $articulos en una variable JavaScript
+            var articulos = {!! json_encode($articulos) !!};
+            console.log(articulos);
 
-                // Llenar campos de acuerdo a la referencia seleccionada
-                $(`#referencia${contadorArticulos-1}`).change(function() {
-                    var referencia = $(this).val();
-                    console.log(referencia);
+            // Llenar campos de acuerdo a la referencia seleccionada
+            $(`#referencia${contadorArticulos-1}`).change(function() {
+                var referencia = $(this).val();
+                console.log(referencia);
 
-                    // Buscar el artículo en la lista de artículos
-                    var articuloEncontrado = articulos.find(function(articulo) {
-                        return articulo.referencia === referencia;
-                    });
-
-                    console.log(articuloEncontrado);
-
-                    if (articuloEncontrado) {
-                        $(`#sistema${contadorArticulos-1}`).val(articuloEncontrado.sistema);
-                        $(`#definicion${contadorArticulos-1}`).val(articuloEncontrado.definicion);
-                    } else {
-                        console.log('No se encontró el artículo');
-                    }
+                // Buscar el artículo en la lista de artículos
+                var articuloEncontrado = articulos.find(function(articulo) {
+                    return articulo.referencia === referencia;
                 });
 
+                console.log(articuloEncontrado);
+
+                if (articuloEncontrado) {
+                    $(`#sistema${contadorArticulos-1}`).val(articuloEncontrado.sistema);
+                    $(`#definicion${contadorArticulos-1}`).val(articuloEncontrado
+                        .definicion);
+                } else {
+                    console.log('No se encontró el artículo');
+                }
             });
-            //select2
-            $('.form-selectw').select2({
-                placeholder: "Seleccione...",
-                allowClear: true,
-                theme: "bootstrap"
-            });
-            $('.select2').select2({
-                allowClear: true,
-                theme: "bootstrap"
-            });
+
+        });
+        //select2
+        $('.form-selectw').select2({
+            placeholder: "Seleccione...",
+            allowClear: true,
+            theme: "bootstrap"
+        }); $('.select2').select2({
+            allowClear: true,
+            theme: "bootstrap"
+        });
 
 
         });
