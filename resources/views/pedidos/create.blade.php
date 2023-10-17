@@ -8,90 +8,6 @@
             <small class="float-right">Fecha y hora actual: {{ \Carbon\Carbon::now() }}</small><br>
         </h4>
     </div>
-
-    <!-- info cliente -->
-    <div id="info-cliente">
-        <div class="card bg-light d-flex flex-fill">
-            <div class="card-header text-muted border-bottom-0">
-                Datos del cliente
-            </div>
-            <div class="card-body pt-0">
-                <div class="row">
-                    <div class="col-3">
-                        <p>Cliente</p>
-                        <input type="hidden" name="tercero_id" id="tercero_id" value="">
-                        <input type="hidden" name="pedido_id" value="">
-                        <input type="hidden" name="estado" id="estado" value="Nuevo">
-
-                        <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
-                                        id="nombre_cliente"></strong></a></b></h2>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <i class="fas fa-lg fa-id-card"></i> <span id="tipo_documento"></span>
-                            </b><span id="documento"></span>-<span id="dv"></span>
-                        </p>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <span><i class="fas fa-lg fa-building"></i> Dirección:</span>
-                            </b> <span id="direccion_cliente"></span>
-                        </p>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <span class=""><i class="fa fa-phone" aria-hidden="true"></i>
-                                    Teléfono:</span>
-                            </b><span id="telefono"></span>
-                        </p>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                            </b><span id="email"></span>
-                        </p>
-                    </div>
-                    <div class="col-3">
-                        <p>Contactos del cliente</p>
-                        <div class="form-group">
-                            <div class="d-flex align-items-center">
-                                <select name="contactoTercero" id="contactoTercero" class="form-control">
-                                    <option value="">Seleccione</option>
-                                    <!-- Otras opciones del select aquí -->
-                                </select>
-
-                            </div>
-                        </div>
-                        <div id="divContactoTercero" class="ml-2">
-                            <p class="text-muted text-sm">
-                                <b>
-                                    <i class="fab fa-2x fa-whatsapp"></i>
-                                    <span class="">Teléfono:</span>
-                                </b>
-                                <a href="" id="wp_contacto" target="_blank">
-                                    <span id="contacto_telefono"></span>
-                                </a>
-                            </p>
-                            <p class="text-muted text-sm">
-                                <b>
-                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                                </b>
-                                <a href="" id="email-contacto">
-                                    <span id="email_contacto"></span>
-                                </a>
-                            </p>
-                            <p class="text-muted text-sm">
-                                <b>
-                                    <span class=""><i class="fa fa-lg fa-briefcase"></i>
-                                        Cargo:</span>
-                                </b><span id="cargo_contacto"></span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <p>Máquinas del cliente</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {{-- Formulario de creación de pedido --}}
     <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -104,6 +20,110 @@
             {{-- dirigir a crear tercero --}}
             <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
                     class="fas fa-plus"></i>Agregar cliente</a>
+        </div>
+
+        <!-- info cliente -->
+        <div id="info-cliente">
+            <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                    Datos del cliente
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-3">
+                            <p>Cliente</p>
+                            <input type="hidden" name="tercero_id" id="tercero_id" value="">
+                            <input type="hidden" name="pedido_id" value="">
+                            <input type="hidden" name="estado" id="estado" value="Nuevo">
+
+                            <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
+                                            id="nombre_cliente"></strong></a></b></h2>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <i class="fas fa-lg fa-id-card"></i> <span id="tipo_documento"></span>
+                                </b><span id="documento"></span>-<span id="dv"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span><i class="fas fa-lg fa-building"></i> Dirección:</span>
+                                </b> <span id="direccion_cliente"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-phone" aria-hidden="true"></i>
+                                        Teléfono:</span>
+                                </b><span id="telefono"></span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                </b><span id="email"></span>
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>Contactos del cliente</p>
+
+                                {{-- Boton modal para crear maquina --}}
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                    data-target="#modalContacto"><i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex align-items-center">
+                                    <select name="contactoTercero" id="contactoTercero" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        <!-- Otras opciones del select aquí -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="divContactoTercero" class="ml-2">
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <i class="fab fa-2x fa-whatsapp"></i>
+                                        <span class="">Teléfono:</span>
+                                    </b>
+                                    <a href="" id="wp_contacto" target="_blank">
+                                        <span id="contacto_telefono"></span>
+                                    </a>
+                                </p>
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                    </b>
+                                    <a href="" id="email-contacto">
+                                        <span id="email_contacto"></span>
+                                    </a>
+                                </p>
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fa fa-lg fa-briefcase"></i>
+                                            Cargo:</span>
+                                    </b><span id="cargo_contacto"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p>Máquinas del cliente</p>
+
+                                {{-- Boton modal para crear maquina --}}
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                    data-target="#modalMaquinas"><i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div>
+                                {{-- maquina --}}
+                                <select name="maquina_id" id="maquina_id" class="select2">
+                                    @foreach ($maquinas as $id => $maquina)
+                                        <option value="{{ $id }}">{{ $maquina->tipo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         {{-- Bloque de datos del cliente --}}
@@ -167,26 +187,6 @@
             </div>
         </div>
 
-        {{-- maquina --}}
-        <div class="row" id="maquina">
-            <div class="col-6">
-                <div class="form-group mt-3">
-                    <label for="maquina_id">Máquina:</label>
-                    <select name="maquina_id[]" id="maquina_id" class="form-select" multiple>
-
-                        @foreach ($maquinas as $id => $maquina)
-                            <option value="{{ $id }}">{{ $maquina->tipo }}</option>
-                        @endforeach
-                    </select>
-                    {{-- Boton modal para crear maquina --}}
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                        data-target="#modalMaquinas"><i class="fa fa-plus" aria-hidden="true"></i>
-
-                    </button>
-                </div>
-            </div>
-        </div>
-
         {{-- Detalle --}}
         <div class="row" id="div-detalle">
             <div class="form-group mt-3">
@@ -196,6 +196,7 @@
                 </button>
             </div>
         </div>
+        {{-- tabla articulos --}}
         <div id="articulos">
             <input type="hidden" name="articulos-temporales" id="articulos-temporales">
             {{-- tabla --}}
@@ -304,11 +305,9 @@
                                             data-tipo_documento="{{ $tercero->tipo_documento }}"
                                             data-identificacion="{{ $tercero->numero_documento }}"
                                             data-direccion="{{ $tercero->direccion }}"
-                                            data-telefono="{{ $tercero->telefono }}" 
-                                            data-email="{{ $tercero->email }}"
-                                            data-dv="{{ $tercero->dv }}"
-                                            data-dismiss="modal" data-bs-dismiss="modal"><i class="fa fa-check"
-                                                aria-hidden="true"></i>
+                                            data-telefono="{{ $tercero->telefono }}" data-email="{{ $tercero->email }}"
+                                            data-dv="{{ $tercero->dv }}" data-dismiss="modal"
+                                            data-bs-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i>
                                     </td>
                                 </tr>
                             @endforeach
@@ -436,6 +435,61 @@
             </div>
         </div>
     </div>
+    {{-- Modal crear contacto --}}
+    <div class="modal fade" id="modalContacto">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear contacto para <span id="tercero-nombre2"></span></h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('pedidos.crearContacto') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+
+                                <input type="hidden" id="tercero_id_contacto" name="tercero_id_contacto">
+
+                                <div class="form-group">
+                                    <label for="nombre">{{ __('Nombre') }}</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="telefono">{{  __('Telefono') }}</label>
+                                    <input type="text" class="form-control" name="telefono" id="telefono">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">{{ __('Email') }}</label>
+                                    <input type="email" class="form-control" name="email" id="email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cargo">{{ __('Cargo') }}</label>
+                                    <input type="text" class="form-control" name="cargo" id="cargo" required>
+                                </div>
+
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Crear') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
     <script>
@@ -444,8 +498,6 @@
 
             //ocultar div info-cliente
             $('#info-cliente').hide();
-            //ocultar div maquina
-            $('#maquina').hide();
             //ocultar botoon de agregar articulo
             $('#boton-agregar-articulo').hide();
             // ocultar div comentarios de pedido
@@ -477,43 +529,18 @@
                 $('#email').html($(this).data('email'));
                 //actualizar el campo tercero en el modal maquinas
                 $('#tercero_id_maquina').val($(this).data('id'));
+                $('#tercero_id_contacto').val($(this).data('id'));
                 $('#tercero-nombre').html($(this).data('nombre'));
+                $('#tercero-nombre2').html($(this).data('nombre'));
                 $('#nombre_cliente').html($(this).data('nombre'));
                 $('#tipo_documento').html($(this).data('tipo_documento'));
                 $('#dv').html($(this).data('dv'));
-                cargarMaquinas();
                 cargarContactos();
                 cargarMarcas();
+                cargarMaquinas();
                 //mostrar boton de agregar articulo
                 $('#boton-agregar-articulo').show();
             });
-
-            // Cargar maquinas
-            function cargarMaquinas() {
-                console.log('funcion cargar máquinas');
-                var tercero_id = $('#tercero_id').val();
-                var filtro_marca = $('#filtro_marca').val(); // Obtener el valor seleccionado en el filtro de marca
-
-                $.ajax({
-                    url: `/terceros/${tercero_id}/maquinas`,
-                    method: 'GET',
-                    success: function(response) {
-                        console.log(response);
-                        $('#maquina_id').empty();
-                        response.forEach(maquina => {
-                            $('#maquina_id').append($('<option>', {
-                                value: maquina.id,
-                                text: maquina.tipo + ' - ' + maquina.modelo +
-                                    ' - ' + maquina.serie +
-                                    ' - ' + maquina.marca
-                            }));
-                        });
-                    },
-                    error: function(error) {
-                        console.error(error);
-                    }
-                });
-            }
 
             //funcion para cargar las marcas asociadas al tercero despues de seleccionarlo
             function cargarMarcas() {
@@ -543,6 +570,35 @@
                     }
                 });
             };
+
+            // Cargar maquinas
+            function cargarMaquinas() {
+                console.log('funcion cargar máquinas');
+                var tercero_id = $('#tercero_id').val();
+                var filtro_marca = $('#filtro_marca').val(); // Obtener el valor seleccionado en el filtro de marca
+
+                $.ajax({
+                    url: `/terceros/${tercero_id}/maquinas`,
+                    method: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        $('#maquina_id').empty();
+                        response.forEach(maquina => {
+                            $('#maquina_id').append($('<option>', {
+                                value: maquina.id,
+                                text: maquina.tipo + ' - ' + maquina.modelo +
+                                    ' - ' + maquina.serie +
+                                    ' - ' + maquina.marca
+                            }));
+                        });
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+
 
             // Capturar el evento de cambio en el campo de búsqueda de clientes
             $('#search').on('keyup', function() {
@@ -687,7 +743,7 @@
 
             });
             //select2
-            $('.form-select').select2({
+            $('.form-selectw').select2({
                 placeholder: "Seleccione...",
                 allowClear: true,
                 theme: "bootstrap"

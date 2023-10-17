@@ -13,6 +13,7 @@ use App\Models\ArticuloTemporal;
 use App\Models\FotoArticuloTemporal;
 use App\Models\Marca;
 use App\Models\Sistemas;
+use App\Models\Contacto;
 
 class PedidoController extends Controller
 {
@@ -415,6 +416,30 @@ class PedidoController extends Controller
         return redirect()->route('pedidos.create')->with('success', 'La máquina ha sido creada exitosamente.');
     }
 
+    public function crearContacto(Request $requets)
+    {
+        // validar los datos del formulario
+        $validatedData = $requets->validate([
+            'nombre' => 'required',
+            'telefono' => 'nullable',
+            'email' => 'nullable',
+            'cargo' => 'nullable',
+            'tercero_id_contacto' => 'required',
+        ]);
+
+        $contacto = new Contacto();
+        $contacto->nombre = strtolower($validatedData['nombre']);
+        $contacto->telefono = $validatedData['telefono'];
+        $contacto->email = $validatedData['email'];
+        $contacto->cargo = $validatedData['cargo'];
+        $contacto->save();
+
+        //asociar contacto con tercero
+        $tercero = Tercero::find($validatedData['tercero_id_contacto']);
+        $tercero->contactos()->attach($contacto);
+
+        return redirect()->route('pedidos.create')->with('success', 'El contacto ha sido creado exitosamente.');
+    }
 
     public function destroy($id)
     {

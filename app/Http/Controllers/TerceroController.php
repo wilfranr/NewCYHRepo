@@ -83,7 +83,7 @@ class TerceroController extends Controller
         // 2. Crear una instancia del modelo Tercero y asignar los datos validados
         $tercero = new Tercero();
         $tercero->tipo = $data['tipo'];
-        $tercero->nombre = $data['nombre'];
+        $tercero->nombre = strtoupper($data['nombre']);
         $tercero->email = $data['email'];
         $tercero->telefono = $data['telefono'];
         $tercero->direccion = $data['direccion'];
@@ -251,7 +251,7 @@ class TerceroController extends Controller
 
 
         $tercero->tipo = $request->tipo;
-        $tercero->nombre = $request->nombre;
+        $tercero->nombre = strtolower($request->nombre);
         $tercero->direccion = $request->direccion;
         $tercero->telefono = $request->telefono;
         $tercero->email = $request->email;

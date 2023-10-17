@@ -24,7 +24,6 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\SistemaController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -123,12 +122,12 @@ Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy'])->name('pedi
 Route::put('/pedidos/{id}/cambiarEstado', [PedidoController::class, 'cambiarEstado'])->name('pedidos.cambiarEstado');
 //Crear máquina desde pedido
 Route::post('/pedidos/crearMaquina', [PedidoController::class, 'crearMaquina'])->name('pedidos.crearMaquina');
-
+//Crear contacto desde pedido
+Route::post('/pedidos/crearContacto', [PedidoController::class, 'crearContacto'])->name('pedidos.crearContacto');
 
 //rutas costeo
 Route::get('/costeos', [CosteoController::class, 'index'])->name('costeos.index');
 Route::get('/costeos/costear/{id}', [CosteoController::class, 'costear'])->name('costeos.costear');
-
 
 //foto articulo temporal
 Route::get('/pedidos/{articuloTemporal}/fotos', [FotoArticuloTemporalController::class, 'index'])->name('fotos.index');
