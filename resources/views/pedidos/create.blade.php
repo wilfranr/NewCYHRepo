@@ -20,11 +20,7 @@
             {{-- dirigir a crear tercero --}}
             <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
                     class="fas fa-plus"></i>Agregar cliente</a>
-            {{-- <i class="fa fa-question-circle" aria-hidden="true" data-toggle="tooltip" data-placement="top" 
-                      title="
-                      Este es un tooltip de ejemplo.
-                      Es aquí donde se puede definir toda clase de ayuda respecto a diferentes secciones de la aplicación.
-                      "></i> --}}
+
 
         </div>
 
@@ -37,13 +33,12 @@
                 <div class="card-body pt-0">
                     <div class="row">
                         <div class="col-3">
-                            <p>Cliente</p>
+                            <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
+                                            id="nombre_cliente"></strong></a></b></h2>
                             <input type="hidden" name="tercero_id" id="tercero_id" value="">
                             <input type="hidden" name="pedido_id" value="">
                             <input type="hidden" name="estado" id="estado" value="Nuevo">
 
-                            <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
-                                            id="nombre_cliente"></strong></a></b></h2>
                             <p class="text-muted text-sm">
                                 <b>
                                     <i class="fas fa-lg fa-id-card"></i> <span id="tipo_documento"></span>
@@ -58,14 +53,30 @@
                                 <b>
                                     <span class=""><i class="fa fa-phone" aria-hidden="true"></i>
                                         Teléfono:</span>
-                                </b><span id="telefono"></span>
+                                </b>
+                                <a href="" id="wp_cliente" target="_blank">
+                                    <span id="telefono"></span>
+                                </a>
                             </p>
                             <p class="text-muted text-sm">
                                 <b>
                                     <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                                </b><span id="email"></span>
+                                </b>
+                                <a href="" id="link_email">
+                                    <span id="email"></span>
+                                </a>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email Facturación:</span>
+                                </b>
+                                <a href="" id="link_email_facturacion">
+                                    <span id="email_facturacion"></span>
+                                </a>
                             </p>
                         </div>
+
+                        {{-- Contactos --}}
                         <div class="col-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p>Contactos del cliente</p>
@@ -97,8 +108,8 @@
                                     <b>
                                         <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
                                     </b>
-                                    <a href="" id="email-contacto">
-                                        <span id="email_contacto"></span>
+                                    <a href="" id="link_contacto_email">
+                                        <span id="contacto_email"></span>
                                     </a>
                                 </p>
                                 <p class="text-muted text-sm">
@@ -109,14 +120,17 @@
                                 </p>
                             </div>
                         </div>
+
+                        {{-- Máquinas --}}
                         <div class="col-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p>Máquinas del cliente</p>
                                 <div>
                                     {{-- Botón para buscar las máquinas del tercero --}}
-                                    <button type="button" class="btn btn-outline-success btn-sm" id="boton-buscar-maquinas"
-                                        title="Buscar Máquinas Asociadas al Cliente" data-toggle="modal"
-                                        data-target="#modalBuscarMaquinas"><i class="fa fa-search" aria-hidden="true"></i>
+                                    <button type="button" class="btn btn-outline-success btn-sm"
+                                        id="boton-buscar-maquinas" title="Buscar Máquinas Asociadas al Cliente"
+                                        data-toggle="modal" data-target="#modalBuscarMaquinas"><i class="fa fa-search"
+                                            aria-hidden="true"></i>
                                     </button>
 
                                     {{-- Boton modal para crear maquina --}}
@@ -128,7 +142,13 @@
                             </div>
                             <div>
                                 <h2 class="lead"><b><a id="link_maquina" href="" target="_blank"><strong
-                                                id="nombre_maquina"></strong></a></b></h2>
+                                                id="nombre_maquina"></strong></a></b><i
+                                        class="fa fa-question-circle text-warning" aria-hidden="true"
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="Puede buscar una máquina en la lista de máquinas asociadas al cliente o crearle una nueva."></i>
+                                </h2>
+                                </i></h2>
+
                             </div>
                             <p class="text-muted text-sm">
                                 <b><span>Marca:</span></b>
@@ -146,19 +166,22 @@
                                 <b><span>Arreglo:</span></b>
                                 <span id="arreglo"></span>
                             </p>
-
                         </div>
-                        <div class="col-3">
+
+                        {{-- Fotos de máquina --}}
+                        <div class="col-3 divFotosMaquina">
                             {{-- mostrar foto de imágen de máquina --}}
                             <div class="text-center mb-3">
                                 <a href="" id="foto_maquina_link" target="_blank">
-                                    <img src="" class="img-circle img-fluid" id="foto_maquina" width="200">
+                                    <img src="" class="img-circle img-fluid" id="foto_maquina"
+                                        alt="Foto Máquina" width="200">
                                 </a>
                             </div>
                             {{-- mostrar foto de imágen de Id de máquina --}}
                             <div class="text-center">
                                 <a href="" id="foto_id_link" target="_blank">
-                                    <img src="" class=" border border-warning" id="foto_id" width="200">
+                                    <img src="" class="" id="foto_id" width="200" height="100"
+                                        alt="Id Máquina">
                                 </a>
                             </div>
                         </div>
@@ -167,141 +190,108 @@
             </div>
         </div>
 
-        {{-- Bloque de datos del cliente --}}
-        <div class="row">
-            {{-- Bloque izquierdo --}}
-            <div class="col-md-6">
-
-                <div class="form-group">
-                    {{-- mostrar cliente seleccionado --}}
-                    <div class="form-group">
-                        <label for="tercero_id">Cliente</label>
-                        <input type="hidden" name="tercero_id" id="tercero_id" value="" required>
-                        <input type="text" class="form-control" id="cliente_nombre" value="" readonly required>
-                        <input for="estado" type="hidden" name="estado" value="Nuevo">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" name="direccion" id="direccion" class="form-control" value="" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" class="form-control" value="" readonly>
-                </div>
-
-            </div>
-
-
-            {{-- Bloque derecho --}}
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="numero_documento">No. Documento</label>
-                    <input type="text" name="numero_documento" id="numero_documento" class="form-control" readonly
-                        required>
-                    <input type="hidden" name="puntos" value="">
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <div class="d-flex align-items-center">
-                        <input type="text" name="telefono" id="telefono" class="form-control" value=""
-                            readonly>
-                        <a href="" id="wp_cliente" target="_blank" class="ml-2"><i
-                                class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="contactoTercero">Contacto</label>
-                    <div class="d-flex align-items-center">
-                        <select name="contactoTercero" id="contactoTercero" class="form-control">
-                            <option value="">Seleccione</option>
-                            <!-- Otras opciones del select aquí -->
-                        </select>
-                        <div id="divContactoTercero" class="ml-2">
-                            <a href="" id="wp_contacto" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <input type="hidden" name="tercero_id" id="tercero_id" value="" required>
+        <input for="estado" type="hidden" name="estado" value="Nuevo">
+        <input type="hidden" name="numero_documento" id="numero_documento" class="form-control" readonly required>
+        <input type="hidden" name="puntos" value="">
 
         {{-- Detalle --}}
-        <div class="row" id="div-detalle">
+        {{-- <div class="row" id="div-detalle">
             <div class="form-group mt-3">
                 <button class="btn btn-outline-primary mb-5" id="boton-agregar-articulo" type="button">
                     <i class="fas fa-plus"></i>
                     Agregar artículo
                 </button>
             </div>
+        </div> --}}
+        {{-- Alerta para seleccionar máquina --}}
+        <div id="alerta-seleccionar-maquina">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Aviso!</strong> Debes seleccionar la máquina del cliente primero.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
         </div>
         {{-- tabla articulos --}}
         <div id="articulos">
             <input type="hidden" name="articulos-temporales" id="articulos-temporales">
-            {{-- tabla --}}
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Referencia</th>
-                            <th>Sistema</th>
-                            <th>Comentarios</th>
-                            <th>Cantidad</th>
-                            <th>Fotos</th>
-                            <th>Agregar otro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <select name="referencia" id="referencia" class="form-control select2">
-                                    <option value="">Ninguno</option>
-                                    @foreach ($articulos as $id => $articulo)
-                                        <option value="{{ $articulo->referencia }}">{{ $articulo->definicion }}
-                                            --{{ $articulo->referencia }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <select name="sistema" class="form-control select2" id="sistema">
-                                    <option value="">Ninguno</option>
-                                    @foreach ($sistemas as $id => $sistema)
-                                        <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <textarea name="comentarios" id="comentarios" cols="20" rows="5" class="form-control"
-                                    placeholder="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
-                            </td>
-                            <td>
-                                <input type="number" name="cantidad" class="form-control" id="cantidad"
-                                    value="1" required>
-                            </td>
-                            <td>
-                                <input type="file" name="fotos[]" multiple class="form-control" id="fotos">
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-primary" id="boton-agregar-articulo" type="button">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+            <div class="card">
+                <div class="card-header">
+                    Artículos del pedido
+                </div>
+                <div class="card-body">
+                    {{-- tabla --}}
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Referencia</th>
+                                <th scope="col">Sistema</th>
+                                <th scope="col">Comentarios de artículo</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Fotos (puede agregar varias)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articulos-body">
+                            <tr>
+                                <td>
+                                    <select name="referencia1" class="form-control select2">
+                                        <option value="">Ninguno</option>
+                                        @foreach ($articulos as $id => $articulo)
+                                            <option value="{{ $articulo->referencia }}">
+                                                {{ $articulo->definicion }}--{{ $articulo->referencia }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="sistema1" class="form-control select2">
+                                        <option value="">Ninguno</option>
+                                        @foreach ($sistemas as $id => $sistema)
+                                            <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="comentarios1" cols="20" rows="1" class="form-control" placeholder=""
+                                        data-toggle="tooltip" data-placement="top"
+                                        title="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
+                                </td>
+                                <td>
+                                    <input type="number" name="cantidad1" class="form-control" value="1" required>
+                                </td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Cargar</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                name="fotos[]" multiple>
+                                            <label class="custom-file-label" for="inputGroupFile01">Seleccionar
+                                                Imágenes</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button type="button" id="agregar-fila" class="btn btn-primary">Agregar fila</button>
+                </div>
             </div>
 
-            {{-- comentarios del pedido --}}
-            <div id="comentariosPedido">
-                <label for="comentario">Comentarios del pedido</label>
-                <textarea name="comentario" id="comentario" cols="20" rows="5" class="form-control"></textarea>
+        </div>
 
-                <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-cart-plus" aria-hidden="true"></i>
-                    Crear pedido</button>
-            </div>
+        {{-- comentarios del pedido --}}
+        <div id="comentariosPedido">
+            <label for="comentario">Comentarios del pedido</label>
+            <textarea name="comentario" id="comentario" cols="20" rows="5" class="form-control"></textarea>
+
+            <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-cart-plus" aria-hidden="true"></i>
+                Crear pedido</button>
+        </div>
+
     </form>
 
     {{-- Modal de clientes --}}
@@ -347,6 +337,7 @@
                                             data-identificacion="{{ $tercero->numero_documento }}"
                                             data-direccion="{{ $tercero->direccion }}"
                                             data-telefono="{{ $tercero->telefono }}" data-email="{{ $tercero->email }}"
+                                            data-email-facturacion="{{ $tercero->email_factura_electronica }}"
                                             data-dv="{{ $tercero->dv }}" data-dismiss="modal"
                                             data-bs-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i>
                                     </td>
@@ -579,23 +570,41 @@
             $('#boton-agregar-articulo').hide();
             // ocultar div comentarios de pedido
             $('#comentariosPedido').hide();
-            //ocultar boton de whatsapp
-            // $('#wp_contacto').hide();
-
+            //ocultar div fotod maquinas
+            $('.divFotosMaquina').hide();
+            //ocultar div articulos
+            $('#articulos').hide();
+            //ocultar alerta de seleccionar maquina
+            $('#alerta-seleccionar-maquina').hide();
 
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
             $(document).on('click', '.seleccionar-cliente', function() {
-                //limpiar select contactoTercero
+                //limpiar datos contactoTercero
                 $('#contactoTercero').empty();
+                $('#contacto_telefono').html('');
+                $('#contacto_email').html('');
+
+                //limpiar datos de máquinas
+                $('#maquinas tbody').empty();
+                $('#maquina_id').val('');
+                $('#link_maquina').attr('href', '');
+                $('#nombre_maquina').html('');
+                $('#marca').html('');
+                $('#modelo').html('');
+                $('#serie').html('');
+                $('#arreglo').html('');
+                $('#foto_maquina_link').attr('href', '');
+                $('#foto_id_link').attr('href', '');
+                $('#foto_maquina').attr('src', '');
+                $('#foto_id').attr('src', '');
+
                 //mostrar div info-cliente
                 $('#info-cliente').show();
-                //mostrar div maquina
-                $('#maquina').show();
-                // Cerramos el modal
-                $('#modalClientes').modal('hide');
+                //mostrar alerta de seleccionar máquina
+                $('#alerta-seleccionar-maquina').show();
+
                 // Actualizar los datos del formulario de crear pedido con los datos del cliente seleccionado
                 $('#tercero_id').val($(this).data('id'));
-                //actualizar el enlace link_cliente y redirigir a terceros.edit
                 $('#link_cliente').attr('href', '/terceros/' + $(this).data('id') + '/edit');
                 $('#cliente_nombre').val($(this).data('nombre'));
                 $('#numero_documento').val($(this).data('identificacion'));
@@ -605,8 +614,10 @@
                 $('#telefono').val($(this).data('telefono'));
                 $('#telefono').html($(this).data('telefono'));
                 $('#wp_cliente').attr('href', 'https://wa.me/+57' + $(this).data('telefono'));
-                $('#email').val($(this).data('email'));
                 $('#email').html($(this).data('email'));
+                $('#link_email').attr('href', 'mailto:' + $(this).data('email'));
+                $('#email_facturacion').html($(this).data('email-facturacion'));
+                $('#link_email_facturacion').attr('href', 'mailto:' + $(this).data('email-facturacion'));
                 //actualizar el campo tercero en el modal maquinas
                 $('#tercero_id_maquina').val($(this).data('id'));
                 $('#tercero_nombre_maquina').html($(this).data('nombre'));
@@ -652,6 +663,7 @@
                 });
             };
 
+            // Función para cargar las máquinas asociadas al cliente
             function cargarMaquinas() {
                 //llenar tabla con maquinas del tercero
                 var tercero_id = $('#tercero_id').val();
@@ -668,6 +680,7 @@
                             </tr>
                             `);
                         } else {
+                            var maquinas = response.data;
                             response.data.forEach(maquina => {
                                 $('#maquinas tbody').append(`
                             <tr>
@@ -687,15 +700,16 @@
                         console.error(error);
 
                     })
-
-
             }
 
             //capturar evento de seleccionar maquina
             $(document).on('click', '.seleccionar-maquina', function() {
-                console.log('seleccionar maquina');
-                // Cerramos el modal
-                $('#modalBuscarMaquinas').modal('hide');
+                //mostrar div fotos maquina
+                $('.divFotosMaquina').show();
+                //mostrar div artículos
+                $('#articulos').show();
+                //ocultar alerta de seleccionar maquina
+                $('#alerta-seleccionar-maquina').hide();
                 // Actualizar los datos del formulario de crear pedido con los datos de la maquina seleccionada
                 $('#maquina_id').val($(this).data('id'));
                 $('#link_maquina').attr('href', '/maquinas/' + $(this).data('id') + '/edit');
@@ -724,7 +738,7 @@
                 const tercero_id = document.getElementById("tercero_id").value;
                 // Hacer una petición Axios al servidor para obtener los contactos del tercero
                 axios.get(`/terceros/${tercero_id}/contactos`)
-                .then(response => {
+                    .then(response => {
                         document.getElementById("contactoTercero").innerHTML += `
                         <option value="">Seleccionar contacto</option>
                             `;
@@ -749,8 +763,8 @@
                                     $('#wp_contacto').attr('href', 'https://wa.me/+57' +
                                         contactoEncontrado.telefono);
                                     $('#contacto_telefono').html(contactoEncontrado.telefono);
-                                    $('#email_contacto').html(contactoEncontrado.email);
-                                    $('#email-contacto').attr('href', 'mailto:' +
+                                    $('#contacto_email').html(contactoEncontrado.email);
+                                    $('#link_contacto_email').attr('href', 'mailto:' +
                                         contactoEncontrado.email);
                                     $('#cargo_contacto').html(contactoEncontrado.cargo);
                                 } else {
@@ -762,105 +776,74 @@
             };
 
 
+            // Área de creación de pedidos
+            let contadorArticulos = 2; // Comenzar desde 2 porque ya tienes la fila inicial
 
-
-        let contadorArticulos = 1;
-
-        $('#boton-agregar-articulo').on('click', function() {
-            //mostrar div comentarios de pedido
-            $('#comentariosPedido').show();
-
-            $('#articulos').append(`
-
-                <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="referencia">Referencia</label>
-                                <select name="referencia${contadorArticulos}" id="referencia${contadorArticulos}" class="form-control select2">
-                                    <option value="">Ninguno</option>
-                                    @foreach ($articulos as $id => $articulo)
-                                    <option value="{{ $articulo->referencia }}">{{ $articulo->definicion }}--{{ $articulo->referencia }}</option>
-                                    @endforeach
-                                </select>
+            $('#agregar-fila').on('click', function() {
+                const nuevaFila = `
+                    <tr>
+                        <td>
+                            <select name="referencia${contadorArticulos}" class="form-control select2">
+                                <option value="">Ninguno</option>
+                                @foreach ($articulos as $id => $articulo)
+                                <option value="{{ $articulo->referencia }}">{{ $articulo->definicion }}--{{ $articulo->referencia }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select name="sistema${contadorArticulos}" class="form-control select2">
+                                <option value="">Ninguno</option>
+                                @foreach ($sistemas as $id => $sistema)
+                                <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <textarea name="comentarios${contadorArticulos}" cols="20" rows="1" class="form-control" placeholder="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
+                        </td>
+                        <td>
+                            <input type="number" name="cantidad${contadorArticulos}" class="form-control" value="1" required>
+                        </td>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Cargar</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="fotos${contadorArticulos}[]"
+                                        multiple>
+                                    <label class="custom-file-label" for="inputGroupFile01">Seleccionar Imágenes</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="sistema">Sistema</label>
-                                <select name="sistema${contadorArticulos}" class="form-control select2" id="sistema${contadorArticulos}">
-                                    <option value="">Ninguno</option>
-                                        @foreach ($sistemas as $id => $sistema)
-                                            <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
-                                        @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
+                `;
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="comentarios">Comentarios de artículo</label>
-                                <textarea name="comentarios${contadorArticulos}" id="comentarios${contadorArticulos}" cols="20" rows="5" class="form-control" placeholder="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="cantidad">Cantidad</label>
-                                <input type="number" name="cantidad${contadorArticulos}" class="form-control" id="cantidad${contadorArticulos}" value="1" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        
-                        <div class="col-md-6">
-                            <div class="form-group mt-3">
-                                <label for="foto">Fotos (puede agregar varias)</label>
-                                <input type="file" name="fotos${contadorArticulos}[]" multiple class="form-control" id="fotos${contadorArticulos}">
-                            </div>
-                        </div>
-                    </div>
-                </hr>
-            `);
+                // Agregar la nueva fila
+                $('#articulos-body').append(nuevaFila);
 
-            $('#articulos-temporales').val(contadorArticulos++);
+                setTimeout(function() {
+                    // Inicializar Select2 en los campos de referencia y sistema de la nueva fila
+                    $(`#referencia${contadorArticulos}`).select2({
+                        placeholder: "Seleccione...",
+                        allowClear: true,
+                        theme: "bootstrap"
+                    });
+                    $(`#sistema${contadorArticulos}`).select2({
+                        placeholder: "Seleccione...",
+                        allowClear: true,
+                        theme: "bootstrap"
+                    });
+                }, 100);
 
-            // Almacenar los datos de $articulos en una variable JavaScript
-            var articulos = {!! json_encode($articulos) !!};
-            console.log(articulos);
 
-            // Llenar campos de acuerdo a la referencia seleccionada
-            $(`#referencia${contadorArticulos-1}`).change(function() {
-                var referencia = $(this).val();
-                console.log(referencia);
-
-                // Buscar el artículo en la lista de artículos
-                var articuloEncontrado = articulos.find(function(articulo) {
-                    return articulo.referencia === referencia;
-                });
-
-                console.log(articuloEncontrado);
-
-                if (articuloEncontrado) {
-                    $(`#sistema${contadorArticulos-1}`).val(articuloEncontrado.sistema);
-                    $(`#definicion${contadorArticulos-1}`).val(articuloEncontrado
-                        .definicion);
-                } else {
-                    console.log('No se encontró el artículo');
-                }
+                contadorArticulos++;
             });
 
-        });
-        //select2
-        $('.form-selectw').select2({
-            placeholder: "Seleccione...",
-            allowClear: true,
-            theme: "bootstrap"
-        }); $('.select2').select2({
-            allowClear: true,
-            theme: "bootstrap"
-        });
+            $('.select2').select2({
+                allowClear: true,
+                theme: "bootstrap"
+            });
 
 
         });
