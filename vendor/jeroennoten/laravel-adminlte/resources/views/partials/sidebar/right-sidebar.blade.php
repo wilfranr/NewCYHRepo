@@ -5,8 +5,9 @@
 
     <body class="{{ $darkMode ? 'dark-mode' : '' }}">
         <div class="container">
+            <h5><b>{{ Auth::user()->name }}</b></h5>
+            <small>{{ Auth::user()->role }}</small>
             @if (Auth::user()->hasRole('superadmin'))
-                <h5>Opciones de Superadmin</h5>
                 <ul class="list-unstyled">
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link">
@@ -35,7 +36,6 @@
             @endif
             {{-- opciones si es admin --}}
             @if (Auth::user()->hasRole('admin'))
-                <h5>Opciones de Administrador</h5>
                 <ul class="list-unstyled">
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link">
@@ -59,7 +59,6 @@
             @endif
             {{-- opciones si es vendedor --}}
             @if (Auth::user()->hasRole('vendedor'))
-                <h5>Opciones de Vendedor</h5>
                 <ul class="list-unstyled">
                     <li class="nav-item">
                         <a href="{{ route('users.edit', Auth::user()->id) }}" class="nav-link">
@@ -70,7 +69,6 @@
             @endif
             {{-- opciones si es analista de partes --}}
             @if (Auth::user()->hasRole('analista_partes'))
-                <h5>Opciones de Analista de Partes</h5>
                 <ul class="list-unstyled">
                     <li class="nav-item">
                         <a href="{{ route('users.edit', Auth::user()->id) }}" class="nav-link">
@@ -81,7 +79,6 @@
             @endif
             {{-- opciones si es auxiliar de logísitca --}}
             @if (Auth::user()->hasRole('auxiliar_logistica'))
-                <h5>Opciones de Auxiliar de Logística</h5>
                 <ul class="list-unstyled">
                     <li class="nav-item">
                         <a href="{{ route('users.edit', Auth::user()->id) }}" class="nav-link">
@@ -96,6 +93,7 @@
                     {{ config('adminlte.dark_mode') ? 'checked' : '' }}>
                 <label class="custom-control-label" for="darkModeSwitch">Modo Oscuro</label>
             </div>
+            @include('adminlte::partials.navbar.menu-item-logout-link')
 
             <script>
                 document.getElementById('darkModeSwitch').addEventListener('change', function() {

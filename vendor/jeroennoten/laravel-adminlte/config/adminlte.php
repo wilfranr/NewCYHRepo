@@ -232,8 +232,8 @@ return [
     |
     */
 
-    'right_sidebar' => false,
-    'right_sidebar_icon' => 'fas fa-cogs',
+    'right_sidebar' => true,
+    'right_sidebar_icon' => 'fas fa-user',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
@@ -273,7 +273,7 @@ return [
     |
     */
 
-    'enabled_laravel_mix' => false,
+    'enabled_laravel_mix' => true,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
 
@@ -299,6 +299,21 @@ return [
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
+        ],
+        [
+            'type'         => 'navbar-notification',
+            'id'           => 'notificaciones',
+            'icon'         => 'fas fa-fw fa-bell',
+            'topnav_right' => true,
+            'dropdown_desc' => 'Tienes {count} notificaciones',
+            'dropdown_class' => 'dropdown-menu-lg',
+            'dropdown_items' => [
+                [
+                    'text' => 'Tienes {count} notificaciones',
+                    'url'  => '#',
+                    'topnav_right' => true,
+                ],
+            ],
         ],
 
         // Sidebar items:

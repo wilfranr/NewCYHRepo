@@ -70,11 +70,13 @@ class PedidoController extends Controller
     {
         // Validar los datos del formulario	
         $data = $request->validate([
-            'tercero_id' => 'nullable|exists:terceros,id',
+            'tercero_id' => 'required|exists:terceros,id',
             'user_id' => 'nullable|exists:users,id',
             'contacto_id' => 'nullable|exists:contactos,id',
             'comentario' => 'nullable|string',
             'estado' => 'nullable|string'
+        ], $messages = [
+            'tercero_id.required' => 'El campo tercero es obligatorio.',
         ]);
 
         $pedido = new Pedido();

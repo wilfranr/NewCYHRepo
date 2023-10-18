@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 return [
 
     /*
@@ -134,7 +136,7 @@ return [
 
     'usermenu_enabled' => false,
     'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header_class' => 'bg-warning',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -151,12 +153,12 @@ return [
     |
     */
 
-    'layout_topnav' => null,
-    'layout_boxed' => null,
+    'layout_topnav' => false,
+    'layout_boxed' => false,
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -170,12 +172,12 @@ return [
     |
     */
 
-    'classes_auth_card' => 'card-outline card-warning',
-    'classes_auth_header' => '',
-    'classes_auth_body' => '',
-    'classes_auth_footer' => '',
-    'classes_auth_icon' => '',
-    'classes_auth_btn' => 'btn-flat btn-primary',
+    'classes_auth_card' => 'bg-gradient-warning',
+    'classes_auth_header' => 'bg-gradient-warning',
+    'classes_auth_body' => 'bg-gradient-dark',
+    'classes_auth_footer' => 'text-center',
+    'classes_auth_icon' => 'fa-fw text-warning',
+    'classes_auth_btn' => 'btn-flat btn-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -239,8 +241,8 @@ return [
     |
     */
     'right_sidebar' => 'control-sidebar-open',
-    'right_sidebar_disable_top_button' => false,
-    'right_sidebar_enable_button' => 'manage-users',
+    'right_sidebar_disable_top_button' => true,
+    'right_sidebar_enable_button' => 'manage-user',
 
 
 
@@ -306,6 +308,21 @@ return [
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
+        ],
+        [
+            'type'         => 'navbar-notification',
+            'id'           => 'notificaciones',
+            'icon'         => 'fas fa-fw fa-bell',
+            'topnav_right' => true,
+            'dropdown_desc' => 'Tienes {count} notificaciones',
+            'dropdown_class' => 'dropdown-menu-lg',
+            'dropdown_items' => [
+                [
+                    'text' => 'Tienes {count} notificaciones',
+                    'url'  => '#',
+                    'topnav_right' => true,
+                ],
+            ],
         ],
 
         // Sidebar items:

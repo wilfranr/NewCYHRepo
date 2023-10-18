@@ -82,10 +82,7 @@
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
                 },
-                "scrollY": true,
-                "scrollY": "550px",
-                "scrollCollapse": true,
-                "paging": false,
+                "paging": true,
             });
 
         });

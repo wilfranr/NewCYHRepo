@@ -11,18 +11,50 @@
     {{-- Formulario de creación de pedido --}}
     <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-            {{-- boton para buscar cliente --}}
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes"><i
-                    class="fa fa-search" aria-hidden="true" id="btn-buscar-cliente"></i>
-                Buscar cliente
-            </button>
-            {{-- dirigir a crear tercero --}}
-            <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary" target="blank"><i
-                    class="fas fa-plus"></i>Agregar cliente</a>
 
 
+        {{-- Botones de buscar y crear cliente antes de crear pedido --}}
+        <div id="div-inicial">
+            <div class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+                <div class="text-center">
+                    <div class="form-group">
+                        <div class="callout callout-info">
+                            <h5>Creación de Pedido</h5>
+
+                            <p>Bienvenido <b>{{ Auth::user()->name }}.</b> Puedes buscar un cliente existente o crear uno
+                                nuevo para comenzar con el pedido.</p>
+                        </div>
+                        {{-- Botón para buscar cliente --}}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes">
+                            <i class="fa fa-search" aria-hidden="true" id="btn-buscar-cliente"></i> Buscar Cliente
+                        </button>
+
+                        {{-- Dirigir a crear tercero --}}
+                        <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-plus"></i> Crear Cliente
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        {{-- Botones de buscar y crear clientes --}}
+        <div class="form-group" id="div-botones">
+            {{-- Botón para buscar cliente --}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClientes">
+                <i class="fa fa-search" aria-hidden="true" id="btn-buscar-cliente"></i> Buscar Cliente
+            </button>
+
+            {{-- Dirigir a crear tercero --}}
+            <a href="{{ route('terceros.create') }}" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i> Crear Cliente
+            </a>
+        </div>
+
+        {{-- Campos que se envian al controlador --}}
+        <input type="hidden" name="tercero_id" id="tercero_id" value="">
+        <input type="hidden" name="pedido_id" value="">
+        <input type="hidden" name="estado" id="estado" value="Nuevo">
 
         <!-- info cliente -->
         <div id="info-cliente">
@@ -32,12 +64,10 @@
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
+                        {{-- Datos básicos --}}
                         <div class="col-3">
                             <h2 class="lead"><b><a id="link_cliente" href="" target="_blank"><strong
                                             id="nombre_cliente"></strong></a></b></h2>
-                            <input type="hidden" name="tercero_id" id="tercero_id" value="">
-                            <input type="hidden" name="pedido_id" value="">
-                            <input type="hidden" name="estado" id="estado" value="Nuevo">
 
                             <p class="text-muted text-sm">
                                 <b>
@@ -141,6 +171,7 @@
                                 </div>
                             </div>
                             <div>
+                                {{-- Tooltip Máquina --}}
                                 <h2 class="lead"><b><a id="link_maquina" href="" target="_blank"><strong
                                                 id="nombre_maquina"></strong></a></b><i
                                         class="fa fa-question-circle text-warning" aria-hidden="true"
@@ -190,29 +221,18 @@
             </div>
         </div>
 
-        <input type="hidden" name="tercero_id" id="tercero_id" value="" required>
         <input for="estado" type="hidden" name="estado" value="Nuevo">
         <input type="hidden" name="numero_documento" id="numero_documento" class="form-control" readonly required>
         <input type="hidden" name="puntos" value="">
 
-        {{-- Detalle --}}
-        {{-- <div class="row" id="div-detalle">
-            <div class="form-group mt-3">
-                <button class="btn btn-outline-primary mb-5" id="boton-agregar-articulo" type="button">
-                    <i class="fas fa-plus"></i>
-                    Agregar artículo
-                </button>
-            </div>
-        </div> --}}
         {{-- Alerta para seleccionar máquina --}}
         <div id="alerta-seleccionar-maquina">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Aviso!</strong> Debes seleccionar la máquina del cliente primero.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+            <div class="callout callout-warning">
+                <strong>Aviso!</strong> Antes de agregar artículos al pedido debes seleccionar la máquina del cliente.
                 </button>
-              </div>
+            </div>
         </div>
+
         {{-- tabla articulos --}}
         <div id="articulos">
             <input type="hidden" name="articulos-temporales" id="articulos-temporales">
@@ -235,16 +255,22 @@
                         <tbody id="articulos-body">
                             <tr>
                                 <td>
-                                    <select name="referencia1" class="form-control select2">
-                                        <option value="">Ninguno</option>
-                                        @foreach ($articulos as $id => $articulo)
-                                            <option value="{{ $articulo->referencia }}">
-                                                {{ $articulo->definicion }}--{{ $articulo->referencia }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" name="referencia1" class="form-control"
+                                                value="">
+                                        </div>
+                                        <div class="col-1">
+                                            <button type="button" class="btn btn-outline-success btn-sm"
+                                                id="boton-buscar-referencias" title="Buscar artículos por referencia"
+                                                data-toggle="modal" data-target="#modalBuscarReferencias"><i
+                                                    class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
-                                    <select name="sistema1" class="form-control select2">
+                                    <select name="sistema1" class="form-control">
                                         <option value="">Ninguno</option>
                                         @foreach ($sistemas as $id => $sistema)
                                             <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
@@ -294,7 +320,7 @@
 
     </form>
 
-    {{-- Modal de clientes --}}
+    {{-- Modal buscar clientes --}}
     <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content bg-secondary">
@@ -331,7 +357,7 @@
                                     <td>{{ $tercero->telefono }}</td>
                                     <td>{{ $tercero->email }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-primary seleccionar-cliente"
+                                        <button type="button" class="btn btn-sm btn-warning seleccionar-cliente"
                                             data-id="{{ $tercero->id }}" data-nombre="{{ $tercero->nombre }}"
                                             data-tipo_documento="{{ $tercero->tipo_documento }}"
                                             data-identificacion="{{ $tercero->numero_documento }}"
@@ -350,13 +376,13 @@
         </div>
     </div>
 
-    {{-- Modal seleccionar máquinas del cliente --}}
+    {{-- Modal buscar máquinas del cliente --}}
     <div class="modal fade" id="modalBuscarMaquinas" tabindex="-1" aria-labelledby="modalBuscarMaquinasLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content p-3">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalClientesLabel">Maquinas Asociadas a <span
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="modalBuscarMaquinasLabel">Maquinas Asociadas a <span
                             id="tercero_nombre_maquina"></span></h5>
                     <button type="button" class="close" data-dismiss="modal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -382,11 +408,51 @@
         </div>
     </div>
 
+    {{-- Modal buscar referencias de artículos --}}
+    <div class="modal fade" id="modalBuscarReferencias" tabindex="-1" aria-labelledby="modalBuscarReferenciasLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="modalBuscarRerenciasLabel">Referencias</h5>
+                    <button type="button" class="close" data-dismiss="modal" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <table id="referencias" class="table table-hover p-3">
+                    <thead>
+                        <tr>
+                            <th>Referencia</th>
+                            <th>Definición</th>
+                            <th>Fabricante</th>
+                            <th>Foto</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($articulos as $articulo)
+                            <tr>
+                                <td>{{ $articulo->referencia }}</td>
+                                <td>{{ $articulo->definicion }}</td>
+                                <td>{{ $articulo->marca }}</td>
+                                <td>{{ $articulo->fotoDescriptiva }}</td>
+                                <td><button type="button" class="btn btn-warning">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     {{-- Modal crear máquina --}}
     <div class="modal fade" id="modalCrearMaquinas">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-warning">
                     <h4 class="modal-title">Crear máquina para <span id="tercero-nombre"></span></h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -499,11 +565,12 @@
             </div>
         </div>
     </div>
+
     {{-- Modal crear contacto --}}
     <div class="modal fade" id="modalContacto">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-warning">
                     <h4 class="modal-title">Crear contacto para <span id="tercero-nombre2"></span></h4>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -569,16 +636,23 @@
             //ocultar botoon de agregar articulo
             $('#boton-agregar-articulo').hide();
             // ocultar div comentarios de pedido
-            $('#comentariosPedido').hide();
+            // $('#comentariosPedido').hide();
             //ocultar div fotod maquinas
             $('.divFotosMaquina').hide();
             //ocultar div articulos
-            $('#articulos').hide();
+            // $('#articulos').hide();
             //ocultar alerta de seleccionar maquina
             $('#alerta-seleccionar-maquina').hide();
+            //Ocultar botones
+            $('#div-botones').hide();
+
 
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
             $(document).on('click', '.seleccionar-cliente', function() {
+                //ocultar div-inicial y mostrar div-botones
+                $('#div-inicial').hide();
+                $('#div-botones').show();
+
                 //limpiar datos contactoTercero
                 $('#contactoTercero').empty();
                 $('#contacto_telefono').html('');
@@ -689,7 +763,7 @@
                                 <td>${maquina.modelo}</td>
                                 <td>${maquina.serie}</td>
                                 <td>${maquina.arreglo}</td>
-                                <td><button type="button" class="btn btn-sm btn-primary seleccionar-maquina" data-id="${maquina.id}" data-tipo="${maquina.tipo}" data-marca="${maquina.marca}" data-modelo="${maquina.modelo}" data-serie="${maquina.serie}" data-arreglo="${maquina.arreglo}" data-foto="${maquina.foto}" 
+                                <td><button type="button" class="btn btn-sm btn-warning seleccionar-maquina" data-id="${maquina.id}" data-tipo="${maquina.tipo}" data-marca="${maquina.marca}" data-modelo="${maquina.modelo}" data-serie="${maquina.serie}" data-arreglo="${maquina.arreglo}" data-foto="${maquina.foto}" 
                                     data-foto_id="${maquina.fotoId}" data-dismiss="modal" data-bs-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i></button></td>
                                 </tr>
                                 `);
@@ -710,6 +784,9 @@
                 $('#articulos').show();
                 //ocultar alerta de seleccionar maquina
                 $('#alerta-seleccionar-maquina').hide();
+                //mostrar div comentarios de pedido
+                $('#comentariosPedido').show();
+
                 // Actualizar los datos del formulario de crear pedido con los datos de la maquina seleccionada
                 $('#maquina_id').val($(this).data('id'));
                 $('#link_maquina').attr('href', '/maquinas/' + $(this).data('id') + '/edit');
@@ -723,6 +800,8 @@
                 $('#foto_maquina').attr('src', '/storage/maquinas/' + $(this).data('foto'));
                 $('#foto_id').attr('src', '/storage/maquinas/' + $(this).data('foto_id'));
             });
+
+
 
             // Capturar el evento de cambio en el campo de búsqueda de clientes
             $('#search').on('keyup', function() {
@@ -847,9 +926,30 @@
 
 
         });
-        if ($('#cantidad').val() == '') {
-            $('#cantidad').val(1);
+        $(function() {
+            $('#referencias').DataTable({
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                },
+                "paging": true,
+            });
+            $('#maquinas').DataTable({
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                },
+                "paging": true,
+            });
 
-        }
+        });
     </script>
 @endsection
