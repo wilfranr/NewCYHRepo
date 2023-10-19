@@ -29,14 +29,22 @@
                                     <tr>
                                         <td>
                                             <a href="{{ route('articulos.edit', $articulo->id) }}">
-                                            {{ $articulo->id }}
+                                                {{ $articulo->id }}
                                             </a>
                                         </td>
-                                        <td><a href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->marca }}</a></td>
+                                        <td><a
+                                                href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->marca }}</a>
+                                        </td>
                                         {{-- <td>{{ $articulo->sistema }}</td> --}}
-                                        <td><a href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->definicion }}</a></td>
-                                        <td><a href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->referencia }}</a></td>
-                                        <td><a href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->comentarios }}</a></td>
+                                        <td><a
+                                                href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->definicion }}</a>
+                                        </td>
+                                        <td><a
+                                                href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->referencia }}</a>
+                                        </td>
+                                        <td><a
+                                                href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->comentarios }}</a>
+                                        </td>
                                         <td>
                                             <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
                                                 target="_blank">
@@ -68,6 +76,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 @section('js')
@@ -83,6 +92,7 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
                 },
                 "paging": true,
+                
             });
 
         });

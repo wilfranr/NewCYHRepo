@@ -258,12 +258,12 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <input type="text" name="referencia1" class="form-control"
-                                                value="">
+                                                id="referencia1" value="" disabled>
                                         </div>
                                         <div class="col-1">
                                             <button type="button" class="btn btn-outline-success btn-sm"
                                                 id="boton-buscar-referencias" title="Buscar artículos por referencia"
-                                                data-toggle="modal" data-target="#modalBuscarReferencias"><i
+                                                data-toggle="modal" data-target="#modalBuscarReferencias" data-fila="1"><i
                                                     class="fa fa-search" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -431,14 +431,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($articulos as $articulo)
+                        @foreach ($articulos as $articulo)
                             <tr>
                                 <td>{{ $articulo->referencia }}</td>
                                 <td>{{ $articulo->definicion }}</td>
                                 <td>{{ $articulo->marca }}</td>
-                                <td>{{ $articulo->fotoDescriptiva }}</td>
-                                <td><button type="button" class="btn btn-warning">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                <td>
+                                    <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                        target="_blank">
+                                        <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                            alt="Foto de la lista" width="100px">
+                                    </a>
+                                </td>
+                                <td><button type="button" class="btn btn-warning seleccionar-referencia"
+                                        data-dismiss="modal" data-bs-dismiss="modal" data-fila="1"
+                                        data-referencia="{{ $articulo->referencia }}"
+                                        data-definicion="{{ $articulo->definicion }}">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
                                 </td>
                             </tr>
                         @endforeach
@@ -801,8 +810,6 @@
                 $('#foto_id').attr('src', '/storage/maquinas/' + $(this).data('foto_id'));
             });
 
-
-
             // Capturar el evento de cambio en el campo de búsqueda de clientes
             $('#search').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
@@ -854,78 +861,92 @@
                     });
             };
 
-
             // Área de creación de pedidos
-            let contadorArticulos = 2; // Comenzar desde 2 porque ya tienes la fila inicial
+            let contadorArticulos = 2;
 
-            $('#agregar-fila').on('click', function() {
+            // Agregar una función para agregar una nueva fila
+            function agregarFila() {
+                $(function() {
+                    $('[data-toggle="tooltip"]').tooltip();
+                });
+                console.log('Contador:'+contadorArticulos);
+                // Crear una nueva fila
                 const nuevaFila = `
                     <tr>
-                        <td>
-                            <select name="referencia${contadorArticulos}" class="form-control select2">
-                                <option value="">Ninguno</option>
-                                @foreach ($articulos as $id => $articulo)
-                                <option value="{{ $articulo->referencia }}">{{ $articulo->definicion }}--{{ $articulo->referencia }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select name="sistema${contadorArticulos}" class="form-control select2">
-                                <option value="">Ninguno</option>
-                                @foreach ($sistemas as $id => $sistema)
-                                <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <textarea name="comentarios${contadorArticulos}" cols="20" rows="1" class="form-control" placeholder="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
-                        </td>
-                        <td>
-                            <input type="number" name="cantidad${contadorArticulos}" class="form-control" value="1" required>
-                        </td>
-                        <td>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Cargar</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="fotos${contadorArticulos}[]"
-                                        multiple>
-                                    <label class="custom-file-label" for="inputGroupFile01">Seleccionar Imágenes</label>
-                                </div>
-                            </div>
-                        </td>
+                    <td>
+                        <div class="row">
+                        <div class="col-10">
+                            <input type="text" name="referencia${contadorArticulos}" class="form-control referencia${contadorArticulos}"
+                            id="referencia${contadorArticulos}" value="" disabled>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-outline-success btn-sm" title="Buscar artículos por referencia"
+                            data-toggle="modal" data-target="#modalBuscarReferencias" data-fila="${contadorArticulos}"><i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        </div>
+                    </td>
+                    <td>
+                        <select name="sistema${contadorArticulos}" class="form-control">
+                        <option value="">Ninguno</option>
+                        @foreach ($sistemas as $sistema)
+                            <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                        @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name="comentarios${contadorArticulos}" cols="20" rows="1" class="form-control" data-toggle="tooltip" data-placement="top"
+                                        title="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
+                    </td>
+                    <td>
+                        <input type="number" name="cantidad${contadorArticulos}" class="form-control" value="1" required>
+                    </td>
+                    <td>
+                        <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Cargar</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile${contadorArticulos}" name="fotos${contadorArticulos}[]"
+                            multiple>
+                            <label class="custom-file-label" for="inputGroupFile${contadorArticulos}">Seleccionar Imágenes</label>
+                        </div>
+                        </div>
+                    </td>
                     </tr>
                 `;
 
                 // Agregar la nueva fila
                 $('#articulos-body').append(nuevaFila);
 
-                setTimeout(function() {
-                    // Inicializar Select2 en los campos de referencia y sistema de la nueva fila
-                    $(`#referencia${contadorArticulos}`).select2({
-                        placeholder: "Seleccione...",
-                        allowClear: true,
-                        theme: "bootstrap"
-                    });
-                    $(`#sistema${contadorArticulos}`).select2({
-                        placeholder: "Seleccione...",
-                        allowClear: true,
-                        theme: "bootstrap"
-                    });
-                }, 100);
-
-
+                // Incrementar el contador
                 contadorArticulos++;
+
+            }
+
+            // Evento para agregar una nueva fila
+            $('#agregar-fila').on('click', agregarFila);
+
+            // Capturar evento de seleccionar referencia
+            $(document).on('click', '.seleccionar-referencia', function() {
+                NuevocontadorArticulos=contadorArticulos-1;
+                // obtener data de referencia
+                var referencia = $(this).data('referencia');
+                console.log('Referencia: '+referencia);
+                // obtener id de referencia actual
+                var fila = $(this).data('fila');
+                console.log('Fila: '+fila);
+
+                //obtener id de fila actual
+                console.log('Referencia Id: '+`#referencia${NuevocontadorArticulos}`);
+
+                // guardar referencia en el input #referencia${contadorArticulos}
+                $(`#referencia${NuevocontadorArticulos}`).val(referencia);
             });
-
-            $('.select2').select2({
-                allowClear: true,
-                theme: "bootstrap"
-            });
-
-
         });
+
+
+        // DataTables
         $(function() {
             $('#referencias').DataTable({
                 "searching": true,

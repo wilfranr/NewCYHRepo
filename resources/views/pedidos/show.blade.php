@@ -462,9 +462,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
-            $('#chat-toggle').click(function() {
-                $('#chat-box').slideToggle();
-            });
+           
             var contador = 0;
             // Evento click para agregar una nueva fila
             $(document).on('click', '#addRow', function() {

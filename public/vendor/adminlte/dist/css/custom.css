@@ -1,0 +1,19 @@
+/* Aplicar estilos a la tabla completa en DataTables */
+#referencias_wrapper, #maquinas_wrapper {
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Aplicar estilos a la paginación en DataTables */
+.dataTables_paginate {
+  text-align: center;
+}
+
+.paginate_button {
+  padding: 5px;
+  color: #333;
+  /* Cambia el color del texto */
+  margin: 2px;
+  /* Agregar margen entre los botones */
+  /* Otros estilos personalizados según tus preferencias */
+}

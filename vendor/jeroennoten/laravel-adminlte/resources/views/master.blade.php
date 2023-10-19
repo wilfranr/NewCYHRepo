@@ -64,32 +64,31 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-
-
-
-
-
+        <link rel="stylesheet" href={{asset('vendor/adminlte/dist/css/custom.css')}}>
+        
+        
+        
         @if (config('adminlte.google_fonts.allowed', true))
-            <link rel="stylesheet"
-                href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
-    @else
-        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
-    @endif
-
-    {{-- Extra Configured Plugins Stylesheets --}}
-    @include('adminlte::plugins', ['type' => 'css'])
-
-    {{-- Livewire Styles --}}
-    @if (config('adminlte.livewire'))
-        @if (app()->version() >= 7)
-            @livewireStyles
         @else
-            <livewire:styles />
+        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
         @endif
-    @endif
-
-    {{-- Custom Stylesheets (post AdminLTE) --}}
+        
+        {{-- Extra Configured Plugins Stylesheets --}}
+        @include('adminlte::plugins', ['type' => 'css'])
+        
+        {{-- Livewire Styles --}}
+        @if (config('adminlte.livewire'))
+        @if (app()->version() >= 7)
+        @livewireStyles
+        @else
+        <livewire:styles />
+        @endif
+        @endif
+        
+        {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
 
     {{-- Favicon --}}
@@ -137,6 +136,7 @@
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <script src="{{ asset('vendor/adminlte/dist/js/custom.js') }}"></script>
+        
         
         <!-- master.blade.php -->
         
