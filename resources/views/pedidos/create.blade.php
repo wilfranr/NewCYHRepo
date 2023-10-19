@@ -12,6 +12,12 @@
     <form action="{{ route('pedidos.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
+        {{-- Campos que se envian al controlador --}}
+        <input type="hidden" name="tercero_id" id="tercero_id" value="">
+        {{-- <input type="hidden" name="pedido_id" value=""> --}}
+        <input type="hidden" name="estado" id="estado" value="Nuevo">
+        <input type="hidden" name="maquina_id" id="maquina_id">
+        <input type="hidden" name="puntos" value="">
 
         {{-- Botones de buscar y crear cliente antes de crear pedido --}}
         <div id="div-inicial">
@@ -51,10 +57,6 @@
             </a>
         </div>
 
-        {{-- Campos que se envian al controlador --}}
-        <input type="hidden" name="tercero_id" id="tercero_id" value="">
-        <input type="hidden" name="pedido_id" value="">
-        <input type="hidden" name="estado" id="estado" value="Nuevo">
 
         <!-- info cliente -->
         <div id="info-cliente">
@@ -221,9 +223,6 @@
             </div>
         </div>
 
-        <input for="estado" type="hidden" name="estado" value="Nuevo">
-        <input type="hidden" name="numero_documento" id="numero_documento" class="form-control" readonly required>
-        <input type="hidden" name="puntos" value="">
 
         {{-- Alerta para seleccionar máquina --}}
         <div id="alerta-seleccionar-maquina">
@@ -235,7 +234,7 @@
 
         {{-- tabla articulos --}}
         <div id="articulos">
-            <input type="hidden" name="articulos-temporales" id="articulos-temporales">
+            {{-- <input type="hidden" name="articulos-temporales" id="articulos-temporales"> --}}
             <div class="card">
                 <div class="card-header">
                     Artículos del pedido
@@ -245,6 +244,7 @@
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr>
+                                <th>Ítem</th>
                                 <th scope="col">Referencia</th>
                                 <th scope="col">Sistema</th>
                                 <th scope="col">Comentarios de artículo</th>
@@ -254,17 +254,19 @@
                         </thead>
                         <tbody id="articulos-body">
                             <tr>
+                                <td><strong>1</strong></td>
                                 <td>
                                     <div class="row">
                                         <div class="col-10">
                                             <input type="text" name="referencia1" class="form-control"
-                                                id="referencia1" value="" disabled>
+                                                id="referencia1">
+                                                <input type="hidden" name="contador" id="contador" value="1">
                                         </div>
                                         <div class="col-1">
                                             <button type="button" class="btn btn-outline-success btn-sm"
                                                 id="boton-buscar-referencias" title="Buscar artículos por referencia"
-                                                data-toggle="modal" data-target="#modalBuscarReferencias" data-fila="1"><i
-                                                    class="fa fa-search" aria-hidden="true"></i>
+                                                data-toggle="modal" data-target="#modalBuscarReferencias"
+                                                data-fila="1"><i class="fa fa-search" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -278,7 +280,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <textarea name="comentarios1" cols="20" rows="1" class="form-control" placeholder=""
+                                    <textarea name="comentarioArticulo1" cols="20" rows="1" class="form-control" placeholder=""
                                         data-toggle="tooltip" data-placement="top"
                                         title="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
                                 </td>
@@ -292,7 +294,7 @@
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                                name="fotos[]" multiple>
+                                                name="fotos1[]" multiple>
                                             <label class="custom-file-label" for="inputGroupFile01">Seleccionar
                                                 Imágenes</label>
                                         </div>
@@ -302,8 +304,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-                    <button type="button" id="agregar-fila" class="btn btn-primary">Agregar fila</button>
+                <div class="card-footer text-right">
+                    <button type="button" id="agregar-fila" class="btn btn-outline-success">Agregar artículo</button>
                 </div>
             </div>
 
@@ -311,8 +313,9 @@
 
         {{-- comentarios del pedido --}}
         <div id="comentariosPedido">
-            <label for="comentario">Comentarios del pedido</label>
-            <textarea name="comentario" id="comentario" cols="20" rows="5" class="form-control"></textarea>
+            <label for="comentarioPedido">Comentarios del pedido</label>
+            <textarea name="comentarioPedido" id="comentarioPedido" cols="20" rows="5" class="form-control" data-toggle="tooltip" data-placement="top"
+            title="Ingrese cualquier información relevante del pedido. Ej. repuesto, tipo de máquina, solicitudes específicas, recomendaciones, etc"></textarea>
 
             <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-cart-plus" aria-hidden="true"></i>
                 Crear pedido</button>
@@ -394,6 +397,7 @@
                         <tr>
                             <th>Tipo</th>
                             <th>Marca</th>
+                            <th>MArca desde DB</th>
                             <th>Modelo</th>
                             <th>Serie</th>
                             <th>Arreglo</th>
@@ -645,11 +649,11 @@
             //ocultar botoon de agregar articulo
             $('#boton-agregar-articulo').hide();
             // ocultar div comentarios de pedido
-            // $('#comentariosPedido').hide();
+            $('#comentariosPedido').hide();
             //ocultar div fotod maquinas
             $('.divFotosMaquina').hide();
             //ocultar div articulos
-            // $('#articulos').hide();
+            $('#articulos').hide();
             //ocultar alerta de seleccionar maquina
             $('#alerta-seleccionar-maquina').hide();
             //Ocultar botones
@@ -769,6 +773,7 @@
                             <tr>
                                 <td>${maquina.tipo}</td>
                                 <td>${maquina.marca}</td>
+                                <td>${maquina.marca}</td>
                                 <td>${maquina.modelo}</td>
                                 <td>${maquina.serie}</td>
                                 <td>${maquina.arreglo}</td>
@@ -863,21 +868,25 @@
 
             // Área de creación de pedidos
             let contadorArticulos = 2;
+            //index
+            let index = 1;
 
             // Agregar una función para agregar una nueva fila
             function agregarFila() {
                 $(function() {
                     $('[data-toggle="tooltip"]').tooltip();
                 });
-                console.log('Contador:'+contadorArticulos);
+
+                index++;
                 // Crear una nueva fila
                 const nuevaFila = `
                     <tr>
+                        <td><strong>` + index + `</strong></td>
                     <td>
                         <div class="row">
                         <div class="col-10">
                             <input type="text" name="referencia${contadorArticulos}" class="form-control referencia${contadorArticulos}"
-                            id="referencia${contadorArticulos}" value="" disabled>
+                            id="referencia${contadorArticulos}">
                         </div>
                         <div class="col-1">
                             <button type="button" class="btn btn-outline-success btn-sm" title="Buscar artículos por referencia"
@@ -895,7 +904,7 @@
                         </select>
                     </td>
                     <td>
-                        <textarea name="comentarios${contadorArticulos}" cols="20" rows="1" class="form-control" data-toggle="tooltip" data-placement="top"
+                        <textarea name="comentarioArticulo${contadorArticulos}" cols="20" rows="1" class="form-control" data-toggle="tooltip" data-placement="top"
                                         title="Ingrese cualquier información relevante del artículo. Ej. Nombre, descripción, especificaciones, etc"></textarea>
                     </td>
                     <td>
@@ -919,8 +928,11 @@
                 // Agregar la nueva fila
                 $('#articulos-body').append(nuevaFila);
 
+                $('#contador').val(contadorArticulos);
                 // Incrementar el contador
                 contadorArticulos++;
+
+                
 
             }
 
@@ -929,16 +941,16 @@
 
             // Capturar evento de seleccionar referencia
             $(document).on('click', '.seleccionar-referencia', function() {
-                NuevocontadorArticulos=contadorArticulos-1;
+                NuevocontadorArticulos = contadorArticulos - 1;
                 // obtener data de referencia
                 var referencia = $(this).data('referencia');
-                console.log('Referencia: '+referencia);
+                console.log('Referencia: ' + referencia);
                 // obtener id de referencia actual
                 var fila = $(this).data('fila');
-                console.log('Fila: '+fila);
+                console.log('Fila: ' + fila);
 
                 //obtener id de fila actual
-                console.log('Referencia Id: '+`#referencia${NuevocontadorArticulos}`);
+                console.log('Referencia Id: ' + `#referencia${NuevocontadorArticulos}`);
 
                 // guardar referencia en el input #referencia${contadorArticulos}
                 $(`#referencia${NuevocontadorArticulos}`).val(referencia);

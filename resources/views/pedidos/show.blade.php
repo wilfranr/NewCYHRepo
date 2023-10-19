@@ -12,7 +12,7 @@
                         class="fab fa-whatsapp"></i></a></small><br>
         </h4>
     </div>
-    <div class="container">
+    <div class="content-fluid">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -195,6 +195,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- Artículos Temporales --}}
                             @if ($pedido->articulosTemporales->count() >= 1)
                                 @foreach ($pedido->articulosTemporales as $index => $articuloTemporal)
                                     <tr>
@@ -225,14 +226,15 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
+                                                {{-- Si vienen sistemas desde un articulo temporal --}}
+                                                @if (!empty($articuloTemporal->sistemas) && count($articuloTemporal->sistemas) > 0)
                                                     <select class="form-control select2" style="width: 100%;"
                                                         name="sistema{{ $index + 1 }}" required>
-                                                        <option value="{{ $articulo->sistemas[0]->id }}">
-                                                            {{ $articulo->sistemas[0]->nombre }}
+                                                        <option value="{{ $articuloTemporal->sistemas[0]->id }}">
+                                                            {{ $articuloTemporal->sistemas[0]->nombre }}
                                                         </option>
-                                                        @foreach ($articulo->sistemas as $sistema)
-                                                            @if ($sistema->id !== $articulo->sistemas[0]->id)
+                                                        @foreach ($articuloTemporal->sistemas as $sistema)
+                                                            @if ($sistema->id !== $articuloTemporal->sistemas[0]->id)
                                                                 <option value="{{ $sistema->id }}">
                                                                     {{ $sistema->nombre }}
                                                                 </option>
@@ -240,6 +242,7 @@
                                                         @endforeach
                                                     </select>
                                                 @else
+                                                {{-- Si no vienen sistemas desde un articulo temporal --}}
                                                     <select class="form-control select2" style="width: 100%;"
                                                         name="sistema{{ $index + 1 }}" required>
                                                         <option value="">Seleccione un sistema</option>
@@ -263,7 +266,8 @@
                                                 value="{{ $articuloTemporal->cantidad }}" style="width: 100px;">
                                         </td>
                                         <td>
-                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}" disabled>{{ $articuloTemporal->comentarios }}</textarea>
+
+                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">@if($articuloTemporal->comentarios)Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}@endif</textarea>
                                         </td>
                                         <!-- Aca va la foto del articulo temporal -->
                                         @if ($articuloTemporal->fotosArticuloTemporal->count() == 1)
@@ -284,7 +288,7 @@
                                             </td>
                                         @elseif ($articuloTemporal->referencia == null)
                                             <td>
-                                                <img src="{{ asset('storage/fotos-articulo-temporal/no-imagenR.jpg') }}"
+                                                <img src="{{ asset('storage/fotos-articulo-temporal/no-imagen.jpg') }}"
                                                     alt="Foto del artículo" width="50px">
                                             </td>
                                         @endif
@@ -295,7 +299,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @else
+                            @endif
+                            {{-- Artículos Permanentes --}}
+                            @if ($pedido->articulos->count() >= 1)
                                 {{-- Recorrer los articulos reales --}}
                                 @foreach ($pedido->articulos as $index => $articulo)
                                     <tr>
@@ -354,8 +360,11 @@
                                                 name="cantidad{{ $index + 1 }}"
                                                 value="{{ $articulo->pivot->cantidad }}" style="width: 100px;">
                                         </td>
-                                        <td>
-                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}" disabled>{{ $articulo->pivot->comentarios }}</textarea>
+                                        <td>@if($articulo->pivot->comentarios)
+                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentarios }}</textarea>
+                                            @else
+                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentarios }}</textarea>
+                                            @endif
                                         </td>
 
                                         <td>
@@ -480,7 +489,16 @@
                     '@endforeach' +
                     '</select>' +
                     '</div>' +
-
+                    '</td>' +
+                    '<td>' +
+                    '<div class="d-flex">' +
+                    '<select class="form-control select2" style="width: 100%;" id="sistema">' +
+                    '<option value="">Seleccione un sistema</option>' +
+                    '@foreach ($sistemas as $sistema)' +
+                    '<option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>' +
+                    '@endforeach' +
+                    '</select>' +
+                    '</div>' +
                     '</td>' +
                     '<td>' +
                     '<input type="number" class="form-control" value="1" style="width: 100px;">' +

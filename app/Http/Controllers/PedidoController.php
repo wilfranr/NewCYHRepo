@@ -68,13 +68,16 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
+        //mostrar los datos del formulario que llegan al controlador
+        // dd($request->all());
         // Validar los datos del formulario	
         $data = $request->validate([
             'tercero_id' => 'nullable|exists:terceros,id',
             'user_id' => 'nullable|exists:users,id',
             'contacto_id' => 'nullable|exists:contactos,id',
             'comentario' => 'nullable|string',
-            'estado' => 'nullable|string'
+            'estado' => 'nullable|string',
+            'maquina_id' => 'nullable|exists:maquinas,id',
         ], $messages = [
             'tercero_id.required' => 'El campo tercero es obligatorio.',
         ]);
@@ -83,50 +86,61 @@ class PedidoController extends Controller
         $pedido->tercero_id = $request->input('tercero_id');
         $pedido->user_id = auth()->user()->id;
         $pedido->contacto_id = $request->input('contactoTercero');
-        $pedido->comentario = $request->input('comentario');
+        $pedido->comentario = $request->input('comentarioPedido');
         $pedido->estado = $request->input('estado');
         $pedido->save();
 
         // Agregar cada máquina al pedido
-        $maquinas = $request->input('maquina_id', []);
-        if ($maquinas) {
-            foreach ($maquinas as $maquina) {
-                $pedido->maquinas()->attach($maquina);
-            }
+        $maquinaId = $request->input('maquina_id');
+
+        if ($maquinaId) {
+            $pedido->maquinas()->attach($maquinaId);
         }
 
+        // Agregar cada marca al pedido
+        $maquina = Maquina::with('marcas')->find($maquinaId);
+        $marca = $maquina->marcas->first();
+        $pedido->marcas()->attach($marca->id);
+        
+
         // Agregar cada artículo temporal al pedido
-        $contadorArticulos = $request->input('articulos-temporales');
+        $contadorArticulos = $request->input('contador');
+        
 
         for ($i = 1; $i <= $contadorArticulos; $i++) {
-            // Validar los datos del artículo temporal
+            // Validar los datos de los articulos
             $dataArticulo = $request->validate([
                 "referencia{$i}" => ['nullable', 'string', 'max:255'],
-                "definicion{$i}" => ['nullable', 'string', 'max:255'],
-                "comentarios{$i}" => ['nullable', 'string', 'max:255'],
+                "comentarioArticulo{$i}" => ['nullable', 'string', 'max:255'],
                 "sistema{$i}" => ['nullable', 'string', 'max:255'],
                 "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
-                // Otros campos del artículo temporal
             ]);
-            if ($request->input("referencia{$i}") == null) {
-                // Crear el artículo temporal
-                $articuloTemporal = new ArticuloTemporal();
-                $articuloTemporal->referencia = $request->input("referencia{$i}");
-                $articuloTemporal->definicion = $request->input("definicion{$i}");
-                $articuloTemporal->cantidad = $request->input("cantidad{$i}");
-                $articuloTemporal->comentarios = $request->input("comentarios{$i}");
+            if ($request->input("referencia{$i}")!= null){
 
-                $articuloTemporal->save();
+                //guardar articulos en tabla articulo_pedido
+                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+                //dd($articulo);
+                $pedido->articulos()->attach($articulo->id);
+                //guardar cantidad en tabla pivot
+                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
 
                 //Si vienen sistemas
-
                 if ($request->input("sistema{$i}") != null) {
-                    // Asociar el sistema al artículo temporal
-                    $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
+                    // Asociar el sistema al artículo 
+                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
+                    //asociar el sistema con el pedido
+                    $pedido->sistemas()->attach($request->input("sistema{$i}"));
                 }
+            }
+            if ($request->input("referencia{$i}") == null){
+                $articuloTemporal = new ArticuloTemporal();
+                $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
+                $articuloTemporal->cantidad = $request->input("cantidad{$i}");
+                $articuloTemporal->save();
 
                 // Obtener las fotos del formulario
                 $fotos = $request->file("fotos{$i}");
+                // dd($fotos);
 
                 if ($fotos) {
                     foreach ($fotos as $foto) {
@@ -144,25 +158,17 @@ class PedidoController extends Controller
                     }
                 }
 
-                // Agregar la relación a la tabla pivot
-                $pedido->articulosTemporales()->attach($articuloTemporal->id);
-            } else {
-                dd($request->input("referencia{$i}"));
-                //asociar articulo
-                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
-                // dd($articulo);
-                $pedido->articulos()->attach($articulo->id);
-                //guardar cantidad en tabla pivot
-                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
 
                 //Si vienen sistemas
                 if ($request->input("sistema{$i}") != null) {
                     // Asociar el sistema al artículo 
-                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
-                    //asociar el sistema con el pedido
-                    $pedido->sistemas()->attach($request->input("sistema{$i}"));
+                    $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
                 }
+
+                //asociar articulo temporal con pedido
+                $pedido->articulosTemporales()->attach($articuloTemporal->id);
             }
+
         }
         return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
     }
