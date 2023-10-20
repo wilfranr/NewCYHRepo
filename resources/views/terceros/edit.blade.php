@@ -167,7 +167,7 @@
                         {{-- Maquinas o Marcas/Sistemas asociadas al tercero --}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-maquinas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-admin-tab">
-                            <div class="form-group border border-warning mt-4 p-3">
+                            <div class="form-group border border-warning mt-4 p-3 mx-auto">
                                 @if ($tercero->tipo == 'Cliente')
                                     @if ($tercero->maquinas->isEmpty())
                                         <p>No hay máquinas registradas</p>
@@ -227,65 +227,170 @@
                                             </tbody>
                                         </table>
                                     @endif
-                                @endif
+                                    <button class="btn btn-outline-primary mt-2" id="btnAgregar"
+                                        type="button">Agregar</button>
+                                    <div class="form-group agregarMaquina">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group mt-3">
+                                                    <label for="maquina_id">Asociar máquinas:</label>
+                                                    <select name="maquina_id[]" id="maquina_id"
+                                                        class="form-select select2" multiple style="width: 100%">
 
-                                @if ($tercero->tipo == 'Proveedor')
-                                    @if ($tercero->sistemas->isEmpty())
-                                        <p>No hay sistemas registrados</p>
-                                    @else
-                                        <label for="sistema">Sistemas que maneja</label>
-                                        <ul>
-                                            <li>
-                                                @foreach ($tercero->sistemas as $sistema)
-                                                    <a
-                                                        href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
-                                                @endforeach
-                                            </li>
-                                        </ul>
-                                    @endif
-                                    @if ($tercero->marcas->isEmpty())
-                                        <p>No hay marcas registradas</p>
-                                    @else
-                                        <label for="marca">Marcas que maneja</label>
-                                        <ul>
-                                            @foreach ($tercero->marcas as $marcaTercero)
-                                                <li>
-                                                    <a href="{{ route('marcas.edit', $marcaTercero->id) }}">
-                                                        {{ $marcaTercero->nombre }}
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                @endif
-                                <button class="btn btn-outline-primary mt-2" id="btnAgregar"
-                                    type="button">Agregar</button>
-                                <div class="form-group agregarMaquina">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group mt-3">
-                                                <label for="maquina_id">Asociar máquinas:</label>
-                                                <select name="maquina_id[]" id="maquina_id" class="form-select select2"
-                                                    multiple style="width: 100%">
+                                                        @foreach ($maquinas as $maquina)
+                                                            <option value="{{ $maquina['id'] }}">{{ $maquina['text'] }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- Boton modal para crear maquina --}}
+                                                    <button type="button" class="btn btn-outline-primary mt-2"
+                                                        data-toggle="modal" data-target="#modalMaquinas"><i
+                                                            class="fa fa-plus" aria-hidden="true"></i>
+                                                        Crear Maquina
+                                                    </button>
 
-                                                    @foreach ($maquinas as $maquina)
-                                                        <option value="{{ $maquina['id'] }}">{{ $maquina['text'] }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                {{-- Boton modal para crear maquina --}}
-                                                <button type="button" class="btn btn-outline-primary mt-2"
-                                                    data-toggle="modal" data-target="#modalMaquinas"><i
-                                                        class="fa fa-plus" aria-hidden="true"></i>
-                                                    Crear Maquina
-                                                </button>
-
+                                                </div>
                                             </div>
+
                                         </div>
-
                                     </div>
-                                </div>
+                                @endif
+                                @if ($tercero->tipo == 'Proveedor')
+                                    <div class="d-flex justify-content-around">
+                                        <div>
+                                            @if ($tercero->sistemas->isEmpty())
+                                            <div class="card" style="width: 18rem;">
+                                                <div
+                                                    class="card-header bg-secondary d-flex justify-content-between align-items-center">
+                                                    <h5>Sistemas asociados</h5>
+                                                    {{-- Boton modal para agregar sistema --}}
+                                                    <button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#modalAgregarSistema"
+                                                        title="Agregar Sistema"><i class="fa fa-plus"
+                                                            aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#modalAsociarSistema"
+                                                        title="Asociar sistema existente"><i class="fa fa-search"
+                                                            aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                                <p>No hay sistemas registrados</p>
+                                            </div>
+                                            @else
+                                                <div class="card" style="width: 18rem;">
+                                                    <div
+                                                        class="card-header bg-secondary d-flex justify-content-between align-items-center">
+                                                        <h5>Sistemas asociados</h5>
+                                                        {{-- Boton modal para agregar sistema --}}
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            data-toggle="modal" data-target="#modalAgregarSistema"
+                                                            title="Agregar Sistema"><i class="fa fa-plus"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            data-toggle="modal" data-target="#modalAsociarSistema"
+                                                            title="Asociar sistema existente"><i class="fa fa-search"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush">
+                                                        <ul class="list-group list-group-flush">
+                                                            @foreach ($tercero->sistemas as $sistema)
+                                                                <li class="list-group-item">
+                                                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
+                                                                    
+                                                                    {{-- Formulario para desasociar sistema --}}
+                                                                    <form action="{{ route('terceros.desasociarSistema', $sistema->id) }}"
+                                                                        method="POST" style="display: inline">
+                                                                        @csrf
+                                                                        <input type="hidden" name="tercero_id"
+                                                                            value="{{ $tercero->id }}">
+                                                                        <input type="hidden" name="sistema_id"
+                                                                            value="{{ $sistema->id }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-danger btn-xs"
+                                                                            title="Desasociar sistema">
+                                                                            <ion-icon name="close"></ion-icon>
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
 
+                                            @if ($tercero->marcas->isEmpty())
+                                            <div class="card" style="width: 18rem;">
+                                                <div
+                                                    class="card-header bg-secondary d-flex justify-content-between align-items-center">
+                                                    <h5>Marcas asociadas</h5>
+                                                    {{-- Boton modal para agregar marca --}}
+                                                    <button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#modalAgregarMarca"
+                                                        title="Agregar Marca"><i class="fa fa-plus"
+                                                            aria-hidden="true"></i>
+                                                    </button>
+                                                    {{-- Boton para asociar marca --}}
+                                                    <button type="button" class="btn btn-warning btn-sm"
+                                                        data-toggle="modal" data-target="#modalAsociarMarca"
+                                                        title="Asociar marca existente"><i class="fa fa-search"
+                                                            aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <p>No hay marcas registradas</p>
+                                            </div>
+                                            @else
+                                                <div class="card" style="width: 18rem;">
+                                                    <div
+                                                        class="card-header bg-secondary d-flex justify-content-between align-items-center">
+                                                        <h5>Marcas asociadas</h5>
+                                                        {{-- Boton modal para agregar marca --}}
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            data-toggle="modal" data-target="#modalAgregarMarca"
+                                                            title="Agregar Marca"><i class="fa fa-plus"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                        {{-- Boton para asociar marca --}}
+                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                            data-toggle="modal" data-target="#modalAsociarMarca"
+                                                            title="Asociar marca existente"><i class="fa fa-search"
+                                                                aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach ($tercero->marcas as $marcaTercero)
+                                                            <li class="list-group-item">
+                                                                <a href="{{ route('marcas.edit', $marcaTercero->id) }}">
+                                                                    {{ $marcaTercero->nombre }}
+                                                                </a>
+                                                                {{-- formulario para desasociar marca --}}
+                                                                <form
+                                                                    action="{{ route('terceros.desasociarMarca', $marcaTercero->id) }}"
+                                                                    method="POST" style="display: inline">
+                                                                    @csrf
+                                                                    <input type="hidden" name="tercero_id"
+                                                                        value="{{ $tercero->id }}">
+                                                                    <input type="hidden" name="marca_id"
+                                                                        value="{{ $marcaTercero->id }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-outline-danger btn-xs"
+                                                                        title="Desasociar marca">
+                                                                        <ion-icon name="close"></ion-icon>
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         {{-- Contactos del tercero --}}
@@ -706,6 +811,175 @@
         </div>
     </div>
 
+    {{-- Modal agregar sistema --}}
+    <div class="modal fade" id="modalAgregarSistema">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Crear sistema para {{ $tercero->nombre }} <span id="tercero-nombre2"></span>
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            {{-- Formulario para crear sistema --}}
+                            <form action="{{ route('util.crearSistema') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="Sistema" name="tipo">
+                                <input type="hidden" value="{{ $tercero->id }}" name="tercero_id">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="definicion">Definición:</label>
+                                    <textarea class="form-control" name="definicion" id="definicion" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoLista">Foto:</label>
+                                    <div class="input-group">
+                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
+                                        <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+                                    </div>
+                                    <img id="preview" src="#" alt=""
+                                        style="max-width: 200px; max-height: 200px;">
+                                    <button id="borrar-foto" type="button" style="display: none;"
+                                        class="btn btn-outline-danger btn-sm">x</button>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal para asociar sistema --}}
+    <div class="modal fade" id="modalAsociarSistema">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Asociar sistema<span id="tercero-nombre2"></span></h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('terceros.asociarSistema') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="{{ $tercero->id }}" name="tercero_id">
+                                <div class="form-group">
+                                    <select name="sistema_id" id="sistema" class="select2" style="width: 100%"
+                                        required>
+                                        <option value="">Seleccione un sistema</option>
+                                        @foreach ($sistemas as $sistema)
+                                            <option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Asociar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal crear marca --}}
+    <div class="modal fade" id="modalAgregarMarca">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Crear marca para {{ $tercero->nombre }} <span id="tercero-nombre2"></span>
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            {{-- Formulario para crear lista --}}
+                            <form action="{{ route('util.crearMarca') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="Marca" name="tipo">
+                                <input type="hidden" value="{{ $tercero->id }}" name="tercero_id">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="definicion">Definición:</label>
+                                    <textarea class="form-control" name="definicion" id="definicion" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoLista">Foto:</label>
+                                    <div class="input-group">
+                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
+                                        <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+                                    </div>
+                                    <img id="preview" src="#" alt=""
+                                        style="max-width: 200px; max-height: 200px;">
+                                    <button id="borrar-foto" type="button" style="display: none;"
+                                        class="btn btn-outline-danger btn-sm">x</button>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Asociar marca --}}
+    <div class="modal fade" id="modalAsociarMarca">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Asociar Marca<span id="tercero-nombre2"></span></h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('terceros.asociarMarca') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="{{ $tercero->id }}" name="tercero_id">
+                                <div class="form-group">
+                                    <select name="marca_id" id="marca" class="select2" style="width: 100%" required>
+                                        <option value="">Seleccione una marca</option>
+                                        @foreach ($marca as $marca)
+                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Asociar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 @section('js')
     <script>
@@ -774,5 +1048,6 @@
             $('.agregarMaquina').show();
             $('#btnAgregar').hide();
         });
+
     </script>
 @endsection

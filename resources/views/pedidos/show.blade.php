@@ -25,6 +25,7 @@
         <form action="{{ route('pedidos.update', $pedido->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
             <!-- info Cliente -->
             <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
@@ -32,8 +33,9 @@
                 </div>
                 <div class="card-body pt-0">
                     <div class="row">
+
+                        {{-- Datos básicos --}}
                         <div class="col-3">
-                            <p>Cliente</p>
                             <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}"
                                 readonly>
                             <input type="hidden" name="user_id" id="user_id" value="{{ $pedido->user->id }}">
@@ -47,123 +49,179 @@
                                 <input type="hidden" name="maquina_id" id="maquina_id"
                                     value="{{ $pedido->maquinas->first()->id }}">
                             @endif
-                            <h2 class="lead"><b><strong>{{ $pedido->tercero->nombre }}</strong></b></h2>
+                            <h2 class="lead"><b><strong>
+                                        <a href="{{ route('terceros.edit', $pedido->tercero->id) }}" target="_blank">
+                                            {{ $pedido->tercero->nombre }}
+                                        </a>
+                                    </strong></b></h2>
                             <p class="text-muted text-sm">
-                                <b>
-                                    @if ($pedido->tercero->tipo_documento == 'cedula')
-                                        <span class=""><i class="fas fa-lg fa-id-card"></i> CC:</span>
-                                    @elseif ($pedido->tercero->tipo_documento == 'nit')
-                                        <span class=""><i class="fas fa-lg fa-id-card"></i> NIT:</span>
-                                    @elseif ($pedido->tercero->tipo_documento == 'ce')
-                                        <span class=""><i class="fas fa-lg fa-id-card"></i> CE:</span>
-                                    @endif
-                                </b> {{ $pedido->tercero->numero_documento }}
+                                @if ($pedido->tercero->tipo_documento == 'CC')
+                                    <span class=""><i class="fas fa-lg fa-id-card"></i> CC:</span>
+                                @elseif ($pedido->tercero->tipo_documento == 'NIT')
+                                    <span class=""><i class="fas fa-lg fa-id-card"></i> NIT:</span>
+                                @elseif ($pedido->tercero->tipo_documento == 'CE')
+                                    <span class=""><i class="fas fa-lg fa-id-card"></i> CE:</span>
+                                @endif
+                                </b> {{ $pedido->tercero->numero_documento }}-{{ $pedido->tercero->dv }}
                             </p>
                             <p class="text-muted text-sm">
                                 <b>
-                                    <span class=""><i class="fas fa-lg fa-building"></i> Dirección:</span>
+                                    <span><i class="fas fa-lg fa-building"></i> Dirección:</span>
                                 </b> {{ $pedido->tercero->direccion }}
                             </p>
                             <p class="text-muted text-sm">
                                 <b>
-                                    <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
+                                    <span><i class="fa fa-phone" aria-hidden="true"></i> Teléfono:</span>
                                 </b>
                                 <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" target="_blank">
                                     {{ $pedido->tercero->telefono }}
                                 </a>
                             </p>
-                            <p class="text-muted text-sm">
-                                <b>
-                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                                </b>
-                                <a href="mailto:{{ $pedido->tercero->email }}" target="_blank">
-                                    {{ $pedido->tercero->email }}
-                                </a>
-                            </p>
+                            @if ($pedido->tercero->email)
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                    </b>
+                                    <a href="mailto:{{ $pedido->tercero->email }}" target="_blank">
+                                        {{ $pedido->tercero->email }}
+                                    </a>
+                                </p>
+                            @endif
+                            @if ($pedido->tercero->email_factura_electronica)
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fa fa-lg fa-envelope"></i> Email Facturación:</span>
+                                    </b>
+                                    <a href="mailto:{{ $pedido->tercero->email_factura_electronica }}">
+                                        <span>{{ $pedido->tercero->email_factura_electronica }}</span>
+                                    </a>
+                                </p>
+                            @endif
                         </div>
+
+                        {{-- Contactos del cliente --}}
                         <div class="col-3">
                             <p>Contacto del cliente</p>
-                            <h2 class="lead">
-                                <b>
-                                    <strong>
-                                        @if ($pedido->contacto)
+                            @if ($pedido->contacto)
+                                <h2 class="lead">
+                                    <b>
+                                        <strong>
                                             {{ $pedido->contacto->nombre }}
+                                        </strong>
+                                    </b>
+                                </h2>
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
+                                    </b>
+                                    @if ($pedido->contacto)
+                                        <a href="https://wa.me/+57{{ $pedido->contacto->telefono }}" target="_blank">
+                                            {{ $pedido->contacto->telefono }}
                                         @else
                                             N/A
-                                        @endif
-                                    </strong>
-                                </b>
-                            </h2>
-                            <p class="text-muted text-sm">
-                                <b>
-                                    <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
-                                </b>
-                                @if ($pedido->contacto)
-                                    <a href="https://wa.me/+57{{ $pedido->contacto->telefono }}" target="_blank">
-                                        {{ $pedido->contacto->telefono }}
+                                    @endif
+                                    </a>
+                                </p>
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                    </b>
+                                    @if ($pedido->contacto)
+                                        <a href="mailto:{{ $pedido->contacto->email }}">
+                                            {{ $pedido->contacto->email }}
+                                        </a>
                                     @else
                                         N/A
-                                @endif
-                                </a>
+                                    @endif
+                                </p>
+                                <p class="text-muted text-sm">
+                                    <b>
+                                        <span><i class="fa fa-lg fa-briefcase"></i>
+                                            Cargo:</span>
+                                    </b><span>{{ $pedido->contacto->cargo }}</span>
+                                </p>
+                            @else
+                                <p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    El cliente no cuenta con contactos asociados.</p>
+                            @endif
+                        </div>
+
+                        {{-- Maquina del cliente asociada al pedido --}}
+                        <div class="col-3">
+                            <p>Maquina asociada al pedido</p>
+                            {{-- Tooltip Máquina --}}
+                            <h2 class="lead">
+                                @foreach ($pedido->maquinas as $maquina)
+                                @endforeach
+                                <strong>
+                                        <h2 class="lead">
+                                            <b>
+                                                <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
+                                                    <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
+                                                </a>
+                                            </b>
+                                            <i class="fa fa-question-circle text-warning" aria-hidden="true"
+                                                data-toggle="tooltip" data-placement="top"
+                                                title="Aquí se muestra una descripción corta de la máquina."></i>
+                                        </h2>
+                                </strong>
+                            </h2>
+
+                            
+                            <p class="text-muted text-sm">
+                                <b><span>Marca:</span></b>
+                                @foreach ($maquina->marcas as $marcaMaquina)
+                                <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
+                                value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
+                                <span id="marca">
+                                    {{ $marcaMaquina->nombre }}
+                                </span>
+                                @endforeach
                             </p>
                             <p class="text-muted text-sm">
-                                <b>
-                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                                </b>
-                                @if ($pedido->contacto)
-                                    <a href="mailto:{{ $pedido->contacto->email }}">
-                                        {{ $pedido->contacto->email }}
-                                    </a>
-                                @else
-                                    N/A
-                                @endif
+                                <b><span>Modelo:</span></b>
+                                <span id="modelo">{{ $maquina->modelo }}</span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b><span>Serie:</span></b>
+                                <span id="serie">{{ $maquina->serie }}</span>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b><span>Arreglo:</span></b>
+                                <span id="arreglo">{{ $maquina->arreglo }}</span>
                             </p>
                         </div>
-                        <div class="col-3">
-                            <p>Maquinas asociadas al pedido</p>
-                            @if ($pedido->maquinas->count() >= 1)
-                                <h2 class="lead">
-                                    <strong>
-                                        @foreach ($pedido->maquinas as $maquina)
-                                            <ul>
-                                                <li>
-                                                    <b>
-                                                        <i class="fa fa-wrench"></i>
-                                                        <a href="{{ route('maquinas.show', $maquina->id) }}"
-                                                            target="_blank">
-                                                            {{ $maquina->tipo }}
-                                                        </a><br>
-                                                    </b>
-                                                    <p>
-                                                        @foreach ($maquina->marcas as $marcaMaquina)
-                                                            {{ $marcaMaquina->nombre }}
-                                                            <input type="hidden"
-                                                                name="maquinas[{{ $maquina->id }}][marcas][]"
-                                                                @endforeach
-                                                            value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
-                                                    </p>
 
-                                                    <p>{{ $maquina->modelo }}</p>
-                                                </li>
-                                            </ul>
-                                        @endforeach
-                                    </strong>
-                                </h2>
-                        </div>
+                        {{-- Fotos de la máquina --}}
                         <div class="col-3 text-center">
-                            <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
-                                class="img-circle img-fluid">
+                            {{-- mostrar foto de imágen de máquina --}}
+                            <div class="text-center mb-3">
+                                <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" id="foto_maquina_link"
+                                    target="_blank">
+                                    <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}"
+                                        class="img-circle img-fluid" id="foto_maquina" alt="Foto Máquina"
+                                        width="200">
+                                </a>
+                            </div>
+                            {{-- mostrar foto de imágen de Id de máquina --}}
+                            <div class="text-center">
+                                <a href="{{ asset('storage/maquinas/' . $maquina->fotoId) }}" id="foto_id_link"
+                                    target="_blank">
+                                    <img src="{{ asset('storage/maquinas/' . $maquina->fotoId) }}" class=""
+                                        id="foto_id" width="200" height="100" alt="Id Máquina">
+                                </a>
+                            </div>
                         </div>
-                    @else
-                        N/A
-                        @endif
                     </div>
+                    @if ($pedido->comentario)
+                    {{-- Comentarios del pedido --}}
                     <div>
                         Comentarios del pedido: <br>
                         <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
                     </div>
+                    @endif
                 </div>
-                <div class="card-footer">
+                {{-- <div class="card-footer">
                     <div class="text-right">
                         <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" class="btn btn-sm bg-teal"
                             target="_blank">
@@ -174,8 +232,9 @@
                             <i class="fas fa-user"></i> Ver detalle
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
+
             {{-- Tabla con artículos --}}
             <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
@@ -233,7 +292,7 @@
                                                         <option value="{{ $articuloTemporal->sistemas[0]->id }}">
                                                             {{ $articuloTemporal->sistemas[0]->nombre }}
                                                         </option>
-                                                        @foreach ($articuloTemporal->sistemas as $sistema)
+                                                        @foreach ($sistemas as $sistema)
                                                             @if ($sistema->id !== $articuloTemporal->sistemas[0]->id)
                                                                 <option value="{{ $sistema->id }}">
                                                                     {{ $sistema->nombre }}
@@ -242,7 +301,7 @@
                                                         @endforeach
                                                     </select>
                                                 @else
-                                                {{-- Si no vienen sistemas desde un articulo temporal --}}
+                                                    {{-- Si no vienen sistemas desde un articulo temporal --}}
                                                     <select class="form-control select2" style="width: 100%;"
                                                         name="sistema{{ $index + 1 }}" required>
                                                         <option value="">Seleccione un sistema</option>
@@ -266,8 +325,11 @@
                                                 value="{{ $articuloTemporal->cantidad }}" style="width: 100px;">
                                         </td>
                                         <td>
-
-                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">@if($articuloTemporal->comentarios)Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}@endif</textarea>
+                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">
+                                                @if ($articuloTemporal->comentarios)
+                                                Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
+                                                @endif
+                                            </textarea>
                                         </td>
                                         <!-- Aca va la foto del articulo temporal -->
                                         @if ($articuloTemporal->fotosArticuloTemporal->count() == 1)
@@ -334,7 +396,7 @@
                                                         <option value="{{ $articulo->sistemas[0]->id }}">
                                                             {{ $articulo->sistemas[0]->nombre }}
                                                         </option>
-                                                        @foreach ($articulo->sistemas as $sistema)
+                                                        @foreach ($sistemas as $sistema)
                                                             @if ($sistema->id !== $articulo->sistemas[0]->id)
                                                                 <option value="{{ $sistema->id }}">
                                                                     {{ $sistema->nombre }}
@@ -360,10 +422,11 @@
                                                 name="cantidad{{ $index + 1 }}"
                                                 value="{{ $articulo->pivot->cantidad }}" style="width: 100px;">
                                         </td>
-                                        <td>@if($articulo->pivot->comentarios)
-                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentarios }}</textarea>
+                                        <td>
+                                            @if ($articulo->pivot->comentarios)
+                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentarios }}</textarea>
                                             @else
-                                            <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentarios }}</textarea>
+                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentarios }}</textarea>
                                             @endif
                                         </td>
 
@@ -471,7 +534,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
-           
+
             var contador = 0;
             // Evento click para agregar una nueva fila
             $(document).on('click', '#addRow', function() {
@@ -504,7 +567,7 @@
                     '<input type="number" class="form-control" value="1" style="width: 100px;">' +
                     '</td>' +
                     '<td>' +
-                    '<textarea class="form-control" disabled></textarea>' +
+                    '<textarea class="form-control"></textarea>' +
                     '</td>' +
                     '<td>' +
                     '<button type="button" class="btn btn-outline-danger delete-row-btn">' +

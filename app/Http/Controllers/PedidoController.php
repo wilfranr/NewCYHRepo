@@ -25,7 +25,6 @@ class PedidoController extends Controller
         return view('pedidos.index', compact('pedidos'));
     }
 
-
     public function create()
     {
         //obtener el ultimo pedido
@@ -101,11 +100,11 @@ class PedidoController extends Controller
         $maquina = Maquina::with('marcas')->find($maquinaId);
         $marca = $maquina->marcas->first();
         $pedido->marcas()->attach($marca->id);
-        
+
 
         // Agregar cada artículo temporal al pedido
         $contadorArticulos = $request->input('contador');
-        
+
 
         for ($i = 1; $i <= $contadorArticulos; $i++) {
             // Validar los datos de los articulos
@@ -115,7 +114,7 @@ class PedidoController extends Controller
                 "sistema{$i}" => ['nullable', 'string', 'max:255'],
                 "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
             ]);
-            if ($request->input("referencia{$i}")!= null){
+            if ($request->input("referencia{$i}") != null) {
 
                 //guardar articulos en tabla articulo_pedido
                 $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
@@ -132,7 +131,7 @@ class PedidoController extends Controller
                     $pedido->sistemas()->attach($request->input("sistema{$i}"));
                 }
             }
-            if ($request->input("referencia{$i}") == null){
+            if ($request->input("referencia{$i}") == null) {
                 $articuloTemporal = new ArticuloTemporal();
                 $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
                 $articuloTemporal->cantidad = $request->input("cantidad{$i}");
@@ -168,7 +167,6 @@ class PedidoController extends Controller
                 //asociar articulo temporal con pedido
                 $pedido->articulosTemporales()->attach($articuloTemporal->id);
             }
-
         }
         return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
     }
@@ -449,6 +447,8 @@ class PedidoController extends Controller
 
         return redirect()->route('pedidos.create')->with('success', 'El contacto ha sido creado exitosamente.');
     }
+
+    
 
     public function destroy($id)
     {

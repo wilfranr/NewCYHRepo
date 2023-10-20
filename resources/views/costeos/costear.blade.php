@@ -17,141 +17,205 @@
     {{-- Formulario --}}
     <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <!-- info cliente -->
+        <!-- info Cliente -->
         <div class="card bg-light d-flex flex-fill">
             <div class="card-header text-muted border-bottom-0">
                 Datos del cliente
             </div>
             <div class="card-body pt-0">
                 <div class="row">
+
+                    {{-- Datos básicos --}}
                     <div class="col-3">
-                        <p>Cliente</p>
-                        <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}" readonly>
-                        <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
+                        <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}"
+                            readonly>
                         <input type="hidden" name="user_id" id="user_id" value="{{ $pedido->user->id }}">
                         <input type="hidden" name="estado" id="estado" value="Costeo">
                         <input type="hidden" name="comentario" id="comentario" value="{{ $pedido->comentario }}">
-                        {{-- Si existe contacto --}}
                         @if ($pedido->contacto)
-                            <input type="hidden" name="contacto_id" id="contacto_id" value="{{ $pedido->contacto->id }}">
+                            <input type="hidden" name="contacto_id" id="contacto_id"
+                                value="{{ $pedido->contacto->id }}">
                         @endif
-                        {{-- si existe maquina --}}
                         @if ($pedido->maquinas->count() >= 1)
                             <input type="hidden" name="maquina_id" id="maquina_id"
                                 value="{{ $pedido->maquinas->first()->id }}">
                         @endif
-                        <h2 class="lead"><b><strong>{{ $pedido->tercero->nombre }}</strong></b></h2>
+                        <h2 class="lead"><b><strong>
+                                    <a href="{{ route('terceros.edit', $pedido->tercero->id) }}" target="_blank">
+                                        {{ $pedido->tercero->nombre }}
+                                    </a>
+                                </strong></b></h2>
                         <p class="text-muted text-sm">
-                            <b>
-                                @if ($pedido->tercero->tipo_documento == 'cedula')
-                                    <span class=""><i class="fas fa-lg fa-id-card"></i> CC:</span>
-                                @elseif ($pedido->tercero->tipo_documento == 'nit')
-                                    <span class=""><i class="fas fa-lg fa-id-card"></i> NIT:</span>
-                                @elseif ($pedido->tercero->tipo_documento == 'ce')
-                                    <span class=""><i class="fas fa-lg fa-id-card"></i> CE:</span>
-                                @endif
-                            </b> {{ $pedido->tercero->numero_documento }}
+                            @if ($pedido->tercero->tipo_documento == 'CC')
+                                <span class=""><i class="fas fa-lg fa-id-card"></i> CC:</span>
+                            @elseif ($pedido->tercero->tipo_documento == 'NIT')
+                                <span class=""><i class="fas fa-lg fa-id-card"></i> NIT:</span>
+                            @elseif ($pedido->tercero->tipo_documento == 'CE')
+                                <span class=""><i class="fas fa-lg fa-id-card"></i> CE:</span>
+                            @endif
+                            </b> {{ $pedido->tercero->numero_documento }}-{{ $pedido->tercero->dv }}
                         </p>
                         <p class="text-muted text-sm">
                             <b>
-                                <span class=""><i class="fas fa-lg fa-building"></i> Dirección:</span>
+                                <span><i class="fas fa-lg fa-building"></i> Dirección:</span>
                             </b> {{ $pedido->tercero->direccion }}
                         </p>
                         <p class="text-muted text-sm">
                             <b>
-                                <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
+                                <span><i class="fa fa-phone" aria-hidden="true"></i> Teléfono:</span>
                             </b>
                             <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" target="_blank">
                                 {{ $pedido->tercero->telefono }}
                             </a>
                         </p>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                            </b>
-                            <a href="mailto:{{ $pedido->tercero->email }}" target="_blank">
-                                {{ $pedido->tercero->email }}
-                            </a>
-                        </p>
+                        @if ($pedido->tercero->email)
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                </b>
+                                <a href="mailto:{{ $pedido->tercero->email }}" target="_blank">
+                                    {{ $pedido->tercero->email }}
+                                </a>
+                            </p>
+                        @endif
+                        @if ($pedido->tercero->email_factura_electronica)
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email Facturación:</span>
+                                </b>
+                                <a href="mailto:{{ $pedido->tercero->email_factura_electronica }}">
+                                    <span>{{ $pedido->tercero->email_factura_electronica }}</span>
+                                </a>
+                            </p>
+                        @endif
                     </div>
+
+                    {{-- Contactos del cliente --}}
                     <div class="col-3">
                         <p>Contacto del cliente</p>
-                        <h2 class="lead">
-                            <b>
-                                <strong>
-                                    @if ($pedido->contacto)
+                        @if ($pedido->contacto)
+                            <h2 class="lead">
+                                <b>
+                                    <strong>
                                         {{ $pedido->contacto->nombre }}
+                                    </strong>
+                                </b>
+                            </h2>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
+                                </b>
+                                @if ($pedido->contacto)
+                                    <a href="https://wa.me/+57{{ $pedido->contacto->telefono }}" target="_blank">
+                                        {{ $pedido->contacto->telefono }}
                                     @else
                                         N/A
-                                    @endif
-                                </strong>
-                            </b>
-                        </h2>
-                        <p class="text-muted text-sm">
-                            <b>
-                                <span class=""><i class="fab fa-2x fa-whatsapp"></i> Teléfono:</span>
-                            </b>
-                            @if ($pedido->contacto)
-                                <a href="https://wa.me/+57{{ $pedido->contacto->telefono }}" target="_blank">
-                                    {{ $pedido->contacto->telefono }}
+                                @endif
+                                </a>
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
+                                </b>
+                                @if ($pedido->contacto)
+                                    <a href="mailto:{{ $pedido->contacto->email }}">
+                                        {{ $pedido->contacto->email }}
+                                    </a>
                                 @else
                                     N/A
-                            @endif
-                            </a>
+                                @endif
+                            </p>
+                            <p class="text-muted text-sm">
+                                <b>
+                                    <span><i class="fa fa-lg fa-briefcase"></i>
+                                        Cargo:</span>
+                                </b><span>{{ $pedido->contacto->cargo }}</span>
+                            </p>
+                        @else
+                            <p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                El cliente no cuenta con contactos asociados.</p>
+                        @endif
+                    </div>
+
+                    {{-- Maquina del cliente asociada al pedido --}}
+                    <div class="col-3">
+                        <p>Maquina asociada al pedido</p>
+                        {{-- Tooltip Máquina --}}
+                        <h2 class="lead">
+                            @foreach ($pedido->maquinas as $maquina)
+                            @endforeach
+                            <strong>
+                                    <h2 class="lead">
+                                        <b>
+                                            <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
+                                                <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
+                                            </a>
+                                        </b>
+                                        <i class="fa fa-question-circle text-warning" aria-hidden="true"
+                                            data-toggle="tooltip" data-placement="top"
+                                            title="Aquí se muestra una descripción corta de la máquina."></i>
+                                    </h2>
+                            </strong>
+                        </h2>
+
+                        
+                        <p class="text-muted text-sm">
+                            <b><span>Marca:</span></b>
+                            @foreach ($maquina->marcas as $marcaMaquina)
+                            <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
+                            value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
+                            <span id="marca">
+                                {{ $marcaMaquina->nombre }}
+                            </span>
+                            @endforeach
                         </p>
                         <p class="text-muted text-sm">
-                            <b>
-                                <span class=""><i class="fa fa-lg fa-envelope"></i> Email:</span>
-                            </b>
-                            @if ($pedido->contacto)
-                                <a href="mailto:{{ $pedido->contacto->email }}">
-                                    {{ $pedido->contacto->email }}
-                                </a>
-                            @else
-                                N/A
-                            @endif
+                            <b><span>Modelo:</span></b>
+                            <span id="modelo">{{ $maquina->modelo }}</span>
+                        </p>
+                        <p class="text-muted text-sm">
+                            <b><span>Serie:</span></b>
+                            <span id="serie">{{ $maquina->serie }}</span>
+                        </p>
+                        <p class="text-muted text-sm">
+                            <b><span>Arreglo:</span></b>
+                            <span id="arreglo">{{ $maquina->arreglo }}</span>
                         </p>
                     </div>
-                    <div class="col-3">
-                        <p>Maquinas asociadas al pedido</p>
-                        @if ($pedido->maquinas->count() >= 1)
-                            <h2 class="lead">
-                                <strong>
-                                    @foreach ($pedido->maquinas as $maquina)
-                                        <ul>
-                                            <li>
-                                                <b>
-                                                    <i class="fa fa-wrench"></i>
-                                                    <a href="{{ route('maquinas.edit', $maquina->id) }}" target="_blank">
-                                                        {{ $maquina->tipo }}
-                                                    </a>
-                                                </b>
-                                                <p>{{ $maquina->marca }}</p>
-                                                <p>{{ $maquina->modelo }}</p>
-                                            </li>
-                                        </ul>
-                                    @endforeach
-                                </strong>
-                            </h2>
-                    </div>
+
+                    {{-- Fotos de la máquina --}}
                     <div class="col-3 text-center">
-                        <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" target="_blank">
-                            <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" alt="user-avatar"
-                                class="img-circle img-fluid">
-                        </a>
+                        {{-- mostrar foto de imágen de máquina --}}
+                        <div class="text-center mb-3">
+                            <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" id="foto_maquina_link"
+                                target="_blank">
+                                <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}"
+                                    class="img-circle img-fluid" id="foto_maquina" alt="Foto Máquina"
+                                    width="200">
+                            </a>
+                        </div>
+                        {{-- mostrar foto de imágen de Id de máquina --}}
+                        <div class="text-center">
+                            <a href="{{ asset('storage/maquinas/' . $maquina->fotoId) }}" id="foto_id_link"
+                                target="_blank">
+                                <img src="{{ asset('storage/maquinas/' . $maquina->fotoId) }}" class=""
+                                    id="foto_id" width="200" height="100" alt="Id Máquina">
+                            </a>
+                        </div>
                     </div>
-                @else
-                    N/A
-                    @endif
                 </div>
+                @if ($pedido->comentario)
+                {{-- Comentarios del pedido --}}
                 <div>
                     Comentarios del pedido: <br>
                     <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
                 </div>
+                @endif
             </div>
-            <div class="card-footer">
+            {{-- <div class="card-footer">
                 <div class="text-right">
-                    <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" class="btn btn-sm bg-teal" target="_blank">
+                    <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" class="btn btn-sm bg-teal"
+                        target="_blank">
                         <i class="fas fa-comments"></i>
                     </a>
                     <a href="{{ route('terceros.edit', $pedido->tercero->id) }}" class="btn btn-sm btn-primary"
@@ -159,24 +223,24 @@
                         <i class="fas fa-user"></i> Ver detalle
                     </a>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Card articulo -->
         @foreach ($pedido->articulos as $index => $articulo)
             @if ($pedido->articulos->count() >= 1)
-                <div class="card bg-gradient-secondary collapsed-card">
+            <div class="card bg-gradient-secondary">
                 @else
-                    <div class="card bg-gradient-secondary">
+                <div class="card bg-gradient-secondary collapsed-card">
             @endif
-            <div class="card-header border-0" data-card-widget="collapse">
+            <div class="card-header border-0">
                 <h3 class="card-title text-uppercase">
                     <i class="fa fa-boxes"></i>
                     {{ $articulo->definicion }} -- {{ $articulo->referencia }}
                 </h3>
                 <!-- tools card -->
                 <div class="card-tools">
-                    <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse">
+                    <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse" data-toggle="tooltip" title="Expandir">
                         <i class="fas fa-plus"></i>
                     </button>
                     <a href="{{ route('articulos.edit', $articulo->id) }}" class="btn btn-warning btn-sm"
@@ -184,8 +248,8 @@
                         <i class="fas fa-eye"></i>
                     </a>
                 </div>
-                <!-- /. tools -->
             </div>
+                <!-- /. tools -->
             <!-- /.card-header -->
             <div class="card-body pt-0">
                 <div>

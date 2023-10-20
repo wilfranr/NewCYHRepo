@@ -90,14 +90,17 @@ class SistemaController extends Controller
 
         $sistemas->save();
 
-        return redirect()->route('sistemas.index')->with('message', 'Sistema actualizado con exito!!');
+        return redirect()->route('sistemas.index')->with('success', 'Sistema actualizado con exito!!');
     }
 
     public function destroy($id)
     {
         $sistemas = Sistemas::find($id);
         $sistemas->delete();
+        //eliminar de tabla listas
+        $lista = Lista::where('nombre', $sistemas->nombre)->first();
+        $lista->delete();
 
-        return redirect()->route('sistemas.index')->with('message', 'Sistema eliminado con exito!!');
+        return redirect()->route('sistemas.index')->with('success', 'Sistema eliminado con exito!!');
     }
 }

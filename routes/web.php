@@ -23,6 +23,7 @@ use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\SistemaController;
+use App\Http\Controllers\UtilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,20 @@ Route::get('/terceros/{id}', [TerceroController::class, 'show'])->name('terceros
 Route::delete('/terceros/{id}', [TerceroController::class, 'destroy'])->name('terceros.destroy');
 Route::get('/terceros/{tercero_id}/maquinas', [TerceroController::class, 'getMaquinasByTercero'])->name('terceros.maquinas');
 Route::get('/terceros/{tercero_id}/contactos', [TerceroController::class, 'getContactosByTercero'])->name('terceros.contactos');
+//asociar sistema
+Route::post('/terceros/asociarSistema', [TerceroController::class, 'asociarSistema'])->name('terceros.asociarSistema');
+//crear marca desde terceros
+Route::post('/terceros/crearMarca', [TerceroController::class, 'crearMarca'])->name('terceros.crearMarca');
+//asociar marca
+Route::post('/terceros/asociarMarca', [TerceroController::class, 'asociarMarca'])->name('terceros.asociarMarca');
+//desasociar marca
+Route::post('/terceros/desasociarMarca', [TerceroController::class, 'desasociarMarca'])->name('terceros.desasociarMarca');
+//desasociar sistema
+Route::post('/terceros/desasociarSistema', [TerceroController::class, 'desasociarSistema'])->name('terceros.desasociarSistema');
 
+//rutas controladores reutilizables
+Route::post('util/crearSistema', [UtilController::class, 'crearSistema'])->name('util.crearSistema');
+Route::post('util/crearMarca', [UtilController::class, 'crearMarca'])->name('util.crearMarca');
 
 //rutas para previsualizar rut
 Route::get('/terceros/{id}/preview', [TerceroController::class, 'preview'])->name('terceros.preview');

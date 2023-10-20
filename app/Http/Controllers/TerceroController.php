@@ -204,7 +204,7 @@ class TerceroController extends Controller
         $pathToFile = storage_path('app/' . $tercero->certificacion_bancaria);
         return response()->download($pathToFile);
     }
-    
+
     public function downloadRut($id)
     {
         $tercero = Tercero::findOrFail($id);
@@ -241,12 +241,13 @@ class TerceroController extends Controller
         $maquinas = Maquina::allWithConcatenatedData();
         $marca = Marca::all();
         $pedidos = Pedido::with(['tercero', 'contacto', 'maquinas'])->where('tercero_id', $tercero->id)->get();
-        return view('terceros.edit', compact('tercero', 'paises', 'ciudades', 'maquinas', 'id', 'tipo_maquina', 'marca', 'modelo', 'pedidos', 'previous', 'next', 'cotizaciones'));
+        $sistemas = Sistemas::all();
+        return view('terceros.edit', compact('tercero', 'paises', 'ciudades', 'maquinas', 'id', 'tipo_maquina', 'marca', 'modelo', 'pedidos', 'previous', 'next', 'cotizaciones', 'sistemas'));
     }
 
     public function update(Request $request, Tercero $tercero, $id)
     {
-    
+
         $tercero = Tercero::find($id);
 
 
@@ -340,7 +341,7 @@ class TerceroController extends Controller
 
     public function preview($id)
     {
-        
+
         $tercero = Tercero::findOrFail($id);
         return view('terceros.preview', compact('tercero'));
     }
@@ -359,6 +360,91 @@ class TerceroController extends Controller
         return redirect()->route('terceros.preview', $id);
     }
 
+    public function asociarSistema(Request $request)
+    {
+        // validar los datos del formulario
+        $request->validate([
+            'sistema_id' => 'nullable',
+            'tercero_id' => 'nullable',
+        ], $messages = [
+            'sistema_id.required' => 'El campo sistema es obligatorio.',
+            'tercero_id.required' => 'El campo tercero es obligatorio.',
+        ]);
+
+        // asociar el sistema al tercero
+        $tercero = Tercero::find($request->tercero_id);
+        // dd($tercero);
+        $sistema = Sistemas::find($request->sistema_id);
+        // dd($sistema);
+        $tercero->sistemas()->attach($request->sistema_id);
+
+        return back()->with('success', 'sistema asociado exitosamente.');
+    }
+
+    
+
+    public function asociarMarca(Request $request)
+    {
+        // validar los datos del formulario
+        $request->validate([
+            'marca_id' => 'nullable',
+            'tercero_id' => 'nullable',
+        ], $messages = [
+            'marca_id.required' => 'El campo marca es obligatorio.',
+            'tercero_id.required' => 'El campo tercero es obligatorio.',
+        ]);
+
+        // asociar el sistema al tercero
+        $tercero = Tercero::find($request->tercero_id);
+        // dd($tercero);
+        $marca = Marca::find($request->marca_id);
+        // dd($sistema);
+        $tercero->marcas()->attach($request->marca_id);
+
+        return back()->with('success', 'marca asociada exitosamente.');
+    }
+
+    public function desasociarMarca(Request $request)
+    {
+        // validar los datos del formulario
+        $request->validate([
+            'marca_id' => 'nullable',
+            'tercero_id' => 'nullable',
+        ], $messages = [
+            'marca_id.required' => 'El campo marca es obligatorio.',
+            'tercero_id.required' => 'El campo tercero es obligatorio.',
+        ]);
+
+        // asociar el sistema al tercero
+        $tercero = Tercero::find($request->tercero_id);
+        // dd($tercero);
+        $marca = Marca::find($request->marca_id);
+        // dd($sistema);
+        $tercero->marcas()->detach($request->marca_id);
+
+        return back()->with('success', 'marca desasociada exitosamente.');
+    }
+
+    public function desasociarSistema(Request $request)
+    {
+        // validar los datos del formulario
+        $request->validate([
+            'sistema_id' => 'nullable',
+            'tercero_id' => 'nullable',
+        ], $messages = [
+            'sistema_id.required' => 'El campo sistema es obligatorio.',
+            'tercero_id.required' => 'El campo tercero es obligatorio.',
+        ]);
+
+        // asociar el sistema al tercero
+        $tercero = Tercero::find($request->tercero_id);
+        // dd($tercero);
+        $sistema = Sistemas::find($request->sistema_id);
+        // dd($sistema);
+        $tercero->sistemas()->detach($request->sistema_id);
+
+        return back()->with('success', 'sistema desasociado exitosamente.');
+    }
     public function destroy($id)
     {
         // Eliminar el tercero

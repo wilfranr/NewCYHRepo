@@ -174,13 +174,16 @@
                             </div>
                             <div>
                                 {{-- Tooltip Máquina --}}
-                                <h2 class="lead"><b><a id="link_maquina" href="" target="_blank"><strong
-                                                id="nombre_maquina"></strong></a></b><i
-                                        class="fa fa-question-circle text-warning" aria-hidden="true"
+                                <h2 class="lead">
+                                    <b>
+                                        <a id="link_maquina" href="" target="_blank">
+                                            <strong id="nombre_maquina"></strong>
+                                        </a>
+                                    </b>
+                                    <i class="fa fa-question-circle text-warning" aria-hidden="true"
                                         data-toggle="tooltip" data-placement="top"
                                         title="Puede buscar una máquina en la lista de máquinas asociadas al cliente o crearle una nueva."></i>
                                 </h2>
-                                </i></h2>
 
                             </div>
                             <p class="text-muted text-sm">

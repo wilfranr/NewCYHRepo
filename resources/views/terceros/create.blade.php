@@ -158,7 +158,7 @@
                             </div>
                         </div>
 
-                        {{-- Maquinas --}}
+                        {{-- Maquinas Marcas Sistemas--}}
                         <div class="tab-pane fade show-active" id="custom-tabs-one-maquinas" role="tabpanel"
                             aria-labelledby="custom-tabs-one-admin-tab">
                             <div class="form-group mt-4">

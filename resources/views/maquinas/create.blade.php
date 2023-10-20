@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-2">
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                        data-target="#modalMarca">
+                                        data-target="#modalAgregarMarca">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -181,56 +181,53 @@
             </div>
         </div>
 
-        {{-- Modal Marca --}}
-        <div class="modal fade" id="modalMarca">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Crear Marca</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="{{ route('marcas.store') }}" method="POST" enctype="multipart/form-data"
-                                    id="form-marca">
-                                    @csrf
-                                    <input type="hidden" id="tipo" name="tipo" value="Marca">
+        {{-- Modal crear marca --}}
+    <div class="modal fade" id="modalAgregarMarca">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Crear marca<span id="tercero-nombre2"></span>
+                    </h4>
 
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre:</label>
-                                        <input type="text" class="form-control" name="nombre" id="nombre"
-                                            required>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            {{-- Formulario para crear lista --}}
+                            <form action="{{ route('util.crearMarca') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" value="Marca" name="tipo">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="definicion">Definición:</label>
+                                    <textarea class="form-control" name="definicion" id="definicion" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoLista">Foto:</label>
+                                    <div class="input-group">
+                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
+                                        <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="descripcion">Descripción:</label>
-                                        <textarea class="form-control" name="descripcion" id="descripcion" required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="imagen">Foto:</label>
-                                        <div class="input-group">
-                                            <input type="file" class="custom-file-input" name="imagen"
-                                                id="imagen">
-                                            <label class="custom-file-label" for="imagen">Seleccionar imágen</label>
-                                        </div>
-
-                                        <img id="preview" src="#" alt=""
-                                            style="max-width: 200px; max-height: 200px;">
-                                        <button id="borrar-foto" type="button" style="display: none;"
-                                            class="btn btn-outline-danger btn-sm">x</button>
-                                    </div>
-                                    {{-- Boton para enviar formulario --}}
-                                    <button type="button" class="btn btn-primary btn-md"
-                                        onclick="crearMarca()">Crear</button>
-                                </form>
-                            </div>
+                                    <img id="preview" src="#" alt=""
+                                        style="max-width: 200px; max-height: 200px;">
+                                    <button id="borrar-foto" type="button" style="display: none;"
+                                        class="btn btn-outline-danger btn-sm">x</button>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         {{-- Modal Modelo --}}
         <div class="modal fade" id="modalModelo">

@@ -65,7 +65,7 @@ class ListaController extends Controller
         if ($request->tipo == 'Marca') {
             $marca = new Marca;
             $marca->nombre = $request->nombre;
-            
+
             //guardar la foto de la marca
             if ($request->hasFile('fotoLista')) {
                 $foto = $request->file('fotoLista');
@@ -145,20 +145,21 @@ class ListaController extends Controller
     public function destroy($id)
     {
         $lista = Lista::findOrFail($id);
-        
+
         //si viene tipo = marca, entonces se debe eliminar el registro en la tabla marcas
         if ($lista->tipo == 'Marca') {
             $marca = Marca::where('nombre', $lista->nombre)->first();
             $marca->delete();
         }
-        // Eliminar la lista
-        if ($lista) {
-            $lista->delete();
-            return redirect()->route('listas.index')->with('success', 'La lista ha sido eliminada exitosamente.');
-        } else {
-            return redirect()->route('listas.index')->with('error', 'La lista no pudo ser eliminada.');
+
+        //si viene tipo sistema, entonces se debe eliminar el registro en la tabla sistemas
+        if ($lista->tipo == 'Sistema') {
+            $sistema = Sistemas::where('nombre', $lista->nombre)->first();
+            $sistema->delete();
         }
 
-        
+        $lista->delete();
+
+        return redirect()->route('listas.index')->with('success', 'La lista ha sido eliminada exitosamente.');
     }
 }
