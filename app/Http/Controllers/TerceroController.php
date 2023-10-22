@@ -381,8 +381,6 @@ class TerceroController extends Controller
         return back()->with('success', 'sistema asociado exitosamente.');
     }
 
-    
-
     public function asociarMarca(Request $request)
     {
         // validar los datos del formulario

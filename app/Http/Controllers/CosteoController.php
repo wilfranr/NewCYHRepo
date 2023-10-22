@@ -61,7 +61,7 @@ class CosteoController extends Controller
     private function proveedorManejaSistemas($proveedor, $sistemas)
     {
         foreach ($sistemas as $sistema) {
-            if (!$proveedor->manejaSistema($sistema)) {
+            if (!$proveedor->sistemas->contains($sistema)) {
                 return false;
             }
         }

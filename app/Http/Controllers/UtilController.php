@@ -8,6 +8,7 @@ use App\Models\Sistemas;
 use App\Models\Tercero;
 use App\Models\Marca;
 use App\Models\Maquina;
+use App\Models\Articulo;
 
 
 
@@ -110,7 +111,6 @@ class UtilController extends Controller
             $maquina = Maquina::find($request->maquina_id);
             $maquina->marcas()->attach($marca->id);
         }
-
 
         return back()->with('success', 'marca creada exitosamente.');
     }

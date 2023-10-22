@@ -42,10 +42,11 @@ class CotizacionController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         // Valida los datos del formulario
         $data = $request->validate([
-            'pedido_id' => 'required|exists:pedidos,id',
-            'tercero_id' => 'required|exists:terceros,id',
+            'pedido_id' => 'nullable|exists:pedidos,id',
+            'tercero_id' => 'nullable|exists:terceros,id',
             // Agrega aquí otros campos que deseas validar
         ]);
         // dd($data);

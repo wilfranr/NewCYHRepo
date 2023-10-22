@@ -119,7 +119,7 @@
                                                     </div>
                                                     <div class="col-2">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
-                                                            data-toggle="modal" data-target="#modalMarca">
+                                                            data-toggle="modal" data-target="#modalAgregarMarca">
                                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
@@ -350,12 +350,14 @@
             </div>
         </div>
     </div>
-    {{-- Modal Crear Marca --}}
-    <div class="modal fade" id="modalMarca">
-        <div class="modal-dialog modal-lg">
+
+    {{-- Modal crear marca --}}
+    <div class="modal fade" id="modalAgregarMarca">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Crear Marca</h4>
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Crear marca de {{ $articulo->referencia }}</h4>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -363,14 +365,16 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('listas.store') }}" method="POST" enctype="multipart/form-data"
-                                id="form-marca">
+                            {{-- Formulario para crear lista --}}
+                            <form action="{{ route('util.crearMarca') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" id="tipo" name="tipo" value="Marca">
-
+                                <input type="hidden" value="Marca" name="tipo">
+                                <input type="hidden" name="articulo_id" value="{{ $articulo->id }}">
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                    <input type="text" class="form-control" name="nombre" id="nombre"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="definicion">Definición:</label>
@@ -379,18 +383,16 @@
                                 <div class="form-group">
                                     <label for="fotoLista">Foto:</label>
                                     <div class="input-group">
-                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
+                                        <input type="file" class="custom-file-input" name="fotoLista"
+                                            id="fotoLista">
                                         <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
                                     </div>
-
                                     <img id="preview" src="#" alt=""
                                         style="max-width: 200px; max-height: 200px;">
                                     <button id="borrar-foto" type="button" style="display: none;"
                                         class="btn btn-outline-danger btn-sm">x</button>
                                 </div>
-                                {{-- Boton para enviar formulario --}}
-                                <button type="button" class="btn btn-primary btn-md"
-                                    onclick="crearMarca()">Crear</button>
+                                <button type="submit" class="btn btn-primary">Crear</button>
                             </form>
                         </div>
                     </div>

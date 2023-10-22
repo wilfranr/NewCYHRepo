@@ -182,52 +182,54 @@
         </div>
 
         {{-- Modal crear marca --}}
-    <div class="modal fade" id="modalAgregarMarca">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header bg-warning">
-                    <h4 class="modal-title">Crear marca<span id="tercero-nombre2"></span>
-                    </h4>
+        <div class="modal fade" id="modalAgregarMarca">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <h4 class="modal-title">Crear marca<span id="tercero-nombre2"></span>
+                        </h4>
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="card-body">
-                            {{-- Formulario para crear lista --}}
-                            <form action="{{ route('util.crearMarca') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" value="Marca" name="tipo">
-                                <div class="form-group">
-                                    <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="definicion">Definición:</label>
-                                    <textarea class="form-control" name="definicion" id="definicion" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fotoLista">Foto:</label>
-                                    <div class="input-group">
-                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
-                                        <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                {{-- Formulario para crear lista --}}
+                                <form action="{{ route('util.crearMarca') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" value="Marca" name="tipo">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre:</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre"
+                                            required>
                                     </div>
-                                    <img id="preview" src="#" alt=""
-                                        style="max-width: 200px; max-height: 200px;">
-                                    <button id="borrar-foto" type="button" style="display: none;"
-                                        class="btn btn-outline-danger btn-sm">x</button>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Crear</button>
-                            </form>
+                                    <div class="form-group">
+                                        <label for="definicion">Definición:</label>
+                                        <textarea class="form-control" name="definicion" id="definicion" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fotoLista">Foto:</label>
+                                        <div class="input-group">
+                                            <input type="file" class="custom-file-input" name="fotoLista"
+                                                id="fotoLista">
+                                            <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+                                        </div>
+                                        <img id="preview" src="#" alt=""
+                                            style="max-width: 200px; max-height: 200px;">
+                                        <button id="borrar-foto" type="button" style="display: none;"
+                                            class="btn btn-outline-danger btn-sm">x</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Crear</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         {{-- Modal Modelo --}}
         <div class="modal fade" id="modalModelo">
@@ -280,10 +282,7 @@
             </div>
         </div>
 
-    </div 
-@endsection 
-@section('js') 
-    <script>
+    </div @endsection @section('js') <script>
         // Vista previa de la imagen
         document.getElementById("fotoId").addEventListener("change", function(e) {
             var reader = new FileReader();
@@ -462,6 +461,5 @@
                 placeholder: 'Seleccione una opción'
             });
         });
-
     </script>
 @endsection

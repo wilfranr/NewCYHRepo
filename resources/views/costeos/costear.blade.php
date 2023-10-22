@@ -15,7 +15,7 @@
     {{-- Fin de info de pedido --}}
 
     {{-- Formulario --}}
-    <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" id="form">
         @csrf
         <!-- info Cliente -->
         <div class="card bg-light d-flex flex-fill">
@@ -27,14 +27,13 @@
 
                     {{-- Datos básicos --}}
                     <div class="col-3">
-                        <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}"
-                            readonly>
+                        <input type="hidden" name="pedido_id" value="{{ $pedido->id }}">
+                        <input type="hidden" name="tercero_id" id="tercero_id" value="{{ $pedido->tercero->id }}" readonly>
                         <input type="hidden" name="user_id" id="user_id" value="{{ $pedido->user->id }}">
                         <input type="hidden" name="estado" id="estado" value="Costeo">
                         <input type="hidden" name="comentario" id="comentario" value="{{ $pedido->comentario }}">
                         @if ($pedido->contacto)
-                            <input type="hidden" name="contacto_id" id="contacto_id"
-                                value="{{ $pedido->contacto->id }}">
+                            <input type="hidden" name="contacto_id" id="contacto_id" value="{{ $pedido->contacto->id }}">
                         @endif
                         @if ($pedido->maquinas->count() >= 1)
                             <input type="hidden" name="maquina_id" id="maquina_id"
@@ -145,28 +144,28 @@
                             @foreach ($pedido->maquinas as $maquina)
                             @endforeach
                             <strong>
-                                    <h2 class="lead">
-                                        <b>
-                                            <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
-                                                <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
-                                            </a>
-                                        </b>
-                                        <i class="fa fa-question-circle text-warning" aria-hidden="true"
-                                            data-toggle="tooltip" data-placement="top"
-                                            title="Aquí se muestra una descripción corta de la máquina."></i>
-                                    </h2>
+                                <h2 class="lead">
+                                    <b>
+                                        <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
+                                            <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
+                                        </a>
+                                    </b>
+                                    <i class="fa fa-question-circle text-warning" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Aquí se muestra una descripción corta de la máquina."></i>
+                                </h2>
                             </strong>
                         </h2>
 
-                        
+
                         <p class="text-muted text-sm">
                             <b><span>Marca:</span></b>
                             @foreach ($maquina->marcas as $marcaMaquina)
-                            <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
-                            value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
-                            <span id="marca">
-                                {{ $marcaMaquina->nombre }}
-                            </span>
+                                <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
+                                    value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
+                                <span id="marca">
+                                    {{ $marcaMaquina->nombre }}
+                                </span>
                             @endforeach
                         </p>
                         <p class="text-muted text-sm">
@@ -189,9 +188,8 @@
                         <div class="text-center mb-3">
                             <a href="{{ asset('storage/maquinas/' . $maquina->foto) }}" id="foto_maquina_link"
                                 target="_blank">
-                                <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}"
-                                    class="img-circle img-fluid" id="foto_maquina" alt="Foto Máquina"
-                                    width="200">
+                                <img src="{{ asset('storage/maquinas/' . $maquina->foto) }}" class="img-circle img-fluid"
+                                    id="foto_maquina" alt="Foto Máquina" width="200">
                             </a>
                         </div>
                         {{-- mostrar foto de imágen de Id de máquina --}}
@@ -205,11 +203,11 @@
                     </div>
                 </div>
                 @if ($pedido->comentario)
-                {{-- Comentarios del pedido --}}
-                <div>
-                    Comentarios del pedido: <br>
-                    <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
-                </div>
+                    {{-- Comentarios del pedido --}}
+                    <div>
+                        Comentarios del pedido: <br>
+                        <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
+                    </div>
                 @endif
             </div>
             {{-- <div class="card-footer">
@@ -229,9 +227,9 @@
         <!-- Card articulo -->
         @foreach ($pedido->articulos as $index => $articulo)
             @if ($pedido->articulos->count() >= 1)
-            <div class="card bg-gradient-secondary">
-                @else
                 <div class="card bg-gradient-secondary collapsed-card">
+                @else
+                    <div class="card bg-gradient-secondary">
             @endif
             <div class="card-header border-0">
                 <h3 class="card-title text-uppercase">
@@ -240,7 +238,8 @@
                 </h3>
                 <!-- tools card -->
                 <div class="card-tools">
-                    <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse" data-toggle="tooltip" title="Expandir">
+                    <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse"
+                        data-toggle="tooltip" title="Expandir">
                         <i class="fas fa-plus"></i>
                     </button>
                     <a href="{{ route('articulos.edit', $articulo->id) }}" class="btn btn-warning btn-sm"
@@ -249,7 +248,7 @@
                     </a>
                 </div>
             </div>
-                <!-- /. tools -->
+            <!-- /. tools -->
             <!-- /.card-header -->
             <div class="card-body pt-0">
                 <div>
@@ -328,7 +327,7 @@
                                 <tbody>
                                     @if ($proveedoresNacionales->count() >= 1)
                                         @foreach ($proveedoresNacionales as $index => $proveedor)
-                                            <tr>
+                                            <tr class="">
                                                 <td>
                                                     <input type="checkbox" class="proveedor-checkbox"
                                                         name="proveedores[{{ $index }}][seleccionado]">
@@ -398,6 +397,11 @@
                                                         name="proveedores[{{ $index }}][utilidad]" value=""
                                                         class="utilidad" data-index="{{ $index }}"
                                                         placeholder="7% Sugerida">
+
+                                                    {{-- Precio venta hidden --}}
+                                                    <input type="hidden" class="form-control precio-venta-nacional"
+                                                        name="proveedores[{{ $index }}][precioVenta]"
+                                                        value="" data-index="{{ $index }}">
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -444,7 +448,8 @@
                                         @foreach ($proveedoresInternacionales as $index => $proveedor)
                                             <tr>
                                                 <td>
-                                                    <input type="checkbox" name="" id="">
+                                                    <input type="checkbox" class="proveedor-checkbox"
+                                                        name="proveedores[{{ $index }}][seleccionado]">
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
@@ -502,7 +507,8 @@
                                                     {{-- peso --}}
                                                     <input type="text" class="form-control peso-internacional"
                                                         name="proveedoresInternacionales[{{ $index }}][peso]"
-                                                        value="{{ $articulo->peso }}" data-index="{{ $index }}">
+                                                        value="{{ $articulo->peso }}"
+                                                        data-index="{{ $index }}">
                                                 </td>
                                                 <td>
                                                     {{-- costo_Us --}}
@@ -518,7 +524,7 @@
                                                         placeholder="7% Sugerida">
                                                 </td>
                                                 {{-- Precio de venta --}}
-                                                <input type="hidden" class="form-control"
+                                                <input type="hidden" class="form-control precio-venta-internacional"
                                                     name="proveedoresInternacionales[{{ $index }}][precioVenta]"
                                                     value="" data-index="{{ $index }}">
                                             </tr>
@@ -548,11 +554,70 @@
         {{-- guardar en input desde variable de sesión TRM --}}
         <input type="hidden" name="trm" class="trm" value="{{ session('trm') }}">
         {{-- guardar en input desde variable de sesión peso --}}
-        <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Generar cotización</button>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-success" id="generar-comparativo"
+                    title="Generar Comparativo">
+                    <ion-icon name="reader-outline"></ion-icon> Generar comparativo</button>
+                <button type="button" class="btn btn-primary" id="generar-cotizacion"><ion-icon
+                        name="receipt-outline"></ion-icon> Generar Cotización</button>
+            </div>
         </div>
     </form>
     {{-- Fin de formulario --}}
+
+    {{-- Modal comparativo --}}
+    <div class="modal fade" id="modalGenerarComparativo">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Cuadro comparativo <span id="">Pedido #{{ $pedido->id }}</span>
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            {{-- Formulario para crear lista --}}
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                {{-- <input type="hidden" value="{{ $tercero->id }}" name="tercero_id"> --}}
+                                @foreach ($pedido->articulos as $index => $articulo)
+                                    <div class="form-group">
+                                        <p>Artículo:
+                                            <span>{{ $articulo->referencia }}</span>
+                                        </p>
+                                    </div>
+                                    <table class="table table-striped" id="tabla-comparativo">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Entrega</th>
+                                                <th scope="col">Cantidad</th>
+                                                <th scope="col">Valor (No incluye Iva)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                @endforeach
+                                <div class="d-flex justify-content-between">
+
+                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     {{-- <input type="number" class="utilidad2" value="" placeholder="utilidad2" name="utilidad2">
     <input type="number" class="peso2" value="1" placeholder="peso" name="peso2">
     <input type="number" class="costo_Col2" value="" placeholder="costo" name="costo_Col2">
@@ -601,6 +666,7 @@
                 var costo = parseFloat($('.costo-nacional[data-index="' + index + '"]').val());
                 var precioVenta = ((costo * (utilidad / 100)) + costo) * cantidad;
                 console.log('precioVenta', precioVenta);
+                $('.precio-venta-nacional[data-index="' + index + '"]').val(precioVenta);
             });
             //Calcular el precio del proveedor internacional
             $('.utilidad-internacional').on('keyup', function() {
@@ -618,7 +684,101 @@
                 console.log('trm', trm);
                 var precioVenta = ((peso * 2.15 + costo) * cantidad) * trm;
                 console.log('precioVenta', precioVenta);
+                $('.precio-venta-internacional[data-index="' + index + '"]').val(precioVenta);
             });
+
+            $('#generar-comparativo').click(function() {
+                //obtener proveedor seleccionado
+                var proveedores = [];
+                //si no hay proveedores seleccionados generar alerta
+                if ($('.proveedor-checkbox:checked').length == 0) {
+                    swal.fire({
+                        title: "Error",
+                        text: "Debe seleccionar al menos un proveedor",
+                        icon: "error",
+                    });
+                    return false;
+                } else {
+                    $('.proveedor-checkbox:checked').each(function() {
+                        var proveedor = {
+                            id: $(this).closest('tr').find('input[name*="id"]').val(),
+                            nombre: $(this).closest('tr').find('a').text(),
+                            marca: $(this).closest('tr').find('select[name*="marca"]').val(),
+                            entrega: $(this).closest('tr').find('select[name*="entrega"]')
+                                .val(),
+                            dias: $(this).closest('tr').find('input[name*="dias"]').val(),
+                            cantidad: $(this).closest('tr').find('input[name*="cantidad"]')
+                                .val(),
+                            peso: $(this).closest('tr').find('input[name*="peso"]').val(),
+                            costo: $(this).closest('tr').find('input[name*="costo"]').val(),
+                            utilidad: $(this).closest('tr').find('input[name*="utilidad"]')
+                                .val(),
+                            precioVenta: $(this).closest('tr').find(
+                                'input[name*="precioVenta"]').val(),
+                        };
+                        proveedores.push(proveedor);
+                    });
+
+                    //Agregar proveedores a la tabla del modal
+                    var tabla = $('#tabla-comparativo tbody');
+                    tabla.empty();
+                    $.each(proveedores, function(index, proveedor) {
+                        console.log('Entrega' + proveedor.entrega);
+                        console.log('Costo' + proveedor.costo);
+                        console.log('Utilidad' + proveedor.utilidad);
+                        console.log('PrecioVenta' + proveedor.precioVenta);
+                        if (proveedor.entrega == '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe seleccionar el plazo de entrega los proveedores seleccionados",
+                                icon: "error",
+                            });
+                            return false;
+                        } else if (proveedor.costo == '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe ingresar el costo del artículo para los proveedores seleccionados",
+                                icon: "error",
+                            });
+                            return false;
+                        } else if (proveedor.utilidad == '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe ingresar la utilidad del artículo para los proveedores seleccionados",
+                                icon: "error",
+                            });
+                            return false;
+                        } else {
+                            if (proveedor.entrega == 'inmediata') {
+                                proveedor.entrega = 'Inmediata';
+                            } else {
+                                proveedor.entrega = proveedor.dias + ' días';
+                            }
+
+                            var fila = '<tr>' +
+                                '<td>' + (index + 1) + '</td>' +
+                                '<td>' + proveedor.entrega + '</td>' +
+                                '<td>' + proveedor.cantidad + '</td>' +
+                                '<td>' + proveedor.precioVenta + '</td>' +
+                                '</tr>';
+                            tabla.append(fila);
+                            $('#modalGenerarComparativo').modal('show');
+                        }
+                    });
+                }
+            });
+
+        });
+        $('.proveedor-checkbox').change(function() {
+            // Encuentra la fila padre (tr) de este checkbox
+            var fila = $(this).closest('tr');
+
+            // Si el checkbox está seleccionado, agrega la clase "fila-seleccionada"; de lo contrario, quítala.
+            if ($(this).is(':checked')) {
+                fila.addClass('table-success');
+            } else {
+                fila.removeClass('table-success');
+            }
         });
     </script>
 @endsection
