@@ -128,7 +128,7 @@ Route::delete('/listas/{id}', [ListaController::class, 'destroy'])->name('listas
 Route::get('/pedidos', [PedidoController::class, 'index'])->name('pedidos.index');
 Route::get('/pedidos/create', [PedidoController::class, 'create'])->name('pedidos.create');
 Route::post('/pedidos', [PedidoController::class, 'store'])->name('pedidos.store');
-Route::get('/pedidos/{id}', [PedidoController::class, 'show'])->name('pedidos.show');
+Route::get('/pedidos/{id}/show', [PedidoController::class, 'show'])->name('pedidos.show');
 Route::get('/pedidos/{id}/edit', [PedidoController::class, 'edit'])->name('pedidos.edit');
 Route::put('/pedidos/{id}/update', [PedidoController::class, 'update'])->name('pedidos.update');
 Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy'])->name('pedidos.destroy');

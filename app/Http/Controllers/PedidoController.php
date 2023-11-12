@@ -67,7 +67,6 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-        //mostrar los datos del formulario que llegan al controlador
         // dd($request->all());
         // Validar los datos del formulario	
         $data = $request->validate([
@@ -104,6 +103,7 @@ class PedidoController extends Controller
 
         // Agregar cada artículo temporal al pedido
         $contadorArticulos = $request->input('contador');
+        // dd($contadorArticulos);
 
 
         for ($i = 1; $i <= $contadorArticulos; $i++) {
@@ -114,28 +114,41 @@ class PedidoController extends Controller
                 "sistema{$i}" => ['nullable', 'string', 'max:255'],
                 "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
             ]);
-            if ($request->input("referencia{$i}") != null) {
 
-                //guardar articulos en tabla articulo_pedido
+            // dd($dataArticulo);
+            //si viene articulo real
+            if ($request->input("referencia{$i}") != null) {
+                // Guardar artículos en la tabla articulo_pedido
                 $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
-                //dd($articulo);
                 $pedido->articulos()->attach($articulo->id);
-                //guardar cantidad en tabla pivot
+
+                // Guardar la cantidad en la tabla pivot
                 $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
 
-                //Si vienen sistemas
+
+                //Guardar el comentario del artículo en la tabla pivot 
+                $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
+
+                // Si vienen sistemas
                 if ($request->input("sistema{$i}") != null) {
-                    // Asociar el sistema al artículo 
-                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
-                    //asociar el sistema con el pedido
-                    $pedido->sistemas()->attach($request->input("sistema{$i}"));
+                    $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
+                    // dd($sistema);
+
+                    if ($sistema) {
+                        // Asociar el sistema al artículo y al pedido
+                        $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
+                    }
                 }
             }
+
+
+            //si viene articulo temporal
             if ($request->input("referencia{$i}") == null) {
                 $articuloTemporal = new ArticuloTemporal();
                 $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
                 $articuloTemporal->cantidad = $request->input("cantidad{$i}");
                 $articuloTemporal->save();
+                // dd($articuloTemporal);
 
                 // Obtener las fotos del formulario
                 $fotos = $request->file("fotos{$i}");
@@ -156,9 +169,9 @@ class PedidoController extends Controller
                         $fotoArticuloTemporal->save();
                     }
                 }
+                // dd($request->input("sistema{$i}"));
 
-
-                //Si vienen sistemas
+                // Si vienen sistemas
                 if ($request->input("sistema{$i}") != null) {
                     // Asociar el sistema al artículo 
                     $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
@@ -173,16 +186,20 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido, $id)
     {
-        // Obtener el pedido con sus relaciones
         $pedido = Pedido::with([
             'tercero',
             'contacto',
             'maquinas',
             'articulosTemporales.fotosArticuloTemporal',
+            'articulos.sistemas',
             'articulos',
-            'articulosTemporales.sistemas',
-            'articulos.sistemas'
+            'marcas',
+            'sistemasPedidos' // Asegúrate de cargar la relación aquí
         ])->find($id);
+        // dd($pedido);
+        // dd($pedido->articulos->first()->sistemasPedidos->first()->sistema);
+
+        
 
         //obtener el pedido anterior
         $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
@@ -191,10 +208,14 @@ class PedidoController extends Controller
 
         // Obtener todos los artículos asociados al pedido
         $articulos = $pedido->articulos;
+        // dd($articulos);
+
         //obtener todas las referencias de los articulos
         $referencias = Articulo::all();
+        // dd($referencias);
 
         $sistemas = Sistemas::all();
+        // dd($sistemas);
         $definiciones = Lista::where('tipo', 'Definición')->pluck('nombre');
 
         // Obtener las definiciones con su respectiva foto de medida
@@ -232,104 +253,149 @@ class PedidoController extends Controller
         return view('pedidos.edit', compact('pedido', 'articulosTemporales', 'fotosArticuloTemporal', 'previous', 'next'));
     }
 
+    // public function update(Request $request, $id)
+    // {
+    //     // dd($request->all());
+
+    //     //mensajes de validacion
+    //     $messages = [
+    //         'required' => 'El campo :attribute es obligatorio.',
+    //     ];
+
+    //     $data = $request->validate([
+    //         'tercero_id' => 'nullable|exists:terceros,id',
+    //         'user_id' => 'nullable|exists:users,id',
+    //         'contacto_id' => 'nullable|exists:contactos,id',
+    //         'comentario' => 'nullable|string',
+    //         'estado' => 'nullable|string'
+    //     ], $messages);
+
+    //     $pedido = Pedido::findOrFail($id);
+    //     // $pedido->tercero_id = $request->input('tercero_id');
+    //     $pedido->user_id = auth()->user()->id;
+    //     // $pedido->contacto_id = $request->input('contacto_id');
+    //     $pedido->comentario = $request->input('comentario');
+    //     $pedido->estado = $request->input('estado');
+    //     $pedido->save();
+
+    //     //recorrer los articulos
+    //     $contadorArticulos = $request->input('contador');
+
+
+
+
+    //     // Actualizar los artículos temporales
+    //     // $articulosTemporales = [];
+
+
+    //     // for ($i = 1; $i <= $request->input('articulos-temporales', 0); $i++) {
+    //     //     $articuloTemporalId = $request->input("articulo_temporal_id_{$i}");
+
+
+    //     //     if ($articuloTemporalId) {
+    //     //         // Actualizar el artículo temporal existente
+    //     //         $articuloTemporal = ArticuloTemporal::findOrFail($articuloTemporalId);
+    //     //         $articuloTemporal->referencia = $request->input("referencia{$i}");
+    //     //         $articuloTemporal->definicion = $request->input("definicion{$i}");
+    //     //         $articuloTemporal->sistema = $request->input("sistema{$i}");
+    //     //         $articuloTemporal->cantidad = $request->input("cantidad{$i}");
+    //     //         $articuloTemporal->comentarios = $request->input("comentarios{$i}");
+    //     //         $articuloTemporal->save();
+
+    //     //         $articulosTemporales[] = $articuloTemporalId;
+
+    //     //         //Crear relación entre artículo y pedido
+    //     //         $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+    //     //         // dd($articulo);
+    //     //         $pedido->articulos()->attach($articulo->id);
+    //     //         //guardar cantidad en tabla pivot
+    //     //         $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
+
+    //     //         //Si vienen sistemas
+    //     //         if ($request->input("sistema{$i}") != null) {
+    //     //             // Asociar el sistema al artículo 
+    //     //             $articulo->sistemas()->attach($request->input("sistema{$i}"));
+    //     //         }
+    //     //     } else {
+    //     //         //Crear relación entre artículo y pedido
+    //     //         $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+    //     //         //dd($articulo);
+    //     //         $pedido->articulos()->attach($articulo->id);
+    //     //         //guardar cantidad en tabla pivot
+    //     //         $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
+
+    //     //         //Si vienen sistemas
+    //     //         if ($request->input("sistema{$i}") != null) {
+    //     //             // Asociar el sistema al artículo 
+    //     //             $articulo->sistemas()->attach($request->input("sistema{$i}"));
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     //$pedido->articulosTemporales()->sync($articulosTemporales);
+    //     // Asociar el sistema al artículo temporal
+    //     // $articulo->sistemas()->attach($request->input("sistema{$i}"));
+
+    //     // Redirigir o hacer cualquier otra acción necesaria
+    //     // ...
+    //     return redirect()->route('pedidos.index', $id)->with('success', 'El pedido ha sido enviado a costeo.');
+    // }
+
+
     public function update(Request $request, $id)
     {
-        //mensajes de validacion
-        $messages = [
-            'required' => 'El campo :attribute es obligatorio.',
-        ];
+        // dd($request->all());
 
-        $data = $request->validate([
-            'tercero_id' => 'nullable|exists:terceros,id',
-            'user_id' => 'nullable|exists:users,id',
-            'contacto_id' => 'nullable|exists:contactos,id',
-            'comentario' => 'nullable|string',
-            'estado' => 'nullable|string'
-        ], $messages);
-
+        // Buscar el pedido existente
         $pedido = Pedido::findOrFail($id);
-        $pedido->tercero_id = $request->input('tercero_id');
-        $pedido->user_id = auth()->user()->id;
-        $pedido->contacto_id = $request->input('contacto_id');
-        $pedido->comentario = $request->input('comentario');
-        $pedido->estado = $request->input('estado');
+        // dd($pedido);
+        //cambiar el estado del pedido
+        $pedido->estado = 'Costeo';
         $pedido->save();
 
-        // Actualizar la relación con las máquinas
-        $maquinas = $request->input('maquina_id', []);
-        $pedido->maquinas()->sync($maquinas);
+        //eliminar relaciones entre pedido y articulos
+        $pedido->articulos()->detach();
+        //eliminar relación entre pedido y articulos temporales
+        $pedido->articulosTemporales()->detach();
+        //eliminar relación entre pedido, artículo y sistema
+        $pedido->sistemasPedidos()->detach();
 
-        $maquinasMarcas = $request->input('maquinas'); // Obtén los IDs de las marcas seleccionadas para cada máquina
+        //actualizar los articulos del pedido
+        $contadorArticulos = $request->input('contador');
+        // dd($contadorArticulos);
 
-        if ($maquinasMarcas == null) {
-            $maquinasMarcas = [];
-        } else {
-            foreach ($maquinasMarcas as $maquinaId => $data) {
-                $maquina = Maquina::find($maquinaId);
 
-                if ($maquina) {
-                    foreach ($data['marcas'] as $marcaId) {
-                        // Asocia la relación Pedido-Marca para la marca actual
-                        $pedido->marcas()->attach($marcaId);
-                    }
-                }
-            }
+        for ($i = 1; $i <= $contadorArticulos; $i++) {
+            // Validar los datos de los articulos
+            $dataArticulo = $request->validate([
+                "referencia{$i}" => ['nullable', 'string', 'max:255'],
+                "comentarioArticulo{$i}" => ['nullable', 'string', 'max:255'],
+                "sistema{$i}" => ['nullable', 'string', 'max:255'],
+                "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
+            ]);
+            // dd($dataArticulo); 
+
+            $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+            // dd($articulo->id);
+
+            $pedido->articulos()->attach($articulo->id);
+
+            // Guardar la cantidad en la tabla pivot
+            $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
+            // Guardar el comentario en la tabla pivot
+            $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
+            // Guardar el sistema en la tabla pivot
+            $sistema = Sistemas::where('id', $request->input("sistema_id{$i}"))->first();
+            // dd($sistema);
+
+            $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
+            
         }
 
-        // Actualizar los artículos temporales
-        $articulosTemporales = [];
 
-        for ($i = 1; $i <= $request->input('articulos-temporales', 0); $i++) {
-            $articuloTemporalId = $request->input("articulo_temporal_id_{$i}");
-
-            if ($articuloTemporalId) {
-                // Actualizar el artículo temporal existente
-                $articuloTemporal = ArticuloTemporal::findOrFail($articuloTemporalId);
-                $articuloTemporal->referencia = $request->input("referencia{$i}");
-                $articuloTemporal->definicion = $request->input("definicion{$i}");
-                $articuloTemporal->sistema = $request->input("sistema{$i}");
-                $articuloTemporal->cantidad = $request->input("cantidad{$i}");
-                $articuloTemporal->comentarios = $request->input("comentarios{$i}");
-                $articuloTemporal->save();
-
-                $articulosTemporales[] = $articuloTemporalId;
-
-                //Crear relación entre artículo y pedido
-                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
-                dd($articulo);
-                $pedido->articulos()->attach($articulo->id);
-                //guardar cantidad en tabla pivot
-                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
-
-                //Si vienen sistemas
-                if ($request->input("sistema{$i}") != null) {
-                    // Asociar el sistema al artículo 
-                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
-                }
-            } else {
-                //Crear relación entre artículo y pedido
-                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
-                //dd($articulo);
-                $pedido->articulos()->attach($articulo->id);
-                //guardar cantidad en tabla pivot
-                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
-
-                //Si vienen sistemas
-                if ($request->input("sistema{$i}") != null) {
-                    // Asociar el sistema al artículo 
-                    $articulo->sistemas()->attach($request->input("sistema{$i}"));
-                }
-            }
-        }
-
-        //$pedido->articulosTemporales()->sync($articulosTemporales);
-        // Asociar el sistema al artículo temporal
-        // $articulo->sistemas()->attach($request->input("sistema{$i}"));
-
-        // Redirigir o hacer cualquier otra acción necesaria
-        // ...
-        return redirect()->route('pedidos.index', $id)->with('success', 'El pedido ha sido enviado a costeo.');
+        return redirect()->route('pedidos.index', $id)->with('success', 'El pedido ha sido actualizado.');
     }
+
 
     public function costear($id)
     {
@@ -448,7 +514,7 @@ class PedidoController extends Controller
         return redirect()->route('pedidos.create')->with('success', 'El contacto ha sido creado exitosamente.');
     }
 
-    
+
 
     public function destroy($id)
     {

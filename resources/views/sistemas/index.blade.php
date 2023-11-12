@@ -3,19 +3,48 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 mt-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                        <h1>Sistemas</h1>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        @foreach ($sistemas as $sistema)
-                            <li class="list-group-item">
-                                <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+            <div class="card">
+                <div class="card-header">
+                    <h1>Sistemas</h1>
                 </div>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Fecha de modificación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($sistemas as $sistema)
+                            <tr>
+
+                                <td>
+                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->id }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->nombre }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->descripcion }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ asset('storage/sistemas') . '/' . $sistema->imagen }}" target="_blank"><img src="{{ asset('storage/sistemas') . '/' . $sistema->imagen }}" alt="" width="100px"></a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->created_at }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('sistemas.edit', $sistema->id) }}">{{ $sistema->updated_at }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -31,6 +31,7 @@ class Pedido extends Model
         // referencia a la tabla articulos
         return $this->belongsToMany(Articulo::class, 'articulo_pedido')
             ->withPivot('cantidad')
+            ->withPivot('comentario')
             ->withTimestamps();
     }
 
@@ -50,13 +51,13 @@ class Pedido extends Model
 
     public function user()
     {
-            // relacion con la tabla users
+        // relacion con la tabla users
         return $this->belongsTo(User::class);
     }
 
     public function maquinas()
     {
-            // referencia a la tabla maquinas
+        // referencia a la tabla maquinas
         return $this->belongsToMany(Maquina::class, 'maquinas_pedido', 'pedido_id', 'maquina_id')->withTimestamps();
     }
 
@@ -88,5 +89,17 @@ class Pedido extends Model
     public function cotizaciones()
     {
         return $this->hasMany(Cotizacion::class);
+    }
+
+    public function articulosSistemas()
+    {
+        return $this->belongsToMany(Articulo::class, 'pedido_articulo_sistema', 'pedido_id', 'articulo_id')
+            ->withPivot('sistema_id');
+    }
+    // En el modelo Pedido
+    public function sistemasPedidos()
+    {
+        return $this->belongsToMany(Sistemas::class, 'pedido_articulo_sistema', 'pedido_id', 'sistema_id')
+            ->withPivot('articulo_id');
     }
 }

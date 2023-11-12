@@ -154,28 +154,28 @@
                                 @foreach ($pedido->maquinas as $maquina)
                                 @endforeach
                                 <strong>
-                                        <h2 class="lead">
-                                            <b>
-                                                <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
-                                                    <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
-                                                </a>
-                                            </b>
-                                            <i class="fa fa-question-circle text-warning" aria-hidden="true"
-                                                data-toggle="tooltip" data-placement="top"
-                                                title="Aquí se muestra una descripción corta de la máquina."></i>
-                                        </h2>
+                                    <h2 class="lead">
+                                        <b>
+                                            <a href="{{ route('maquinas.edit', $maquina->id) }}" target="_blank">
+                                                <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
+                                            </a>
+                                        </b>
+                                        <i class="fa fa-question-circle text-warning" aria-hidden="true"
+                                            data-toggle="tooltip" data-placement="top"
+                                            title="Aquí se muestra una descripción corta de la máquina."></i>
+                                    </h2>
                                 </strong>
                             </h2>
 
-                            
+
                             <p class="text-muted text-sm">
                                 <b><span>Marca:</span></b>
                                 @foreach ($maquina->marcas as $marcaMaquina)
-                                <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
-                                value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
-                                <span id="marca">
-                                    {{ $marcaMaquina->nombre }}
-                                </span>
+                                    <input type="hidden" name="maquinas[{{ $maquina->id }}][marcas][]"
+                                        value="{{ implode(',', $maquina->marcas->pluck('id')->toArray()) }}">
+                                    <span id="marca">
+                                        {{ $marcaMaquina->nombre }}
+                                    </span>
                                 @endforeach
                             </p>
                             <p class="text-muted text-sm">
@@ -214,31 +214,23 @@
                         </div>
                     </div>
                     @if ($pedido->comentario)
-                    {{-- Comentarios del pedido --}}
-                    <div>
-                        Comentarios del pedido: <br>
-                        <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
-                    </div>
+                        {{-- Comentarios del pedido --}}
+                        <div>
+                            Comentarios del pedido: <br>
+                            <textarea class="form-control" disabled>{{ $pedido->comentario }}</textarea>
+                        </div>
                     @endif
                 </div>
-                {{-- <div class="card-footer">
-                    <div class="text-right">
-                        <a href="https://wa.me/+57{{ $pedido->tercero->telefono }}" class="btn btn-sm bg-teal"
-                            target="_blank">
-                            <i class="fas fa-comments"></i>
-                        </a>
-                        <a href="{{ route('terceros.edit', $pedido->tercero->id) }}" class="btn btn-sm btn-primary"
-                            target="_blank">
-                            <i class="fas fa-user"></i> Ver detalle
-                        </a>
-                    </div>
-                </div> --}}
             </div>
 
             {{-- Tabla con artículos --}}
             <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
-                    Artículos
+                    <input type="hidden" name="contador"
+                        value="{{ $contador = $pedido->articulosTemporales->count() + $pedido->articulos->count() }}"
+                        id="contador">
+                    {{-- <p>{{$contador = $pedido->articulosTemporales->count() + $pedido->articulos->count()}} Artículos</p> --}}
+
                 </div>
                 <div class="card-body pt-0">
                     <table id="articulos" class="table table-bordered table-striped">
@@ -327,7 +319,7 @@
                                         <td>
                                             <textarea class="form-control" name="comentarios{{ $index + 1 }}">
                                                 @if ($articuloTemporal->comentarios)
-                                                Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
+                                                    Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
                                                 @endif
                                             </textarea>
                                         </td>
@@ -390,31 +382,32 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
-                                                    <select class="form-control select2" style="width: 100%;"
-                                                        name="sistema{{ $index + 1 }}" required>
-                                                        <option value="{{ $articulo->sistemas[0]->id }}">
-                                                            {{ $articulo->sistemas[0]->nombre }}
+                                                {{-- Aca va un select con el sistema asociado al artículo de este pedido --}}
+                                                @php
+                                                    // Obtener el sistema asociado al artículo de este pedido
+                                                    $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
+                                                    $sistemaId = optional($sistemaAsociado)->id;
+                                                @endphp
+
+                                                <select class="form-control select2"
+                                                    name="sistema_id{{ $index + 1 }}">
+                                                    @if ($sistemaAsociado)
+                                                        <option value="{{ $sistemaId }}" selected>
+                                                            {{ $sistemaAsociado->nombre }}
                                                         </option>
-                                                        @foreach ($sistemas as $sistema)
-                                                            @if ($sistema->id !== $articulo->sistemas[0]->id)
-                                                                <option value="{{ $sistema->id }}">
-                                                                    {{ $sistema->nombre }}
-                                                                </option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                @else
-                                                    <select class="form-control select2" style="width: 100%;"
-                                                        name="sistema{{ $index + 1 }}" required>
-                                                        <option value="">Seleccione un sistema</option>
-                                                        @foreach ($sistemas as $sistema)
-                                                            <option value="{{ $sistema->id }}">
-                                                                {{ $sistema->nombre }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                @endif
+                                                    @endif
+
+                                                    {{-- Mostrar otros sistemas --}}
+                                                    @foreach ($sistemas as $sistema)
+                                                        @if ($sistemaAsociado && $sistema->id == $sistemaAsociado->id)
+                                                            @continue; {{-- Saltar el sistema ya seleccionado --}}
+                                                        @endif
+                                                        <option value="{{ $sistema->id }}">
+                                                            {{ $sistema->nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
                                             </div>
                                         </td>
                                         <td>
@@ -423,10 +416,10 @@
                                                 value="{{ $articulo->pivot->cantidad }}" style="width: 100px;">
                                         </td>
                                         <td>
-                                            @if ($articulo->pivot->comentarios)
-                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentarios }}</textarea>
+                                            @if ($articulo->pivot->comentario)
+                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentario }}</textarea>
                                             @else
-                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentarios }}</textarea>
+                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentario }}</textarea>
                                             @endif
                                         </td>
 
@@ -436,6 +429,11 @@
                                                 <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
                                                     alt="Foto de la lista" width="100px">
                                             </a>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-danger delete-row-btn">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </td>
 
 
@@ -472,7 +470,10 @@
 
                 </div>
             </div>
-            <input type="hidden" name="articulos-temporales" value="{{ $pedido->articulosTemporales->count() }}">
+
+            {{-- <input type="text" name="contador" value="1"> --}}
+
+
         </form>
 
     </div>
@@ -535,7 +536,7 @@
         $(document).ready(function() {
             $('.select2').select2();
 
-            var contador = 0;
+            var contador = $('#contador').val();
             // Evento click para agregar una nueva fila
             $(document).on('click', '#addRow', function() {
                 $('#agregarReferencia').hide();
@@ -544,7 +545,8 @@
                     '<td><strong>' + contador + '</strong></td>' +
                     '<td>' +
                     '<div class="d-flex">' +
-                    '<select class="form-control select2" style="width: 100%;" id="referencia">' +
+                    '<select class="form-control select2" style="width: 100%;" id="referencia" name="referencia' +
+                    contador + '" required>' +
                     '<option value="">Seleccione una referencia</option>' +
                     '@foreach ($referencias as $referencia)' +
                     '<option value="{{ $referencia->referencia }}">' +
@@ -555,7 +557,8 @@
                     '</td>' +
                     '<td>' +
                     '<div class="d-flex">' +
-                    '<select class="form-control select2" style="width: 100%;" id="sistema">' +
+                    '<select class="form-control select2" style="width: 100%;" id="sistema" name="sistema' +
+                    contador + '" required>' +
                     '<option value="">Seleccione un sistema</option>' +
                     '@foreach ($sistemas as $sistema)' +
                     '<option value="{{ $sistema->id }}">{{ $sistema->nombre }}</option>' +
@@ -564,10 +567,11 @@
                     '</div>' +
                     '</td>' +
                     '<td>' +
-                    '<input type="number" class="form-control" value="1" style="width: 100px;">' +
+                    '<input type="number" class="form-control" value="1" style="width: 100px;" name="cantidad' +
+                    contador + '">' +
                     '</td>' +
                     '<td>' +
-                    '<textarea class="form-control"></textarea>' +
+                    '<textarea class="form-control" name="comentarios' + contador + '"></textarea>' +
                     '</td>' +
                     '<td>' +
                     '<button type="button" class="btn btn-outline-danger delete-row-btn">' +
@@ -577,9 +581,13 @@
                     '</tr>';
                 $('#articulos tbody').append(fila);
                 $('.select2').select2();
+
+                //ocultar div agregar referencia
+                $('#agregarReferencia').hide();
+
+                //aumnetar contador
+                $('#contador').val(contador);
             });
-            //ocultar div agregar referencia
-            $('#agregarReferencia').hide();
 
 
         });
@@ -587,6 +595,10 @@
         // Evento change para eliminar fila
         $(document).on('click', '.delete-row-btn', function() {
             $(this).closest('tr').remove();
+            //disminuir contador
+            var contador = $('#contador').val();
+            contador--;
+            $('#contador').val(contador);
         });
         //mostrar div agregar referencia
         function agregarReferencia() {

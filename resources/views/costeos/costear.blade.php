@@ -15,7 +15,7 @@
     {{-- Fin de info de pedido --}}
 
     {{-- Formulario --}}
-    <form action="" method="POST" enctype="multipart/form-data" id="form">
+    <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data" id="form">
         @csrf
         <!-- info Cliente -->
         <div class="card bg-light d-flex flex-fill">
@@ -146,7 +146,7 @@
                             <strong>
                                 <h2 class="lead">
                                     <b>
-                                        <a href="{{ route('maquinas.show', $maquina->id) }}" target="_blank">
+                                        <a href="{{ route('maquinas.edit', $maquina->id) }}" target="_blank">
                                             <strong id="nombre_maquina">{{ $maquina->tipo }}</strong>
                                         </a>
                                     </b>
@@ -226,330 +226,380 @@
 
         <!-- Card articulo -->
         @foreach ($pedido->articulos as $index => $articulo)
-            @if ($pedido->articulos->count() >= 1)
-                <div class="card bg-gradient-secondary collapsed-card">
-                @else
-                    <div class="card bg-gradient-secondary">
-            @endif
-            <div class="card-header border-0">
-                <h3 class="card-title text-uppercase">
-                    <i class="fa fa-boxes"></i>
-                    {{ $articulo->definicion }} -- {{ $articulo->referencia }}
-                </h3>
-                <!-- tools card -->
-                <div class="card-tools">
-                    <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse"
-                        data-toggle="tooltip" title="Expandir">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <a href="{{ route('articulos.edit', $articulo->id) }}" class="btn btn-warning btn-sm"
-                        target="_blank" data-toggle="tooltip" title="Ver detalle del artículo">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- /. tools -->
-            <!-- /.card-header -->
-            <div class="card-body pt-0">
-                <div>
-                    <!--Tabla de articulos-->
-                    <table id="articulos" class="table table-bordered table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th style="width: 45%;">Referencia</th>
-                                <th style="width: 25%;">Sistema</th>
-                                <th style="width: 10%;">Cantidad</th>
-                                <th style="width: 30%;">Comentarios</th>
-                                <th style="width: 10%;">Imágen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex">
-                                        <input type="text" value="{{ $articulo->referencia }}" class="form-control"
-                                            name="referencia{{ $index + 1 }}" disabled>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex">
-                                        @if (!empty($articulo->sistemas) && count($articulo->sistemas) > 0)
-                                            <input type="text" value="{{ $articulo->sistemas[0]->nombre }}"
-                                                class="form-control" name="sistema{{ $index + 1 }}" disabled>
-                                        @else
-                                            <input type="text" value="N/A" class="form-control"
-                                                name="sistema{{ $index + 1 }}" disabled>
-                                        @endif
-                                    </div>
+            <div class="row">
+                <div class="col-11">
+                    @if ($pedido->articulos->count() >= 1)
+                        <div class="card bg-gradient-secondary  collapsed-card">
+                        @else
+                            <div class="card bg-gradient-secondary">
+                    @endif
+                    <div class="card-header border-0" data-card-widget="collapse" data-toggle="tooltip">
+                        <h3 class="card-title text-uppercase">
+                            <i class="fa fa-boxes"></i>
+                            {{ $articulo->definicion }} -- {{ $articulo->referencia }}
+                            <input type="hidden" name="articulos[{{ $index + 1 }}][id]"
+                                value="{{ $articulo->id }}">
+                            <input type="hidden" name="articulos[{{ $index + 1 }}][referencia]"
+                                value="{{ $articulo->referencia }}">
+                            <input type="hidden" name="articulos[{{ $index + 1 }}][proveedorNacional]"
+                                value="{{ $proveedoresNacionales }}">
+                            <input type="hidden" name="articulos[{{ $index + 1 }}][proveedorInternacional]"
+                                value="{{ $proveedoresInternacionales }}">
 
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control" name="cantidad{{ $index + 1 }}"
-                                        value="{{ $articulo->pivot->cantidad }}" disabled>
-                                </td>
-                                <td>
-                                    <textarea class="form-control" name="comentarios{{ $index + 1 }}" disabled>{{ $articulo->comentarios }}</textarea>
-                                </td>
-                                <!-- Aca va la foto del articulo  -->
-                                <td>
-                                    <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
-                                        target="_blank">
-                                        <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
-                                            alt="Foto de la lista" width="65px">
-                                    </a>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                    {{-- Proveedores nacionales --}}
-                    <div class="card bg-gradient-light">
-                        <div class="card-header border-0">
-                            <h3 class="card-title text-uppercase">
-                                Proveedores Nacionales
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            {{-- Tabla con proveedores --}}
-                            <table id="proveedores" class="table table-striped table-bordered mt-3">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width: 5%;">Check</th>
-                                        <th style="width: 10%;">Proveedor</th>
-                                        <th style="width: 15%;">Marca</th>
-                                        <th style="width: 15%;">Entrega</th>
-                                        <th style="width: 5%;">Cant.</th>
-                                        <th style="width: 10%;">Peso(lbs)</th>
-                                        <th style="width: 10%;">Costo $Col</th>
-                                        <th style="width: 10%;">Utilidad (%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($proveedoresNacionales->count() >= 1)
-                                        @foreach ($proveedoresNacionales as $index => $proveedor)
-                                            <tr class="">
-                                                <td>
-                                                    <input type="checkbox" class="proveedor-checkbox"
-                                                        name="proveedores[{{ $index }}][seleccionado]">
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        {{-- link con el nombre del proveedor --}}
-                                                        <a href="{{ route('terceros.edit', $proveedor->id) }}"
-                                                            class="text-uppercase" target="_blank">
-                                                            {{ $proveedor->nombre }}</a>
-                                                        {{-- Campo oculto para el id del proveedor --}}
-                                                        <input type="hidden" name="proveedores[{{ $index }}][id]"
-                                                            value="{{ $proveedor->id }}">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <select class="form-control"
-                                                        name="proveedores[{{ $index }}][marca]"
-                                                        id="marca{{ $index }}">
-                                                        @foreach ($proveedor->marcas as $marca)
-                                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    {{-- Select de entrega --}}
-                                                    <select name="proveedores[{{ $index }}][entrega]"
-                                                        id="entrega-nacional{{ $index }}"
-                                                        class="form-control entrega-selector"
-                                                        data-index="{{ $index }}">
-                                                        <option value="">Selecione...</option>
-                                                        <option value="inmediata">Inmediata</option>
-                                                        <option value="programada">Programada</option>
-                                                    </select>
-                                                    {{-- Campo de entrada de días --}}
-                                                    <input type="text" name="proveedores[{{ $index }}][dias]"
-                                                        id="dias-nacional{{ $index }}"
-                                                        placeholder="Días para entrega" class="form-control dias-input">
-                                                </td>
-                                                <td>
-                                                    {{-- Cantidad --}}
-                                                    <input type="number" class="form-control cantidad-nacional"
-                                                        name="proveedores[{{ $index }}][cantidad]"
-                                                        value="{{ $articulo->pivot->cantidad }}"
-                                                        data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- peso --}}
-                                                    <input type="text" class="form-control"
-                                                        name="proveedores[{{ $index }}][peso]"
-                                                        value="{{ $articulo->peso }}" id="peso{{ $index }}">
-                                                </td>
-                                                {{-- <td>
-                                                <input type="text" class="form-control bg-secondary" name="costo_Us"
-                                                    value="" id="costo-Us{{ $index }}" disabled>
-                                            </td> --}}
-                                                <td>
-                                                    {{-- costo_Col --}}
-                                                    <input type="text" class="form-control costo-nacional"
-                                                        name="proveedores[{{ $index }}][costo]"
-                                                        data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- Utilidad --}}
-                                                    <input type="text" class="form-control utilidad-nacional"
-                                                        name="proveedores[{{ $index }}][utilidad]" value=""
-                                                        class="utilidad" data-index="{{ $index }}"
-                                                        placeholder="7% Sugerida">
-
-                                                    {{-- Precio venta hidden --}}
-                                                    <input type="hidden" class="form-control precio-venta-nacional"
-                                                        name="proveedores[{{ $index }}][precioVenta]"
-                                                        value="" data-index="{{ $index }}">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="8">
-                                                <div class="alert alert-warning text-center">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                    No hay proveedores nacionales que manejen la marca y el sistema de este
-                                                    artículo
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                </tbody>
-                            </table>
-                        </div>
+                            {{-- <input type="hidden" name="referencia[{{ $index + 1 }}][id]" value="{{ $articulo->referencia }}"> --}}
+                            {{-- <input type="hidden" name="definicion[{{ $index + 1 }}][id]" value="{{ $articulo->definicion }}"> --}}
+                        </h3>
+                        {{-- <div class="card-tools">
+                            <button type="button" class="btn btn-warning btn-sm " data-card-widget="collapse"
+                                data-toggle="tooltip" title="Expandir">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div> --}}
                     </div>
-                    {{-- Proveedores internacionales --}}
-                    <div class="card bg-gradient-light">
-                        <div class="card-header border-0">
-                            <h3 class="card-title text-uppercase">
-                                Proveedores Internacionales
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            {{-- Tabla con proveedores --}}
-                            <table id="proveedores-internacionales" class="table table-bordered table-striped mt-3">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th style="width: 5%;">Check</th>
-                                        <th style="width: 10%;">Proveedor</th>
-                                        <th style="width: 15%;">Marca</th>
-                                        <th style="width: 15%;">Entrega</th>
-                                        <th style="width: 5%;">Cant.</th>
-                                        <th style="width: 10%;">Peso(lbs)</th>
-                                        <th style="width: 10%;">Costo $Us</th>
-                                        <th style="width: 10%;">Utilidad (%)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($proveedoresInternacionales->count() >= 1)
-                                        @foreach ($proveedoresInternacionales as $index => $proveedor)
-                                            <tr>
-                                                <td>
-                                                    <input type="checkbox" class="proveedor-checkbox"
-                                                        name="proveedores[{{ $index }}][seleccionado]">
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <a href="{{ route('terceros.edit', $proveedor->id) }}"
-                                                            class="text-uppercase" target="_blank">
-                                                            {{-- enlace con el nombre del proveedor --}}
-                                                            {{ $proveedor->nombre }}
-                                                        </a>
-                                                        {{-- Campo oculto para el id del proveedor --}}
-                                                        <input type="hidden"
-                                                            name="proveedoresInternacionales[{{ $index }}][id]"
-                                                            value="{{ $proveedor->id }}"
+                    <div class="card-body pt-0">
+                        <!--Tabla de articulos-->
+                        <table id="articulos" class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 45%;">Referencia</th>
+                                    <th style="width: 25%;">Sistema</th>
+                                    <th style="width: 10%;">Cantidad</th>
+                                    <th style="width: 30%;">Comentarios</th>
+                                    <th style="width: 10%;">Imágen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex">
+                                            <input type="text" value="{{ $articulo->referencia }}"
+                                                class="form-control" name="referencia{{ $index + 1 }}" disabled>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {{-- Obtener el sistema asociado al artículo de este pedido --}}
+                                            @php
+                                                $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
+                                                // dd($sistemaAsociado);
+                                                $sistemaId = optional($sistemaAsociado)->id;
+                                            @endphp
+                                            <input type="hidden" value="{{ $sistemaId }}">
+                                            <input type="text" class="form-control"
+                                                name="sistema_id{{ $index + 1 }}"
+                                                value="{{ $sistemaAsociado->nombre }}" disabled>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" name="cantidad{{ $index + 1 }}"
+                                            value="{{ $articulo->pivot->cantidad }}" disabled>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="comentarios{{ $index + 1 }}" disabled>{{ $articulo->comentarios }}</textarea>
+                                    </td>
+                                    <!-- Aca va la foto del articulo  -->
+                                    <td>
+                                        <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                            target="_blank">
+                                            <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                                alt="Foto de la lista" width="65px">
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{-- Proveedores nacionales --}}
+                        <div class="card bg-gradient-light">
+                            <div class="card-header border-0">
+                                <h3 class="card-title text-uppercase">
+                                    Proveedores Nacionales
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                {{-- Tabla con proveedores --}}
+                                <table id="proveedores" class="table table-striped table-bordered mt-3">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th style="width: 5%;">Check</th>
+                                            <th style="width: 10%;">Proveedor</th>
+                                            <th style="width: 15%;">Marca</th>
+                                            <th style="width: 15%;">Entrega</th>
+                                            <th style="width: 5%;">Cant.</th>
+                                            <th style="width: 10%;">Peso(lbs)</th>
+                                            <th style="width: 10%;">Costo $Col</th>
+                                            <th style="width: 10%;">Utilidad (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- buscar en bas de datos los proveedores que manejen la marca y el sistema --}}
+                                        @php
+                                            //buscar la marca asociada al pedido
+                                            //buscar el sistema asociado al artículo
+                                            $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
+                                            // dd($sistemaAsociado->id);
+                                            $marcaAsociada = $marcaMaquina->id;
+                                            // dd($marcaAsociada);
+
+                                            // Buscar los proveedores nacionales que manejen la marca y el sistema
+                                            $proveedoresNacionales = $proveedoresNacionales->filter(function ($proveedor) use ($marcaAsociada, $sistemaAsociado) {
+                                                // Verificar si el proveedor maneja la marca y el sistema asociados
+                                                return $proveedor->marcas->contains('id', $marcaAsociada) && $proveedor->sistemas->contains('id', $sistemaAsociado->id);
+                                            });
+
+                                            
+
+                                        @endphp
+
+
+                                        @if ($proveedoresNacionales->count() >= 1)
+                                            @foreach ($proveedoresNacionales as $index => $proveedor)
+                                                <tr class="">
+                                                    <td>
+                                                        <input type="checkbox" class="proveedor-checkbox"
+                                                            name="proveedores[{{ $index }}][seleccionado]">
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            {{-- link con el nombre del proveedor --}}
+                                                            <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                                class="text-uppercase" target="_blank">
+                                                                {{ $proveedor->nombre }}</a>
+                                                            {{-- Campo oculto para el id del proveedor --}}
+                                                            <input type="hidden"
+                                                                name="proveedores[{{ $index }}][id]"
+                                                                value="{{ $proveedor->id }}">
+                                                            {{-- Campo oculto con el articulo --}}
+                                                            <input type="hidden"
+                                                                name="proveedores[{{ $index }}][articulo]"
+                                                                value="{{ $articulo->id }}">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control"
+                                                            name="proveedores[{{ $index }}][marca]"
+                                                            id="marca{{ $index }}">
+                                                            @foreach ($proveedor->marcas as $marca)
+                                                                <option value="{{ $marca->id }}">
+                                                                    {{ $marca->nombre }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        {{-- Select de entrega --}}
+                                                        <select name="proveedores[{{ $index }}][entrega]"
+                                                            id="entrega-nacional{{ $index }}"
+                                                            class="form-control entrega-selector"
                                                             data-index="{{ $index }}">
+                                                            <option value="">Selecione...</option>
+                                                            <option value="INMEDIATA">Inmediata</option>
+                                                            <option value="PROGRAMADA">Programada</option>
+                                                        </select>
+                                                        {{-- Campo de entrada de días --}}
+                                                        <input type="text"
+                                                            name="proveedores[{{ $index }}][dias]"
+                                                            id="dias-nacional{{ $index }}"
+                                                            placeholder="Días para entrega"
+                                                            class="form-control dias-input">
+                                                    </td>
+                                                    <td>
+                                                        {{-- Cantidad --}}
+                                                        <input type="number" class="form-control cantidad-nacional"
+                                                            name="proveedores[{{ $index }}][cantidad]"
+                                                            value="{{ $articulo->pivot->cantidad }}"
+                                                            data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- peso --}}
+                                                        <input type="text" class="form-control"
+                                                            name="proveedores[{{ $index }}][peso]"
+                                                            value="{{ $articulo->peso }}" id="peso{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- costo_Col --}}
+                                                        <input type="text" class="form-control costo-nacional"
+                                                            name="proveedores[{{ $index }}][costo]"
+                                                            data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- Utilidad --}}
+                                                        <input type="text" class="form-control utilidad-nacional"
+                                                            name="proveedores[{{ $index }}][utilidad]"
+                                                            value="" class="utilidad"
+                                                            data-index="{{ $index }}" placeholder="7% Sugerida">
+
+                                                        {{-- Precio venta hidden --}}
+                                                        <input type="hidden" class="form-control precio-venta-nacional"
+                                                            name="proveedores[{{ $index }}][precioVenta]"
+                                                            value="" data-index="{{ $index }}">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="8">
+                                                    <div class="alert alert-warning text-center">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        No hay proveedores nacionales que manejen la marca y el sistema
+                                                        de
+                                                        este
+                                                        artículo
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <select class="form-control"
-                                                        name="proveedoresInternacionales[{{ $index }}][marca]"
-                                                        id="marca-internacional{{ $index }}"
-                                                        data-index="{{ $index }}">
-                                                        @foreach ($proveedor->marcas as $marca)
-                                                            <option value="{{ $marca->id }}">{{ $marca->nombre }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    {{-- Select de entrega --}}
-                                                    <select
-                                                        name="proveedoresInternacionales[{{ $index }}][entrega]"
-                                                        id="entrega-internacional{{ $index }}"
-                                                        class="form-control entrega-internacional-selector"
-                                                        data-index="{{ $index }}">
-                                                        <option value="">Selecione...</option>
-                                                        <option value="inmediata">Inmediata</option>
-                                                        <option value="programada">Programada</option>
-                                                    </select>
-                                                    {{-- Campo de entrada de días --}}
-                                                    <input type="text"
-                                                        name="provedoresInternacionales[{{ $index }}][dias]"
-                                                        id="dias-internacional{{ $index }}"
-                                                        placeholder="Días para entrega"
-                                                        class="form-control dias-internacional-input"
-                                                        data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- Cantidad --}}
-                                                    <input type="number" class="form-control cantidad-internacional"
-                                                        name="proveedoresInternacionales[{{ $index }}][cantidad-internacional]"
-                                                        value="{{ $articulo->pivot->cantidad }}"
-                                                        data-index="{{ $index }}"
-                                                        data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- peso --}}
-                                                    <input type="text" class="form-control peso-internacional"
-                                                        name="proveedoresInternacionales[{{ $index }}][peso]"
-                                                        value="{{ $articulo->peso }}"
-                                                        data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- costo_Us --}}
-                                                    <input type="text" class="form-control costo-internacional"
-                                                        name="proveedoresInternacionales[{{ $index }}][costoUs]"
-                                                        value="" data-index="{{ $index }}">
-                                                </td>
-                                                <td>
-                                                    {{-- Utilidad --}}
-                                                    <input type="text" class="form-control utilidad-internacional"
-                                                        name="proveedoresInternacionales[{{ $index }}][utilidad]"
-                                                        value="" data-index="{{ $index }}"
-                                                        placeholder="7% Sugerida">
-                                                </td>
-                                                {{-- Precio de venta --}}
-                                                <input type="hidden" class="form-control precio-venta-internacional"
-                                                    name="proveedoresInternacionales[{{ $index }}][precioVenta]"
-                                                    value="" data-index="{{ $index }}">
                                             </tr>
-                                        @endforeach
-                                    @else
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {{-- Proveedores internacionales --}}
+                        <div class="card bg-gradient-light">
+                            <div class="card-header border-0">
+                                <h3 class="card-title text-uppercase">
+                                    Proveedores Internacionales
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                {{-- Tabla con proveedores --}}
+                                <table id="proveedores-internacionales" class="table table-bordered table-striped mt-3">
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td colspan="8">
-                                                <div class="alert alert-warning text-center">
-                                                    <i class="fas fa-exclamation-triangle"></i>
-                                                    No hay proveedores internacionales que manejen la marca y el sistema de
-                                                    este artículo
-                                                </div>
-                                            </td>
+                                            <th style="width: 5%;">Check</th>
+                                            <th style="width: 10%;">Proveedor</th>
+                                            <th style="width: 15%;">Marca</th>
+                                            <th style="width: 15%;">Entrega</th>
+                                            <th style="width: 5%;">Cant.</th>
+                                            <th style="width: 10%;">Peso(lbs)</th>
+                                            <th style="width: 10%;">Costo $Us</th>
+                                            <th style="width: 10%;">Utilidad (%)</th>
                                         </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $proveedoresInternacionales = $proveedoresInternacionales->filter(function ($proveedor) use ($marcaAsociada, $sistemaAsociado) {
+                                                // Verificar si el proveedor maneja la marca y el sistema asociados
+                                                return $proveedor->marcas->contains('id', $marcaAsociada) && $proveedor->sistemas->contains('id', $sistemaAsociado->id);
+                                            });
+                                            // dd($proveedoresInternacionales);
+
+                                        @endphp
+                                        @if ($proveedoresInternacionales->count() >= 1)
+                                            @foreach ($proveedoresInternacionales as $index => $proveedor)
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" class="proveedor-checkbox"
+                                                            name="proveedores[{{ $index }}][seleccionado]">
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="{{ route('terceros.edit', $proveedor->id) }}"
+                                                                class="text-uppercase" target="_blank">
+                                                                {{-- enlace con el nombre del proveedor --}}
+                                                                {{ $proveedor->nombre }}
+                                                            </a>
+                                                            {{-- Campo oculto para el id del proveedor --}}
+                                                            <input type="hidden"
+                                                                name="proveedoresInternacionales[{{ $index }}][id]"
+                                                                value="{{ $proveedor->id }}"
+                                                                data-index="{{ $index }}">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control"
+                                                            name="proveedoresInternacionales[{{ $index }}][marca]"
+                                                            id="marca-internacional{{ $index }}"
+                                                            data-index="{{ $index }}">
+                                                            @foreach ($proveedor->marcas as $marca)
+                                                                <option value="{{ $marca->id }}">
+                                                                    {{ $marca->nombre }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        {{-- Select de entrega --}}
+                                                        <select
+                                                            name="proveedoresInternacionales[{{ $index }}][entrega]"
+                                                            id="entrega-internacional{{ $index }}"
+                                                            class="form-control entrega-internacional-selector"
+                                                            data-index="{{ $index }}">
+                                                            <option value="">Selecione...</option>
+                                                            <option value="inmediata">Inmediata</option>
+                                                            <option value="programada">Programada</option>
+                                                        </select>
+                                                        {{-- Campo de entrada de días --}}
+                                                        <input type="text"
+                                                            name="provedoresInternacionales[{{ $index }}][dias]"
+                                                            id="dias-internacional{{ $index }}"
+                                                            placeholder="Días para entrega"
+                                                            class="form-control dias-internacional-input"
+                                                            data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- Cantidad --}}
+                                                        <input type="number" class="form-control cantidad-internacional"
+                                                            name="proveedoresInternacionales[{{ $index }}][cantidad-internacional]"
+                                                            value="{{ $articulo->pivot->cantidad }}"
+                                                            data-index="{{ $index }}"
+                                                            data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- peso --}}
+                                                        <input type="text" class="form-control peso-internacional"
+                                                            name="proveedoresInternacionales[{{ $index }}][peso]"
+                                                            value="{{ $articulo->peso }}"
+                                                            data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- costo_Us --}}
+                                                        <input type="text" class="form-control costo-internacional"
+                                                            name="proveedoresInternacionales[{{ $index }}][costoUs]"
+                                                            value="" data-index="{{ $index }}">
+                                                    </td>
+                                                    <td>
+                                                        {{-- Utilidad --}}
+                                                        <input type="text" class="form-control utilidad-internacional"
+                                                            name="proveedoresInternacionales[{{ $index }}][utilidad]"
+                                                            value="" data-index="{{ $index }}"
+                                                            placeholder="7% Sugerida">
+                                                    </td>
+                                                    {{-- Precio de venta --}}
+                                                    <input type="hidden" class="form-control precio-venta-internacional"
+                                                        name="proveedoresInternacionales[{{ $index }}][precioVenta]"
+                                                        value="" data-index="{{ $index }}">
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="8">
+                                                    <div class="alert alert-warning text-center">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        No hay proveedores internacionales que manejen la marca y el
+                                                        sistema
+                                                        de
+                                                        este artículo
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
+            <div class="col-0.5">
+                <a href="{{ route('articulos.edit', $articulo->id) }}" class="btn btn-warning btn-sm align-middle"
+                    target="_blank" data-toggle="tooltip" title="Ver detalle del artículo">
+                    <i class="fas fa-eye"></i>
+                </a>
             </div>
-            <!-- /.card -->
+            </div>
         @endforeach
         {{-- guardar en input desde variable de sesión TRM --}}
         <input type="hidden" name="trm" class="trm" value="{{ session('trm') }}">
@@ -559,7 +609,7 @@
                 <button type="button" class="btn btn-outline-success" id="generar-comparativo"
                     title="Generar Comparativo">
                     <ion-icon name="reader-outline"></ion-icon> Generar comparativo</button>
-                <button type="button" class="btn btn-primary" id="generar-cotizacion"><ion-icon
+                <button type="submit" class="btn btn-primary" id="generar-cotizacion"><ion-icon
                         name="receipt-outline"></ion-icon> Generar Cotización</button>
             </div>
         </div>
@@ -582,7 +632,8 @@
                     <div class="card">
                         <div class="card-body">
                             {{-- Formulario para crear lista --}}
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="" method="POST" enctype="multipart/form-data"
+                                id="form-generar-cotizacion">
                                 @csrf
                                 {{-- <input type="hidden" value="{{ $tercero->id }}" name="tercero_id"> --}}
                                 @foreach ($pedido->articulos as $index => $articulo)
@@ -607,8 +658,9 @@
                                 @endforeach
                                 <div class="d-flex justify-content-between">
 
-                                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+                                    {{-- <button type="button" id="btn-generar-cotizacion"
+                                        class="btn btn-primary">Aceptar</button> --}}
+                                    {{-- <button type="button" class="btn btn-danger" data-dismiss="modal">Rechazar</button> --}}
                                 </div>
                             </form>
                         </div>
@@ -616,7 +668,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     {{-- <input type="number" class="utilidad2" value="" placeholder="utilidad2" name="utilidad2">
     <input type="number" class="peso2" value="1" placeholder="peso" name="peso2">
@@ -717,16 +768,13 @@
                                 'input[name*="precioVenta"]').val(),
                         };
                         proveedores.push(proveedor);
+                        // console.log(proveedores);
                     });
-
                     //Agregar proveedores a la tabla del modal
+
                     var tabla = $('#tabla-comparativo tbody');
                     tabla.empty();
                     $.each(proveedores, function(index, proveedor) {
-                        console.log('Entrega' + proveedor.entrega);
-                        console.log('Costo' + proveedor.costo);
-                        console.log('Utilidad' + proveedor.utilidad);
-                        console.log('PrecioVenta' + proveedor.precioVenta);
                         if (proveedor.entrega == '') {
                             swal.fire({
                                 title: "Error",
@@ -764,9 +812,158 @@
                             tabla.append(fila);
                             $('#modalGenerarComparativo').modal('show');
                         }
+                        var articulo = {
+                            referencia: "{{ $articulo->referencia }}",
+                            sistema: "{{ $articulo->sistemas }}",
+                            cantidad: "{{ $articulo->pivot->cantidad }}",
+                            comentarios: "{{ $articulo->comentarios }}",
+                            foto: "{{ $articulo->fotoDescriptiva }}",
+                        };
+                        // console.log(articulo);
+
                     });
                 }
+
+
             });
+            //enviar formulario form-generar-cotizacion
+            // $('#form-generar-cotizacion').submit(function(e) {
+            //     console.log('Formulario enviado');
+            //     e.preventDefault();
+            //     var proveedores = [];
+            //     $('.proveedor-checkbox:checked').each(function() {
+            //         var proveedor = {
+            //             id: $(this).closest('tr').find('input[name*="id"]').val(),
+            //             nombre: $(this).closest('tr').find('a').text(),
+            //             marca: $(this).closest('tr').find('select[name*="marca"]')
+            //                 .val(),
+            //             entrega: $(this).closest('tr').find(
+            //                 'select[name*="entrega"]').val(),
+            //             dias: $(this).closest('tr').find('input[name*="dias"]')
+            //                 .val(),
+            //             cantidad: $(this).closest('tr').find(
+            //                 'input[name*="cantidad"]').val(),
+            //             peso: $(this).closest('tr').find('input[name*="peso"]')
+            //                 .val(),
+            //             costo: $(this).closest('tr').find('input[name*="costo"]')
+            //                 .val(),
+            //             utilidad: $(this).closest('tr').find(
+            //                 'input[name*="utilidad"]').val(),
+            //             precioVenta: $(this).closest('tr').find(
+            //                     'input[name*="precioVenta"]')
+            //                 .val(),
+            //         };
+            //         proveedores.push(proveedor);
+            //         console.log(proveedores);
+            //     });
+            //     var articulo = {
+            //         referencia: "{{ $articulo->referencia }}",
+            //         sistema: "{{ $articulo->sistemas }}",
+            //         cantidad: "{{ $articulo->pivot->cantidad }}",
+            //         comentarios: "{{ $articulo->comentarios }}",
+            //         foto: "{{ $articulo->fotoDescriptiva }}",
+            //     };
+            //     var cotizacion = {
+            //         proveedores: proveedores,
+            //     };
+            //     console.log('Cotizacion: ' + cotizacion);
+            //     $.ajax({
+            //         url: "{{ route('cotizaciones.store') }}",
+            //         method: 'POST',
+            //         data: cotizacion,
+            //         success: function(data) {
+            //             console.log(data);
+            //             if (data.success) {
+            //                 swal.fire({
+            //                     title: "Cotización generada",
+            //                     text: "La cotización se ha generado correctamente",
+            //                     icon: "success",
+            //                 });
+            //                 $('#modalGenerarComparativo').modal('hide');
+            //                 $('#modalGenerarCotizacion').modal('hide');
+            //             }
+            //         },
+            //         error: function(error) {
+            //             console.log(error);
+            //             swal.fire({
+            //                 title: "Error",
+            //                 text: "Ha ocurrido un error al generar la cotización",
+            //                 icon: "error",
+            //             });
+            //         }
+            //     });
+            // });
+
+
+            // Función para generar una cotización
+            function generarCotizacion() {
+
+                // Inicializamos la variable cotizacion
+                var cotizacion = {};
+
+                // Obtenemos los proveedores seleccionados
+                var proveedores = [];
+                $('.proveedor-checkbox:checked').each(function() {
+                    var proveedor = {
+                        id: $(this).closest('tr').find('input[name*="id"]').val(),
+                        marca: $(this).closest('tr').find('select[name*="marca"]').val(),
+                        entrega: $(this).closest('tr').find('select[name*="entrega"]').val(),
+                        dias: $(this).closest('tr').find('input[name*="dias"]').val(),
+                        cantidad: $(this).closest('tr').find('input[name*="cantidad"]').val(),
+                        peso: $(this).closest('tr').find('input[name*="peso"]').val(),
+                        costo: $(this).closest('tr').find('input[name*="costo"]').val(),
+                        utilidad: $(this).closest('tr').find('input[name*="utilidad"]').val(),
+                        precioVenta: $(this).closest('tr').find('input[name*="precioVenta"]')
+                            .val(),
+                    };
+                    proveedores.push(proveedor);
+                });
+
+                // Obtenemos el artículo
+                var articulo = {
+                    referencia: $(this).closest('tr').find('input[name*="referencia"]').val(),
+                    sistema: $(this).closest('tr').find('input[name*="sistema"]').val(),
+                    cantidad: $(this).closest('tr').find('input[name*="cantidad"]').val(),
+                    comentarios: $(this).closest('tr').find('textarea[name*="comentarios"]').val(),
+                    foto: $(this).closest('tr').find('input[name*="foto"]').val(),
+                };
+
+                // Agregamos los proveedores y el artículo a la cotización
+                cotizacion.proveedores = proveedores;
+                cotizacion.articulos = articulo;
+
+                // Realizamos la petición Axios
+                axios({
+                    url: "{{ route('cotizaciones.store') }}",
+                    method: 'POST',
+                    data: cotizacion,
+                    // Agregamos el token CSRF a la solicitud
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                }).then(function(response) {
+                    console.log(response);
+                    if (response.data.success) {
+                        swal.fire({
+                            title: "Cotización generada",
+                            text: "La cotización se ha generado correctamente",
+                            icon: "success",
+                        });
+                        $('#modalGenerarComparativo').modal('hide');
+                        $('#modalGenerarCotizacion').modal('hide');
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                    swal.fire({
+                        title: "Error",
+                        text: "Ha ocurrido un error al generar la cotización",
+                        icon: "error",
+                    });
+                });
+            }
+
+            // Inicializamos el evento onclick del botón
+            $('#btn-generar-cotizacion').click(generarCotizacion);
 
         });
         $('.proveedor-checkbox').change(function() {

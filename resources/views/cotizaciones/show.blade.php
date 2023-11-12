@@ -47,8 +47,8 @@
                             </div>
                             <div class="col-4 text-right">
 
-                                <p>Fecha: <b>{{ $pedido->created_at->formatLocalized('%d de %B de %Y') }}</b></p>
-                                <p>Validez: <b>{{ $pedido->created_at->addDays(8)->formatLocalized('%d de %B de %Y') }}</b>
+                                <p>Fecha: <b>{{ $cotizacion->created_at->formatLocalized('%d de %B de %Y') }}</b></p>
+                                <p>Validez: <b>{{ $cotizacion->created_at->addDays(8)->formatLocalized('%d de %B de %Y') }}</b>
                                 </p>
                             </div>
                             <!-- /.col -->
@@ -115,41 +115,24 @@
                                             <th>DESCRIPCIÓN</th>
                                             <th>MARCA</th>
                                             <th>ENTREGA</th>
-                                            <th>VENTA</th>
+                                            <th>VR. UNI</th>
                                             <th>TOTAL</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>4</td>
-                                            <td>3050</td>
-                                            <td>CASQUETE DE BIELA 0,10</td>
-                                            <td>CTP</td>
-                                            <td>15 DÍAS</td>
-                                            <td>$ 81.200</td>
-                                            <td>$ 324.800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>5</td>
-                                            <td>1617163 U</td>
-                                            <td>CASQUETE DE BANCADA</td>
-                                            <td>CTP</td>
-                                            <td>INMEDIATA</td>
-                                            <td>$ 95;200</td>
-                                            <td>$ 476.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>2</td>
-                                            <td>DS14</td>
-                                            <td>ARANDELA AXIAL</td>
-                                            <td>IPD</td>
-                                            <td>INMEDIATA</td>
-                                            <td>$ 147.000</td>
-                                            <td>$ 294.000</td>
-                                        </tr>
+                                        @foreach ($cotizacion->articulos as $index => $articulo)
+                                            <tr>
+                                                <td>{{ $index+1 }}</td>
+                                                <td>{{ $articulo->cantidad }}</td>
+                                                <td>{{ $articulo->referencia }}</td>
+                                                <td>{{ $articulo->definicion }}</td>
+                                                <td>{{ $articulo->marca }}</td>
+                                                <td>{{ $articulo->plazo_entrega }}</td>
+                                                <td>{{ $articulo->precio_venta / $articulo->cantidad }}
+                                                <td>{{ $articulo->precio_venta }}</td>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         
                                     </tbody>
                                 </table>
@@ -220,6 +203,8 @@
                         <!-- this row will not appear when printing -->
                         <div class="row no-print">
                             <div class="col-12">
+                                <a href="{{ route('costeos.costear', $pedido->id) }}" class="btn btn-default"><i
+                                        class="fas fa-edit"></i> Editar</a>
                                 <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
                                         class="fas fa-print"></i> Imprimir</a>
                                 <button type="button" class="btn btn-success float-right"><i

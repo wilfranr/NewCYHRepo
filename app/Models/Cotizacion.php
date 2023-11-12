@@ -29,6 +29,13 @@ class Cotizacion extends Model
     {
         return $this->belongsTo(Tercero::class, 'tercero_id');
     }
+
+    // Relación con el modelo CotizacionArticulo (Cada cotización tiene muchos articulos)
+    public function articulos()
+    {
+        return $this->hasMany(CotizacionArticulo::class, 'cotizacion_id');
+    }
+    
 }
 
 

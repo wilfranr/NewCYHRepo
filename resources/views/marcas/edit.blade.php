@@ -122,10 +122,10 @@
                                             @foreach ($maquinas as $maquina)
                                                 <tr>
                                                     <td><a
-                                                            href="{{ route('maquinas.show', $maquina->id) }}">{{ $maquina->id }}</a>
+                                                            href="{{ route('maquinas.edit', $maquina->id) }}">{{ $maquina->id }}</a>
                                                     </td>
                                                     <td><a
-                                                            href="{{ route('maquinas.show', $maquina->id) }}">{{ $maquina->tipo }}</a>
+                                                            href="{{ route('maquinas.edit', $maquina->id) }}">{{ $maquina->tipo }}</a>
                                                     </td>
                                                     <td><a
                                                             href="{{ route('maquinas.edit', $maquina->id) }}">{{ $maquina->modelo }}</a>

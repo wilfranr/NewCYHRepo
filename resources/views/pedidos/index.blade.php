@@ -28,7 +28,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($pedidos as $pedido)
-                                    @if ($pedido->estado == 'Nuevo')
                                         <tr>
                                             <td>{{ $pedido->id }}</td>
                                             <td>{{ $pedido->tercero->nombre }}</td>
@@ -68,7 +67,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

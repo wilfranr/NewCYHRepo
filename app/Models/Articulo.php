@@ -39,6 +39,7 @@ class Articulo extends Model
     {
         return $this->belongsToMany(Pedido::class, 'articulo_pedido')
             ->withPivot('cantidad')
+            ->withPivot('comentario')
             ->withTimestamps();
     }
 
@@ -71,4 +72,18 @@ class Articulo extends Model
     {
         return $this->belongsToMany(Sistemas::class, 'sistemas_articulos', 'articulo_id', 'sistema_id')->withTimestamps();
     }
+
+    public function sistemasPedidos()
+    {
+        return $this->belongsToMany(Pedido::class, 'pedido_articulo_sistema', 'articulo_id', 'pedido_id')
+            ->withPivot('sistema_id');
+    }
+
+    public function sistemaPedidoEnPedido($pedidoId)
+{
+    return $this->belongsToMany(Sistemas::class, 'pedido_articulo_sistema', 'articulo_id', 'sistema_id')
+        ->wherePivot('pedido_id', $pedidoId)
+        ->withPivot('pedido_id');
+}
+
 }

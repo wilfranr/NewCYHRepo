@@ -33,9 +33,9 @@ class ComposerStaticInit06cb13c5c15ef3a1907a47e65e546444
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '6b34c85f7b1ad6faa15aa12109e030f2' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
         '101b35f72e0ccb1b5ef72aa86bba3ef9' => __DIR__ . '/..' . '/yoeunes/toastr/src/helpers.php',
-        '6b34c85f7b1ad6faa15aa12109e030f2' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -592,6 +592,7 @@ class ComposerStaticInit06cb13c5c15ef3a1907a47e65e546444
         'App\\Http\\Controllers\\SistemaController' => __DIR__ . '/../..' . '/app/Http/Controllers/SistemaController.php',
         'App\\Http\\Controllers\\TerceroController' => __DIR__ . '/../..' . '/app/Http/Controllers/TerceroController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Controllers\\UtilController' => __DIR__ . '/../..' . '/app/Http/Controllers/UtilController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
@@ -612,6 +613,7 @@ class ComposerStaticInit06cb13c5c15ef3a1907a47e65e546444
         'App\\Models\\Ciudad' => __DIR__ . '/../..' . '/app/Models/Ciudad.php',
         'App\\Models\\Contacto' => __DIR__ . '/../..' . '/app/Models/Contacto.php',
         'App\\Models\\Cotizacion' => __DIR__ . '/../..' . '/app/Models/Cotizacion.php',
+        'App\\Models\\CotizacionArticulo' => __DIR__ . '/../..' . '/app/Models/CotizacionArticulo.php',
         'App\\Models\\Departamento' => __DIR__ . '/../..' . '/app/Models/Departamento.php',
         'App\\Models\\Empresa' => __DIR__ . '/../..' . '/app/Models/Empresa.php',
         'App\\Models\\FotoArticulo' => __DIR__ . '/../..' . '/app/Models/FotoArticulo.php',
@@ -624,6 +626,7 @@ class ComposerStaticInit06cb13c5c15ef3a1907a47e65e546444
         'App\\Models\\Medida' => __DIR__ . '/../..' . '/app/Models/Medida.php',
         'App\\Models\\Pais' => __DIR__ . '/../..' . '/app/Models/Pais.php',
         'App\\Models\\Pedido' => __DIR__ . '/../..' . '/app/Models/Pedido.php',
+        'App\\Models\\PedidoArticuloSistema' => __DIR__ . '/../..' . '/app/Models/PedidoArticuloSistema.php',
         'App\\Models\\Proveedor' => __DIR__ . '/../..' . '/app/Models/Proveedor.php',
         'App\\Models\\RelacionSuplencia' => __DIR__ . '/../..' . '/app/Models/RelacionSuplencia.php',
         'App\\Models\\Sistemas' => __DIR__ . '/../..' . '/app/Models/Sistemas.php',

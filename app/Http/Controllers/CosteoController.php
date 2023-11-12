@@ -107,17 +107,36 @@ class CosteoController extends Controller
         $sistemas = $pedido->sistemas;
         // dd($sistemas);
 
-        // Si no hay marcas asociadas, obtener todos los proveedores
-        if ($marcas->isEmpty() && $sistemas->isEmpty()) {
-            $proveedoresPorMarcas = $this->obtenerProveedores();
-            $proveedoresNacionales = $proveedoresPorMarcas['proveedoresNacionales'];
-            $proveedoresInternacionales = $proveedoresPorMarcas['proveedoresInternacionales'];
-        } else {
-            // Obtener proveedores por marcas y por sistemas, deben coincidir los dos
-            $proveedoresPorMarcasYSistemas = $this->obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas);
-            $proveedoresNacionales = $proveedoresPorMarcasYSistemas['proveedoresNacionales'];
-            $proveedoresInternacionales = $proveedoresPorMarcasYSistemas['proveedoresInternacionales'];
-        }
+        //buscar proveedores donde pais = COL
+        $proveedoresNacionales = Tercero::where('tipo', 'Proveedor')
+            ->where('PaisCodigo', 'COL')
+            ->where('id', '!=', $tercero->id)
+            ->with('marcas') // Cargar la relación marcas
+            ->with('sistemas') // Cargar la relación sistemas
+            ->get();
+
+        // dd($proveedoresNacionales);
+
+        //buscar proveedores donde pais != COL
+        $proveedoresInternacionales = Tercero::where('tipo', 'Proveedor')
+            ->where('PaisCodigo', '!=', 'COL')
+            ->where('id', '!=', $tercero->id)
+            ->with('marcas') // Cargar la relación marcas
+            ->with('sistemas') // Cargar la relación sistemas
+            ->get();
+        // dd($proveedoresInternacionales);
+
+        // // Si no hay marcas asociadas, obtener todos los proveedores
+        // if ($marcas->isEmpty() && $sistemas->isEmpty()) {
+        //     $proveedoresPorMarcas = $this->obtenerProveedores();
+        //     $proveedoresNacionales = $proveedoresPorMarcas['proveedoresNacionales'];
+        //     $proveedoresInternacionales = $proveedoresPorMarcas['proveedoresInternacionales'];
+        // } else {
+        //     // Obtener proveedores por marcas y por sistemas, deben coincidir los dos
+        //     $proveedoresPorMarcasYSistemas = $this->obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas);
+        //     $proveedoresNacionales = $proveedoresPorMarcasYSistemas['proveedoresNacionales'];
+        //     $proveedoresInternacionales = $proveedoresPorMarcasYSistemas['proveedoresInternacionales'];
+        // }
 
         return view('costeos.costear', compact('pedido', 'maquinas', 'marcas', 'previous', 'next', 'proveedoresNacionales', 'proveedoresInternacionales'));
     }

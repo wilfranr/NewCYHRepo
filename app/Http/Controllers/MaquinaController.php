@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Maquina;
 use App\Models\Lista;
 use App\Models\Marca;
+use App\Models\Tercero;
 
 class MaquinaController extends Controller
 {
@@ -94,6 +95,7 @@ class MaquinaController extends Controller
     public function edit($id)
     {
         $maquina = Maquina::with('marcas')->findOrFail($id);
+        // dd($maquina);
 
         //obtener maquina anterior
         $previous = Maquina::where('id', '<', $maquina->id)->orderBy('id', 'desc')->first();
@@ -105,7 +107,12 @@ class MaquinaController extends Controller
         $modelo = Lista::where('tipo', 'Modelo Maquina')->get();
         $marca = Marca::all();
 
-        return view('maquinas.edit', compact('maquina', 'tipo_maquina', 'marca', 'modelo', 'previous', 'next'));
+        //obtener los terceros que manejen esta maquina
+        $terceros = Tercero::whereHas('maquinas', function ($query) use ($id) {
+            $query->where('maquina_id', $id);
+        })->get();
+
+        return view('maquinas.edit', compact('maquina', 'tipo_maquina', 'marca', 'modelo', 'previous', 'next', 'terceros'));
     }
 
     public function update(Request $request, Maquina $maquina, $id)
@@ -140,10 +147,13 @@ class MaquinaController extends Controller
             $filepath = $fotoId->storeAs('public/maquinas', $filename);
             $maquina->fotoId = $filename;
         }
-        $maquina->save();
-
+        
         // Obtener la marca seleccionada
         $marca = Marca::find($request->input('marca'));
+        
+        //guardar el nombre de la marca en la tabla maquinas
+        $maquina->marca = $marca->nombre;
+        $maquina->save();
 
         // Asociar la marca a la máquina a través de la relación belongsToMany
         $marcaIds = [$marca->id]; // Encapsula el ID de la marca en un array

@@ -43,4 +43,11 @@ class Sistemas extends Model
     {
         return $this->belongsToMany(Articulo::class, 'sistemas_articulos', 'sistema_id', 'articulo_id')->withTimestamps();
     }
+
+    public function pedidosArticulos()
+    {
+        return $this->belongsToMany(Articulo::class, 'pedido_articulo_sistema', 'sistema_id', 'articulo_id')
+            ->withPivot('pedido_id')
+            ->withTimestamps();
+    }
 }

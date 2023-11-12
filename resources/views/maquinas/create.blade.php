@@ -282,7 +282,10 @@
             </div>
         </div>
 
-    </div @endsection @section('js') <script>
+    </div>
+@endsection
+@section('js') 
+    <script>
         // Vista previa de la imagen
         document.getElementById("fotoId").addEventListener("change", function(e) {
             var reader = new FileReader();

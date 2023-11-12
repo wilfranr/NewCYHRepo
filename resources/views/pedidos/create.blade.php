@@ -262,7 +262,7 @@
                                     <div class="row">
                                         <div class="col-10">
                                             <input type="text" name="referencia1" class="form-control"
-                                                id="referencia1">
+                                                id="referencia1" readonly>
                                                 <input type="hidden" name="contador" id="contador" value="1">
                                         </div>
                                         <div class="col-1">
@@ -307,7 +307,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer text-right">
+                <div class="card-footer text-left">
                     <button type="button" id="agregar-fila" class="btn btn-outline-success">Agregar artículo</button>
                 </div>
             </div>
@@ -320,8 +320,11 @@
             <textarea name="comentarioPedido" id="comentarioPedido" cols="20" rows="5" class="form-control" data-toggle="tooltip" data-placement="top"
             title="Ingrese cualquier información relevante del pedido. Ej. repuesto, tipo de máquina, solicitudes específicas, recomendaciones, etc"></textarea>
 
-            <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-cart-plus" aria-hidden="true"></i>
-                Crear pedido</button>
+            <div class="ml-auto">
+                <button type="submit" class="btn btn-primary mt-3 float-right"><i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    Crear pedido</button>
+            </div>
+
         </div>
 
     </form>
@@ -400,7 +403,6 @@
                         <tr>
                             <th>Tipo</th>
                             <th>Marca</th>
-                            <th>MArca desde DB</th>
                             <th>Modelo</th>
                             <th>Serie</th>
                             <th>Arreglo</th>
@@ -776,7 +778,6 @@
                             <tr>
                                 <td>${maquina.tipo}</td>
                                 <td>${maquina.marca}</td>
-                                <td>${maquina.marca}</td>
                                 <td>${maquina.modelo}</td>
                                 <td>${maquina.serie}</td>
                                 <td>${maquina.arreglo}</td>
@@ -889,7 +890,7 @@
                         <div class="row">
                         <div class="col-10">
                             <input type="text" name="referencia${contadorArticulos}" class="form-control referencia${contadorArticulos}"
-                            id="referencia${contadorArticulos}">
+                            id="referencia${contadorArticulos}" readonly>
                         </div>
                         <div class="col-1">
                             <button type="button" class="btn btn-outline-success btn-sm" title="Buscar artículos por referencia"

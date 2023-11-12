@@ -232,5 +232,4 @@
             @method('DELETE')
         </form>
     </div>
-    </div>
 @endsection
