@@ -241,10 +241,6 @@
                                 value="{{ $articulo->id }}">
                             <input type="hidden" name="articulos[{{ $index + 1 }}][referencia]"
                                 value="{{ $articulo->referencia }}">
-                            <input type="hidden" name="articulos[{{ $index + 1 }}][proveedorNacional]"
-                                value="{{ $proveedoresNacionales }}">
-                            <input type="hidden" name="articulos[{{ $index + 1 }}][proveedorInternacional]"
-                                value="{{ $proveedoresInternacionales }}">
 
                             {{-- <input type="hidden" name="referencia[{{ $index + 1 }}][id]" value="{{ $articulo->referencia }}"> --}}
                             {{-- <input type="hidden" name="definicion[{{ $index + 1 }}][id]" value="{{ $articulo->definicion }}"> --}}
@@ -281,10 +277,26 @@
                                             {{-- Obtener el sistema asociado al artículo de este pedido --}}
                                             @php
                                                 $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
-                                                // dd($sistemaAsociado);
-                                                $sistemaId = optional($sistemaAsociado)->id;
+                                                $marcaAsociada = $marcaMaquina->id;
+
+                                                // Obtener proveedores que manejen el sistema y la marca asociada
+                                                $proveedoresFiltrados = $sistemaAsociado->terceros->filter(function ($proveedor) use ($marcaAsociada) {
+                                                    return $proveedor->marcas->contains('id', $marcaAsociada);
+                                                });
+
+                                                // Dividir proveedores en nacionales e internacionales
+                                                [$proveedoresNacionales, $proveedoresInternacionales] = $proveedoresFiltrados->partition(function ($proveedor) {
+                                                    return $proveedor->PaisCodigo === 'COL';
+                                                });
+
+                                                // $proveedoresNacionales contiene proveedores nacionales
+                                                // dd($proveedoresNacionales);
+                                                // $proveedoresInternacionales contiene proveedores internacionales
+
                                             @endphp
-                                            <input type="hidden" value="{{ $sistemaId }}">
+
+
+                                            <input type="hidden" value="{{ $sistemaAsociado->id }}">
                                             <input type="text" class="form-control"
                                                 name="sistema_id{{ $index + 1 }}"
                                                 value="{{ $sistemaAsociado->nombre }}" disabled>
@@ -333,25 +345,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- buscar en bas de datos los proveedores que manejen la marca y el sistema --}}
-                                        @php
-                                            //buscar la marca asociada al pedido
-                                            //buscar el sistema asociado al artículo
-                                            $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
-                                            // dd($sistemaAsociado->id);
-                                            $marcaAsociada = $marcaMaquina->id;
-                                            // dd($marcaAsociada);
-
-                                            // Buscar los proveedores nacionales que manejen la marca y el sistema
-                                            $proveedoresNacionales = $proveedoresNacionales->filter(function ($proveedor) use ($marcaAsociada, $sistemaAsociado) {
-                                                // Verificar si el proveedor maneja la marca y el sistema asociados
-                                                return $proveedor->marcas->contains('id', $marcaAsociada) && $proveedor->sistemas->contains('id', $sistemaAsociado->id);
-                                            });
-
-                                            
-
-                                        @endphp
-
 
                                         @if ($proveedoresNacionales->count() >= 1)
                                             @foreach ($proveedoresNacionales as $index => $proveedor)
@@ -479,12 +472,11 @@
                                     </thead>
                                     <tbody>
                                         @php
-                                        $proveedoresInternacionales = $proveedoresInternacionales->filter(function ($proveedor) use ($marcaAsociada, $sistemaAsociado) {
+                                            $proveedoresInternacionales = $proveedoresInternacionales->filter(function ($proveedor) use ($sistemaAsociado) {
                                                 // Verificar si el proveedor maneja la marca y el sistema asociados
-                                                return $proveedor->marcas->contains('id', $marcaAsociada) && $proveedor->sistemas->contains('id', $sistemaAsociado->id);
+                                                return $proveedor->sistemas->contains('id', $sistemaAsociado->id);
                                             });
                                             // dd($proveedoresInternacionales);
-
                                         @endphp
                                         @if ($proveedoresInternacionales->count() >= 1)
                                             @foreach ($proveedoresInternacionales as $index => $proveedor)

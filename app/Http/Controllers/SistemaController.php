@@ -53,6 +53,7 @@ class SistemaController extends Controller
     public function edit($id)
     {
         $sistema = Sistemas::all()->where('id', $id)->first();
+        // dd($sistema);
 
         //Traer todas las maquinas que manejen este sistema
         $maquinas = $sistema->maquinas;
@@ -62,6 +63,7 @@ class SistemaController extends Controller
 
         //Traer todos los proveedores que manejen este sistema
         $proveedores = $sistema->terceros;
+        // dd($proveedores);
 
         //obtener el sistema anterior
         $previous = Sistemas::where('id', '<', $sistema->id)->orderBy('id', 'desc')->first();

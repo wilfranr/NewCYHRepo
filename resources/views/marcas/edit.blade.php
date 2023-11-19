@@ -178,23 +178,17 @@
                                     <tbody>
                                         @foreach ($proveedores as $proveedor)
                                             <tr>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->id }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->id }}</a>
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->nombre }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->nombre }}</a>
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->email }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->email }}</a>
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->telefono }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->telefono }}</a>
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->created_at }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->created_at }}</a>
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->estado }}</a>
+                                                <td><a href="{{ route('terceros.edit', $proveedor->id) }}">{{ $proveedor->estado }}</a>
                                                 </td>
                                             </tr>
                                         @endforeach

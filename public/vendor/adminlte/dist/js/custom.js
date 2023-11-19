@@ -65,6 +65,11 @@ if (ruta.includes('costear')) {
     document.getElementById('btnNuevo').style.display = 'none';
 }
 
+// si estoy en home oculatar boton nuevo
+if (ruta.includes('home')) {
+    document.getElementById('btnNuevo').style.display = 'none';
+}
+
 //funcion de boton que redirija a la vista de registro de usuario
 function registrar() {
     window.location.href = url+'/register';

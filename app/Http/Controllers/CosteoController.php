@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use App\Models\Tercero;
+use App\Models\Sistemas;
 
 class CosteoController extends Controller
 {
@@ -98,46 +99,15 @@ class CosteoController extends Controller
 
         //traer la marca de la maquina
         $marca = $maquinas->first()->marca;
+        // dd($marca);
 
         //traer las marcas asociadas a este pedido
         $marcas = $pedido->marcas;
         // dd($marcas);
 
-        //traer los sistemas asociados a este pedido
-        $sistemas = $pedido->sistemas;
-        // dd($sistemas);
+        
 
-        //buscar proveedores donde pais = COL
-        $proveedoresNacionales = Tercero::where('tipo', 'Proveedor')
-            ->where('PaisCodigo', 'COL')
-            ->where('id', '!=', $tercero->id)
-            ->with('marcas') // Cargar la relación marcas
-            ->with('sistemas') // Cargar la relación sistemas
-            ->get();
 
-        // dd($proveedoresNacionales);
-
-        //buscar proveedores donde pais != COL
-        $proveedoresInternacionales = Tercero::where('tipo', 'Proveedor')
-            ->where('PaisCodigo', '!=', 'COL')
-            ->where('id', '!=', $tercero->id)
-            ->with('marcas') // Cargar la relación marcas
-            ->with('sistemas') // Cargar la relación sistemas
-            ->get();
-        // dd($proveedoresInternacionales);
-
-        // // Si no hay marcas asociadas, obtener todos los proveedores
-        // if ($marcas->isEmpty() && $sistemas->isEmpty()) {
-        //     $proveedoresPorMarcas = $this->obtenerProveedores();
-        //     $proveedoresNacionales = $proveedoresPorMarcas['proveedoresNacionales'];
-        //     $proveedoresInternacionales = $proveedoresPorMarcas['proveedoresInternacionales'];
-        // } else {
-        //     // Obtener proveedores por marcas y por sistemas, deben coincidir los dos
-        //     $proveedoresPorMarcasYSistemas = $this->obtenerProveedoresPorMarcasYSistemas($marcas, $sistemas);
-        //     $proveedoresNacionales = $proveedoresPorMarcasYSistemas['proveedoresNacionales'];
-        //     $proveedoresInternacionales = $proveedoresPorMarcasYSistemas['proveedoresInternacionales'];
-        // }
-
-        return view('costeos.costear', compact('pedido', 'maquinas', 'marcas', 'previous', 'next', 'proveedoresNacionales', 'proveedoresInternacionales'));
+        return view('costeos.costear', compact('pedido', 'maquinas', 'marcas', 'previous', 'next', 'marca'));
     }
 }
