@@ -170,6 +170,51 @@
                                                 medida</button>
                                         </div>
                                         <div class="col">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id medida</th>
+                                                        <th>Tipo de medida</th>
+                                                        <th>Valor medida</th>
+                                                        <th>Unidad de medida</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="medidas-body">
+                                                    <tr>
+                                                        <td>
+                                                            <input id="idMedida" type="text"
+                                                                class="form-control @error('idMedida') is-invalid @enderror"
+                                                                name="idMedida[]" value="{{ old('id_medida') }}">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" id="tipoMedida"
+                                                                name="tipoMedida[]">
+                                                                <option value="">Seleccione un tipo de medida
+                                                                </option>
+                                                                @foreach ($medidas as $id => $nombre)
+                                                                    <option value="{{ $id }}">{{ $nombre }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input id="valorMedida" type="text"
+                                                                class="form-control @error('valorMedida') is-invalid @enderror"
+                                                                name="valorMedida[]" value="{{ old('valorMedida') }}">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" id="unidadMedida"
+                                                                name="unidadMedida[]">
+                                                                <option value="">Unidad de medida</option>
+                                                                @foreach ($unidadMedidas as $id => $nombre)
+                                                                    <option value="{{ $nombre }}">{{ $nombre }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                             <div id="medidasDatos">
                                             </div>
                                         </div>
@@ -308,51 +353,40 @@
             // Agregar medidas
             let contadorMedidas = 1;
             $('#agregar-medida').on('click', function() {
-                $('#medidasDatos').append(`
-                    <div class="form-group">
-                        <label for="tipoMedida">{{ __('Tipo de medida') }}</label>
-                        <div class="col-md-8">
-                            <select class="form-control" id="tipoMedida${contadorMedidas}" name="tipoMedida[]">
-                                <option value="">Seleccione un tipo de medida</option>
-                                @foreach ($medidas as $id => $nombre)
-                                    <option value="{{ $id }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="valorMedida" >{{ __('Valor medida') }}</label>
-                        <div class="col-md-6">
-                            <input id="valorMedida" type="text" class="form-control @error('valorMedida') is-invalid @enderror"
-                                name="valorMedida[]" value="{{ old('valorMedida') }}">
-                            @error('valorMedida')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="unidadMedida" >{{ __('Unidad de Medida') }}</label>
-                            <select class="form-control" id="unidadMedida" name="unidadMedida[]">
-                                <option value="">Unidad de medida</option>
-                                @foreach ($unidadMedidas as $id => $nombre)
-                                    <option value="{{ $nombre }}">{{ $nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="idMedida">{{ __('Id Medida') }}</label>
-                        <div class="col-md-6">
-                            <input id="idMedida" type="text" class="form-control @error('idMedida') is-invalid @enderror"
-                                name="idMedida[]" value="{{ old('id_medida') }}">
-                            @error('idMedida')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                $('#medidas-body').append(`
+                <tr>
+                                                        <td>
+                                                            <input id="idMedida" type="text"
+                                                                class="form-control @error('idMedida') is-invalid @enderror"
+                                                                name="idMedida[]" value="{{ old('id_medida') }}">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" id="tipoMedida"
+                                                                name="tipoMedida[]">
+                                                                <option value="">Seleccione un tipo de medida
+                                                                </option>
+                                                                @foreach ($medidas as $id => $nombre)
+                                                                    <option value="{{ $id }}">{{ $nombre }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input id="valorMedida" type="text"
+                                                                class="form-control @error('valorMedida') is-invalid @enderror"
+                                                                name="valorMedida[]" value="{{ old('valorMedida') }}">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control" id="unidadMedida"
+                                                                name="unidadMedida[]">
+                                                                <option value="">Unidad de medida</option>
+                                                                @foreach ($unidadMedidas as $id => $nombre)
+                                                                    <option value="{{ $nombre }}">{{ $nombre }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                    </tr>
                 `);
                 contadorMedidas++;
             });

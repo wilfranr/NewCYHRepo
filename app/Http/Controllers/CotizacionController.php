@@ -49,13 +49,11 @@ class CotizacionController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // Valida los datos del formulario
+        dd($request->all());
         $data = $request->validate([
             'pedido_id' => 'nullable|exists:pedidos,id',
-            'tercero_id' => 'nullable|exists:terceros,id',
         ]);
-        // dd($data);
+        
 
 
         $proveedores = $request->input('proveedores', []); // Recupera los proveedores del formulario
@@ -103,27 +101,9 @@ class CotizacionController extends Controller
             // dd($articulo['precio']);
             // dd($articulo['total']);
             // dd($articulo['observaciones']);
-            $proveedoresNacionales = json_decode($articulo['proveedorNacional'], true);
-            // dd($proveedoresNacionales);
-
-            // Inicializa un array para almacenar los IDs de los proveedores
-            $proveedorIds = [];
 
             // Recorre los proveedores directamente
-            foreach ($proveedoresNacionales as $proveedor) {
-                //convertir json en array
-                // $proveedor = json_decode($proveedor, true);
-                // dd($proveedor);
-                // dd($proveedor['id']);
-                // dd($proveedor['nombre']);
-                // dd($proveedor['marca']);
-
-                //$proveedorIds[] = $proveedor['id'];
-                $proveedorIds[] = $proveedor;
-                // dd($proveedorIds);
-
             }
-            // dd($proveedorIds);
 
 
 
@@ -150,7 +130,7 @@ class CotizacionController extends Controller
 
 
             $articuloCotizacion->save();
-        }
+        
 
 
 
@@ -158,6 +138,7 @@ class CotizacionController extends Controller
 
 
         // Redirige a la vista de la cotización recién creada
+        
         return redirect()->route('cotizaciones.show', ['id' => $cotizacion->id])->with('success', 'La cotización se ha creado correctamente.');
     }
 

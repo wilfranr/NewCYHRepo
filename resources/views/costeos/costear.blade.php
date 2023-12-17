@@ -15,8 +15,9 @@
     {{-- Fin de info de pedido --}}
 
     {{-- Formulario --}}
-    <form action="{{ route('cotizaciones.store') }}" method="POST" enctype="multipart/form-data" id="form">
+    <form enctype="multipart/form-data" id="form" method="POST">
         @csrf
+
         <!-- info Cliente -->
         <div class="card bg-light d-flex flex-fill">
             <div class="card-header text-muted border-bottom-0">
@@ -268,7 +269,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex">
-                                            <input type="text" value="{{ $articulo->referencia }}"
+                                            <input type="text" value="{{ $articulo->id }}"
                                                 class="form-control" name="referencia{{ $index + 1 }}" disabled>
                                         </div>
                                     </td>
@@ -601,7 +602,7 @@
                 <button type="button" class="btn btn-outline-success" id="generar-comparativo"
                     title="Generar Comparativo">
                     <ion-icon name="reader-outline"></ion-icon> Generar comparativo</button>
-                <button type="submit" class="btn btn-primary" id="generar-cotizacion"><ion-icon
+                <button type="button" class="btn btn-primary" id="generar-cotizacion"><ion-icon
                         name="receipt-outline"></ion-icon> Generar Cotización</button>
             </div>
         </div>
@@ -680,7 +681,7 @@
                 // Obtener el valor seleccionado en el select
                 var selectedValue = $(this).val();
                 // Mostrar u ocultar el campo de entrada de días según la opción seleccionada
-                if (selectedValue === 'programada') {
+                if (selectedValue === 'PROGRAMADA') {
                     $('#dias-nacional' + index).show();
                 } else {
                     $('#dias-nacional' + index).hide();
@@ -760,7 +761,6 @@
                                 'input[name*="precioVenta"]').val(),
                         };
                         proveedores.push(proveedor);
-                        // console.log(proveedores);
                     });
                     //Agregar proveedores a la tabla del modal
 
@@ -789,7 +789,7 @@
                             });
                             return false;
                         } else {
-                            if (proveedor.entrega == 'inmediata') {
+                            if (proveedor.entrega == 'INMEDIATA') {
                                 proveedor.entrega = 'Inmediata';
                             } else {
                                 proveedor.entrega = proveedor.dias + ' días';
@@ -818,156 +818,135 @@
 
 
             });
-            //enviar formulario form-generar-cotizacion
-            // $('#form-generar-cotizacion').submit(function(e) {
-            //     console.log('Formulario enviado');
-            //     e.preventDefault();
-            //     var proveedores = [];
-            //     $('.proveedor-checkbox:checked').each(function() {
-            //         var proveedor = {
-            //             id: $(this).closest('tr').find('input[name*="id"]').val(),
-            //             nombre: $(this).closest('tr').find('a').text(),
-            //             marca: $(this).closest('tr').find('select[name*="marca"]')
-            //                 .val(),
-            //             entrega: $(this).closest('tr').find(
-            //                 'select[name*="entrega"]').val(),
-            //             dias: $(this).closest('tr').find('input[name*="dias"]')
-            //                 .val(),
-            //             cantidad: $(this).closest('tr').find(
-            //                 'input[name*="cantidad"]').val(),
-            //             peso: $(this).closest('tr').find('input[name*="peso"]')
-            //                 .val(),
-            //             costo: $(this).closest('tr').find('input[name*="costo"]')
-            //                 .val(),
-            //             utilidad: $(this).closest('tr').find(
-            //                 'input[name*="utilidad"]').val(),
-            //             precioVenta: $(this).closest('tr').find(
-            //                     'input[name*="precioVenta"]')
-            //                 .val(),
-            //         };
-            //         proveedores.push(proveedor);
-            //         console.log(proveedores);
-            //     });
-            //     var articulo = {
-            //         referencia: "{{ $articulo->referencia }}",
-            //         sistema: "{{ $articulo->sistemas }}",
-            //         cantidad: "{{ $articulo->pivot->cantidad }}",
-            //         comentarios: "{{ $articulo->comentarios }}",
-            //         foto: "{{ $articulo->fotoDescriptiva }}",
-            //     };
-            //     var cotizacion = {
-            //         proveedores: proveedores,
-            //     };
-            //     console.log('Cotizacion: ' + cotizacion);
-            //     $.ajax({
-            //         url: "{{ route('cotizaciones.store') }}",
-            //         method: 'POST',
-            //         data: cotizacion,
-            //         success: function(data) {
-            //             console.log(data);
-            //             if (data.success) {
-            //                 swal.fire({
-            //                     title: "Cotización generada",
-            //                     text: "La cotización se ha generado correctamente",
-            //                     icon: "success",
-            //                 });
-            //                 $('#modalGenerarComparativo').modal('hide');
-            //                 $('#modalGenerarCotizacion').modal('hide');
-            //             }
-            //         },
-            //         error: function(error) {
-            //             console.log(error);
-            //             swal.fire({
-            //                 title: "Error",
-            //                 text: "Ha ocurrido un error al generar la cotización",
-            //                 icon: "error",
-            //             });
-            //         }
-            //     });
-            // });
-
 
             // Función para generar una cotización
-            function generarCotizacion() {
-
-                // Inicializamos la variable cotizacion
-                var cotizacion = {};
-
-                // Obtenemos los proveedores seleccionados
-                var proveedores = [];
-                $('.proveedor-checkbox:checked').each(function() {
-                    var proveedor = {
-                        id: $(this).closest('tr').find('input[name*="id"]').val(),
-                        marca: $(this).closest('tr').find('select[name*="marca"]').val(),
-                        entrega: $(this).closest('tr').find('select[name*="entrega"]').val(),
-                        dias: $(this).closest('tr').find('input[name*="dias"]').val(),
-                        cantidad: $(this).closest('tr').find('input[name*="cantidad"]').val(),
-                        peso: $(this).closest('tr').find('input[name*="peso"]').val(),
-                        costo: $(this).closest('tr').find('input[name*="costo"]').val(),
-                        utilidad: $(this).closest('tr').find('input[name*="utilidad"]').val(),
-                        precioVenta: $(this).closest('tr').find('input[name*="precioVenta"]')
-                            .val(),
-                    };
-                    proveedores.push(proveedor);
-                });
-
-                // Obtenemos el artículo
-                var articulo = {
-                    referencia: $(this).closest('tr').find('input[name*="referencia"]').val(),
-                    sistema: $(this).closest('tr').find('input[name*="sistema"]').val(),
-                    cantidad: $(this).closest('tr').find('input[name*="cantidad"]').val(),
-                    comentarios: $(this).closest('tr').find('textarea[name*="comentarios"]').val(),
-                    foto: $(this).closest('tr').find('input[name*="foto"]').val(),
-                };
-
-                // Agregamos los proveedores y el artículo a la cotización
-                cotizacion.proveedores = proveedores;
-                cotizacion.articulos = articulo;
-
-                // Realizamos la petición Axios
-                axios({
-                    url: "{{ route('cotizaciones.store') }}",
-                    method: 'POST',
-                    data: cotizacion,
-                    // Agregamos el token CSRF a la solicitud
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                }).then(function(response) {
-                    console.log(response);
-                    if (response.data.success) {
-                        swal.fire({
-                            title: "Cotización generada",
-                            text: "La cotización se ha generado correctamente",
-                            icon: "success",
-                        });
-                        $('#modalGenerarComparativo').modal('hide');
-                        $('#modalGenerarCotizacion').modal('hide');
-                    }
-                }).catch(function(error) {
-                    console.log(error);
+            $('#generar-cotizacion').click(function() {
+                console.log('Generando cotización');
+                if ($('.proveedor-checkbox:checked').length == 0) {
                     swal.fire({
                         title: "Error",
-                        text: "Ha ocurrido un error al generar la cotización",
+                        text: "Debe seleccionar al menos un proveedor",
                         icon: "error",
                     });
-                });
-            }
+                    return false;
+                } else {
 
-            // Inicializamos el evento onclick del botón
-            $('#btn-generar-cotizacion').click(generarCotizacion);
+                    // Inicializamos la variable cotizacion
+                    var cotizacion = {
+                        articulo: {
+                            referencia: $('input[name*="referencia"]').val(),
+                            sistema: $('input[name*="sistema"]').val(),
+                            cantidad: $('input[name*="cantidad"]').val(),
+                            comentarios: $('textarea[name*="comentarios"]').val(),
+                            foto: $('input[name*="foto"]').val(),
+                        },
+                    };
 
-        });
-        $('.proveedor-checkbox').change(function() {
-            // Encuentra la fila padre (tr) de este checkbox
-            var fila = $(this).closest('tr');
+                    // Obtenemos la lista de proveedores seleccionados
+                    var listaProveedoresSeleccionados = $('.proveedor-checkbox:checked').map(
+                        function() {
+                            return {
+                                id: $(this).closest('tr').find('input[name*="id"]').val(),
+                                marca: $(this).closest('tr').find('select[name*="marca"]').val(),
+                                entrega: $(this).closest('tr').find('select[name*="entrega"]')
+                                    .val(),
+                                dias: $(this).closest('tr').find('input[name*="dias"]').val(),
+                                cantidad: $(this).closest('tr').find('input[name*="cantidad"]')
+                                    .val(),
+                                peso: $(this).closest('tr').find('input[name*="peso"]').val(),
+                                costo: $(this).closest('tr').find('input[name*="costo"]').val(),
+                                utilidad: $(this).closest('tr').find('input[name*="utilidad"]')
+                                    .val(),
+                                precioVenta: $(this).closest('tr').find(
+                                    'input[name*="precioVenta"]').val(),
+                            };
+                        }).get();
 
-            // Si el checkbox está seleccionado, agrega la clase "fila-seleccionada"; de lo contrario, quítala.
-            if ($(this).is(':checked')) {
-                fila.addClass('table-success');
-            } else {
-                fila.removeClass('table-success');
-            }
+                    // Validamos la información de los proveedores
+                    listaProveedoresSeleccionados.forEach(function(proveedor) {
+                        if (proveedor.entrega === '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe seleccionar el plazo de entrega para el proveedor",
+                                icon: "error",
+                            });
+                            return false;
+                        } else if (proveedor.costo === '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe ingresar el costo del artículo para el proveedor",
+                                icon: "error",
+                            });
+                            return false;
+                        } else if (proveedor.utilidad === '') {
+                            swal.fire({
+                                title: "Error",
+                                text: "Debe ingresar la utilidad del artículo para el proveedor",
+                                icon: "error",
+                            });
+                            return false;
+                        }
+                    });
+
+                    // Agregamos los proveedores a la cotización
+                    cotizacion.proveedores = listaProveedoresSeleccionados;
+
+                    console.log(cotizacion);
+                    // Realizamos la petición Fetch para crear la cotización
+                    fetch("{{ route('cotizaciones.store') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            body: new URLSearchParams(cotizacion),
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            console.log(data);
+                            if (data.status === 'success') {
+                                swal.fire({
+                                    title: "Cotización creada",
+                                    text: "La cotización se ha creado correctamente",
+                                    icon: "success",
+                                });
+                                // Redireccionar a la página de cotizaciones
+                                window.location.href = "{{ route('pedidos.index') }}";
+                            } else {
+                                swal.fire({
+                                    title: "Error",
+                                    text: "Ha ocurrido un error al crear la cotización",
+                                    icon: "error",
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            swal.fire({
+                                title: "Error",
+                                text: "Ha ocurrido un error al crear la cotización",
+                                icon: "error",
+                            });
+                        });
+                    
+
+
+
+
+                }
+            })
+
+            $('.proveedor-checkbox').change(function() {
+                // Encuentra la fila padre (tr) de este checkbox
+                var fila = $(this).closest('tr');
+
+                // Si el checkbox está seleccionado, agrega la clase "fila-seleccionada"; de lo contrario, quítala.
+                if ($(this).is(':checked')) {
+                    fila.addClass('table-success');
+                } else {
+                    fila.removeClass('table-success');
+                }
+            });
         });
     </script>
 @endsection
