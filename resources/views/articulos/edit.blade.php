@@ -212,25 +212,25 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="cambio">{{ __('Cambio') }}</label>
+                                            <input class="form-control mb-2" type="text"
+                                                placeholder="Nueva referencia" name="nuevaReferencia">
+
                                             <select class="select2" name="cambio[]" multiple="multiple"
                                                 style="width: 100%">
-                                                {{-- Mostrar los nuevos artículos --}}
-                                                @foreach ($articulos as $articuloOption)
-                                                    <option value="{{ $articuloOption->id }}">
-                                                        {{ $articuloOption->referencia }}
-                                                    </option>
-                                                @endforeach
-
-                                                {{-- Mostrar los artículos existentes en la relación de suplencia y seleccionarlos por defecto --}}
-                                                @foreach ($articulosEnSuplencia as $articuloId)
-                                                    @php
-                                                        $articuloExistente = $articulos->find($articuloId);
-                                                    @endphp
-                                                    <option value="{{ $articuloExistente->id }}" selected>
-                                                        {{ $articuloExistente->referencia }}
+                                                @foreach ($referencias as $referencia)
+                                                    <option value="{{ $referencia['id'] }}">
+                                                        {{ $referencia['referencia'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
+
+
+                                            @error('Cambio')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
                                         </div>
                                         <div class="form-group">
                                             <ul class="list-group"><b>Cambios actuales</b>
@@ -366,15 +366,13 @@
                     <div class="card">
                         <div class="card-body">
                             {{-- Formulario para crear lista --}}
-                            <form action="{{ route('util.crearMarca') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('util.crearMarca') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" value="Marca" name="tipo">
                                 <input type="hidden" name="articulo_id" value="{{ $articulo->id }}">
                                 <div class="form-group">
                                     <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre"
-                                        required>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="definicion">Definición:</label>
@@ -383,8 +381,7 @@
                                 <div class="form-group">
                                     <label for="fotoLista">Foto:</label>
                                     <div class="input-group">
-                                        <input type="file" class="custom-file-input" name="fotoLista"
-                                            id="fotoLista">
+                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
                                         <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
                                     </div>
                                     <img id="preview" src="#" alt=""

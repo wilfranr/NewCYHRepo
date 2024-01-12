@@ -11,7 +11,7 @@ use App\Models\Medida;
 use App\Models\Pedido;
 use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
-
+use App\Models\referencias;
 
 class ArticuloController extends Controller
 {
@@ -30,6 +30,7 @@ class ArticuloController extends Controller
         $articulos = Articulo::all();
         $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
         $definiciones = Lista::where('tipo', 'Definición')->pluck('nombre');
+        $referencias = referencias::all();
 
         // Obtener las definiciones con su respectiva foto de medida
         $definicionesConFoto = Lista::where('tipo', 'Definición')->select('nombre', 'foto')->get();
@@ -46,7 +47,7 @@ class ArticuloController extends Controller
         $maquinas = Lista::where('tipo', 'marca')->pluck('nombre', 'id');
 
         // Mostrar la vista de creación de artículo
-        return view('articulos.create', compact('sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida'));
+        return view('articulos.create', compact('sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'referencias'));
     }
 
     // Método para guardar el artículo en la base de datos
@@ -202,6 +203,7 @@ class ArticuloController extends Controller
     public function edit($id)
     {
         $articulos = Articulo::all();
+        $referencias = referencias::all();
 
         // Obtener el artículo que se va a editar
         $articulo = Articulo::findOrFail($id);
@@ -244,11 +246,12 @@ class ArticuloController extends Controller
         $marca = Lista::where('tipo', 'marca')->get();
 
         // Mostrar la vista de edición con los datos del artículo y sus medidas
-        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades', 'articulosEnJuego'));
+        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades', 'articulosEnJuego', 'referencias'));
     }
 
     public function update(Request $request, Articulo $articulo, $id)
     {
+        // dd($request->all());
         // Obtener el artículo que se va a actualizar
         $articulo = Articulo::findOrFail($id);
 
@@ -305,6 +308,15 @@ class ArticuloController extends Controller
                     ]);
                 }
             }
+        }
+        //si viene nuevaReferencia
+        if ($request->has('nuevaReferencia')) {
+            // crear nueva referencia en tabla referecnias
+            $referencia = new referencias();
+            $referencia->referencia = $request->nuevaReferencia;
+            $referencia->articulo_id = $articulo->id;
+            $referencia->save();
+            
         }
 
         // Si vienen datos de juego

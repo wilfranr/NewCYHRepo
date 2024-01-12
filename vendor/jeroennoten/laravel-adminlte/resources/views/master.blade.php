@@ -13,7 +13,7 @@
     @yield('meta_tags')
     
         {{-- Base Link Tags --}}    
-        @include('sweetalert::alert')
+        {{-- @include('sweetalert::alert')   --}}
 
     {{-- Title --}}
     <title>

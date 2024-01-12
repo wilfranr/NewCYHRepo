@@ -44,8 +44,8 @@ class MaquinaController extends Controller
             'tipo_maquina' => 'required',
             'marca' => 'required',
             'modelo' => 'required',
-            'serie' => 'required',
-            'arreglo' => 'required',
+            'serie' => 'nullable',
+            'arreglo' => 'nullable',
             'fotoMaquina' => 'nullable|image|max:2048',
             'fotoId' => 'nullable|image|max:2048',
         ]);

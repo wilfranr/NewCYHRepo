@@ -145,6 +145,9 @@ class TerceroController extends Controller
         if ($request->has('maquina_id')) {
             $maquinasSeleccionadas = $request->input('maquina_id', []);
             $tercero->maquinas()->sync($maquinasSeleccionadas);
+        }else{
+            if ($tercero->tipo == 'Cliente')
+            $tercero->maquinas()->sync(1);
         }
 
         //guardar las marcas de las maquinas seleccionadas

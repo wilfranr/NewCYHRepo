@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-12-2023 a las 12:37:55
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 12-01-2024 a las 03:34:05
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,15 +29,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `articulos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `marca` varchar(50) NOT NULL,
-  `sistema` varchar(255) DEFAULT NULL,
-  `definicion` text NOT NULL,
-  `referencia` varchar(255) NOT NULL,
-  `cantidad` int(11) DEFAULT NULL,
-  `comentarios` text DEFAULT NULL,
-  `descripcionEspecifica` text DEFAULT NULL,
+  `marca` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sistema` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `definicion` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `referencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comentarios` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `descripcionEspecifica` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `peso` double DEFAULT NULL,
-  `fotoDescriptiva` varchar(200) DEFAULT NULL,
+  `fotoDescriptiva` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -46,49 +45,8 @@ CREATE TABLE `articulos` (
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`id`, `marca`, `sistema`, `definicion`, `referencia`, `cantidad`, `comentarios`, `descripcionEspecifica`, `peso`, `fotoDescriptiva`, `created_at`, `updated_at`) VALUES
-(1, 'CATERPILLAR', NULL, 'Tornillo', 'Tornillo-34d - tornillo24-tornillo45-tornillo67', NULL, 'Tornillo', 'Tornillo rosca fina', 1, '1687104494_R (5).jpeg', '2023-06-18 16:08:14', '2023-12-06 04:17:59'),
-(4, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, 'Diente', 200, '1688252347_1U3452RC-ATBR_1_1.png', '2023-07-01 22:59:07', '2023-07-01 22:59:07'),
-(6, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, 'Sin comentarios', 'Pasador', 100, 'no-imagen.jpg', '2023-07-01 23:08:58', '2023-08-13 14:52:01'),
-(7, 'VEMA TEC', NULL, 'ARANDELA', '8E0469', NULL, '1', 'Arandela', 100, '1697814243_OIP.jpeg', '2023-07-01 23:09:40', '2023-10-20 15:04:03'),
-(8, 'CTP', NULL, 'SOPORTE', '1189935', NULL, '1', 'Soporte', 1, 'no-imagen.jpg', '2023-07-01 23:11:37', '2023-07-01 23:11:37'),
-(9, 'CTP', NULL, 'SOPORTE', '1189936', NULL, NULL, 'Soporte', 200, 'no-imagen.jpg', '2023-07-01 23:13:16', '2023-08-13 15:28:20'),
-(10, 'Caterpillar', NULL, 'Diente', 'dasd33', NULL, NULL, 'Sello', 100, 'no-imagen.jpg', '2023-07-02 01:38:03', '2023-08-13 15:28:54'),
-(11, 'COSTEX', NULL, 'BEARING SLEEVE', '9R6515', NULL, NULL, 'Bearing sleeve', 300, '1688838688_37-768x768.jpg', '2023-07-08 17:51:28', '2023-08-13 15:29:06'),
-(12, 'ITR', NULL, 'RUEDA TENSORA', 'VA1821', NULL, NULL, 'Rueda tensora', NULL, '1688857725_37-768x768.jpg', '2023-07-08 23:08:45', '2023-07-08 23:08:45'),
-(13, 'CTP', NULL, 'SOPORTE', '1189935', NULL, NULL, 'Soporte', NULL, 'no-imagen.jpg', '2023-07-08 23:33:21', '2023-07-08 23:33:21'),
-(14, 'KOMATSU', NULL, 'THRUST WASHE(0923313820)', '144-15-22561', NULL, NULL, 'thrust', NULL, '1688859552_thrust-komatsu.jpg', '2023-07-08 23:39:12', '2023-07-08 23:39:12'),
-(15, 'KOMATSU', NULL, 'GEAR', '60235A', NULL, NULL, 'Gear', NULL, 'no-imagen.jpg', '2023-07-08 23:49:57', '2023-07-08 23:49:57'),
-(16, 'OEM', NULL, 'COUPLING', '121900', NULL, NULL, 'Coupling', NULL, 'no-imagen.jpg', '2023-07-08 23:51:47', '2023-07-08 23:51:47'),
-(17, 'OEM', NULL, 'ARANDELA T35', '8E6359', NULL, NULL, 'ARANDELA T35', NULL, 'no-imagen.jpg', '2023-07-15 17:58:33', '2023-07-15 17:58:33'),
-(20, 'PERKINS REMAN', NULL, 'EMPAQUE DE CULATA', '36812134', NULL, NULL, NULL, NULL, NULL, '2023-08-12 13:55:39', '2023-08-12 13:55:39'),
-(21, 'Caterpillar', NULL, 'BEAARING SLEEVE (2602552)', 'dasd33', NULL, NULL, 'Bearing sleeve', NULL, '1691849056_OIP (12).jpeg', '2023-08-12 14:04:16', '2023-08-12 14:04:16'),
-(22, 'Caterpillar', NULL, 'SOPORTE', 'Tornillo-34d', NULL, 'Tornillo', NULL, NULL, NULL, '2023-08-13 14:10:14', '2023-08-13 14:10:14'),
-(23, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:35:23', '2023-08-13 14:35:23'),
-(24, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:39:41', '2023-08-13 14:39:41'),
-(25, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:39:56', '2023-08-13 14:39:56'),
-(26, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:41:51', '2023-08-13 14:41:51'),
-(27, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 2, NULL, '2023-08-13 14:41:58', '2023-08-13 14:41:58'),
-(28, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:42:50', '2023-08-13 14:42:50'),
-(29, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:43:09', '2023-08-13 14:43:09'),
-(30, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:43:56', '2023-08-13 14:43:56'),
-(31, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, NULL, NULL, '2023-08-13 14:44:10', '2023-08-13 14:44:10'),
-(32, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, '1', NULL, NULL, NULL, '2023-08-13 14:44:21', '2023-08-13 14:44:21'),
-(33, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, '1', NULL, NULL, NULL, '2023-08-13 14:45:05', '2023-08-13 14:45:05'),
-(34, 'VEMA TEC', NULL, 'Diente', '1U3452RCV', NULL, NULL, NULL, 200, NULL, '2023-08-13 14:47:43', '2023-08-13 14:47:43'),
-(35, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, '1', NULL, 100, NULL, '2023-08-13 14:48:03', '2023-08-13 14:48:03'),
-(36, 'VEMA TEC', NULL, 'PASADOR', '8E0468', NULL, 'qwqw', NULL, 233, NULL, '2023-08-13 14:48:44', '2023-08-13 14:48:44'),
-(37, 'ITR', NULL, 'RUEDA TENSORA', 'VA1821', NULL, NULL, NULL, 100, NULL, '2023-08-13 14:49:32', '2023-08-13 14:49:32'),
-(38, 'IPD', NULL, 'ARANDELA AXIAL', 'DS14', NULL, NULL, 'ARANDELA AXIAL', 0.4, '1693884065_arandelas-axiales.jpg', '2023-09-05 03:21:05', '2023-09-05 03:21:05'),
-(39, 'CTP', NULL, 'CASQUETE BIELA', '3050', NULL, NULL, 'CASQUETE DE BIELA', 0.1, '1693884195_19270.jpg', '2023-09-05 03:23:15', '2023-09-05 03:23:15'),
-(40, 'CTP', NULL, 'CASQUETE BANCADA', '1617163 U', NULL, NULL, 'CASQUETE BANCADA', 0.1, '1693884285_S_848015-MCO25198138852_12016-O.jpg', '2023-09-05 03:24:46', '2023-09-05 03:24:46'),
-(41, 'KOMATSU', NULL, 'Diente', 'ljklkll', NULL, NULL, 'Seal', 1, '1694282105_S_848015-MCO25198138852_12016-O.jpg', '2023-09-09 17:55:05', '2023-09-09 17:55:05'),
-(42, 'CTP', NULL, 'SHIM', '3088785', NULL, 'REVISAR PESO, SE COLOCÓ UNO APROXIMADO', 'SHIM', 0.5, '1694307724_2V7390.jpg', '2023-09-10 01:02:04', '2023-09-10 01:02:04'),
-(43, 'COSTEX', NULL, 'GOBERNADOR', '567878B', NULL, NULL, 'GOBERNADOR', 0.2, 'no-imagen.jpg', '2023-09-11 02:11:30', '2023-09-11 02:11:30'),
-(44, 'CTP', NULL, 'Diente', 'arandela', NULL, NULL, 'Sello', 200, 'no-imagen.jpg', '2023-09-14 02:41:15', '2023-09-14 02:41:15'),
-(45, 'OEM', NULL, 'O-RING (KIT)', '15080', NULL, NULL, NULL, 0.5, 'no-imagen.jpg', '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(46, 'CATERPILLAR', NULL, 'PUMP GP HYD', '319-0675', NULL, NULL, 'Bomba hidráulica del inyector unitario', 200, '1701533873_OIP (1).jpeg', '2023-12-02 16:17:53', '2023-12-02 16:17:53'),
-(47, 'CATERPILLAR', NULL, 'Sello Anular', '214-7568', NULL, NULL, 'SELLO ANULAR DE ROSCA RECTA', 1, '1701535174_CM20210505-e6c35-e46e1.jpeg', '2023-12-02 16:39:34', '2023-12-02 16:39:34');
+INSERT INTO `articulos` (`id`, `marca`, `sistema`, `definicion`, `referencia`, `comentarios`, `descripcionEspecifica`, `peso`, `fotoDescriptiva`, `created_at`, `updated_at`) VALUES
+(1, 'Komatsu', NULL, 'Boss', '1752731394', NULL, 'Boss', 396, '1702836246_WhatsApp Image 2023-12-17 at 1.03.46 PM.jpeg', '2023-12-17 18:04:06', '2023-12-17 18:04:06');
 
 -- --------------------------------------------------------
 
@@ -103,23 +61,6 @@ CREATE TABLE `articulos_juegos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `articulos_juegos`
---
-
-INSERT INTO `articulos_juegos` (`id`, `articulo_id`, `juego_por_id`, `created_at`, `updated_at`) VALUES
-(4, 42, 1, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
-(5, 41, 7, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(8, 43, 4, '2023-09-11 02:12:17', '2023-09-11 02:12:17'),
-(9, 45, 6, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(10, 45, 7, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(11, 45, 8, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(12, 45, 9, '2023-09-14 02:48:54', '2023-09-14 02:48:54'),
-(19, 1, 45, '2023-12-06 04:17:59', '2023-12-06 04:17:59'),
-(20, 1, 46, '2023-12-06 04:17:59', '2023-12-06 04:17:59'),
-(21, 1, 47, '2023-12-06 04:17:59', '2023-12-06 04:17:59'),
-(22, 1, 4, '2023-12-06 04:17:59', '2023-12-06 04:17:59');
 
 -- --------------------------------------------------------
 
@@ -140,15 +81,7 @@ CREATE TABLE `articulo_medida` (
 --
 
 INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `updated_at`) VALUES
-(105, 6, 11, NULL, NULL),
-(115, 4, 21, NULL, NULL),
-(117, 42, 23, NULL, NULL),
-(118, 41, 24, NULL, NULL),
-(122, 43, 28, NULL, NULL),
-(124, 7, 30, NULL, NULL),
-(126, 46, 32, NULL, NULL),
-(127, 47, 33, NULL, NULL),
-(129, 1, 35, NULL, NULL);
+(2, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -161,7 +94,7 @@ CREATE TABLE `articulo_pedido` (
   `pedido_id` bigint(20) UNSIGNED NOT NULL,
   `articulo_id` bigint(20) UNSIGNED NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `comentario` text DEFAULT NULL,
+  `comentario` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -171,28 +104,8 @@ CREATE TABLE `articulo_pedido` (
 --
 
 INSERT INTO `articulo_pedido` (`id`, `pedido_id`, `articulo_id`, `cantidad`, `comentario`, `created_at`, `updated_at`) VALUES
-(5, 2, 9, 1, NULL, '2023-11-05 15:03:36', '2023-11-05 15:03:45'),
-(6, 2, 8, 1, NULL, '2023-11-05 15:03:36', '2023-11-05 15:03:45'),
-(7, 2, 9, 1, NULL, '2023-11-05 15:03:45', '2023-11-05 15:03:45'),
-(8, 2, 8, 1, NULL, '2023-11-05 15:03:45', '2023-11-05 15:03:45'),
-(9, 3, 8, 1, NULL, '2023-11-05 15:08:46', '2023-11-05 15:12:16'),
-(10, 3, 8, 1, NULL, '2023-11-05 15:12:16', '2023-11-05 15:12:16'),
-(13, 5, 4, 1, NULL, '2023-11-06 17:30:08', '2023-11-06 17:30:08'),
-(42, 6, 7, 1, NULL, '2023-11-06 19:55:31', '2023-11-06 19:55:31'),
-(43, 6, 1, 1, NULL, '2023-11-06 19:55:31', '2023-11-06 19:55:31'),
-(44, 6, 4, 1, NULL, '2023-11-06 19:55:31', '2023-11-06 19:55:31'),
-(78, 7, 1, 1, NULL, '2023-11-11 15:48:30', '2023-11-11 15:48:30'),
-(79, 7, 7, 1, NULL, '2023-11-11 15:48:30', '2023-11-11 15:48:30'),
-(80, 4, 1, 1, NULL, '2023-11-11 16:33:46', '2023-11-11 16:33:46'),
-(83, 8, 14, 1, NULL, '2023-11-11 20:14:21', '2023-11-11 20:14:21'),
-(84, 9, 7, 1, NULL, '2023-11-12 13:05:56', '2023-11-12 13:05:56'),
-(85, 9, 6, 1, NULL, '2023-11-12 13:05:56', '2023-11-12 13:05:56'),
-(99, 1, 1, 1, NULL, '2023-11-12 13:27:42', '2023-11-12 13:27:42'),
-(100, 1, 6, 1, NULL, '2023-11-12 13:27:42', '2023-11-12 13:27:42'),
-(103, 10, 8, 1, NULL, '2023-11-12 13:55:46', '2023-11-12 13:55:46'),
-(104, 10, 14, 1, NULL, '2023-11-12 13:55:46', '2023-11-12 13:55:46'),
-(106, 11, 43, 1, NULL, '2023-11-12 17:59:52', '2023-11-12 17:59:52'),
-(107, 12, 46, 1, NULL, '2023-12-02 16:18:51', '2023-12-02 16:18:51');
+(5, 2, 1, 1, NULL, '2023-12-17 18:15:29', '2023-12-17 18:15:29'),
+(6, 1, 1, 1, NULL, '2023-12-17 19:47:17', '2023-12-17 19:47:17');
 
 -- --------------------------------------------------------
 
@@ -202,11 +115,11 @@ INSERT INTO `articulo_pedido` (`id`, `pedido_id`, `articulo_id`, `cantidad`, `co
 
 CREATE TABLE `articulo_temporal` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `referencia` varchar(255) DEFAULT NULL,
-  `definicion` varchar(255) DEFAULT NULL,
-  `sistema` varchar(255) DEFAULT NULL,
+  `referencia` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `definicion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sistema` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `comentarios` varchar(255) DEFAULT NULL,
+  `comentarios` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -216,12 +129,9 @@ CREATE TABLE `articulo_temporal` (
 --
 
 INSERT INTO `articulo_temporal` (`id`, `referencia`, `definicion`, `sistema`, `cantidad`, `comentarios`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 1, NULL, '2023-11-06 17:27:49', '2023-11-06 17:27:49'),
-(2, NULL, NULL, NULL, 1, NULL, '2023-11-11 15:37:18', '2023-11-11 15:37:18'),
-(3, NULL, NULL, NULL, 1, NULL, '2023-11-12 13:05:43', '2023-11-12 13:05:43'),
-(4, NULL, NULL, NULL, 1, NULL, '2023-11-12 13:05:43', '2023-11-12 13:05:43'),
-(5, NULL, NULL, NULL, 1, NULL, '2023-11-12 17:56:48', '2023-11-12 17:56:48'),
-(6, NULL, NULL, NULL, 1, '1234566788', '2023-12-06 04:11:15', '2023-12-06 04:11:15');
+(1, NULL, NULL, NULL, 1, 'boss del sproket de la máquina', '2023-12-17 17:56:52', '2023-12-17 17:56:52'),
+(2, NULL, NULL, NULL, 1, 'boss', '2023-12-17 18:08:49', '2023-12-17 18:08:49'),
+(3, NULL, NULL, NULL, 1, '1752731395', '2023-12-17 18:38:01', '2023-12-17 18:38:01');
 
 -- --------------------------------------------------------
 
@@ -235,7 +145,7 @@ CREATE TABLE `ciudad` (
   `PaisCodigo` char(3) NOT NULL DEFAULT '',
   `CiudadDistrito` char(20) NOT NULL DEFAULT '',
   `CiudadPoblacion` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ciudad`
@@ -4572,10 +4482,10 @@ INSERT INTO `ciudad` (`CiudadID`, `CiudadNombre`, `PaisCodigo`, `CiudadDistrito`
 
 CREATE TABLE `ciudades` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `pais` varchar(250) NOT NULL,
-  `codigo_iso2` varchar(255) NOT NULL,
-  `codigo_iso3` varchar(250) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pais` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codigo_iso2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codigo_iso3` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4588,10 +4498,10 @@ CREATE TABLE `ciudades` (
 
 CREATE TABLE `contactos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `telefono` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `cargo` varchar(50) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cargo` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4601,10 +4511,7 @@ CREATE TABLE `contactos` (
 --
 
 INSERT INTO `contactos` (`id`, `nombre`, `telefono`, `email`, `cargo`, `created_at`, `updated_at`) VALUES
-(1, 'Maria Cárdenas', '3016490698', 'maria@transmateriales.com', 'Asesora Comercial', '2023-10-10 19:28:53', '2023-10-10 19:28:53'),
-(2, 'contacto 1', '6578676', 'wilfranr@gmail.com', 'especialista', '2023-10-13 16:57:06', '2023-10-13 16:57:06'),
-(3, 'Carlos Saavedra', '9843578', 'w@q', 'Supervisor', '2023-10-17 14:15:43', '2023-10-17 14:15:43'),
-(4, 'Ramiro Gutierrez', '6578676', 'w@q', 'Administrador', '2023-10-17 14:24:57', '2023-10-17 14:24:57');
+(1, 'pedro correo mejia', '3128331490', NULL, 'Gerente', '2023-12-17 17:55:18', '2023-12-17 17:55:18');
 
 -- --------------------------------------------------------
 
@@ -4625,9 +4532,7 @@ CREATE TABLE `contacto_tercero` (
 --
 
 INSERT INTO `contacto_tercero` (`id`, `contacto_id`, `tercero_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL),
-(3, 3, 1, NULL, NULL),
-(4, 4, 1, NULL, NULL);
+(1, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -4637,37 +4542,12 @@ INSERT INTO `contacto_tercero` (`id`, `contacto_id`, `tercero_id`, `created_at`,
 
 CREATE TABLE `cotizaciones` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `estado` varchar(255) NOT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pedido_id` bigint(20) UNSIGNED NOT NULL,
   `tercero_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `cotizaciones`
---
-
-INSERT INTO `cotizaciones` (`id`, `estado`, `pedido_id`, `tercero_id`, `created_at`, `updated_at`) VALUES
-(1, 'Pendiente', 1, 1, '2023-11-12 13:14:17', '2023-11-12 13:14:17'),
-(2, 'Pendiente', 10, 1, '2023-11-12 14:04:54', '2023-11-12 14:04:54'),
-(3, 'Pendiente', 1, 1, '2023-11-19 16:57:22', '2023-11-19 16:57:22'),
-(4, 'Pendiente', 1, 1, '2023-11-19 16:59:03', '2023-11-19 16:59:03'),
-(5, 'Pendiente', 1, 1, '2023-11-19 17:01:33', '2023-11-19 17:01:33'),
-(6, 'Pendiente', 1, 1, '2023-11-19 17:01:43', '2023-11-19 17:01:43'),
-(7, 'Pendiente', 1, 1, '2023-11-19 17:01:54', '2023-11-19 17:01:54'),
-(8, 'Pendiente', 11, 1, '2023-11-25 16:08:30', '2023-11-25 16:08:30'),
-(9, 'Pendiente', 11, 1, '2023-11-25 16:10:42', '2023-11-25 16:10:42'),
-(10, 'Pendiente', 11, 1, '2023-11-25 16:11:15', '2023-11-25 16:11:15'),
-(11, 'Pendiente', 11, 1, '2023-11-25 16:12:16', '2023-11-25 16:12:16'),
-(12, 'Pendiente', 11, 1, '2023-11-25 16:12:30', '2023-11-25 16:12:30'),
-(13, 'Pendiente', 11, 1, '2023-11-25 16:12:33', '2023-11-25 16:12:33'),
-(14, 'Pendiente', 11, 1, '2023-11-25 16:13:42', '2023-11-25 16:13:42'),
-(15, 'Pendiente', 11, 1, '2023-11-25 16:13:48', '2023-11-25 16:13:48'),
-(16, 'Pendiente', 11, 1, '2023-11-25 16:15:33', '2023-11-25 16:15:33'),
-(17, 'Pendiente', 11, 1, '2023-11-25 16:27:05', '2023-11-25 16:27:05'),
-(18, 'Pendiente', 1, 1, '2023-11-25 16:29:15', '2023-11-25 16:29:15'),
-(19, 'Pendiente', 6, 1, '2023-11-26 13:07:01', '2023-11-26 13:07:01');
 
 -- --------------------------------------------------------
 
@@ -4684,21 +4564,12 @@ CREATE TABLE `cotizacion_articulo` (
   `costo` decimal(8,0) DEFAULT NULL,
   `utilidad` int(3) NOT NULL,
   `marca` bigint(20) UNSIGNED DEFAULT NULL,
-  `plazo_entrega` varchar(11) NOT NULL,
+  `plazo_entrega` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `precio_venta` decimal(8,0) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `cotizacion_articulo`
---
-
-INSERT INTO `cotizacion_articulo` (`id`, `cotizacion_id`, `articulo_id`, `proveedor_id`, `dias`, `costo`, `utilidad`, `marca`, `plazo_entrega`, `precio_venta`, `cantidad`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 3, NULL, 2000, 7, 1, 'Inmediata', 2000, 1, '2023-12-02 01:53:25', '2023-12-02 01:53:25'),
-(2, 1, 22, 4, 7, 3000, 7, 1, 'Programada', 3000, 2, '2023-12-02 02:01:13', '2023-12-02 02:01:13'),
-(3, 2, 1, 3, 15, 6000, 7, 1, 'Programada', 10200, 1, '2023-12-02 02:05:33', '2023-12-02 02:05:33');
 
 -- --------------------------------------------------------
 
@@ -4722,7 +4593,7 @@ CREATE TABLE `cotizacion_pedido` (
 
 CREATE TABLE `departamentos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pais_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -4736,17 +4607,17 @@ CREATE TABLE `departamentos` (
 
 CREATE TABLE `empresa` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `siglas` varchar(11) DEFAULT NULL,
-  `direccion` varchar(255) NOT NULL,
-  `telefono` varchar(255) NOT NULL,
-  `celular` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `logo` varchar(255) NOT NULL,
-  `nit` varchar(255) NOT NULL,
-  `representante` varchar(255) NOT NULL,
-  `ciudad` varchar(255) NOT NULL,
-  `pais` varchar(255) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `siglas` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `celular` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `representante` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ciudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pais` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4766,11 +4637,11 @@ INSERT INTO `empresa` (`id`, `nombre`, `siglas`, `direccion`, `telefono`, `celul
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -4783,7 +4654,7 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `fotos_articulo_temporal` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `articulo_temporal_id` bigint(20) UNSIGNED NOT NULL,
-  `foto_path` varchar(255) NOT NULL,
+  `foto_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4797,7 +4668,7 @@ CREATE TABLE `fotos_articulo_temporal` (
 CREATE TABLE `foto_articulo` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `IdArticulo` int(11) NOT NULL,
-  `ruta` varchar(255) NOT NULL,
+  `ruta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `articulo_temporal_id` int(11) UNSIGNED NOT NULL
@@ -4812,7 +4683,7 @@ CREATE TABLE `foto_articulo` (
 CREATE TABLE `imagenes_articulo` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `articulo_id` bigint(20) UNSIGNED NOT NULL,
-  `ruta` varchar(255) NOT NULL,
+  `ruta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4825,11 +4696,11 @@ CREATE TABLE `imagenes_articulo` (
 
 CREATE TABLE `listas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tipo` varchar(255) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `definicion` text DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL,
-  `fotoMedida` varchar(300) DEFAULT NULL,
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `definicion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fotoMedida` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4839,150 +4710,199 @@ CREATE TABLE `listas` (
 --
 
 INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`, `created_at`, `updated_at`) VALUES
-(2, 'Marca', 'CATERPILLAR', 'CATERPILLAR', '1687104103_cat.jpg', 'no-imagen.jpg', '2023-06-18 16:01:43', '2023-08-21 11:17:48'),
-(3, 'Marca', 'KOMATSU', 'Komatsu', '1687614788_R (3).png', 'no-imagen.jpg', '2023-06-24 13:53:08', '2023-06-24 13:53:08'),
-(4, 'Tipo Maquina', 'Bulldozer', 'Es una máquina de construcción usada para la expansión y movimiento de tierras', '1687614897_OIP (4).jpeg', 'no-imagen.jpg', '2023-06-24 13:54:57', '2023-06-24 13:54:57'),
-(5, 'Sistema', 'Transmisión', 'Es un mecanismo encargado de transmitir potencia entre dos o más elementos dentro de una máquina.', '1687614992_tap-149-las-transmisiones-y-las-nuevas-tecnicas-04.jpg', 'no-imagen.jpg', '2023-06-24 13:56:32', '2023-06-24 13:56:32'),
-(6, 'Descripción común', 'Seal O Ring', 'Junta de forma tiroidal, cuya función es la de asegurar la estanqueidad de los fluidos.', '1687615092_R.jpg', 'no-imagen.jpg', '2023-06-24 13:58:12', '2023-07-24 16:33:23'),
-(20, 'Definición', 'Piston', 'Piston', '1690051312_pistondimensions1_textimage.png', '1687641748_OIP.jpg', '2023-06-24 21:22:28', '2023-08-05 21:13:40'),
-(41, 'Tipo Medida', 'Diametro', 'Diametro', 'no-imagen.jpg', 'no-imagen.jpg', '2023-07-01 16:45:52', '2023-07-01 22:25:26'),
-(45, 'Tipo Medida', 'Ancho', 'Ancho', 'no-imagen.jpg', 'no-imagen.jpg', '2023-07-01 17:08:06', '2023-07-01 17:08:06'),
-(48, 'Tipo Medida', 'Volumen', 'Volumen', 'no-imagen.jpg', 'no-imagen.jpg', '2023-07-01 17:11:32', '2023-07-01 17:11:32'),
-(49, 'Modelo Maquina', 'Modelo de prueba', 'Modelo de prueba', 'no-imagen.jpg', 'no-imagen.jpg', '2023-07-01 17:24:53', '2023-07-01 17:24:53'),
-(50, 'Definición', 'Diente', 'Diente', '1690124819_E16.png', 'no-imagen.jpg', '2023-07-01 22:15:00', '2023-07-23 15:06:59'),
-(51, 'Definición', 'PASADOR', 'PASADOR', NULL, NULL, NULL, NULL),
-(52, 'Definición', 'ARANDELA', 'ARANDELA', NULL, NULL, NULL, NULL),
-(53, 'Definición', 'SOPORTE', 'SOPORTE', NULL, NULL, NULL, NULL),
-(54, 'Definición', 'HOSE', 'HOSE', NULL, NULL, NULL, NULL),
-(55, 'Definición', 'BEARING SLEEVE', 'BEARING SLEEVE', NULL, NULL, NULL, NULL),
-(56, 'Definición', 'PIN', 'PIN', NULL, NULL, NULL, NULL),
-(57, 'Definición', 'WASHER', 'WASHER', NULL, NULL, NULL, NULL),
-(58, 'Definición', 'RING SNAP', 'RING SNAP', NULL, NULL, NULL, NULL),
-(59, 'Definición', 'SEAL RING', 'SEAL RING', NULL, NULL, NULL, NULL),
-(61, 'Definición', 'KIT', 'KIT', NULL, NULL, NULL, NULL),
-(62, 'Definición', 'RING -KOMATSU', 'RING -KOMATSU', NULL, NULL, NULL, NULL),
-(63, 'Definición', 'CAGE', 'CAGE', NULL, NULL, NULL, NULL),
-(64, 'Definición', 'THRUST WASHE(0923313820)', 'THRUST WASHE(0923313820)', NULL, NULL, NULL, NULL),
-(65, 'Definición', 'PINION', 'PINION', NULL, NULL, NULL, NULL),
-(66, 'Definición', 'SEAL', 'SEAL', NULL, NULL, NULL, NULL),
-(67, 'Definición', 'BEARING (42215)', 'BEARING (42215)', NULL, NULL, NULL, NULL),
-(68, 'Definición', 'BEARING TAP', 'BEARING TAP', NULL, NULL, NULL, NULL),
-(69, 'Definición', 'GEAR', 'GEAR', NULL, NULL, NULL, NULL),
-(70, 'Definición', 'GASKET', 'GASKET', NULL, NULL, NULL, NULL),
-(71, 'Definición', 'BUSHING', 'BUSHING', NULL, NULL, NULL, NULL),
-(72, 'Definición', 'PUMP GP HYD', 'PUMP GP HYD', '1701533532_OIP (1).jpeg', NULL, NULL, '2023-12-02 16:12:12'),
-(73, 'Definición', 'PUNTA MARTILLO', 'PUNTA MARTILLO', NULL, NULL, NULL, NULL),
-(74, 'Definición', 'CAMISA', 'CAMISA', NULL, NULL, NULL, NULL),
-(75, 'Definición', 'PISTON', 'PISTON', NULL, NULL, NULL, NULL),
-(76, 'Definición', 'ANILLOS', 'ANILLOS', NULL, NULL, NULL, NULL),
-(77, 'Definición', 'EMPAQUETADURA', 'EMPAQUETADURA', NULL, NULL, NULL, NULL),
-(78, 'Definición', 'RETEN DELANTERO', 'RETEN DELANTERO', NULL, NULL, NULL, NULL),
-(79, 'Definición', 'RETEN TRASERO', 'RETEN TRASERO', NULL, NULL, NULL, NULL),
-(80, 'Definición', 'CASQUETE BIELA', 'CASQUETE BIELA', NULL, NULL, NULL, NULL),
-(81, 'Definición', 'CASQUETE BANCADA', 'CASQUETE BANCADA', NULL, NULL, NULL, NULL),
-(82, 'Definición', 'ARANDELA AXIAL', 'ARANDELA AXIAL', NULL, NULL, NULL, NULL),
-(83, 'Definición', 'BUJE BIELA', 'BUJE BIELA', NULL, NULL, NULL, NULL),
-(84, 'Definición', 'BUJE LEVAS', 'BUJE LEVAS', NULL, NULL, NULL, NULL),
-(85, 'Definición', 'VALVULAS ADMISION', 'VALVULAS ADMISION', NULL, NULL, NULL, NULL),
-(86, 'Definición', 'VALVULAS ESCAPE', 'VALVULAS ESCAPE', NULL, NULL, NULL, NULL),
-(87, 'Definición', 'GUIAS ADMISION', 'GUIAS ADMISION', NULL, NULL, NULL, NULL),
-(88, 'Definición', 'GUIAS ESCAPE', 'GUIAS ESCAPE', NULL, NULL, NULL, NULL),
-(89, 'Definición', 'BOMBA ACEITE', 'BOMBA ACEITE', NULL, NULL, NULL, NULL),
-(90, 'Definición', 'EJE', 'EJE', NULL, NULL, NULL, NULL),
-(91, 'Definición', 'COUPLING', 'COUPLING', NULL, NULL, NULL, NULL),
-(92, 'Definición', 'SHIM', 'SHIM', '1694307099_2807-0811-1000-Schematic.png', NULL, NULL, '2023-09-10 00:51:39'),
-(93, 'Definición', 'SHIMM', 'SHIMM', NULL, NULL, NULL, NULL),
-(94, 'Definición', 'PIN AS', 'PIN AS', NULL, NULL, NULL, NULL),
-(95, 'Definición', 'PASADOR', 'PASADOR', NULL, NULL, NULL, NULL),
-(96, 'Definición', 'PIN A CHROME', 'PIN A CHROME', NULL, NULL, NULL, NULL),
-(97, 'Definición', 'SEAL LIP', 'SEAL LIP', NULL, NULL, NULL, NULL),
-(98, 'Definición', 'BEARING', 'BEARING', NULL, NULL, NULL, NULL),
-(99, 'Definición', 'SEAL LIP TYPE', 'SEAL LIP TYPE', NULL, NULL, NULL, NULL),
-(100, 'Definición', 'BRG-SLEEVE (5287159)', 'BRG-SLEEVE (5287159)', NULL, NULL, NULL, NULL),
-(101, 'Definición', 'ESPACIADOR', 'ESPACIADOR', NULL, NULL, NULL, NULL),
-(102, 'Definición', 'SEAL 20Y7023230', 'SEAL 20Y7023230', NULL, NULL, NULL, NULL),
-(103, 'Definición', 'BEAARING SLEEVE (2602552)', 'BEAARING SLEEVE (2602552)', NULL, NULL, NULL, NULL),
-(104, 'Definición', 'RUEDA TENSORA', 'RUEDA TENSORA', '1688857628_8198_0.jpg_0.jpg', NULL, NULL, '2023-07-08 23:07:08'),
-(105, 'Definición', 'GOBERNADOR', 'GOBERNADOR', NULL, NULL, NULL, NULL),
-(107, 'Marca', 'CTP', 'CTP', NULL, NULL, NULL, NULL),
-(109, 'Marca', 'COSTEX', 'COSTEX', NULL, NULL, NULL, NULL),
-(111, 'Marca', 'ITR', 'ITR', NULL, NULL, NULL, NULL),
-(112, 'Marca', 'HB30', 'HB30', NULL, NULL, NULL, NULL),
-(113, 'Marca', 'ATS', 'ATS', NULL, NULL, NULL, NULL),
-(114, 'Marca', 'EMMARK', 'EMMARK', NULL, NULL, NULL, NULL),
-(115, 'Marca', 'OEM', 'OEM', NULL, NULL, NULL, NULL),
-(116, 'Marca', 'DOOSAN', 'DOOSAN', NULL, NULL, NULL, NULL),
-(117, 'Marca', 'PERKINS REMAN', 'PERKINS REMAN', NULL, NULL, NULL, NULL),
-(118, 'Marca', 'BLUMAQ', 'BLUMAQ', NULL, NULL, NULL, NULL),
-(119, 'Marca', 'SKU', 'SKU', NULL, NULL, NULL, NULL),
-(120, 'Marca', 'KOREANA', 'KOREANA', NULL, NULL, NULL, NULL),
-(121, 'Marca', 'WPS', 'WPS', NULL, NULL, NULL, NULL),
-(122, 'Marca', 'CUMMINS', 'CUMMINS', NULL, NULL, NULL, NULL),
-(124, 'Marca', 'JEIL', 'JEIL', NULL, NULL, NULL, NULL),
-(125, 'Marca', 'NOK', 'NOK', NULL, NULL, NULL, NULL),
-(126, 'Marca', 'VEMA', 'VEMA', NULL, NULL, NULL, NULL),
-(127, 'Marca', 'TRACK LINK', 'TRACK LINK', NULL, NULL, NULL, NULL),
-(128, 'Marca', 'BLACK CAT', 'BLACK CAT', NULL, NULL, NULL, NULL),
-(129, 'Marca', 'KSK', 'KSK', NULL, NULL, NULL, NULL),
-(130, 'Marca', 'ETP', 'ETP', NULL, NULL, NULL, NULL),
-(131, 'Marca', 'TRASTEEL', 'TRASTEEL', NULL, NULL, NULL, NULL),
-(132, 'Marca', 'VMT', 'VMT', NULL, NULL, NULL, NULL),
-(133, 'Definición', 'ARANDELA T35', 'ARANDELA T35', '1690050387_R (7).jpeg', 'no-imagen.jpg', '2023-07-15 17:57:35', '2023-07-22 18:26:27'),
-(134, 'Definición', 'EMPAQUE DE CULATA', 'Empaque que va entre la culata y el bloque del motor', '1691845635_A4420160420MBB.jpg', '1689465002_empaque-de-culata.jpg', '2023-07-15 23:50:02', '2023-08-12 13:07:16'),
-(135, 'Definición', 'BEARING', 'BEARING', '1690043577_miniature-bearing-dimensions-mr84zz.jpg', NULL, '2023-07-22 16:30:46', '2023-07-22 18:25:06'),
-(136, 'Tipo Medida', 'Largo', 'Largo', 'no-imagen.jpg', NULL, '2023-07-22 18:47:14', '2023-07-22 18:47:14'),
-(141, 'Tipo Medida', 'Alto', 'Alto', 'no-imagen.jpg', NULL, '2023-07-24 15:50:44', '2023-07-24 15:50:44'),
-(143, 'Tipo Medida', 'Largo2', 'Largo2', '1690221725_E16.png', NULL, '2023-07-24 18:02:05', '2023-07-24 18:02:05'),
-(151, 'Tipo Maquina', 'Excavadora', 'Una excavadora es una máquina empleada para la excavación y movimiento de tierras u otros materiales. La excavadora se considera un vehículo autopropulsado porque se puede desplazar de un lugar a otro pero esta no es su función …', '1691325397_OIP (12).jpeg', NULL, '2023-08-06 12:36:38', '2023-08-06 12:36:38'),
-(152, 'Modelo Maquina', 'PC1250', 'Excavadora de Komatsu', '1691325879_OIP (12).jpeg', NULL, '2023-08-06 12:44:39', '2023-08-06 12:44:39'),
-(153, 'Marca', 'VEMA TEC', 'VEMA TEC', 'no-imagen.jpg', NULL, '2023-08-21 11:09:17', '2023-08-21 11:09:17'),
-(156, 'Marca', 'IPD', 'IPD', 'no-imagen.jpg', NULL, '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
-(157, 'Definición', 'Tornillo', 'Tornillo', 'no-imagen.jpg', NULL, '2023-09-09 16:45:19', '2023-09-09 16:45:19'),
-(158, 'Definición', 'Tornillo de prueba', 'Tornillo de prueba', '1694278655_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 16:57:35', '2023-09-09 16:57:35'),
-(159, 'Definición', 'Tornillo de prueba 2', 'Tornillo de prueba 2', '1694278742_arandelas-axiales.jpg', NULL, '2023-09-09 16:59:02', '2023-09-09 16:59:02'),
-(160, 'Definición', 'Tornillo de prueba 3', 'Tornillo de prueba 3', 'no-imagen.jpg', NULL, '2023-09-09 17:00:15', '2023-09-09 17:00:15'),
-(161, 'Definición', 'Tornillo de prueba 4', 'Tornillo de prueba 4', 'no-imagen.jpg', NULL, '2023-09-09 17:01:58', '2023-09-09 17:01:58'),
-(162, 'Definición', 'Tornillo de prueba 5', 'Tornillo de prueba 5', 'no-imagen.jpg', NULL, '2023-09-09 17:02:22', '2023-09-09 17:02:22'),
-(163, 'Definición', 'Diente 2', 'Diente 2', '1694279384_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 17:09:44', '2023-09-09 17:09:44'),
-(164, 'Definición', 'Pasador 2', 'Pasador 2', '1694279422_S_848015-MCO25198138852_12016-O.jpg', NULL, '2023-09-09 17:10:22', '2023-09-09 17:10:22'),
-(165, 'Unidad medida', 'mm', 'Milímetros', 'no-imagen.jpg', NULL, '2023-09-10 00:58:55', '2023-09-10 00:58:55'),
-(166, 'Unidad medida', 'cc', 'Centímetros', 'no-imagen.jpg', NULL, '2023-09-10 00:59:09', '2023-09-10 00:59:09'),
-(167, 'Unidad medida', 'lb', 'Libras', 'no-imagen.jpg', NULL, '2023-09-10 00:59:27', '2023-09-10 00:59:27'),
-(168, 'Unidad medida', 'm', 'metros', 'no-imagen.jpg', NULL, '2023-09-10 00:59:49', '2023-09-10 00:59:49'),
-(169, 'Definición', 'definicion de prueba', 'Definicion de prueba', '1694658667_19270.jpg', NULL, '2023-09-14 02:31:08', '2023-09-14 02:31:08'),
-(170, 'Definición', 'O-RING (KIT)', 'analista@ejemplo.com', 'no-imagen.jpg', NULL, '2023-09-14 02:48:07', '2023-09-14 02:48:07'),
-(171, 'Sistema', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:14:40', '2023-09-14 03:14:40'),
-(172, 'Marca', 'Todos', 'Todos', 'no-imagen.jpg', NULL, '2023-09-14 03:16:41', '2023-09-14 03:16:41'),
-(174, 'Sistema', 'Tren de Rodaje', 'Tren de Rodaje', '1695562238_OIP.jpeg', NULL, '2023-09-24 13:30:38', '2023-09-24 13:30:38'),
-(175, 'Definición', 'definicion de prueba', 'Definicion de prueba', 'no-imagen.jpg', NULL, '2023-10-02 14:12:16', '2023-10-02 14:12:16'),
-(178, 'Marca', 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443801_R (2).jpeg', NULL, '2023-10-04 18:23:21', '2023-10-04 18:23:21'),
-(179, 'sistema', 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443858_R (2).jpeg', NULL, '2023-10-04 18:24:18', '2023-10-04 18:24:18'),
-(180, 'sistema', 'Iluminación', 'Proporciona iluminación adecuada para trabajar en condiciones de poca luz o de noche.', '1696444098_luz-led-de-trabajo-recargable-caterpillar-lampara-D_NQ_NP_549515-MLM25265490006_012017-F.jpg', NULL, '2023-10-04 18:28:18', '2023-10-04 18:28:18'),
-(181, 'Definición', 'definicion de prueba', 'Def', 'no-imagen.jpg', NULL, '2023-10-10 14:56:50', '2023-10-10 14:56:50'),
-(182, 'Tipo Maquina', 'Excavadora de Oruga', 'Excavadora de Oruga', 'no-imagen.jpg', NULL, '2023-10-10 15:01:08', '2023-10-10 15:01:08'),
-(188, 'Modelo Maquina', 'Modelo creado desde máquinas', 'Modelo desde maquinas', '1696951605_OIP (2).jpeg', NULL, '2023-10-10 15:26:45', '2023-10-10 15:26:45'),
-(189, 'Modelo Maquina', 'CAT 336F', 'Excavadora de brazo largo para aplicaciones de demolición', '1696951737_OIP (3).jpeg', NULL, '2023-10-10 15:28:57', '2023-10-10 15:28:57'),
-(190, 'Tipo Maquina', 'Cargadora Frontal', 'Cucharón de alta capacidad para manipulación de materiales a granel', 'no-imagen.jpg', NULL, '2023-10-10 15:30:34', '2023-10-10 15:30:34'),
-(191, 'Modelo Maquina', 'CAT 950M', 'CARGADORA FRONTAL', '1696951925_maxresdefault.jpg', NULL, '2023-10-10 15:32:05', '2023-10-10 15:32:05'),
-(192, 'Tipo Maquina', 'Motoniveladora', 'Cuchilla frontal ajustable para nivelación precisa en obras de construcción', 'no-imagen.jpg', NULL, '2023-10-10 15:33:32', '2023-10-10 15:33:32'),
-(193, 'Modelo Maquina', 'CAT 140M', NULL, 'no-imagen.jpg', NULL, '2023-10-10 16:19:07', '2023-10-10 16:19:07'),
-(194, 'Modelo Maquina', 'D65EX-17', 'Hoja semi universal para movimiento eficiente de tierra', 'no-imagen.jpg', NULL, '2023-10-10 17:12:29', '2023-10-10 17:12:29'),
-(195, 'Tipo Maquina', 'Excavadora de Ruedas', 'Brazo extensible para excavación a profundidades mayores', '1696958093_OIP (5).jpeg', NULL, '2023-10-10 17:14:53', '2023-10-10 17:14:53'),
-(196, 'Modelo Maquina', 'PW148-10', 'Brazo extensible para excavación a profundidades mayores', 'no-imagen.jpg', NULL, '2023-10-10 17:15:24', '2023-10-10 17:15:24'),
-(197, 'Modelo Maquina', 'ZX350LC-5', 'Excavadora de gran capacidad para excavación profunda', 'no-imagen.jpg', NULL, '2023-10-10 17:22:05', '2023-10-10 17:22:05'),
-(198, 'Modelo Maquina', 'L220H', 'Cucharón de alta capacidad para cargas pesadas', 'no-imagen.jpg', NULL, '2023-10-10 17:22:51', '2023-10-10 17:22:51'),
-(199, 'Modelo Maquina', '672GP', 'Cuchilla frontal ajustable para nivelación precisa en carreteras y caminos', 'no-imagen.jpg', NULL, '2023-10-10 17:23:15', '2023-10-10 17:23:15'),
-(200, 'Marca', 'VOLVO', 'Volvo es una marca líder en maquinaria pesada reconocida por su compromiso con la calidad y la innovación. Ofreciendo una amplia gama de equipos, desde excavadoras hasta camiones volquete articulados, Volvo se destaca por su enfoque en la eficiencia energética, la seguridad del operador y la sostenibilidad ambiental. Su reputación se basa en la durabilidad y el rendimiento de sus máquinas, respaldados por una sólida red de servicio a nivel mundial, brindando a los clientes la confianza de contar con equipos confiables para proyectos de construcción y trabajo pesado.', '1696958816_R (4).jpeg', NULL, '2023-10-10 17:26:56', '2023-10-10 17:26:56'),
-(201, 'Modelo Maquina', '672GP', 'Cuchilla frontal ajustable para nivelación precisa en carreteras y caminos', 'no-imagen.jpg', NULL, '2023-10-10 17:28:56', '2023-10-10 17:28:56'),
-(202, 'Marca', 'JHON DEERE', 'John Deere es una marca icónica en la industria de la maquinaria pesada, conocida por su compromiso con la calidad y la innovación en equipos agrícolas y de construcción. Sus máquinas, que incluyen tractores, retroexcavadoras y motoniveladoras, destacan por su durabilidad y desempeño excepcional en el campo. La marca se ha ganado la confianza de los clientes gracias a su legado de más de 180 años en la fabricación de maquinaria de alta calidad, respaldada por una red global de servicio y soporte que garantiza la longevidad y el rendimiento de sus equipos en diversos entornos de trabajo pesado.', '1696959058_John-Deere-Logo.png', NULL, '2023-10-10 17:30:58', '2023-10-10 17:30:58'),
-(203, 'Tipo Maquina', 'Retroexcavadora', 'Una retroexcavadora es una máquina versátil de maquinaria pesada que combina las funciones de una excavadora y una cargadora frontal en un solo equipo. Está diseñada con un brazo extensible y un cucharón en la parte delantera para excavar y cargar materiales. Esto la hace ideal para tareas de excavación, excavación de zanjas, movimiento de tierra, carga de camiones y diversas aplicaciones de construcción. Las retroexcavadoras son apreciadas por su capacidad de trabajo en espacios reducidos y su versatilidad en una variedad de proyectos de construcción y obras públicas.', 'no-imagen.jpg', NULL, '2023-10-10 21:32:50', '2023-10-10 21:32:50'),
-(204, 'Marca', 'CASE', 'Case es una marca de maquinaria pesada con una sólida reputación en la industria de la construcción y la agricultura. Con una herencia que se remonta a más de 175 años, Case se destaca por fabricar equipos confiables, duraderos y de alto rendimiento. Sus productos incluyen excavadoras, retroexcavadoras, cargadoras, tractores, y otros equipos utilizados en una amplia variedad de aplicaciones. Case se caracteriza por su enfoque en la innovación tecnológica, la eficiencia y la comodidad del operador, lo que la convierte en una elección popular para contratistas y operadores de maquinaria pesada en todo el mundo.', '1696973721_Case_IH_Logo.png', NULL, '2023-10-10 21:35:21', '2023-10-10 21:35:21'),
-(205, 'Modelo Maquina', '580N', 'Equipada con un brazo extensible y cargador frontal, esta retroexcavadora de Case es versátil y eficaz para excavaciones, carga de materiales y tareas de construcción en general. La marca Case es conocida por su rendimiento y durabilidad en equipos de construcción.', '1696973808_OIP (8).jpeg', NULL, '2023-10-10 21:36:48', '2023-10-10 21:36:48'),
-(221, 'Marca', 'Marca de prueba 2', 'Merca creada desde editar artículo', 'no-imagen.jpg', NULL, '2023-10-22 12:36:31', '2023-10-22 12:36:31'),
-(222, 'Marca', 'marca de  tornillo 34 d', 'creada desde articulos.edit', 'no-imagen.jpg', NULL, '2023-10-22 12:40:52', '2023-10-22 12:40:52'),
-(223, 'Marca', 'marca de  tornillo 34 d', 'creada desde articulos.edit', 'no-imagen.jpg', NULL, '2023-10-22 12:44:38', '2023-10-22 12:44:38'),
-(224, 'Sistema', 'sistema de prueba', 'sistema de prueba', 'no-imagen.jpg', NULL, '2023-10-23 21:48:49', '2023-10-23 21:48:49'),
-(225, 'Definición', 'Sello Anular', 'Los sellos anulares se usan para el sellado estático y algunas aplicaciones dinámicas.', '1701534990_CM20210505-e6c35-e46e1.jpeg', NULL, '2023-12-02 16:36:30', '2023-12-02 16:36:30');
+(1, 'Fabricante', 'Atlas-Copco', 'El grupo Atlas Copco es un grupo industrial líder en la fabricación de compresores, expansores, sistemas de tratamiento de aire, equipos de construcción y minería, herramientas industriales y sistemas de montaje; junto a todo el servicio postventa, repuestos y soporte técnico. Atlas Copco ofrece soluciones sostenibles con productos y servicios innovadores a todos sus clientes. La compañía se fundó en 1873, tiene su sede en Estocolmo, Suecia. Atlas Copco tiene cerca de 44.000 empleados alrededor del mundo. Este año cumplió 150 años en el mercado global.', 'AtlasCopco.png', NULL, NULL, NULL),
+(2, 'Fabricante', 'Bitelli', 'Bitelli era una empresa de ingeniería ubicada en Bolonia, Italia, la empresa italiana de maquinaria de construcción más grande y, quizás, la más conocida. Beppino Bitelli fabricó su primer rodillo de tres ruedas en 1933 aunque no fue hasta 1957 cuando se formó la empresa Bitelli Road Mechanics', 'Bitelli.png', NULL, NULL, NULL),
+(3, 'Fabricante', 'Blaw-Knox', 'Blaw-Knox es un fabricante de equipos de pavimentación de carreteras. La empresa se creó en 1917 a partir de la fusión de Blaw Collapsible Steel Centering Company y Knox Pressed and Welded Steel Company.', 'Blawknox.png', NULL, NULL, NULL),
+(4, 'Fabricante', 'Bobcat', 'Bobcat es una línea de equipos agrícolas y de construcción fabricados en West Fargo, Gwinner y Bismark, Dakota del Norte, EE. UU., por Bobcat Company, una subsidiaria de la empresa de corea del sur Doosan Infracore.', 'Bobcat.png', NULL, NULL, NULL),
+(5, 'Fabricante', 'Bomag', 'Bopparder Maschinenbau-Gesellschaft mbH, más conocida por el acrónimo BOMAG, es una empresa alemana líder en el mercado mundial en tecnología de compactación y fabrica equipos de compactación de suelo, asfalto y basura, así como estabilizadores y recicladoras.', 'Bomag.png', NULL, NULL, NULL),
+(6, 'Fabricante', 'Case', 'Case Corporation nació como J.I. Case & Company en 1842 en el estado norteamericano de Wisconsin, fundada por un joven de 23 años llamado Jerome Increase Case, y fue la primera empresa en incorporar la fuerza del vapor al uso agrícola', 'Case.png', NULL, NULL, NULL),
+(7, 'Fabricante', 'Caterpillar', 'Caterpillar Inc.​ es una corporación de Estados Unidos con sede central en Peoria, Illinois. Caterpillar es el fabricante más grande del mundo de maquinaria para la construcción y equipos de minería, motores diésel y turbinas industriales de gas.', 'Caterpillar.png', NULL, NULL, NULL),
+(8, 'Fabricante', 'Champion', 'Somos una Empresa legalmente constituida hace más de 10 años, destacada en el área de servicios de Importación y Comercialización de Repuestos Originales de Maquinaria Pesada, Mantenimiento y Reparación de la misma, Alquiler, Venta y Asesoría en Compra de Maquinaria Pesada.', 'Champion.png', NULL, NULL, NULL),
+(9, 'Fabricante', 'Cummins', 'Cummins Inc es una corporación estadounidense que se dedica al diseño, manufactura, distribución, construcción y prestación de servicios para motores diésel y sus temas relacionados, que incluyen los sistemas de combustible, controles, manejo y refrigeración comercial, filtración, control de emisiones y sistemas de generación de electricidad. Su sede principal se encuentra en las proximidades de Columbus, Indiana, en los Estados Unidos.', 'Cummins.png', NULL, NULL, NULL),
+(10, 'Fabricante', 'Detroit Diesel', 'Detroit Diesel Corporation es una empresa estadounidense fabricante de motores diésel, con sedes en Detroit, Míchigan, Estados Unidos y es una filial de Daimler América del Norte. La compañía fabrica motores y componentes de chasis, así como camiones comerciales.', 'Detroit Diesel.png', NULL, NULL, NULL),
+(11, 'Fabricante', 'Deutz', 'Sus orígenes se remontan a 1864, cuando Nicolaus August Otto fundó en Colonia (Alemania) la fábrica de motores Motorenfabrik N. A. Otto & Cia., posteriormente denominada Klockner-Humboldt-Deutz AG (KHD). Deutz-Fahr se conformó en 1968, a partir de la adquisición de la mayoría accionaria de Fahr por parte de KHD.', 'Deutz.png', NULL, NULL, NULL),
+(12, 'Fabricante', 'Doosan', 'Doosan Group es una corporación conglomerada multinacional de Corea del Sur. En 2009, la corporación se colocó en el índice Fortune Global 500. Es la empresa matriz de Bobcat y Škoda Power', 'Doosan.png', NULL, NULL, NULL),
+(13, 'Fabricante', 'Dresser', 'Dresser Utility Solutions es un proveedor líder de medidas, instrumentación, soluciones de tuberías y dispositivos de protección contra sobrepresión para los mercados de gas natural y servicios públicos, incluidos los sectores de agua, gas y electricidad en todo el mundo. Nuestra cartera incluye dispositivos de corrección de volumen y medición de gas que van desde pequeñas cargas comerciales de 800 acfh hasta grandes aplicaciones industriales de 102 000 acfh, una amplia cartera de soluciones de integridad de tuberías para sistemas de gas y agua, reguladores de presión residenciales y comerciales/industriales, reguladores de presión de alto rendimiento dispositivos de alivio de presión, bombas de inyección química y actuadores eléctricos rotativos y lineales.', 'Dresser.png', NULL, NULL, NULL),
+(14, 'Fabricante', 'Dynapac', 'Dynapac es una empresa filial de ingeniería multinacional sueca y líder mundial en compactadores móviles para superficies de carreteras.', 'Dynapac.png', NULL, NULL, NULL),
+(15, 'Fabricante', 'Fiat-Allis', 'Fiatallis, era una marca de equipos pesados, como cargadores, excavadoras, retroexcavadoras, traíllas y motoniveladoras.', 'Fiat-Allis.png', NULL, NULL, NULL),
+(16, 'Fabricante', 'Ford', 'Ford Motor Company, más conocida como Ford, es una empresa multinacional de origen estadounidense, enfocada en la industria automotriz.', 'Ford.png', NULL, NULL, NULL),
+(17, 'Fabricante', 'Grove', 'Grove es el líder mundial de grúas móviles. Durante casi un siglo, Grove ha ofrecido el mejor desempeño y tecnología de vanguardia mediante su oferta de grúas para terrenos difíciles, grúas todo terreno, grúas montadas en camión, grúas militares y grúas de oruga industriales y telescópicas. Con los procesos de prueba más estrictos de la industria de elevación, la bien merecida reputación de calidad y confianza de Grove no tienen competencia en la industria de elevación.', 'Grove.png', NULL, NULL, NULL),
+(18, 'Fabricante', 'Hamm', 'Hamm AG es un fabricante y comercializador mundial alemán de apisonadoras con sede en Tirschenreuth, Alemania. Es una subsidiaria del Grupo Wirtgen', 'Hamm.png', NULL, NULL, NULL),
+(19, 'Fabricante', 'Hatz', 'Motorenfabrik Hatz es un fabricante alemán de motores diésel, con sede en Ruhstorf an der Rott, Baja Baviera, Alemania. Especialmente conocidos por sus motores pequeños, ligeros y robustos, los motores se utilizan principalmente en todo tipo de maquinaria de construcción pequeña, para generadores o bombas.', 'Hatz.png', NULL, NULL, NULL),
+(20, 'Fabricante', 'Hino', 'HINO REPRESENTA LA MARCA DE BUSES Y CAMIONES DEL GRUPO TOYOTA EN EL MERCADO MUNDIAL. Utilizamos el Sistema de Producción Toyota para lograr continuos aumentos en la productividad y en la calidad en todas nuestras operaciones.', 'Hino.png', NULL, NULL, NULL),
+(21, 'Fabricante', 'Hitachi', 'Hitachi, Ltd. es un conglomerado de empresas con sede en Chiyoda, Tokio, Japón. La compañía fue fundada a inicios del siglo XX en Hitachi, situada en la Prefectura de Ibaraki, como una tienda de reparación de equipos eléctricos.', 'Hitachi.png', NULL, NULL, NULL),
+(22, 'Fabricante', 'Hyster', 'Hyster es una empresa de fabricación estadounidense que se especializa en carretillas elevadoras y otros equipos de manipulación de materiales. Hyster se fundó en 1929 como Willamette-Ersted Company en Portland, Oregón.', 'Hyster.png', NULL, NULL, NULL),
+(23, 'Fabricante', 'Hyundai', 'Hyundai Motor Company es el mayor fabricante surcoreano de automóviles. Su sede principal está en la prefectura de Yangjae-Dong en la ciudad de Seocho-Gu en Seúl. Es el sexto fabricante de automóviles más grande del mundo.', 'Hyundai.png', NULL, NULL, NULL),
+(24, 'Fabricante', 'Ingersoll Rand', 'Ingersoll Rand es una empresa multinacional estadounidense que ofrece creación de flujo y productos industriales. La empresa se formó en febrero de 2020 a través de la escisión del segmento industrial de Ingersoll-Rand plc y su fusión con Gardner Denver.', 'Ingersoll Rand.png', NULL, NULL, NULL),
+(25, 'Fabricante', 'Isuzu', 'Isuzu Motors Ltd. es un fabricante japonés de vehículos industriales y comerciales, así como de motores diésel, con sede mundial en Tokio, Japón. Su actividad se concentra en el diseño, producción, ensamblaje, venta y distribución de vehículos comerciales.', 'Isuzu.png', NULL, NULL, NULL),
+(26, 'Fabricante', 'Iveco', 'Iveco S.p.A. es un grupo industrial italiano con sede en Turín, filial de Exor. Diseña, construye y comercializa vehículos comerciales ligeros, medios y pesados, vehículos de cantera y obras, autobuses urbanos e interurbanos, y vehículos especiales para aplicaciones como extinción de incendios, misiones a campo traviesa, militares y defensa civil.', 'Iveco.png', NULL, NULL, NULL),
+(27, 'Fabricante', 'JCB', 'J.C. Bamford Excavators Limited, universalmente conocida como JCB, es una corporación multinacional británica, con sede en Rocester, Staffordshire, que fabrica equipos para la construcción, la agricultura, el manejo de residuos y la demolición.', 'JCB.png', NULL, NULL, NULL),
+(28, 'Fabricante', 'John Deere', 'Deere & Company, más conocida por su marca comercial John Deere, es un fabricante de maquinaria agrícola de los más importantes del mundo establecido en el este de Moline, Illinois, Estados Unidos. Fue fundada en 1837 por John Deere, herrero pionero del oeste americano', 'John Deere.png', NULL, NULL, NULL),
+(29, 'Fabricante', 'Kato', 'Desde nuestra fundación en 1895, KATO ha logrado logros y avances al hacer uso de nuestra creatividad y visión única del desarrollo tecnológico. Asumiendo constantemente el papel de pioneros a lo largo de nuestra historia, hemos sido uno de los líderes en la industria de maquinaria pesada. Seguiremos expandiéndonos a nuevas áreas de tecnología que nadie puede imitar.', 'Kato.png', NULL, NULL, NULL),
+(30, 'Fabricante', 'Kawasaki', 'Las motocicletas Kawasaki son fabricadas por la división de Motocicletas y Motores de Kawasaki Heavy Industries en plantas en Japón, Míchigan, Filipinas, India, Indonesia, Bangladés y Tailandia.', 'Kawasaki.png', NULL, NULL, NULL),
+(31, 'Fabricante', 'Kobelco', 'Una de las innovaciones más importantes de Kobelco hasta la fecha ha sido el desarrollo de tecnología híbrida: Kobelco fue el primer fabricante destacado de excavadoras en impulsar el desarrollo híbrido en 1999', 'Kobelco.png', NULL, NULL, NULL),
+(32, 'Fabricante', 'Komatsu', 'Komatsu Limited es una compañía japonesa que fabrica principalmente maquinaria para la industria de la construcción y de la minería, pero también para el uso militar, industrial, para la prensa, tecnologías láser y módulos termoeléctricos.', 'Komatsu.png', NULL, NULL, NULL),
+(33, 'Fabricante', 'Kubota', 'Kubota es uno de los principales fabricantes de maquinarias agrícolas del mundo, que cubre tanto el cultivo de campo como el cultivo de arrozal. para desarrollar productos que se adapten a las necesidades de nuestros clientes, para poder dar soporte a las agriculturas del mundo.', 'Kubota.png', NULL, NULL, NULL),
+(34, 'Fabricante', 'Leeboy', 'Nuestros clientes están acostumbrados a recibir la estabilidad y la experiencia que corresponde a los más de 55 años de historia acreditada de nuestra empresa. Hecho en los EE. UU., nuestra fabricación con certificación ISO es evidencia de nuestra dedicación a la calidad y nuestro compromiso de proporcionar las mejores soluciones de equipos.', 'Leeboy.png', NULL, NULL, NULL),
+(52, 'Sistema', 'Motor Componentes', 'Camisas Pistones Anillos Casqueteria Bujes Valvulas Guias Asientos Impulsadores Varillas Impulsadoras Bloques Culatas Cigueñales Ejes de Levas', 'MotorComponentes.png', NULL, NULL, NULL),
+(53, 'Sistema', 'Motor Accesorios', 'Bombas de Agua Bombas de Aceite Soportes de Motor Piñones de Reparticion Correas Tensores Poleas Tanques Tubos Manqueras', 'MotorAccesorios.png', NULL, NULL, NULL),
+(54, 'Sistema', 'Motor Turbocompresores', 'Turbos Cartridges Empaques Sellos', 'MotorTurbocompresores.png', NULL, NULL, NULL),
+(55, 'Sistema', 'Motor Empaques y Sellos', 'Empaquetaduras Empaques Sellos', 'MotorEmpaquesySellos.png', NULL, NULL, NULL),
+(56, 'Sistema', 'Motor Inyeccion', 'Inyectores Bombas de inyeccion Lineas de inyeccion Bombas de transferencia', 'MotorInyeccion.png', NULL, NULL, NULL),
+(57, 'Sistema', 'Motor Sensores', 'Sensores Switches Solenoides Termostatos', 'MotorSensores.png', NULL, NULL, NULL),
+(58, 'Sistema', 'Transmision Delantera', 'Transmite la potencia del motor al eje delantero , donde también está el sistema de dirección. Normalmente el motor también se sitúa en la parte delantera del vehículo. Un coche con tracción delantera no necesita árbol de transmisión , pesa menos y, por tanto, en principio el coche va a consumir menos.', 'TransmisionDelantera.png', NULL, NULL, NULL),
+(59, 'Sistema', 'Transmision Trasera', 'El sistema de tracción trasera funciona mediante la transmisión de la fuerza del motor a las ruedas traseras a través de un conjunto de componentes mecánicos. Estos componentes incluyen el embrague, la caja de cambios, el árbol de transmisión, el diferencial y los ejes de las ruedas.', 'TransmisionTrasera.png', NULL, NULL, NULL),
+(60, 'Sistema', 'Transmision Servotransmision', 'La servotransmisión tiene como principal función controlar la potencia que genera el motor mediante el volante al eje de mando. Dicha potencia es convertida en fuerza, velocidad y dirección a través de una serie de engranajes de cambios de velocidad, obteniendo así un perfecto equilibrio entre fuerza y velocidad.', 'TransmisionServotransmision.png', NULL, NULL, NULL),
+(61, 'Sistema', 'Transmision Cardanes', 'La transmisión cardán es un componente mecánico cuyo objetivo es transmitir el movimiento de rotación de un eje a otro, a pesar de la no colinealidad.', 'TransmisionCardanes.png', NULL, NULL, NULL),
+(62, 'Sistema', 'Transmision Empaques y Sellos', 'Los sellos o empaques hidráulicos son aros o anillos de hule ú otros materiales que hacen que un cilindro pueda trabajar de manera eficiente. Hay varios tipos de sellos que tienen diferentes funciones dentro de un cilindro.', 'TransmisionEmpaquesySellos.png', NULL, NULL, NULL),
+(63, 'Sistema', 'Transmision Hidraulicos', 'La transmisión hidráulica de potencia es la denominación de un dispositivo utilizado para trasladar el par motor desde una fuente primaria a un elemento de salida mediante un fluido que se utiliza como medio de transmisión. El sistema puede modificar o no el par transmitido.', 'TransmisionHidraulicos.png', NULL, NULL, NULL),
+(64, 'Sistema', 'Transmision Sensores', 'Los sensores de transmisión registran el número de revoluciones de la transmisión. La unidad de control necesita este dato para la regulación de la presión de cambio durante las transiciones de cambio de marcha, así como para decidir en qué momento debe ponerse cada marcha.', 'TransmisionSensores.png', NULL, NULL, NULL),
+(65, 'Sistema', 'Electrico Arranques y alternadores', 'Los dos componentes que forman el sistema de carga y de arranque de un vehículo son el alternador y el motor de arranque. Ambos sistemas son imprescindibles tanto para cargar la batería (alternador) como para arrancar el vehículo (motor de arranque).', 'ElectricoArranquesyAlternadores.png', NULL, NULL, NULL),
+(66, 'Sistema', 'Electrico Cableados', 'Los elementos que marcan la diferencia entre uno y otro están ligados al material que lo compone y la capacidad de tensión eléctrica. Sus funciones básicas son: Como conductor de corriente desde la fuente de poder hasta los terminales implicados sea de alta tensión o una red doméstica.', 'ElectricoCableados.png', NULL, NULL, NULL),
+(67, 'Sistema', 'Electrico Monitores y Paneles', 'El panel de un monitor no es otra cosa que el elemento que se encarga de proporcionarnos la imagen en nuestro monitor. En este panel se encuentran instalados millones de diodos que varían dinámicamente la intensidad de luz o brillo de tres colores básicos: Rojo, Azul y Verde (RGB).', 'ElectricoMonitoresyPaneles.png', NULL, NULL, NULL),
+(68, 'Sistema', 'Electrico Computadores', 'Un sistema informático (SI) es un sistema que permite almacenar y procesar información; es el conjunto de partes interrelacionadas: hardware, software y personal informático.', 'ElectricoComputadores.png', NULL, NULL, NULL),
+(69, 'Sistema', 'Electrico Controladores y Controles', 'Se trata de un conjunto de dispositivos automatizados que controlan la transformación, el transporte y la distribución de la energía eléctrica en equipos, ya sean industriales o domésticos, además de regular el flujo de la corriente eléctrica que se necesita para su correcto funcionamiento.', 'ElectricoControladoresyControles.png', NULL, NULL, NULL),
+(70, 'Sistema', 'Electrico Accesorios', 'Para efectos de esta explicación, se consideran los accesorios eléctricos como los dispositivos de control o alimentación de una instalación eléctrica residencial, es decir: interruptores, contactos, sensores, temporizadores, entre otros.', 'ElectricoAccesorios.png', NULL, NULL, NULL),
+(71, 'Marca', 'Aftermarket', 'El mercado de repuestos para automóviles es el mercado secundario de repuestos de la industria automotriz, que se ocupa de la fabricación, refabricación, distribución, venta minorista e instalación de todas las piezas, productos químicos, equipos y accesorios para vehículos, después de la venta del automóvil por parte del fabricante del equipo original (OEM) al consumidor. Las piezas, accesorios, etc. a la venta pueden o no ser fabricados por el OEM.', 'Aftermarket.png', NULL, NULL, NULL),
+(72, 'Marca', 'American Crane', 'American Crane & Tractor Parts, Inc. es su proveedor especializado a nivel mundial en piezas de remplazo para maquinaria de construcción. Ofrecemos una gama completa de soluciones para ayudarle a reparar sus máquinas. Con más de 50,000 piezas en inventario en seis centros de distribución, un taller de reparaciones y un amplio conocimiento de los productos que nos da una ventaja competitiva a un precio asequible.', 'AmericanCrane.png', NULL, NULL, NULL),
+(73, 'Marca', 'Amigo', 'AMIGO GRÚAS Y TRANSPORTE LOGÍSTICA SAVA Están a su servicio para solucionar o facilitar tus movimientos de maquinaria, estructuras o todo tipo de vehículo movemos tu empresa con excelente calidad y operadores capacitados con servicio garantizado', 'Amigo.png', NULL, NULL, NULL),
+(74, 'Marca', 'ATS', 'Un ATS son las siglas de Applicant Tracking System, lo que podemos traducir como un sistema que se encarga de la gestión del proceso de selección y seguimiento de las solicitudes.', 'ATS.png', NULL, NULL, NULL),
+(75, 'Marca', 'Baldwin', 'El efecto Baldwin,​ también llamado evolución baldwiniana u ontogenética es una teoría evolutiva propuesta en 1896 por el psicólogo norteamericano James Mark Baldwin, quien propuso un mecanismo para la selección de habilidades de aprendizaje.', 'Baldwin.png', NULL, NULL, NULL),
+(76, 'Marca', 'Bepco', 'Desde nuestros orígenes en 1958, Bepco se ha convertido en uno de los principales proveedores mundiales de piezas y accesorios para tractores, cosechadoras y maquinaria agrícola, con una reputación de ofrecer piezas de calidad, servicio al cliente personal y experiencia técnica.', 'Bepco.png', NULL, NULL, NULL),
+(77, 'Marca', 'Berco', 'Berco SpA, es fabricante y proveedor de trenes de rodaje para maquinaria pesada. Fundada en la década de 1920, la empresa italiana crea soluciones de tren de rodaje para todo tipo de maquinaria de movimiento de tierras que varían en peso de 1 a 330 toneladas.', 'Berco.png', NULL, NULL, NULL),
+(78, 'Marca', 'Black Cat', 'BlackCat (también conocido como AlphaVM o AlphaV) es una familia de ransomware creada en el lenguaje de programación Rust, lo cual es inusual para las infecciones de ransomware, se considera que tiene un rendimiento similar al de C / C ++, pero con una mejor administración de la memoria para evitar errores de memoria y programación concurrente. Además, opera bajo un modelo de Ransomware as a Service (RaaS).', 'BlackCat.png', NULL, NULL, NULL),
+(79, 'Marca', 'Blumaq', 'Blumaq es distribuidor de los principales fabricantes de rodamientos industriales del mercado, como Timken y SKF. Esto nos permite ofrecer a nuestros clientes un producto de calidad contrastada y avalada por dichas marcas.', 'Blumaq.png', NULL, NULL, NULL),
+(80, 'Marca', 'BorgWarner', 'BorgWarner Inc. es un proveedor automotriz estadounidense con sede en Auburn Hills, Michigan. La empresa mantiene instalaciones de producción y sistemas técnicos en 93 sitios en 22 países en todo el mundo y tiene alrededor de 49.000 empleados. BorgWarner es uno de los 25 proveedores automotrices más grandes del mundo.', 'BorgWarner.png', NULL, NULL, NULL),
+(81, 'Marca', 'Bosch', 'Bosch o Robert Bosch GmbH es una compañía multinacional de ingeniería y tecnología con oficinas centrales en Stuttgart, Alemania. La compañía fue fundada por Robert Bosch en 1886. El 92% de las acciones de la compañía son propiedad de la organización sin fines de lucro Robert Bosch Stiftung GmbH.', 'Bosch.png', NULL, NULL, NULL),
+(82, 'Marca', 'Bucyrus Blades', 'Fabricación y Comercialización de piezas de desgaste para maquinaria pesada. Puntas, adaptadores, cuchillas y gavilanes, tornilleria, manganesos para trituracion, placa de alta resistencia, etc', 'BucyrusBlades.png', NULL, NULL, NULL),
+(83, 'Marca', 'Bulldog', NULL, 'Bulldog.png', NULL, NULL, NULL),
+(84, 'Marca', 'BYG', 'BYD Auto es la subsidiaria automotriz de la multinacional china BYD Co Ltd, que tiene su sede en Xi\'an, provincia de Shaanxi. Fue fundada en enero de 2003, tras la adquisición por BYD Company de Tsinchuan Automobile Company en 2002', 'BYG.png', NULL, NULL, NULL),
+(85, 'Marca', 'Carraro', 'En la actualidad, nuestro objetivo es reducir las emisiones y maximizar la eficiencia de las máquinas, tanto para máquinas de movimiento de tierras como para equipos de huertos y viñedos. La tecnología, la innovación y las personas son nuestros pilares, los puntos de partida para posicionarnos entre los principales fabricantes mundiales de engranajes y sistemas de transmisión. Nuestro objetivo es mejorar la vida de quienes trabajan diariamente con máquinas operativas, agrícolas y de construcción.', 'Carraro.png', NULL, NULL, NULL),
+(86, 'Marca', 'Clevite', 'Clevite, Inc. era una empresa de fabricación con sede en Cleveland, Ohio, fundada como Cleveland Graphite Bronze Company. La empresa era un productor líder de rodamientos Babbit y un importante contratista de defensa del gobierno de EE. UU.', 'Clevite.png', NULL, NULL, NULL),
+(87, 'Marca', 'CRG (Ghinassi)', 'Fundada en 1927, CGR Ghinassi es la empresa del Grupo GB que puede presumir con orgullo la historia más larga de operaciones en el mercado mundial de repuestos. Se especializa en el suministro de repuestos aptos para maquinaria industrial de movimiento de tierras en la línea Caterpillar® y Komatsu®. Además de bombas, transmisiones y árboles de transmisión, también se presta especial atención a las culatas, la verdadera joya de la corona de la gama de producción. Con su planta de producción de Ravenna y los almacenes automatizados de última generación en la nueva sede del Grupo, en Casette di Nonantola (Modena), hoy CGR Ghinassi puede garantizar un servicio aún más rápido y eficiente.', 'CRGGhinassi.png', NULL, NULL, NULL),
+(88, 'Marca', 'CTP', ' es un proveedor mundial de calidad de repuestos nuevos Caterpillar® y repuestos Komatsu®, equipos y motores. En CTP, no solo le ofrecemos piezas de primera calidad para tractores, sino también un servicio excepcional, ahorros extraordinarios y la asistencia que necesita para recibir su pedido de forma rápida y precisa.', 'CTP.png', NULL, NULL, NULL),
+(89, 'Marca', 'Dayco', 'En CTP, nuestro enfoque es brindarle repuestos Caterpillar® de gran calidad a un precio excelente. Nuestras nuevas piezas de repuesto se someten a procedimientos de inspección estrictos y extenuantes para garantizar la calidad de nuestro producto. Ya sea que esté extrayendo mineral de cobre a gran altura en los Andes chilenos o excavando un canal de riego en la finca familiar, puede estar seguro de que nuestro equipo y repuestos de calidad lo respaldarán en cada paso del camino.', 'Dayco.png', NULL, NULL, NULL),
+(90, 'Marca', 'Delco Remy', 'Remy International, Inc., con sede en Pendleton, Indiana, es un fabricante, remanufacturador y distribuidor estadounidense de arrancadores, alternadores, tecnología de energía híbrida y sistemas de servicio pesado de la marca Delco Remy.', 'DelcoRemy.png', NULL, NULL, NULL),
+(91, 'Marca', 'Disa', 'DISA Corporación Petrolífera, S.A o simplemente DISA, es una empresa petrolífera española, cuyo objeto social es el refino y la comercialización de diferentes productos petrolíferos, así como de sus derivados, fundada en Santa Cruz de Tenerife en 1933.', 'Disa.png', NULL, NULL, NULL),
+(92, 'Marca', 'Donaldson', 'Donaldson Company, Inc. es una empresa de filtración integrada verticalmente que se dedica a la producción y comercialización de filtros de aire utilizados en una variedad de sectores industriales, incluidos el comercial/industrial, aeroespacial, químico, de energía alternativa y farmacéutico', 'Donaldson.png', NULL, NULL, NULL),
+(93, 'Marca', 'Donsson', 'El grupo Digabe-Donsson tiene su origen hace más de 50 años en Santafé de Bogotá. Fundada por Germán Betancourt Castaño, persona visionaria y emprendedora que inició el negocio en un pequeño local siendo distribuidor de las marcas de esa época. La distribuidora fue creciendo y fortaleciéndose, comenzó también a importar complementando así su amplio portafolio de productos. En 1.990 en una pequeña bodega del barrio Galán de Bogotá, nace INDUSTRIAS DONSSON y con la conducción del Ingeniero Industrial Germán Ricardo Betancourt Gutiérrez, se inicia la fabricación de filtros con la nueva tecnología del poliuretano, material tan versátil que en una de sus versiones reemplaza al metal y en otra al caucho. A partir de ese momento papel, tapa y empaque forman una sola unidad que garantiza hermeticidad y por lo tanto real protección de los motores', 'Donsson.png', NULL, NULL, NULL),
+(94, 'Marca', 'DSG', 'La transmisión DSG o transmisión de cambio directo, abreviado habitualmente con DSG, ​ es una caja de cambios automática de embrague doble, de doble eje, controlada electrónicamente, en un eje de transmisión o tradicional, con accionamiento automático de embrague o semi-manual.', 'DSG.png', NULL, NULL, NULL),
+(95, 'Marca', 'Dynamic', 'DYNAMIC, fabricante pionero en su campo, propone la gama más completa del mercado con una amplia selección de accesorios. DYNAMIC dispone de trituradores profesionales con pie fijo o desmontable para una gran polivalencia. DYNAMIC produce y fabrica sus trituradores.', 'Dynamic.png', NULL, NULL, NULL),
+(96, 'Definicion Repuesto', 'Camisa Motor (Lisa)', 'Camisa de motor lisa.', NULL, NULL, NULL, NULL),
+(97, 'Definicion Repuesto', 'Camisa Motor (Pestaña)', 'Camisa de motor con pestaña.', NULL, NULL, NULL, NULL),
+(98, 'Definicion Repuesto', 'Camisa con sellos (Juego)', 'Juego de camisa de motor con sellos.', NULL, NULL, NULL, NULL),
+(99, 'Definicion Repuesto', 'Kit Motor (Juego)', 'Juego de kit para motor.', NULL, NULL, NULL, NULL),
+(100, 'Definicion Repuesto', 'Banda de Camisa', 'Banda para camisa de motor.', NULL, NULL, NULL, NULL),
+(101, 'Definicion Repuesto', 'Sello de Camisa', 'Sello para camisa de motor.', NULL, NULL, NULL, NULL),
+(102, 'Definicion Repuesto', 'Camisa Motor (Semiterminada)', 'Camisa de motor semiterminada.', NULL, NULL, NULL, NULL),
+(103, 'Definicion Repuesto', 'Piston motor', 'Pistón para motor.', NULL, NULL, NULL, NULL),
+(104, 'Definicion Repuesto', 'Piston articulado (Falda)', 'Pistón articulado con falda.', NULL, NULL, NULL, NULL),
+(105, 'Definicion Repuesto', 'Piston articulado (Corona)', 'Pistón articulado con corona.', NULL, NULL, NULL, NULL),
+(106, 'Definicion Repuesto', 'Kit Piston (Juego)', 'Juego de kit para pistón.', NULL, NULL, NULL, NULL),
+(107, 'Definicion Repuesto', 'Anillos (Juego)', 'Juego de anillos para motor.', NULL, NULL, NULL, NULL),
+(108, 'Definicion Repuesto', 'Anillo inferior', 'Anillo inferior para motor.', NULL, NULL, NULL, NULL),
+(109, 'Definicion Repuesto', 'Anillo intermedio', 'Anillo intermedio para motor.', NULL, NULL, NULL, NULL),
+(110, 'Definicion Repuesto', 'Anillo superior', 'Anillo superior para motor.', NULL, NULL, NULL, NULL),
+(111, 'Definicion Repuesto', 'Casquete de Biela STD', 'Casquete de biela estándar.', NULL, NULL, NULL, NULL),
+(112, 'Definicion Repuesto', 'Casquete de Biela 0,10\"', 'Casquete de biela 0,10 pulgadas.', NULL, NULL, NULL, NULL),
+(113, 'Definicion Repuesto', 'Casquete de Biela 0,20\"', 'Casquete de biela 0,20 pulgadas.', NULL, NULL, NULL, NULL),
+(114, 'Definicion Repuesto', 'Casquete de Biela 0,30\"', 'Casquete de biela 0,30 pulgadas.', NULL, NULL, NULL, NULL),
+(115, 'Definicion Repuesto', 'Casquete de Biela 0,40\"', 'Casquete de biela 0,40 pulgadas.', NULL, NULL, NULL, NULL),
+(116, 'Definicion Repuesto', 'Casquete de Biela 0,50\"', 'Casquete de biela 0,50 pulgadas.', NULL, NULL, NULL, NULL),
+(117, 'Definicion Repuesto', 'Casquete de Biela 0,25 mm', 'Casquete de biela de 0,25 mm.', NULL, NULL, NULL, NULL),
+(118, 'Definicion Repuesto', 'Casquete de Biela 0,50 mm', 'Casquete de biela de 0,50 mm.', NULL, NULL, NULL, NULL),
+(119, 'Definicion Repuesto', 'Casquete de Biela 0,75 mm', 'Casquete de biela de 0,75 mm.', NULL, NULL, NULL, NULL),
+(120, 'Definicion Repuesto', 'Casquete de Biela 1,00 mm', 'Casquete de biela de 1,00 mm.', NULL, NULL, NULL, NULL),
+(121, 'Definicion Repuesto', 'Casquete de Bancada STD', 'Casquete de bancada estándar.', NULL, NULL, NULL, NULL),
+(122, 'Definicion Repuesto', 'Casquete de Bancada 0,10\"', 'Casquete de bancada 0,10 pulgadas.', NULL, NULL, NULL, NULL),
+(123, 'Definicion Repuesto', 'Casquete de Bancada 0,20\"', 'Casquete de bancada 0,20 pulgadas.', NULL, NULL, NULL, NULL),
+(124, 'Definicion Repuesto', 'Casquete de Bancada 0,30\"', 'Casquete de bancada 0,30 pulgadas.', NULL, NULL, NULL, NULL),
+(125, 'Definicion Repuesto', 'Casquete de Bancada 0,40\"', 'Casquete de bancada 0,40 pulgadas.', NULL, NULL, NULL, NULL),
+(126, 'Definicion Repuesto', 'Casquete de Bancada 0,50\"', 'Casquete de bancada 0,50 pulgadas.', NULL, NULL, NULL, NULL),
+(127, 'Definicion Repuesto', 'Casquete de Bancada 0,25 mm', 'Casquete de bancada de 0,25 mm.', NULL, NULL, NULL, NULL),
+(128, 'Definicion Repuesto', 'Casquete de Bancada 0,50 mm', 'Casquete de bancada de 0,50 mm.', NULL, NULL, NULL, NULL),
+(129, 'Definicion Repuesto', 'Casquete de Bancada 0,75 mm', 'Casquete de bancada de 0,75 mm.', NULL, NULL, NULL, NULL),
+(130, 'Definicion Repuesto', 'Casquete de Bancada 1,00 mm', 'Casquete de bancada de 1,00 mm.', NULL, NULL, NULL, NULL),
+(131, 'Definicion Repuesto', 'Arandela Axial', 'Arandela axial para motor.', NULL, NULL, NULL, NULL),
+(132, 'Definicion Repuesto', 'Arandela Axial (Juego)', 'Juego de arandela axial para motor.', NULL, NULL, NULL, NULL),
+(133, 'Definicion Repuesto', 'Buje de Biela', 'Buje de biela para motor.', NULL, NULL, NULL, NULL),
+(134, 'Definicion Repuesto', 'Buje de Levas', 'Buje de levas para motor.', NULL, NULL, NULL, NULL),
+(135, 'Definicion Repuesto', 'Buje de Compensador', 'Buje de compensador para motor.', NULL, NULL, NULL, NULL),
+(136, 'Definicion Repuesto', 'Buje de Balanceador', 'Buje de balanceador para motor.', NULL, NULL, NULL, NULL),
+(137, 'Definicion Repuesto', 'Valvula de Admision', 'Válvula de admisión para motor.', NULL, NULL, NULL, NULL),
+(138, 'Definicion Repuesto', 'Valvula de Escape', 'Válvula de escape para motor.', NULL, NULL, NULL, NULL),
+(139, 'Definicion Repuesto', 'Guias de Admision', 'Guías de admisión para motor.', NULL, NULL, NULL, NULL),
+(140, 'Definicion Repuesto', 'Guias de Escape', 'Guías de escape para motor.', NULL, NULL, NULL, NULL),
+(141, 'Definicion Repuesto', 'Asiento de Admision', 'Asiento de admisión para motor.', NULL, NULL, NULL, NULL),
+(142, 'Definicion Repuesto', 'Asiento de Escape', 'Asiento de escape para motor.', NULL, NULL, NULL, NULL),
+(143, 'Definicion Repuesto', 'Impulsador', 'Impulsador para motor.', NULL, NULL, NULL, NULL),
+(144, 'Definicion Repuesto', 'Varilla Impulsadoras', 'Varilla impulsadora para motor.', NULL, NULL, NULL, NULL),
+(145, 'Definicion Repuesto', 'Bloque de motor', 'Bloque de motor para vehículos.', NULL, NULL, NULL, NULL),
+(146, 'Definicion Repuesto', 'Culata de motor', 'Culata de motor para vehículos.', NULL, NULL, NULL, NULL),
+(147, 'Definicion Repuesto', 'Cigüeñal de motor', 'Cigüeñal para motor de vehículos.', NULL, NULL, NULL, NULL),
+(148, 'Definicion Repuesto', 'Eje de Levas', 'Eje de levas para motor.', NULL, NULL, NULL, NULL),
+(149, 'Definicion Repuesto', 'Bomba de Agua', 'Bomba de agua para motor.', NULL, NULL, NULL, NULL),
+(150, 'Definicion Repuesto', 'Bomba de Aceite', 'Bomba de aceite para motor.', NULL, NULL, NULL, NULL),
+(151, 'Definicion Repuesto', 'Soporte de Motor', 'Soporte de motor para vehículos.', NULL, NULL, NULL, NULL),
+(152, 'Definicion Repuesto', 'Soporte de Motor Trasero', 'Soporte de motor trasero para vehículos.', NULL, NULL, NULL, NULL),
+(153, 'Definicion Repuesto', 'Soporte de Motor Delantero', 'Soporte de motor delantero para vehículos.', NULL, NULL, NULL, NULL),
+(154, 'Definicion Repuesto', 'Piñon de Reparticion', 'Piñón de repartición para motor.', NULL, NULL, NULL, NULL),
+(155, 'Definicion Repuesto', 'Correa Acanalada', 'Correa acanalada para motor.', NULL, NULL, NULL, NULL),
+(156, 'Definicion Repuesto', 'Correa Dentada en V', 'Correa dentada en V para motor.', NULL, NULL, NULL, NULL),
+(157, 'Definicion Repuesto', 'Tensor Correa (Patin)', 'Tensor de correa (patín) para motor.', NULL, NULL, NULL, NULL),
+(158, 'Definicion Repuesto', 'Polea', 'Polea para motor.', NULL, NULL, NULL, NULL),
+(159, 'Definicion Repuesto', 'Tanque de Agua', 'Tanque de agua para vehículos.', NULL, NULL, NULL, NULL),
+(160, 'Definicion Repuesto', 'Tanque Auxiliar de Agua', 'Tanque auxiliar de agua para vehículos.', NULL, NULL, NULL, NULL),
+(161, 'Definicion Repuesto', 'Tanque Aceite Hidraulico', 'Tanque de aceite hidráulico para motor.', NULL, NULL, NULL, NULL),
+(162, 'Definicion Repuesto', 'Tubos', 'Tubos para motor.', NULL, NULL, NULL, NULL),
+(163, 'Definicion Repuesto', 'Manqueras', 'Manqueras para motor.', NULL, NULL, NULL, NULL),
+(164, 'Definicion Repuesto', 'Turbos', 'Turbo para motor.', NULL, NULL, NULL, NULL),
+(165, 'Definicion Repuesto', 'Cartridges', 'Cartuchos para motor.', NULL, NULL, NULL, NULL),
+(166, 'Definicion Repuesto', 'Empaques', 'Empaques para motor.', NULL, NULL, NULL, NULL),
+(167, 'Definicion Repuesto', 'Sellos', 'Sellos para motor.', NULL, NULL, NULL, NULL),
+(168, 'Definicion Repuesto', 'Empaquetaduras', 'Empaquetaduras para motor.', NULL, NULL, NULL, NULL),
+(169, 'Definicion Repuesto', 'Empaques', 'Empaques para motor.', NULL, NULL, NULL, NULL),
+(170, 'Definicion Repuesto', 'Sellos', 'Sellos para motor.', NULL, NULL, NULL, NULL),
+(171, 'Definicion Repuesto', 'Inyectores', 'Inyectores para motor.', NULL, NULL, NULL, NULL),
+(172, 'Definicion Repuesto', 'Bombas de inyeccion', 'Bombas de inyección para motor.', NULL, NULL, NULL, NULL),
+(173, 'Definicion Repuesto', 'Lineas de inyeccion', 'Líneas de inyección para motor.', NULL, NULL, NULL, NULL),
+(174, 'Definicion Repuesto', 'Bombas de transferencia', 'Bombas de transferencia para motor.', NULL, NULL, NULL, NULL),
+(175, 'Definicion Repuesto', 'Sensores', 'Sensores para motor.', NULL, NULL, NULL, NULL),
+(176, 'Definicion Repuesto', 'Switches', 'Switches para motor.', NULL, NULL, NULL, NULL),
+(177, 'Definicion Repuesto', 'Solenoides', 'Solenoides para motor.', NULL, NULL, NULL, NULL),
+(178, 'Definicion Repuesto', 'Termostatos', 'Termostatos para motor.', NULL, NULL, NULL, NULL),
+(179, 'Definicion Repuesto', 'Piñones', 'Piñones para motor.', NULL, NULL, NULL, NULL),
+(180, 'Definicion Repuesto', 'Discos de Friccion', 'Discos de fricción para motor.', NULL, NULL, NULL, NULL),
+(181, 'Definicion Repuesto', 'Platos Separadores', 'Platos separadores para motor.', NULL, NULL, NULL, NULL),
+(182, 'Definicion Repuesto', 'Sellos', 'Sellos para motor.', NULL, NULL, NULL, NULL),
+(183, 'Definicion Repuesto', 'Empaquetadura', 'Empaquetadura para motor.', NULL, NULL, NULL, NULL),
+(184, 'Definicion Repuesto', 'Rodamientos', 'Rodamientos para motor.', NULL, NULL, NULL, NULL),
+(186, 'Marca', 'No identificada', 'No identificada', 'no-imagen.jpg', NULL, '2023-12-17 17:12:37', '2023-12-17 17:12:37'),
+(187, 'Modelo Maquina', 'No identificado', 'No identificado', 'no-imagen.jpg', NULL, '2023-12-17 17:12:52', '2023-12-17 17:12:52'),
+(188, 'Tipo Maquina', 'No identificada', 'No identificada', 'no-imagen.jpg', NULL, '2023-12-17 17:19:35', '2023-12-17 17:19:35'),
+(190, 'Tipo Maquina', 'Bulldozer', 'El bulldózer o topadora es un tipo de topadora que se utiliza principalmente para el movimiento de tierras en trabajos de excavación.', 'Bulldozer.png', NULL, NULL, NULL),
+(191, 'Tipo Maquina', 'Cargador', 'Un cargador frontal es una máquina pesada de construcción que se utiliza para cargar materiales en camiones, tolvas o contenedores. También es conocido como pala cargadora o cargador de ruedas. Se compone de una estructura principal, una cabina de operador, un brazo elevador y una cuchara.', 'Cargador.png', NULL, NULL, NULL),
+(192, 'Tipo Maquina', 'Dúmper Articulado', 'Muy parecido al dúmper de roca pero este posee dos partes totalmente independientes aunque se encuentran articuladas entre sí, la delantera tractora y la trasera es la de carga. Tiene una mayor capacidad de maniobra ya que la caja trasera de carga puede adquirir cualquier ángulo de hasta 90º.', 'Dumper Articulado.png', NULL, NULL, NULL),
+(193, 'Tipo Maquina', 'Dúmper Rígido', 'Son vehículos de transporte con caja basculante, cuyas características de cargas por eje y dimensiones no le permiten circular por carreteras, circulando por tanto solo dentro de las obras o en explotaciones mineras.', 'Dumper Rigido.png', NULL, NULL, NULL),
+(194, 'Tipo Maquina', 'Excavadora de Orugas', 'Esta es el tipo de excavadora más común, se transportan mediante un sistema de cadenas (oruga) que ayuda a la máquina a distribuir el peso en la superficie y a recorrerla sin hundirse. Esto le permite deslizarse hacia abajo y escalar colinas con menos riesgo.', 'Excavadora de Orugas.png', NULL, NULL, NULL),
+(195, 'Tipo Maquina', 'Excavadora de Ruedas', 'La excavadora de ruedas es una máquina de trabajo utilizada en la excavación de terrenos donde se tienen que remover grandes cantidades de tierra. Asimismo, se caracteriza por disponer de una superestructura capacitada para llevar a cabo una rotación de 360º.', 'Excavadora de Ruedas.png', NULL, NULL, NULL),
+(196, 'Tipo Maquina', 'Grúa de Orugas', 'Las grúas sobre orugas se encargan de trabajos de elevación en construcciones flotantes. Los materiales de construcción que se transportan y se depositan en el río, sacan a los vehículos de la carretera, limitan los atascos y protegen a os usuarios de la vía pública.', 'Grua de Orugas.png', NULL, NULL, NULL),
+(197, 'Tipo Maquina', 'Grúa de Ruedas', 'Una grúa es una máquina destinada a subir y distribuir cargas en el espacio suspendidas de un gancho. La grúa es de las primeras máquinas que existieron en el mundo.', 'Grua de Ruedas.png', NULL, NULL, NULL),
+(198, 'Tipo Maquina', 'Martillo Hidráulico', 'Los martillos hidráulicos son un sistema de maquinaria de obra empleado para los trabajos de demolición y excavación, como pueden ser, entre otros, la apertura de zanjas.', 'Martillo hidraulico.png', NULL, NULL, NULL),
+(199, 'Tipo Maquina', 'Minicargador', 'Esta máquina se utiliza principalmente en obras con una superficie de trabajo reducida donde no es rentable o viable utilizar máquinas de mayor tamaño o capacidad, por lo cual es común verlas en ciudades. Su función principal es la carga, transporte y descarga de volúmenes reducidos de material.', 'Minicargador.png', NULL, NULL, NULL),
+(200, 'Tipo Maquina', 'Miniexcavadora', 'Las miniexcavadoras son máquinas autopropulsadas que pueden excavar, elevar, girar, cargar y descargar materiales gracias a la cuchara con la que cuentan. Se mantienen sobre cadenas giratorias y son ideales para acceder por las puertas de cualquier construcción.', 'Miniexcavadora.png', NULL, NULL, NULL),
+(201, 'Tipo Maquina', 'Motoniveladora', 'Una motoniveladora es una máquina de construcción autopropulsada que se vale de una larga cuchilla metálica ubicada en su tren delantero para, como su nombre lo indica, nivelar terrenos. En su eje delantero tiene escarificadores, que se asemejan a un rastrillo por sus dientes, que sirve para romper terrenos duros.', 'Motoniveladora.png', NULL, NULL, NULL),
+(202, 'Tipo Maquina', 'Mototrailla', 'Son máquinas utilizadas para la excavación, carga, transporte, descarga y nivelación de materiales de consistencia media, tales como tierras, arena, arcilla, rocas disgregadas, zahorras, etc. Consisten en una caja abierta con dispositivo de descenso, corte, ascenso y descarga de tierras.', 'Mototrailla.png', NULL, NULL, NULL),
+(203, 'Tipo Maquina', 'Pavimentadora', 'El primer equipo en intervenir en el tren de pavimentación es la pavimentadora, esta se encarga de extender una capa de pavimento de manera uniforme en anchos, espesores y pendientes adecuadas a las necesidades de cada obra.', 'Pavimentadora.png', NULL, NULL, NULL),
+(204, 'Tipo Maquina', 'Planta Eléctrica', 'Una planta eléctrica es un equipo que genera energía en el caso que se presente una falla en la red pública, con el fin de garantizar la continuidad en los procesos de producción. Además, te puede ser útil en lugares donde no hay electricidad.', 'Planta Electrica.png', NULL, NULL, NULL),
+(205, 'Tipo Maquina', 'Recicladora de Asfalto', 'Las recicladoras o estabilizadoras de suelos Cat® pulverizan la capa de asfalto existente y mezclan este material con las capas inferiores de base y subase deterioradas o de vías en mal estado, esto con el objetivo de aprovechar el material asfáltico y mejorar las características físicas de la capa base.', 'Recicladora de Asfalto.png', NULL, NULL, NULL),
+(206, 'Tipo Maquina', 'Retroexcavadora', 'Una retroexcavadora es una máquina de construcción cuya función es realizar trabajos de excavación en múltiples terrenos. También suele llamarse retrocargadora, excavadora, cargadora o pala mixta.', 'Retroexcavadora.png', NULL, NULL, NULL),
+(207, 'Tipo Maquina', 'Vibrocompactador Doble', 'Los vibroapisonadores, o también llamados apisonadores vibratorios, son máquinas usadas para la compactación de suelos en obras de construcción. El resultado: un material con una densidad mucho más elevada que el obtenido a través de otros medios.', 'Vibrocompactador Doble.png', NULL, NULL, NULL),
+(208, 'Tipo Maquina', 'Vibrocompactador Sencillo', 'Su función es mantener la superficie lisa mediante la transmisión de vibraciones que se emiten a través de su placa. Este vibrocompactador es ideal para realizar trabajo pesado y es utilizado para compactar materiales mezclados hasta con el 45% de arcilla.', 'Vibrocompactador Sencillo.png', NULL, NULL, NULL),
+(209, 'Marca', 'Komatsu', 'Komatsu', 'no-imagen.jpg', NULL, '2023-12-17 17:46:26', '2023-12-17 17:46:26'),
+(210, 'Modelo Maquina', 'D155A-1', 'D155A-1', 'no-imagen.jpg', NULL, '2023-12-17 17:47:28', '2023-12-17 17:47:28'),
+(211, 'Definición', 'Boss', 'Es el plato que sostiene el sproket en un bulldozer', 'no-imagen.jpg', NULL, '2023-12-17 18:01:12', '2023-12-17 18:01:12'),
+(212, 'sistema', 'Motor Componentes', 'Camisas\r\nPistones\r\nAnillos\r\nCasqueteria\r\nBujes\r\nValvulas\r\nGuias\r\nAsientos\r\nImpulsadores\r\nVarillas Impulsadoras\r\nBloques\r\nCulatas\r\nCigueñales\r\nEjes de Levas', 'no-imagen.jpg', NULL, '2023-12-17 18:07:06', '2023-12-17 18:07:06');
 
 -- --------------------------------------------------------
 
@@ -4992,7 +4912,7 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 
 CREATE TABLE `lista_padres` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5004,13 +4924,14 @@ CREATE TABLE `lista_padres` (
 INSERT INTO `lista_padres` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 (2, 'Sistema', '2023-04-29 09:29:56', '2023-05-01 23:06:29'),
 (6, 'Descripción común', '2023-04-29 09:30:36', '2023-04-29 09:30:36'),
-(7, 'Tipo Maquina', '2023-04-29 09:31:22', '2023-04-29 09:31:22'),
+(7, 'Tipo de Maquina', '2023-04-29 09:31:22', '2023-04-29 09:31:22'),
 (8, 'Modelo Maquina', '2023-04-29 09:31:38', '2023-04-29 09:31:38'),
 (9, 'Marca', '2023-05-01 22:47:53', '2023-05-01 22:47:53'),
 (12, 'Unidad medida', '2023-05-01 23:56:48', '2023-05-01 23:56:48'),
-(13, 'Definición', '2023-05-31 07:09:10', '2023-05-31 07:09:10'),
+(13, 'Definicion Repuesto', '2023-05-31 07:09:10', '2023-05-31 07:09:10'),
 (14, 'Tipo Medida', '2023-06-24 14:09:18', '2023-06-24 14:09:18'),
-(21, 'Sistema de prueba', '2023-08-05 13:26:10', '2023-08-05 13:26:10');
+(21, 'Sistema de prueba', '2023-08-05 13:26:10', '2023-08-05 13:26:10'),
+(24, 'Fabricante', '2023-12-17 16:15:52', '2023-12-17 16:15:52');
 
 -- --------------------------------------------------------
 
@@ -5020,13 +4941,13 @@ INSERT INTO `lista_padres` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `maquinas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tipo` varchar(255) NOT NULL,
-  `marca` varchar(250) DEFAULT NULL,
-  `modelo` varchar(255) NOT NULL,
-  `serie` varchar(255) NOT NULL,
-  `arreglo` varchar(255) NOT NULL,
-  `foto` varchar(255) DEFAULT NULL,
-  `fotoId` varchar(255) DEFAULT NULL,
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `marca` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `modelo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `serie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `arreglo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fotoId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5036,17 +4957,8 @@ CREATE TABLE `maquinas` (
 --
 
 INSERT INTO `maquinas` (`id`, `tipo`, `marca`, `modelo`, `serie`, `arreglo`, `foto`, `fotoId`, `created_at`, `updated_at`) VALUES
-(1, 'Excavadora de Oruga', NULL, 'CAT 336F', 'CXY01234', 'xxxxxxx', '1696951769_OIP (3).jpeg', '1697561482_SAM_1543.JPG', '2023-10-10 15:29:29', '2023-10-17 16:51:22'),
-(2, 'Cargadora Frontal', 'CATERPILLAR', 'CAT 950M', 'BAZ56789', 'XXXXXXXXXXXX', '1696951956_maxresdefault.jpg', '1697561540_Wheel-Loaders-Caterpillar-982M-36234492.jpg', '2023-10-10 15:32:36', '2023-10-17 16:52:20'),
-(3, 'Motoniveladora', NULL, 'CAT 140M', 'DRT12345', 'xxxxxxxxxx', '1696955541_R (3).jpeg', '1697561644_R.jpeg', '2023-10-10 16:32:21', '2023-10-17 16:54:04'),
-(4, 'Bulldozer', NULL, 'D65EX-17', 'YTA67890', 'xxxxxxxxxxxxx', '1696958030_OIP (4).jpeg', NULL, '2023-10-10 17:13:50', '2023-10-10 17:13:50'),
-(5, 'Excavadora de Ruedas', 'CASE', 'PW148-10', 'KPL43210', 'xxxxxxxxxxx', '1696958180_R (1).png', NULL, '2023-10-10 17:16:20', '2023-10-10 17:16:20'),
-(6, 'Excavadora de Oruga', NULL, 'ZX350LC-5', 'HIT12345', 'xxxxxxxxxxx', '1696958686_OIP (6).jpeg', NULL, '2023-10-10 17:24:46', '2023-10-10 17:24:46'),
-(7, 'Cargadora Frontal', NULL, 'L220H', 'VOL45678', 'xxxxxx', '1696958891_R (5).jpeg', NULL, '2023-10-10 17:28:11', '2023-10-10 17:28:11'),
-(8, 'Motoniveladora', NULL, '672GP', 'JD78901', 'xxxxxxxxxxx', '1696959129_OIP (7).jpeg', NULL, '2023-10-10 17:32:09', '2023-10-10 17:32:09'),
-(9, 'Retroexcavadora', 'CASE', '580N', 'ABC12345', 'xxxxxxxxxx', '1696973860_OIP (9).jpeg', NULL, '2023-10-10 21:37:40', '2023-10-10 21:37:40'),
-(10, 'Bulldozer', 'PERKINS', 'Modelo de prueba', '12345', '12345', NULL, NULL, '2023-10-13 14:55:45', '2023-11-12 13:52:45'),
-(11, 'Bulldozer', 'KOMATSU', 'Modelo de prueba', 'n4jhn5rj', 'jijri4r4r', NULL, NULL, '2023-12-06 03:30:11', '2023-12-06 03:30:11');
+(1, 'No identificada', 'No identificada', 'No identificado', NULL, NULL, NULL, NULL, '2023-12-17 17:22:36', '2023-12-17 17:22:36'),
+(2, 'Bulldozer', 'Komatsu', 'D155A-1', '22937', NULL, NULL, NULL, '2023-12-17 17:54:11', '2023-12-17 17:54:11');
 
 -- --------------------------------------------------------
 
@@ -5067,19 +4979,9 @@ CREATE TABLE `maquinas_pedido` (
 --
 
 INSERT INTO `maquinas_pedido` (`id`, `maquina_id`, `pedido_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '2023-11-05 14:59:45', '2023-11-05 14:59:45'),
-(2, 8, 2, '2023-11-05 15:03:36', '2023-11-05 15:03:36'),
-(3, 2, 3, '2023-11-05 15:08:46', '2023-11-05 15:08:46'),
-(4, 2, 4, '2023-11-05 15:18:35', '2023-11-05 15:18:35'),
-(5, 2, 5, '2023-11-06 17:27:49', '2023-11-06 17:27:49'),
-(6, 2, 6, '2023-11-06 19:11:43', '2023-11-06 19:11:43'),
-(7, 10, 7, '2023-11-11 15:37:18', '2023-11-11 15:37:18'),
-(8, 2, 8, '2023-11-11 20:14:05', '2023-11-11 20:14:05'),
-(9, 2, 9, '2023-11-12 13:05:43', '2023-11-12 13:05:43'),
-(10, 10, 10, '2023-11-12 13:55:36', '2023-11-12 13:55:36'),
-(11, 2, 11, '2023-11-12 17:56:48', '2023-11-12 17:56:48'),
-(12, 2, 12, '2023-12-02 16:18:51', '2023-12-02 16:18:51'),
-(13, 2, 13, '2023-12-06 04:11:15', '2023-12-06 04:11:15');
+(1, 2, 1, '2023-12-17 17:56:52', '2023-12-17 17:56:52'),
+(2, 2, 2, '2023-12-17 18:08:49', '2023-12-17 18:08:49'),
+(3, 2, 3, '2023-12-17 18:38:01', '2023-12-17 18:38:01');
 
 -- --------------------------------------------------------
 
@@ -5113,17 +5015,8 @@ CREATE TABLE `maquina_marca` (
 --
 
 INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL),
-(2, 1, NULL, NULL),
-(3, 1, NULL, NULL),
-(4, 2, NULL, NULL),
-(5, 2, NULL, NULL),
-(6, 3, NULL, NULL),
-(7, 46, NULL, NULL),
-(8, 47, NULL, NULL),
-(9, 48, NULL, NULL),
-(10, 4, NULL, NULL),
-(11, 2, NULL, NULL);
+(1, 37, NULL, NULL),
+(2, 38, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5133,9 +5026,9 @@ INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at
 
 CREATE TABLE `marcas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `imagen` varchar(300) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imagen` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5145,41 +5038,44 @@ CREATE TABLE `marcas` (
 --
 
 INSERT INTO `marcas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `updated_at`) VALUES
-(1, 'CATERPILLAR', 'Caterpillar es el mayor fabricante del mundo de maquinarias de construcción y de minería, de motores diesel y de gas natural, de turbinas industriales y de locomotoras diesel-eléctricas. También es el proveedor líder en servicios financieros a través de Caterpillar Financial Services.', '1696438341_R (1).jpeg', '2023-10-04 13:56:00', '2023-10-04 16:52:21'),
-(2, 'KOMATSU', NULL, '1696439064_R.png', '2023-05-28 16:45:14', '2023-10-04 17:04:24'),
-(3, 'HITACHI', 'Marca Hitachi', '1696440182_hitachi-logo.jpg', '2023-05-27 16:44:43', '2023-10-04 17:23:02'),
-(4, 'PERKINS', 'Perkins es una reconocida marca de motores diésel utilizados comúnmente en maquinaria pesada. Sus motores son apreciados por su durabilidad, eficiencia y potencia, lo que los hace ideales para equipos de construcción, generadores, maquinaria agrícola y otros vehículos industriales. Los motores Perkins son conocidos por su calidad y fiabilidad, respaldados por décadas de experiencia en la industria y una amplia presencia global en el mercado de maquinaria pesada.', '1696523575_Perkins_Logo.png', '2023-08-21 10:56:09', '2023-10-05 16:32:55'),
-(6, 'CTP', NULL, NULL, '2023-08-21 11:11:40', '2023-08-21 11:11:40'),
-(7, 'COSTEX', NULL, NULL, '2023-08-21 11:12:06', '2023-08-21 11:12:06'),
-(8, 'ITR', NULL, NULL, '2023-08-21 11:12:13', '2023-08-21 11:12:13'),
-(9, 'HB30', NULL, NULL, '2023-08-21 11:12:22', '2023-08-21 11:12:22'),
-(10, 'ATS', NULL, NULL, '2023-08-21 11:12:33', '2023-08-21 11:12:33'),
-(11, 'EMMARK', NULL, NULL, '2023-08-21 11:12:39', '2023-08-21 11:12:39'),
-(12, 'OEM', NULL, NULL, '2023-08-21 11:12:51', '2023-08-21 11:12:51'),
-(13, 'DOOSAN', NULL, NULL, '2023-08-21 11:13:00', '2023-08-21 11:13:00'),
-(14, 'PERKINS REMAN', NULL, NULL, '2023-08-21 11:13:08', '2023-08-21 11:13:08'),
-(15, 'BLUMAQ', NULL, NULL, '2023-08-21 11:13:21', '2023-08-21 11:13:21'),
-(16, 'SKU', NULL, NULL, '2023-08-21 11:14:35', '2023-08-21 11:14:35'),
-(17, 'KOREANA', NULL, NULL, '2023-08-21 11:14:42', '2023-08-21 11:14:42'),
-(18, 'WPS', NULL, NULL, '2023-08-21 11:14:49', '2023-08-21 11:14:49'),
-(19, 'CUMMINS', NULL, NULL, '2023-08-21 11:14:59', '2023-08-21 11:14:59'),
-(20, 'JEIL', NULL, NULL, '2023-08-21 11:15:06', '2023-08-21 11:15:06'),
-(21, 'NOK', NULL, NULL, '2023-08-21 11:15:15', '2023-08-21 11:15:15'),
-(22, 'VEMA', NULL, NULL, '2023-08-21 11:15:38', '2023-08-21 11:15:38'),
-(23, 'TRACK LINK', NULL, NULL, '2023-08-21 11:15:50', '2023-08-21 11:15:50'),
-(24, 'BLACK CAT', NULL, NULL, '2023-08-21 11:16:07', '2023-08-21 11:16:07'),
-(25, 'KSK', NULL, NULL, '2023-08-21 11:16:14', '2023-08-21 11:16:14'),
-(27, 'ETP', NULL, NULL, '2023-08-21 11:16:47', '2023-08-21 11:16:47'),
-(28, 'TRASTEEL', NULL, NULL, '2023-08-21 11:16:55', '2023-08-21 11:16:55'),
-(29, 'VMT', NULL, NULL, '2023-08-21 11:17:03', '2023-08-21 11:17:03'),
-(30, 'VEMA TEC', NULL, NULL, '2023-08-21 11:17:17', '2023-08-21 11:17:17'),
-(32, 'IPD', NULL, NULL, '2023-09-05 03:14:36', '2023-09-05 03:14:36'),
-(46, 'VOLVO', 'Volvo es una marca líder en maquinaria pesada reconocida por su compromiso con la calidad y la innovación. Ofreciendo una amplia gama de equipos, desde excavadoras hasta camiones volquete articulados, Volvo se destaca por su enfoque en la eficiencia energética, la seguridad del operador y la sostenibilidad ambiental. Su reputación se basa en la durabilidad y el rendimiento de sus máquinas, respaldados por una sólida red de servicio a nivel mundial, brindando a los clientes la confianza de contar con equipos confiables para proyectos de construcción y trabajo pesado.', '1696958816_R (4).jpeg', '2023-10-10 17:26:56', '2023-10-10 17:26:56'),
-(47, 'JHON DEERE', 'John Deere es una marca icónica en la industria de la maquinaria pesada, conocida por su compromiso con la calidad y la innovación en equipos agrícolas y de construcción. Sus máquinas, que incluyen tractores, retroexcavadoras y motoniveladoras, destacan por su durabilidad y desempeño excepcional en el campo. La marca se ha ganado la confianza de los clientes gracias a su legado de más de 180 años en la fabricación de maquinaria de alta calidad, respaldada por una red global de servicio y soporte que garantiza la longevidad y el rendimiento de sus equipos en diversos entornos de trabajo pesado.', '1696959058_John-Deere-Logo.png', '2023-10-10 17:30:58', '2023-10-10 17:30:58'),
-(48, 'CASE', 'Case es una marca de maquinaria pesada con una sólida reputación en la industria de la construcción y la agricultura. Con una herencia que se remonta a más de 175 años, Case se destaca por fabricar equipos confiables, duraderos y de alto rendimiento. Sus productos incluyen excavadoras, retroexcavadoras, cargadoras, tractores, y otros equipos utilizados en una amplia variedad de aplicaciones. Case se caracteriza por su enfoque en la innovación tecnológica, la eficiencia y la comodidad del operador, lo que la convierte en una elección popular para contratistas y operadores de maquinaria pesada en todo el mundo.', '1696973721_Case_IH_Logo.png', '2023-10-10 21:35:21', '2023-10-10 21:35:21'),
-(54, 'Marca de prueba 2', 'Merca creada desde editar artículo', 'no-imagen.jpg', '2023-10-22 12:36:31', '2023-10-22 12:36:31'),
-(55, 'marca de  tornillo 34 d', 'creada desde articulos.edit', 'no-imagen.jpg', '2023-10-22 12:40:52', '2023-10-22 12:40:52'),
-(56, 'marca de  tornillo 34 d', 'creada desde articulos.edit', 'no-imagen.jpg', '2023-10-22 12:44:38', '2023-10-22 12:44:38');
+(1, 'Aftermarket', 'El mercado de repuestos para automóviles es el mercado secundario de repuestos de la industria automotriz, que se ocupa de la fabricación, refabricación, distribución, venta minorista e instalación de todas las piezas, productos químicos, equipos y accesorios para vehículos, después de la venta del automóvil por parte del fabricante del equipo original (OEM) al consumidor. Las piezas, accesorios, etc. a la venta pueden o no ser fabricados por el OEM.', 'Aftermarket.png', NULL, NULL),
+(2, 'American Crane', 'American Crane & Tractor Parts, Inc. es su proveedor especializado a nivel mundial en piezas de remplazo para maquinaria de construcción. Ofrecemos una gama completa de soluciones para ayudarle a reparar sus maquinas. Con mas de 50,000 piezas en inventario en seis centros de distribución, un taller de reparaciones y un amplio conocimiento de los productos que nos da una ventaja competitiva a un precio asequible.', 'American Crane.png', NULL, NULL),
+(3, 'Amigo', 'AMIGO GRÚAS Y TRANSPORTE LOGÍSTICA SAVA Están a su servicio para solucionar o facilitar tus movimientos de maquinaria, estructuras o todo tipo de vehículo movemos tu empresa con excelente calidad y operadores capacitados con servicio garantizado', 'Amigo.png', NULL, NULL),
+(4, 'ATS', 'Un ATS son las siglas de Applicant Tracking System, lo que podemos traducir como un sistema que se encarga de la gestión del proceso de selección y seguimiento de las solicitudes.', 'ATS.png', NULL, NULL),
+(5, 'Baldwin', 'El efecto Baldwin, también llamado evolución baldwiniana u ontogenética es una teoría evolutiva propuesta en 1896 por el psicólogo norteamericano James Mark Baldwin, quien propuso un mecanismo para la selección de habilidades de aprendizaje.', 'Baldwin.png', NULL, NULL),
+(6, 'Bepco', 'Desde nuestros orígenes en 1958, Bepco se ha convertido en uno de los principales proveedores mundiales de piezas y accesorios para tractores, cosechadoras y maquinaria agrícola, con una reputación de ofrecer piezas de calidad, servicio al cliente personal y experiencia técnica.', 'Bepco.png', NULL, NULL),
+(7, 'Berco', 'Berco SpA, es fabricante y proveedor de trenes de rodaje para maquinaria pesada. Fundada en la década de 1920, la empresa italiana crea soluciones de tren de rodaje para todo tipo de maquinaria de movimiento de tierras que varían en peso de 1 a 330 toneladas.', 'Berco.png', NULL, NULL),
+(8, 'Black Cat', 'BlackCat (también conocido como AlphaVM o AlphaV) es una familia de ransomware creada en el lenguaje de programación Rust, lo cual es inusual para las infecciones de ransomware, se considera que tiene un rendimiento similar al de C / C ++, pero con una mejor administración de la memoria para evitar errores de memoria y programación concurrente. Además, opera bajo un modelo de Ransomware as a Service (RaaS).', 'Black Cat.png', NULL, NULL),
+(9, 'Blumaq', 'Blumaq es distribuidor de los principales fabricantes de rodamientos industriales del mercado, como Timken y SKF. Esto nos permite ofrecer a nuestros clientes un producto de calidad contrastada y avalada por dichas marcas.', 'Blumaq.png', NULL, NULL),
+(10, 'BorgWarner', 'BorgWarner Inc. es un proveedor automotriz estadounidense con sede en Auburn Hills, Michigan. La empresa mantiene instalaciones de producción y sistemas técnicos en 93 sitios en 22 países en todo el mundo y tiene alrededor de 49.000 empleados. BorgWarner es uno de los 25 proveedores automotrices más grandes del mundo.', 'BorgWarner.png', NULL, NULL),
+(11, 'Bosch', 'Bosch o Robert Bosch GmbH es una compañía multinacional de ingeniería y tecnología con oficinas centrales en Stuttgart, Alemania. La compañía fue fundada por Robert Bosch en 1886. El 92% de las acciones de la compañía son propiedad de la organización sin fines de lucro Robert Bosch Stiftung GmbH.', 'Bosch.png', NULL, NULL),
+(12, 'Bucyrus Blades', 'Fabricación y Comercialización de piezas de desgaste para maquinaria pesada. Puntas, adaptadores, cuchillas y gavilanes, tornilleria, manganesos para trituracion, placa de alta resistencia, etc', 'Bucyrus Blades.png', NULL, NULL),
+(13, 'Bulldog', '', 'Bulldog.png', NULL, NULL),
+(14, 'BYG', 'BYD Auto es la subsidiaria automotriz de la multinacional china BYD Co Ltd, que tiene su sede en Xi\'an, provincia de Shaanxi. Fue fundada en enero de 2003, tras la adquisición por BYD Company de Tsinchuan Automobile Company en 2002', 'BYG.png', NULL, NULL),
+(15, 'Carraro', 'En la actualidad, nuestro objetivo es reducir las emisiones y maximizar la eficiencia de las máquinas, tanto para máquinas de movimiento de tierras como para equipos de huertos y viñedos. La tecnología, la innovación y las personas son nuestros pilares, los puntos de partida para posicionarnos entre los principales fabricantes mundiales de engranajes y sistemas de transmisión. Nuestro objetivo es mejorar la vida de quienes trabajan diariamente con máquinas operativas, agrícolas y de construcción.', 'Carraro.png', NULL, NULL),
+(16, 'Clevite', 'Clevite, Inc. era una empresa de fabricación con sede en Cleveland, Ohio, fundada como Cleveland Graphite Bronze Company. La empresa era un productor líder de rodamientos Babbit y un importante contratista de defensa del gobierno de EE. UU.', 'Clevite.png', NULL, NULL),
+(17, 'CRG (Ghinassi)', 'Fundada en 1927, CGR Ghinassi es la empresa del Grupo GB que puede ofrecer una gama más amplia de productos y soluciones personalizadas. A lo largo de los años, la empresa ha ampliado su gama de productos, siempre con el objetivo de ofrecer a los clientes productos de alta calidad que cumplan con las expectativas y requisitos.', 'CRG Ghinassi.png', NULL, NULL),
+(18, 'Dana Spicer', 'La empresa Dana Incorporated es una empresa de la industria automotriz y aeroespacial con sede en Maumee, Ohio, en las afueras de Toledo. Fue fundada en 1904 y emplea a más de 36.000 personas en 33 países.', 'Dana Spicer.png', NULL, NULL),
+(19, 'Dayco', 'Dayco Products, LLC fue fundada en 1905 como Dayton Rubber Manufacturing Co. por Col. J.H. Patterson-Cooper. La empresa con sede en Dayton, Ohio, comenzó como una operación de fabricación de correas de bicicleta y luego se expandió para incluir productos automotrices para el mercado de accesorios.', 'Dayco.png', NULL, NULL),
+(20, 'Deutz', 'Deutz AG es un fabricante alemán de motores diésel y gas, que ha estado presente en el mercado durante más de 150 años. La compañía fue fundada por Nicolaus Otto, quien inventó el motor de combustión interna de cuatro tiempos.', 'Deutz.png', NULL, NULL),
+(21, 'Doosan', 'Doosan Infracore es una empresa surcoreana de maquinaria pesada. Tiene su sede en Seúl, Corea del Sur. Fue fundada en 1937 y se especializa en la fabricación de equipos de construcción, como excavadoras, cargadoras y otros equipos pesados.', 'Doosan.png', NULL, NULL),
+(22, 'Dressta', 'Dressta Co. Ltd. es una empresa polaca fabricante de maquinaria pesada. Produce bulldozers y equipos de construcción relacionados, como excavadoras y cargadoras de ruedas. La empresa tiene una larga historia que se remonta a la década de 1940.', 'Dressta.png', NULL, NULL),
+(23, 'Ducar', 'Ducar es una empresa que se dedica a la venta de equipos para el sector agrícola, jardinería y forestal. Contamos con una amplia gama de productos y accesorios para dar soluciones a las necesidades de nuestros clientes.', 'Ducar.png', NULL, NULL),
+(24, 'DuroForce', 'En DuroForce, nos especializamos en ofrecer piezas de tren de rodaje de alta calidad para maquinaria pesada. Ya sea que necesite cadenas de goma, zapatas, ruedas tensoras, rodillos portadores, rodillos tensores, ruedas guía o cualquier otra pieza de tren de rodaje, tenemos lo que necesita para mantener su equipo en movimiento.', 'DuroForce.png', NULL, NULL),
+(25, 'Dynapac', 'Dynapac es un proveedor líder de equipos de construcción y compactación, que ofrece soluciones para proyectos de construcción de carreteras y pavimentación. La empresa tiene una larga historia y ha sido un jugador clave en la industria durante décadas.', 'Dynapac.png', NULL, NULL),
+(26, 'Euclid', 'Euclid Trucks fue una empresa fabricante de equipos pesados con sede en Euclid, Ohio. La empresa fue pionera en la fabricación de camiones de volteo y otros equipos pesados utilizados en la construcción y la minería.', 'Euclid.png', NULL, NULL),
+(27, 'Exide', 'Exide Technologies es un fabricante y reciclador de baterías con sede en Milton, Georgia. Fue fundada en 1888 y tiene operaciones en más de 80 países.', 'Exide.png', NULL, NULL),
+(28, 'Extec', 'Extec Screens and Crushers Ltd. fue una empresa fabricante de equipos móviles de cribado y trituración. La empresa fue adquirida por Sandvik en 2007 y se integró en la línea de productos Sandvik.', 'Extec.png', NULL, NULL),
+(29, 'Farmotion', 'Nuestra empresa se especializa en productos para el sector agrícola. Contamos con un catálogo completo de repuestos y accesorios para tractores y maquinaria agrícola en general. Ofrecemos productos de calidad y un servicio al cliente excepcional.', 'Farmotion.png', NULL, NULL),
+(30, 'Fiat Allis', 'FIAT-ALLIS fue una empresa que fabricaba maquinaria para la construcción y equipos industriales. Fue creada en 1974 a través de la fusión de Fiat y Allis-Chalmers. Fue adquirida por CNH Global en 1999.', 'Fiat Allis.png', NULL, NULL),
+(31, 'Ford', 'Ford Motor Company es una empresa automotriz estadounidense con sede en Dearborn, Michigan. Fue fundada por Henry Ford y se incorporó el 16 de junio de 1903. La compañía vende automóviles y vehículos comerciales bajo la marca Ford y vehículos de lujo bajo la marca Lincoln.', 'Ford.png', NULL, NULL),
+(32, 'Freightliner', 'Freightliner Trucks es una marca de camiones pesados ​​estadounidense y una subsidiaria de Daimler Trucks North America. La marca es conocida principalmente por sus camiones de carretera, pero también produce camiones chasis y vehículos comerciales.', 'Freightliner.png', NULL, NULL),
+(33, 'Galtech', 'Galtech cuenta con una larga tradición en la producción de componentes hidráulicos de alta calidad, como bombas hidráulicas, motores, cilindros y válvulas. La empresa se enorgullece de ofrecer soluciones innovadoras y confiables para aplicaciones hidráulicas en una variedad de industrias.', 'Galtech.png', NULL, NULL),
+(34, 'Geith', 'Geith es un fabricante líder de implementos para maquinaria de construcción, especializado en la producción de cucharones, enganches rápidos y otros accesorios para excavadoras, miniexcavadoras y retroexcavadoras. Con una sólida reputación por la calidad y durabilidad de sus productos, Geith se ha ganado la confianza de los profesionales de la construcción en todo el mundo.', 'Geith.png', NULL, NULL),
+(35, 'General Motors', 'General Motors Company, comúnmente conocida como GM, es una empresa automotriz estadounidense con sede en Detroit, Michigan. La compañía fue fundada por William C. Durant el 16 de septiembre de 1908. GM fabrica automóviles en 37 países bajo varias marcas, entre las que se incluyen Chevrolet, Buick, GMC y Cadillac.', 'General Motors.png', NULL, NULL),
+(36, 'Genuine Parts', 'Genuine Parts Company (GPC) es una empresa estadounidense de distribución de piezas de automóviles que se dedica a la distribución de repuestos, accesorios, suministros industriales y productos eléctricos. GPC opera en Norteamérica, Australia, Nueva Zelanda y México.', 'Genuine Parts.png', NULL, NULL),
+(37, 'No identificada', 'No identificada', 'no-imagen.jpg', '2023-12-17 17:12:37', '2023-12-17 17:12:37'),
+(38, 'Komatsu', 'Komatsu', 'no-imagen.jpg', '2023-12-17 17:46:26', '2023-12-17 17:46:26');
 
 -- --------------------------------------------------------
 
@@ -5189,12 +5085,12 @@ INSERT INTO `marcas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `up
 
 CREATE TABLE `medidas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `unidad` varchar(255) DEFAULT NULL,
-  `valor` varchar(255) DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  `idMedida` varchar(255) DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unidad` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `valor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `idMedida` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5204,16 +5100,7 @@ CREATE TABLE `medidas` (
 --
 
 INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `foto`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, '2023-07-15 23:57:15', '2023-07-15 23:57:15'),
-(11, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 01:35:01', '2023-09-11 01:35:01'),
-(21, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:03:04', '2023-09-11 02:03:04'),
-(23, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
-(24, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(28, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-09-11 02:12:17', '2023-09-11 02:12:17'),
-(30, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-10-20 15:04:03', '2023-10-20 15:04:03'),
-(32, '45', 'mm', '306,07', NULL, 'a', NULL, '2023-12-02 16:17:53', '2023-12-02 16:17:53'),
-(33, '41', 'mm', '11,89', NULL, 'Diámetro Interno', NULL, '2023-12-02 16:39:34', '2023-12-02 16:39:34'),
-(35, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-12-06 04:17:59', '2023-12-06 04:17:59');
+(2, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-12-17 19:48:43', '2023-12-17 19:48:43');
 
 -- --------------------------------------------------------
 
@@ -5223,7 +5110,7 @@ INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `f
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5286,7 +5173,7 @@ CREATE TABLE `pais` (
   `PaisNombre` varchar(100) NOT NULL,
   `PaisCodigo` varchar(10) NOT NULL,
   `phone_code` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -5550,9 +5437,9 @@ INSERT INTO `pais` (`PaisNombre`, `PaisCodigo`, `phone_code`) VALUES
 
 CREATE TABLE `paises` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `codigo_iso2` varchar(20) NOT NULL,
-  `codigo_iso3` varchar(20) NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codigo_iso2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codigo_iso3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5592,8 +5479,8 @@ INSERT INTO `paises` (`id`, `nombre`, `codigo_iso2`, `codigo_iso3`, `created_at`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5614,9 +5501,9 @@ CREATE TABLE `pedidos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `tercero_id` int(11) NOT NULL,
-  `comentario` varchar(255) DEFAULT NULL,
+  `comentario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contacto_id` int(11) DEFAULT NULL,
-  `estado` varchar(11) NOT NULL DEFAULT 'Nuevo',
+  `estado` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Nuevo',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5626,19 +5513,9 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `user_id`, `tercero_id`, `comentario`, `contacto_id`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, 1, 'Costeo', '2023-11-05 14:59:45', '2023-11-05 15:00:13'),
-(2, 1, 2, NULL, NULL, 'Costeo', '2023-11-05 15:03:36', '2023-11-05 15:03:45'),
-(3, 1, 1, NULL, 1, 'Costeo', '2023-11-05 15:08:46', '2023-11-05 15:12:16'),
-(4, 1, 1, NULL, 1, 'Costeo', '2023-11-05 15:18:35', '2023-11-05 15:18:41'),
-(5, 1, 1, NULL, NULL, 'Costeo', '2023-11-06 17:27:49', '2023-11-06 17:28:06'),
-(6, 1, 1, NULL, 3, 'Costeo', '2023-11-06 19:11:43', '2023-11-06 19:11:52'),
-(7, 1, 1, NULL, 1, 'Costeo', '2023-11-11 15:37:18', '2023-11-11 15:37:28'),
-(8, 1, 1, NULL, 3, 'Costeo', '2023-11-11 20:14:05', '2023-11-11 20:14:21'),
-(9, 1, 1, NULL, 1, 'Costeo', '2023-11-12 13:05:43', '2023-11-12 13:05:56'),
-(10, 1, 1, NULL, 1, 'Costeo', '2023-11-12 13:55:36', '2023-11-12 13:55:45'),
-(11, 1, 1, NULL, 1, 'Costeo', '2023-11-12 17:56:48', '2023-11-12 17:58:59'),
-(12, 1, 1, NULL, 1, 'Nuevo', '2023-12-02 16:18:51', '2023-12-02 16:18:51'),
-(13, 1, 1, NULL, NULL, 'Nuevo', '2023-12-06 04:11:15', '2023-12-06 04:11:15');
+(1, 1, 2, NULL, 1, 'Costeo', '2023-12-17 17:56:52', '2023-12-17 18:07:53'),
+(2, 1, 2, NULL, 1, 'Costeo', '2023-12-17 18:08:49', '2023-12-17 18:08:57'),
+(3, 1, 2, NULL, NULL, 'Nuevo', '2023-12-17 18:38:01', '2023-12-17 18:38:01');
 
 -- --------------------------------------------------------
 
@@ -5659,8 +5536,7 @@ CREATE TABLE `pedidos_articulos_temporales` (
 --
 
 INSERT INTO `pedidos_articulos_temporales` (`id`, `pedido_id`, `articulo_temporal_id`, `created_at`, `updated_at`) VALUES
-(1, 5, 1, '2023-11-06 17:27:49', '2023-11-06 17:27:49'),
-(6, 13, 6, '2023-12-06 04:11:15', '2023-12-06 04:11:15');
+(3, 3, 3, '2023-12-17 18:38:01', '2023-12-17 18:38:01');
 
 -- --------------------------------------------------------
 
@@ -5682,25 +5558,7 @@ CREATE TABLE `pedido_articulo_sistema` (
 --
 
 INSERT INTO `pedido_articulo_sistema` (`id`, `pedido_id`, `articulo_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
-(4, 2, 9, 4, NULL, NULL),
-(5, 2, 8, 7, NULL, NULL),
-(6, 2, 9, 7, NULL, NULL),
-(7, 3, 8, 3, NULL, NULL),
-(10, 5, 4, 5, NULL, NULL),
-(38, 6, 7, 6, NULL, NULL),
-(39, 6, 1, 5, NULL, NULL),
-(40, 6, 4, 6, NULL, NULL),
-(75, 7, 1, 3, NULL, NULL),
-(76, 7, 7, 7, NULL, NULL),
-(77, 4, 1, 3, NULL, NULL),
-(80, 9, 7, 3, NULL, NULL),
-(81, 9, 6, 6, NULL, NULL),
-(87, 1, 1, 3, NULL, NULL),
-(88, 1, 6, 6, NULL, NULL),
-(91, 10, 8, 3, NULL, NULL),
-(92, 10, 14, 6, NULL, NULL),
-(93, 11, 43, 3, NULL, NULL),
-(94, 12, 46, 4, NULL, NULL);
+(1, 2, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5721,19 +5579,9 @@ CREATE TABLE `pedido_marca` (
 --
 
 INSERT INTO `pedido_marca` (`id`, `pedido_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, NULL, NULL),
-(2, 2, 47, NULL, NULL),
-(3, 3, 1, NULL, NULL),
-(4, 4, 1, NULL, NULL),
-(5, 5, 1, NULL, NULL),
-(6, 6, 1, NULL, NULL),
-(7, 7, 9, NULL, NULL),
-(8, 8, 1, NULL, NULL),
-(9, 9, 1, NULL, NULL),
-(10, 10, 4, NULL, NULL),
-(11, 11, 1, NULL, NULL),
-(12, 12, 1, NULL, NULL),
-(13, 13, 1, NULL, NULL);
+(1, 1, 38, NULL, NULL),
+(2, 2, 38, NULL, NULL),
+(3, 3, 38, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5757,11 +5605,11 @@ CREATE TABLE `pedido_sistema` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -5776,9 +5624,22 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `referencias` (
   `id` int(11) NOT NULL,
-  `referencia` int(11) NOT NULL,
-  `articulo_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `referencia` varchar(50) NOT NULL,
+  `articulo_id` int(11) NOT NULL,
+  `marca_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `referencias`
+--
+
+INSERT INTO `referencias` (`id`, `referencia`, `articulo_id`, `marca_id`, `created_at`, `updated_at`) VALUES
+(1, '1752731394', 1, 38, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
+(2, '1752731395', 1, 38, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
+(3, '1752731397', 1, 1, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
+(4, '54654675767', 1, NULL, '2023-12-17 19:48:43', '2023-12-17 19:48:43');
 
 -- --------------------------------------------------------
 
@@ -5790,7 +5651,7 @@ CREATE TABLE `referencias_articulos` (
   `id` int(11) NOT NULL,
   `articulo_id` bigint(20) NOT NULL,
   `referencia_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -5806,19 +5667,6 @@ CREATE TABLE `relacion_suplencia` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `relacion_suplencia`
---
-
-INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `created_at`, `updated_at`) VALUES
-(12, 4, 6, '2023-09-11 02:03:04', '2023-09-11 02:03:04'),
-(15, 42, 37, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
-(16, 42, 39, '2023-09-11 02:05:54', '2023-09-11 02:05:54'),
-(17, 41, 4, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(18, 41, 8, '2023-09-11 02:06:39', '2023-09-11 02:06:39'),
-(22, 43, 7, '2023-09-11 02:12:16', '2023-09-11 02:12:16'),
-(27, 1, 4, '2023-12-06 04:17:59', '2023-12-06 04:17:59');
-
 -- --------------------------------------------------------
 
 --
@@ -5827,9 +5675,9 @@ INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `create
 
 CREATE TABLE `sistemas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `imagen` varchar(300) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imagen` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5839,12 +5687,7 @@ CREATE TABLE `sistemas` (
 --
 
 INSERT INTO `sistemas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `updated_at`) VALUES
-(3, 'Motor', 'Un motor de una excavadora es un componente fundamental de la máquina que proporciona la potencia necesaria para impulsar el movimiento de la excavadora y operar sus diversas funciones, como la excavación y el levantamiento de carga. Estos motores suelen ser motores diésel de alta potencia diseñados para soportar cargas pesadas y condiciones de trabajo adversas en la construcción y excavación. Generalmente, son motores de combustión interna que convierten la energía del combustible diésel en movimiento mecánico para alimentar el sistema hidráulico y las partes móviles de la excavadora.', NULL, '2023-05-01 20:23:09', '2023-05-01 20:23:09'),
-(4, 'Bomba hidráulica', NULL, NULL, '2023-05-21 20:23:09', '2023-05-21 20:23:09'),
-(5, 'Tren de Rodaje', 'Es el conjunto de componentes que conforman la base y la movilidad de la máquina. Incluye ruedas o cadenas, sistemas de suspensión y transmisión, así como los elementos que permiten el desplazamiento de la maquinaria sobre terrenos variados y soportar cargas pesadas. El tren de rodaje asegura la estabilidad, la tracción y la capacidad de maniobra de la maquinaria, lo que es esencial para su funcionamiento eficiente en actividades como la construcción o la minería.', '1696523397_OIP (2).jpeg', '2023-09-24 13:30:38', '2023-10-05 16:29:57'),
-(6, 'Refrigeración', 'Mantiene la temperatura del motor dentro de los límites adecuados para un funcionamiento eficiente.', '1696443858_R (2).jpeg', '2023-10-04 18:24:18', '2023-10-04 18:24:18'),
-(7, 'Iluminación', 'Proporciona iluminación adecuada para trabajar en condiciones de poca luz o de noche.', '1696444098_luz-led-de-trabajo-recargable-caterpillar-lampara-D_NQ_NP_549515-MLM25265490006_012017-F.jpg', '2023-10-04 18:28:18', '2023-10-04 18:28:18'),
-(12, 'sistema de prueba', NULL, NULL, '2023-10-23 21:48:49', '2023-10-23 21:48:49');
+(1, 'Motor Componentes', 'Camisas\r\nPistones\r\nAnillos\r\nCasqueteria\r\nBujes\r\nValvulas\r\nGuias\r\nAsientos\r\nImpulsadores\r\nVarillas Impulsadoras\r\nBloques\r\nCulatas\r\nCigueñales\r\nEjes de Levas', 'no-imagen.jpg', '2023-12-17 18:07:06', '2023-12-17 18:07:06');
 
 -- --------------------------------------------------------
 
@@ -5879,8 +5722,7 @@ CREATE TABLE `sistemas_articulos_temporales` (
 --
 
 INSERT INTO `sistemas_articulos_temporales` (`id`, `sistema_id`, `articulo_temporal_id`, `created_at`, `updated_at`) VALUES
-(1, 5, 2, '2023-11-11 15:37:18', '2023-11-11 15:37:18'),
-(2, 3, 3, '2023-11-12 13:05:43', '2023-11-12 13:05:43');
+(1, 1, 2, '2023-12-17 18:08:49', '2023-12-17 18:08:49');
 
 -- --------------------------------------------------------
 
@@ -5890,29 +5732,29 @@ INSERT INTO `sistemas_articulos_temporales` (`id`, `sistema_id`, `articulo_tempo
 
 CREATE TABLE `terceros` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `tipo_documento` varchar(255) NOT NULL,
-  `numero_documento` varchar(255) NOT NULL,
-  `direccion` varchar(255) NOT NULL,
-  `telefono` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `dv` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_documento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `numero_documento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dv` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CiudadID` int(11) DEFAULT 2257,
-  `PaisCodigo` char(3) DEFAULT 'COL',
-  `codigo_postal` varchar(255) DEFAULT NULL,
-  `estado` varchar(255) DEFAULT 'activo',
-  `forma_pago` varchar(255) DEFAULT NULL,
-  `email_factura_electronica` varchar(255) DEFAULT NULL,
-  `rut` varchar(255) DEFAULT NULL,
-  `certificacion_bancaria` varchar(255) DEFAULT NULL,
-  `camara_comercio` varchar(255) DEFAULT NULL,
-  `cedula_representante_legal` varchar(255) DEFAULT NULL,
-  `sitio_web` varchar(255) DEFAULT NULL,
+  `PaisCodigo` char(3) COLLATE utf8mb4_unicode_ci DEFAULT 'COL',
+  `codigo_postal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'activo',
+  `forma_pago` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_factura_electronica` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rut` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `certificacion_bancaria` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `camara_comercio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cedula_representante_legal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sitio_web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `puntos` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  `Indicativo` varchar(4) NOT NULL DEFAULT '+57'
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Indicativo` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '+57'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5920,16 +5762,8 @@ CREATE TABLE `terceros` (
 --
 
 INSERT INTO `terceros` (`id`, `nombre`, `tipo_documento`, `numero_documento`, `direccion`, `telefono`, `email`, `dv`, `CiudadID`, `PaisCodigo`, `codigo_postal`, `estado`, `forma_pago`, `email_factura_electronica`, `rut`, `certificacion_bancaria`, `camara_comercio`, `cedula_representante_legal`, `sitio_web`, `puntos`, `created_at`, `updated_at`, `tipo`, `Indicativo`) VALUES
-(1, 'TRANSMATERIALES', 'CC', '53465876876', 'DIRECCION TRANSMATERIALES', '31254', 'TRANSMATERIALES@EJEMPLO.COM', '1', 2257, 'COL', NULL, 'activo', NULL, 'transmateriales@ejemplo.com', 'rut/kYEqfCz6tdEXbooqMeUGPed1cEm6EpSGuWGHPqWT.pdf', 'certificaciones/IkTOVpqyTnZhPobK1TYURXR7UXshZHeDmhXUgtVF.pdf', 'camara_comercio/RLPJqKJl4cwNvhFNRHbiOhPoXuox0X5ZlAKDjRYj.pdf', 'cedula_representante_legal/tbKdne4QN9g7Mn240zK39GeKNGSEVdAqeHWuWCNN.pdf', NULL, NULL, '2023-10-10 19:28:53', '2023-10-13 17:27:15', 'Cliente', '+57'),
-(2, 'MARCELIANO MANCERA', 'NIT', '800298437', 'DIRECCION MARCELIANO', '3137038949', 'marceliano@ejemplo.com', '8', 2257, 'COL', NULL, 'activo', NULL, 'marceliano@ejemplo.com', NULL, NULL, NULL, NULL, 'www.marceliano.com', NULL, '2023-10-10 19:32:15', '2023-10-10 19:32:15', 'Cliente', '+57'),
-(3, 'TRACTOPESADOS', 'NIT', '23712378228', 'DIRECCION TRACTOPESADOS', '31397827722', 'tractopesados@ejemplo.com', '8', 2257, 'COL', NULL, 'activo', NULL, 'tractopesados@ejemplo.com', NULL, NULL, NULL, NULL, 'www.tractopesados.com', NULL, '2023-10-10 19:35:11', '2023-10-10 19:35:11', 'Proveedor', '+57'),
-(4, 'COSTEX', 'NIT', '453433345455', 'DIRECCION COSTEX', '545348934', 'costex@ejemplo.com', '3', 2257, 'COL', NULL, 'activo', NULL, 'costex@ejemplo.com', NULL, NULL, NULL, NULL, 'www.costex.com', NULL, '2023-10-10 19:37:46', '2023-10-10 19:37:46', 'Proveedor', '+57'),
-(8, 'proveedor nacional de perkins caterpillar y motor', 'CC', '3456778', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'w@q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-12 13:29:01', '2023-11-19 16:46:44', 'Proveedor', '+57'),
-(9, 'PROVEEDOR INTERNACIONAL PERKINS Y MOTOR', 'CC', '545345', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 206, 'BRA', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'Carlos.osorio.com', NULL, '2023-11-12 13:31:55', '2023-11-12 13:31:55', 'Proveedor', '+57'),
-(10, 'PROVEEDOR NACIONAL DE CATERPILLAR Y REFRIGERACIóN', 'CC', '545345', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'Carlos.osorio.com', NULL, '2023-11-12 13:33:15', '2023-11-12 13:33:15', 'Proveedor', '+57'),
-(11, 'PROVEEDOR INTERNACIONAL DE CATERPILLAR Y REFRIGERACIóN', 'CC', '545345', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 69, 'ARG', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'Carlos.osorio.com', NULL, '2023-11-12 13:34:09', '2023-11-12 13:34:09', 'Proveedor', '+57'),
-(12, 'PROVEEDOR NACIONAL DE PERKINS Y REFRIGERACIóN', 'CC', '545345', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'Carlos.osorio.com', NULL, '2023-11-12 14:00:12', '2023-11-12 14:00:12', 'Proveedor', '+57'),
-(13, 'PROVEEDOR QUE MANEJA CATERPILLAR Y TREN DE RODAJE', 'CC', '545345', 'asdf', '6578676', 'wilfranr@gmail.com', NULL, 2257, 'COL', NULL, 'activo', NULL, 'wilfranr@gmail.com', NULL, NULL, NULL, NULL, 'Carlos.osorio.com', NULL, '2023-11-19 09:19:57', '2023-11-19 09:19:57', 'Proveedor', '+57');
+(1, 'TRACTOMAQUINAS', 'CC', '88203836', 'CALLE 5 # 11 - 153', '5817783', 'tractomaquinascucuta@hotmail.com', NULL, 2262, 'COL', NULL, 'activo', NULL, 'tractomaquinascucuta@hotmail.com', NULL, NULL, NULL, NULL, 'www.tractomaquinas.com', NULL, '2023-12-17 17:22:57', '2023-12-17 17:22:57', 'Cliente', '+57'),
+(2, 'excavaciones y afirmados sr sas', 'NIT', '900051349', 'CARRERA 32 NO.7 -01', '5245104', 'dcomprascr@hotmail.com', '8', NULL, NULL, NULL, 'activo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-12-17 17:28:44', '2023-12-17 17:54:26', 'Cliente', '+57');
 
 -- --------------------------------------------------------
 
@@ -5950,13 +5784,8 @@ CREATE TABLE `tercero_maquina` (
 --
 
 INSERT INTO `tercero_maquina` (`id`, `tercero_id`, `maquina_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, NULL, NULL),
-(2, 1, 5, NULL, NULL),
-(3, 2, 5, NULL, NULL),
-(4, 2, 7, NULL, NULL),
-(5, 2, 8, NULL, NULL),
-(6, 1, 10, NULL, NULL),
-(7, 1, 11, NULL, NULL);
+(1, 2, 1, NULL, NULL),
+(2, 2, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5971,22 +5800,6 @@ CREATE TABLE `tercero_marca` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `tercero_marca`
---
-
-INSERT INTO `tercero_marca` (`tercero_id`, `marca_id`, `created_at`, `updated_at`) VALUES
-(3, 4, NULL, NULL),
-(4, 7, NULL, NULL),
-(8, 1, NULL, NULL),
-(8, 2, NULL, NULL),
-(8, 4, NULL, NULL),
-(9, 4, NULL, NULL),
-(10, 1, NULL, NULL),
-(11, 1, NULL, NULL),
-(12, 4, NULL, NULL),
-(13, 1, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -6000,22 +5813,6 @@ CREATE TABLE `tercero_sistema` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `tercero_sistema`
---
-
-INSERT INTO `tercero_sistema` (`id`, `tercero_id`, `sistema_id`, `created_at`, `updated_at`) VALUES
-(1, 3, 3, NULL, NULL),
-(3, 4, 3, NULL, NULL),
-(21, 8, 3, NULL, NULL),
-(22, 9, 3, NULL, NULL),
-(23, 10, 4, NULL, NULL),
-(24, 11, 6, NULL, NULL),
-(25, 12, 6, NULL, NULL),
-(28, 10, 6, NULL, NULL),
-(29, 13, 5, NULL, NULL),
-(30, 8, 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6045,14 +5842,14 @@ INSERT INTO `trm` (`id`, `trm`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `phone` varchar(50) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `role` varchar(50) NOT NULL DEFAULT 'user',
-  `foto` varchar(300) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `role` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `foto` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -6419,31 +6216,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `articulos_juegos`
 --
 ALTER TABLE `articulos_juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_medida`
 --
 ALTER TABLE `articulo_medida`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_pedido`
 --
 ALTER TABLE `articulo_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_temporal`
 --
 ALTER TABLE `articulo_temporal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ciudades`
@@ -6455,25 +6252,25 @@ ALTER TABLE `ciudades`
 -- AUTO_INCREMENT de la tabla `contactos`
 --
 ALTER TABLE `contactos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto_tercero`
 --
 ALTER TABLE `contacto_tercero`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizaciones`
 --
 ALTER TABLE `cotizaciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizacion_articulo`
 --
 ALTER TABLE `cotizacion_articulo`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cotizacion_pedido`
@@ -6521,25 +6318,25 @@ ALTER TABLE `imagenes_articulo`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_padres`
 --
 ALTER TABLE `lista_padres`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas`
 --
 ALTER TABLE `maquinas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `maquinas_pedido`
 --
 ALTER TABLE `maquinas_pedido`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `maquina_articulo`
@@ -6551,13 +6348,13 @@ ALTER TABLE `maquina_articulo`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `medidas`
 --
 ALTER TABLE `medidas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -6575,25 +6372,25 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_articulos_temporales`
 --
 ALTER TABLE `pedidos_articulos_temporales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_articulo_sistema`
 --
 ALTER TABLE `pedido_articulo_sistema`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_marca`
 --
 ALTER TABLE `pedido_marca`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_sistema`
@@ -6611,7 +6408,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `referencias`
 --
 ALTER TABLE `referencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `referencias_articulos`
@@ -6623,13 +6420,13 @@ ALTER TABLE `referencias_articulos`
 -- AUTO_INCREMENT de la tabla `relacion_suplencia`
 --
 ALTER TABLE `relacion_suplencia`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas`
 --
 ALTER TABLE `sistemas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas_articulos`
@@ -6641,25 +6438,25 @@ ALTER TABLE `sistemas_articulos`
 -- AUTO_INCREMENT de la tabla `sistemas_articulos_temporales`
 --
 ALTER TABLE `sistemas_articulos_temporales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `terceros`
 --
 ALTER TABLE `terceros`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tercero_maquina`
 --
 ALTER TABLE `tercero_maquina`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tercero_sistema`
 --
 ALTER TABLE `tercero_sistema`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `trm`

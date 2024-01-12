@@ -14,6 +14,7 @@ use App\Models\FotoArticuloTemporal;
 use App\Models\Marca;
 use App\Models\Sistemas;
 use App\Models\Contacto;
+use App\Models\referencias;
 
 class PedidoController extends Controller
 {
@@ -97,6 +98,7 @@ class PedidoController extends Controller
 
         // Agregar cada marca al pedido
         $maquina = Maquina::with('marcas')->find($maquinaId);
+
         $marca = $maquina->marcas->first();
         $pedido->marcas()->attach($marca->id);
 
@@ -118,6 +120,7 @@ class PedidoController extends Controller
             // dd($dataArticulo);
             //si viene articulo real
             if ($request->input("referencia{$i}") != null) {
+
                 // Guardar artículos en la tabla articulo_pedido
                 $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
                 $pedido->articulos()->attach($articulo->id);
@@ -211,7 +214,7 @@ class PedidoController extends Controller
         // dd($articulos);
 
         //obtener todas las referencias de los articulos
-        $referencias = Articulo::all();
+        $referencias = referencias::all();
         // dd($referencias);
 
         $sistemas = Sistemas::all();
@@ -231,7 +234,7 @@ class PedidoController extends Controller
         $maquinas = Maquina::all();
         $marcas = Marca::all();
 
-        return view('pedidos.show', compact('pedido', 'sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'definicion', 'referencias', 'marcas', 'previous', 'next'));
+        return view('pedidos.show', compact('pedido', 'sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'referencias', 'marcas', 'previous', 'next'));
     }
 
     public function edit($id)
@@ -385,8 +388,8 @@ class PedidoController extends Controller
             // Guardar el comentario en la tabla pivot
             $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
             // Guardar el sistema en la tabla pivot
-            $sistema = Sistemas::where('id', $request->input("sistema_id{$i}"))->first();
-            // dd($sistema);
+            $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
+            dd($sistema);
 
             $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
             

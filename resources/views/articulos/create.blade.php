@@ -229,15 +229,16 @@
                             <div class="card-body pb-0">
                                 <div class="row">
                                     <div class="col">
+                                        
                                         <div class="form-group">
                                             <label for="cambio">{{ __('Cambio') }}</label>
-
+                                            <input class="form-control mb-2" type="text" placeholder="Nueva referencia" name="nuevaReferencia">
 
                                             <select class="select2" name="cambio[]" multiple="multiple"
                                                 style="width: 100%">
-                                                @foreach ($articulos as $articulo)
-                                                    <option value="{{ $articulo['id'] }}">
-                                                        {{ $articulo['referencia'] }}
+                                                @foreach ($referencias as $referencia)
+                                                    <option value="{{ $referencia['id'] }}">
+                                                        {{ $referencia['referencia'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
