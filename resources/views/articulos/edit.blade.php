@@ -212,8 +212,19 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="cambio">{{ __('Cambio') }}</label>
-                                            <input class="form-control mb-2" type="text"
-                                                placeholder="Nueva referencia" name="nuevaReferencia">
+                                            <div class="row">
+                                                <div class="col-10">
+
+                                                    <input class="form-control mb-2" type="text"
+                                                        placeholder="Nueva referencia" name="nuevaReferencia">
+                                                </div>
+                                                <div class="col-2">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                                        id="add_reference">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
 
                                             <select class="select2" name="cambio[]" multiple="multiple"
                                                 style="width: 100%">
@@ -233,16 +244,9 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <ul class="list-group"><b>Cambios actuales</b>
-                                                @foreach ($articulosEnSuplencia as $articuloId)
-                                                    @php
-                                                        $articuloExistente = $articulos->find($articuloId);
-                                                    @endphp
-                                                    <li class="list-group-item">
-                                                        <a href="{{ route('articulos.edit', $articuloExistente->id) }}"
-                                                            target="_blank">{{ $articuloExistente->referencia }} --
-                                                            {{ $articuloExistente->definicion }}</a>
-                                                    </li>
+                                            <ul class="list-group text-primary" id="new_reference"><b>Cambios actuales</b>
+                                                @foreach ($referenciasAsociadas as $referenciaAsociada)
+                                                <li>{{ $referenciaAsociada->referencia }}</li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -400,6 +404,33 @@
 @endsection
 @section('js')
     <script>
+        // Función para agregar una referencia al listado de referencias
+        // Variable global para el índice
+        var indiceReferencia = 1;
+
+        // Evento click del botón
+        $('#add_reference').on('click', function() {
+            // Obtener la referencia ingresada por el usuario
+            var referencia = $('input[name="nuevaReferencia"]').val();
+
+            // Validar que se haya ingresado una referencia
+            if (referencia.length > 0) {
+                // Agregar la referencia al listado de referencias
+                $('#new_reference').append('<li id="referencia_' + indiceReferencia + '">' + referencia + '</li>');
+                //almacenar la nueva referencia en un input
+                $('#form').append('<input type="hidden" name="nuevaReferencia[]" value="' + referencia + '">');
+
+                // Agregar la referencia al select de referencias
+                $('select[name="cambio[]"]').append('<option value="' + indiceReferencia + '">' + referencia +
+                    '</option>');
+
+                // Incrementar el índice
+                indiceReferencia++;
+
+                // Limpiar el campo de ingreso de referencia
+                $('input[name="nuevaReferencia"]').val('');
+            }
+        });
         //funcion para mostrar foto medida
         function mostrarFotoMedida(definicionId) {
             console.log(definicionId);

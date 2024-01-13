@@ -29,7 +29,7 @@ class ArticuloController extends Controller
         // Recopilar los datos necesarios para el formulario de creación de artículo
         $articulos = Articulo::all();
         $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
-        $definiciones = Lista::where('tipo', 'Definición')->pluck('nombre');
+        $definiciones = Lista::where('tipo', 'Definicion Repuesto')->pluck('nombre');
         $referencias = referencias::all();
 
         // Obtener las definiciones con su respectiva foto de medida
@@ -53,6 +53,7 @@ class ArticuloController extends Controller
     // Método para guardar el artículo en la base de datos
     public function store(Request $request, Articulo $articulo)
     {
+        // dd($request->all());
         // Mensajes de validación
         $messages = [
             'marca.required' => 'El campo marca es obligatorio.',
@@ -157,6 +158,16 @@ class ArticuloController extends Controller
             }
         }
 
+        // Crear nuevas referencias
+        $referencias = $request->input('nuevaReferencia');
+        $cantidadReferencias = count($referencias);
+        for ($i = 0; $i < $cantidadReferencias; $i++) {
+            $referencia = new referencias();
+            $referencia->referencia = $referencias[$i];
+            $referencia->articulo_id = $articulo->id;
+            $referencia->save();
+        }
+
         // Crear relaciones de suplencia si se seleccionaron artículos para suplir
         if ($request->has('cambio')) {
             foreach ($request->input('cambio') as $suplidorId) {
@@ -208,6 +219,10 @@ class ArticuloController extends Controller
         // Obtener el artículo que se va a editar
         $articulo = Articulo::findOrFail($id);
 
+        //obtener las referencias relacionadas al articulo
+        $referenciasAsociadas = referencias::where('articulo_id', $articulo->id)->get();
+        // dd($referencias);
+
         // Obtener los artículos existentes en la relación de suplencia
         $articulosEnSuplencia = RelacionSuplencia::where('articulo_id', $articulo->id)
             ->pluck('suplido_por_id')
@@ -246,7 +261,7 @@ class ArticuloController extends Controller
         $marca = Lista::where('tipo', 'marca')->get();
 
         // Mostrar la vista de edición con los datos del artículo y sus medidas
-        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades', 'articulosEnJuego', 'referencias'));
+        return view('articulos.edit', compact('articulo', 'medidas', 'definiciones', 'marca', 'unidadMedidas', 'tipoMedida', 'previous', 'next', 'articulos', 'definicionesFotoMedida', 'articulosEnSuplencia', 'unidades', 'articulosEnJuego', 'referencias', 'referenciasAsociadas'));
     }
 
     public function update(Request $request, Articulo $articulo, $id)
@@ -292,6 +307,8 @@ class ArticuloController extends Controller
         // Guardar los cambios
         $articulo->save();
 
+
+
         // Si vienen datos de suplencia
         if ($request->has('cambio')) {
             // Eliminar todas las relaciones de suplencia antiguas
@@ -311,12 +328,15 @@ class ArticuloController extends Controller
         }
         //si viene nuevaReferencia
         if ($request->has('nuevaReferencia')) {
-            // crear nueva referencia en tabla referecnias
-            $referencia = new referencias();
-            $referencia->referencia = $request->nuevaReferencia;
-            $referencia->articulo_id = $articulo->id;
-            $referencia->save();
-            
+            //crear las nuevas referencias
+            $referencias = $request->input('nuevaReferencia');
+            $cantidadReferencias = count($referencias);
+            for ($i = 0; $i < $cantidadReferencias; $i++) {
+                $referencia = new referencias();
+                $referencia->referencia = $referencias[$i];
+                $referencia->articulo_id = $articulo->id;
+                $referencia->save();
+            }
         }
 
         // Si vienen datos de juego
@@ -442,6 +462,5 @@ class ArticuloController extends Controller
         $articulo->imagenes()->delete();
         $articulo->suplencias()->delete();
         $articulo->juegos()->delete();
-
     }
 }

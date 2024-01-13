@@ -42,7 +42,7 @@
                                         <div class="col-6">
                                             {{-- Definición --}}
                                             <div class="form-group">
-                                                <label for="select-definicion">{{ __('Definición  ') }}</label>
+                                                <label for="select-definicion">{{ __('Definición específica ') }}</label>
                                                 <div class="row">
                                                     <div class="col-10">
                                                         <select class="form-control select2" id="select-definicion"
@@ -59,8 +59,8 @@
                                                     </div>
                                                     <div class="col-2">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
-                                                        data-toggle="modal" data-target="#modalDefinicion">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            data-toggle="modal" data-target="#modalDefinicion">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -192,7 +192,8 @@
                                                                 <option value="">Seleccione un tipo de medida
                                                                 </option>
                                                                 @foreach ($medidas as $id => $nombre)
-                                                                    <option value="{{ $id }}">{{ $nombre }}
+                                                                    <option value="{{ $id }}">
+                                                                        {{ $nombre }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -207,7 +208,8 @@
                                                                 name="unidadMedida[]">
                                                                 <option value="">Unidad de medida</option>
                                                                 @foreach ($unidadMedidas as $id => $nombre)
-                                                                    <option value="{{ $nombre }}">{{ $nombre }}
+                                                                    <option value="{{ $nombre }}">
+                                                                        {{ $nombre }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -229,10 +231,22 @@
                             <div class="card-body pb-0">
                                 <div class="row">
                                     <div class="col">
-                                        
+
                                         <div class="form-group">
-                                            <label for="cambio">{{ __('Cambio') }}</label>
-                                            <input class="form-control mb-2" type="text" placeholder="Nueva referencia" name="nuevaReferencia">
+                                            <label for="cambio">{{ __('Cambios') }}</label>
+                                            <div class="row">
+                                                <div class="col-10">
+
+                                                    <input class="form-control mb-2" type="text"
+                                                        placeholder="Nueva referencia" name="nuevaReferencia">
+                                                </div>
+                                                <div class="col-2">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm"
+                                                        id="add_reference">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
 
                                             <select class="select2" name="cambio[]" multiple="multiple"
                                                 style="width: 100%">
@@ -242,15 +256,16 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            
+
 
                                             @error('Cambio')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-
                                         </div>
+                                        <ul id="new_reference" class="text-primary"></ul>
+
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
@@ -259,7 +274,7 @@
                                                 style="width: 100%">
                                                 @foreach ($articulos as $articulo)
                                                     <option value="{{ $articulo['id'] }}">
-                                                        {{ $articulo['referencia'] }}
+                                                        {{ $articulo['referencia'] }} -- {{ $articulo['definicion'] }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -283,56 +298,87 @@
         </div>
     </div>
 
-{{-- Modal Definicion --}}
-<div class="modal fade" id="modalDefinicion">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Crear Definicion</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="{{ route('listas.store') }}" method="POST" enctype="multipart/form-data" id="form-definicion">
-                            @csrf
-                            <input type="hidden" id="tipo" name="tipo" value="Definición">
-                
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="definicion">Definición:</label>
-                                <textarea class="form-control" name="definicion" id="definicion" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="fotoLista">Foto:</label>
-                                <div class="input-group">
-                                    <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
-                                    <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+    {{-- Modal Definicion --}}
+    <div class="modal fade" id="modalDefinicion">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear Definicion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{ route('listas.store') }}" method="POST" enctype="multipart/form-data"
+                                id="form-definicion">
+                                @csrf
+                                <input type="hidden" id="tipo" name="tipo" value="Definición">
+
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
                                 </div>
-                
-                                <img id="preview" src="#" alt=""
-                                    style="max-width: 200px; max-height: 200px;">
-                                <button id="borrar-foto" type="button" style="display: none;" class="btn btn-outline-danger btn-sm">x</button>
-                            </div>
-                            {{-- Boton para enviar formulario --}}
-                            <button type="button" class="btn btn-primary btn-md" onclick="crearDefinicion()">Crear</button>
-                        </form>
+                                <div class="form-group">
+                                    <label for="definicion">Definición:</label>
+                                    <textarea class="form-control" name="definicion" id="definicion" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fotoLista">Foto:</label>
+                                    <div class="input-group">
+                                        <input type="file" class="custom-file-input" name="fotoLista" id="fotoLista">
+                                        <label class="custom-file-label" for="fotoLista">Seleccionar imágen</label>
+                                    </div>
+
+                                    <img id="preview" src="#" alt=""
+                                        style="max-width: 200px; max-height: 200px;">
+                                    <button id="borrar-foto" type="button" style="display: none;"
+                                        class="btn btn-outline-danger btn-sm">x</button>
+                                </div>
+                                {{-- Boton para enviar formulario --}}
+                                <button type="button" class="btn btn-primary btn-md"
+                                    onclick="crearDefinicion()">Crear</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 @endsection
 @section('js')
     <script>
+        // Función para agregar una referencia al listado de referencias
+        // Variable global para el índice
+        var indiceReferencia = 1;
+
+        // Evento click del botón
+        $('#add_reference').on('click', function() {
+            // Obtener la referencia ingresada por el usuario
+            var referencia = $('input[name="nuevaReferencia"]').val();
+
+            // Validar que se haya ingresado una referencia
+            if (referencia.length > 0) {
+                // Agregar la referencia al listado de referencias
+                $('#new_reference').append('<li id="referencia_' + indiceReferencia + '">' + referencia + '</li>');
+                //almacenar la nueva referencia en un input
+                $('#form').append('<input type="hidden" name="nuevaReferencia[]" value="' + referencia + '">');
+
+                // Agregar la referencia al select de referencias
+                $('select[name="cambio[]"]').append('<option value="' + indiceReferencia + '">' + referencia +
+                    '</option>');
+
+                // Incrementar el índice
+                indiceReferencia++;
+
+                // Limpiar el campo de ingreso de referencia
+                $('input[name="nuevaReferencia"]').val('');
+            }
+        });
+
         function mostrarFotoMedida(definicionId) {
             console.log(definicionId);
             var definicionesFotoMedida = @json($definicionesFotoMedida);
@@ -417,7 +463,7 @@
                 reader.readAsDataURL(e.target.files[0]);
             });
 
-            
+
 
             //Tomar datos del input de referencia y ponerlos en el input de referencia-sm
             $('#referencia').on('keyup', function() {
@@ -479,7 +525,7 @@
                         // Recargar página
                         window.location.reload();
                     });
-                    
+
                 })
                 .catch(function(error) {
                     // Obtener los errores de la respuesta

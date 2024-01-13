@@ -18,7 +18,7 @@
                                 <select class="form-control mb-3" id="filtro-tipo">
                                     <option value="">Filtrar Todos</option>
                                     <option value="Marca">Marca</option>
-                                    <option value="Definición">Definición</option>
+                                    <option value="Definicion Repuesto">Definicion Repuesto</option>
                                     <option value="Sistema">Sistema</option>
                                     <option value="Medida">Tipo de Medida</option>
                                     <option value="Tipo Maquina">Tipo de máquina</option>

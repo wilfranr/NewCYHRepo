@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-01-2024 a las 03:34:05
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.28
+-- Tiempo de generación: 13-01-2024 a las 05:20:15
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `articulos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `marca` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sistema` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `definicion` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `referencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `comentarios` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `descripcionEspecifica` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `marca` varchar(50) DEFAULT NULL,
+  `sistema` varchar(255) DEFAULT NULL,
+  `definicion` text DEFAULT NULL,
+  `referencia` varchar(255) NOT NULL,
+  `comentarios` text DEFAULT NULL,
+  `descripcionEspecifica` text DEFAULT NULL,
   `peso` double DEFAULT NULL,
-  `fotoDescriptiva` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fotoDescriptiva` varchar(200) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -46,7 +46,25 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`id`, `marca`, `sistema`, `definicion`, `referencia`, `comentarios`, `descripcionEspecifica`, `peso`, `fotoDescriptiva`, `created_at`, `updated_at`) VALUES
-(1, 'Komatsu', NULL, 'Boss', '1752731394', NULL, 'Boss', 396, '1702836246_WhatsApp Image 2023-12-17 at 1.03.46 PM.jpeg', '2023-12-17 18:04:06', '2023-12-17 18:04:06');
+(1, 'Komatsu', NULL, 'Boss', '1752731394', NULL, 'Boss', 396, '1702836246_WhatsApp Image 2023-12-17 at 1.03.46 PM.jpeg', '2023-12-17 18:04:06', '2023-12-17 18:04:06'),
+(2, 'ATS', NULL, 'Camisa Motor (Pestaña)', '1189935', NULL, 'Arandela', 1, 'no-imagen.jpg', '2024-01-13 03:13:53', '2024-01-13 03:13:53'),
+(3, 'ATS', NULL, 'Camisa Motor (Pestaña)', '1189935', NULL, 'Arandela', 1, 'no-imagen.jpg', '2024-01-13 03:18:13', '2024-01-13 03:18:13'),
+(4, 'American Crane', NULL, 'Banda de Camisa', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 03:53:09', '2024-01-13 03:53:09'),
+(5, NULL, NULL, NULL, '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 03:56:05', '2024-01-13 03:56:05'),
+(6, NULL, NULL, NULL, '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 03:56:25', '2024-01-13 03:56:25'),
+(7, NULL, NULL, NULL, '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 03:57:26', '2024-01-13 03:57:26'),
+(8, NULL, NULL, NULL, '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 03:57:58', '2024-01-13 03:57:58'),
+(9, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:02:45', '2024-01-13 04:02:45'),
+(10, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:03:12', '2024-01-13 04:03:12'),
+(11, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:03:21', '2024-01-13 04:03:21'),
+(12, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:03:35', '2024-01-13 04:03:35'),
+(13, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:03:51', '2024-01-13 04:03:51'),
+(14, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:04:15', '2024-01-13 04:04:15'),
+(15, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:04:33', '2024-01-13 04:04:33'),
+(16, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:04:53', '2024-01-13 04:04:53'),
+(17, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:05:38', '2024-01-13 04:05:38'),
+(18, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:05:53', '2024-01-13 04:05:53'),
+(19, 'Amigo', NULL, 'Boss', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:06:46', '2024-01-13 04:19:11');
 
 -- --------------------------------------------------------
 
@@ -81,7 +99,25 @@ CREATE TABLE `articulo_medida` (
 --
 
 INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `updated_at`) VALUES
-(2, 1, 2, NULL, NULL);
+(2, 1, 2, NULL, NULL),
+(3, 2, 3, NULL, NULL),
+(4, 3, 4, NULL, NULL),
+(5, 4, 5, NULL, NULL),
+(6, 5, 6, NULL, NULL),
+(7, 6, 7, NULL, NULL),
+(8, 7, 8, NULL, NULL),
+(9, 8, 9, NULL, NULL),
+(10, 9, 10, NULL, NULL),
+(11, 10, 11, NULL, NULL),
+(12, 11, 12, NULL, NULL),
+(13, 12, 13, NULL, NULL),
+(14, 13, 14, NULL, NULL),
+(15, 14, 15, NULL, NULL),
+(16, 15, 16, NULL, NULL),
+(17, 16, 17, NULL, NULL),
+(18, 17, 18, NULL, NULL),
+(19, 18, 19, NULL, NULL),
+(21, 19, 21, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,7 +130,7 @@ CREATE TABLE `articulo_pedido` (
   `pedido_id` bigint(20) UNSIGNED NOT NULL,
   `articulo_id` bigint(20) UNSIGNED NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `comentario` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comentario` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -105,7 +141,8 @@ CREATE TABLE `articulo_pedido` (
 
 INSERT INTO `articulo_pedido` (`id`, `pedido_id`, `articulo_id`, `cantidad`, `comentario`, `created_at`, `updated_at`) VALUES
 (5, 2, 1, 1, NULL, '2023-12-17 18:15:29', '2023-12-17 18:15:29'),
-(6, 1, 1, 1, NULL, '2023-12-17 19:47:17', '2023-12-17 19:47:17');
+(6, 1, 1, 1, NULL, '2023-12-17 19:47:17', '2023-12-17 19:47:17'),
+(7, 4, 2, 1, NULL, '2024-01-13 03:21:35', '2024-01-13 03:21:35');
 
 -- --------------------------------------------------------
 
@@ -115,11 +152,11 @@ INSERT INTO `articulo_pedido` (`id`, `pedido_id`, `articulo_id`, `cantidad`, `co
 
 CREATE TABLE `articulo_temporal` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `referencia` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `definicion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sistema` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `referencia` varchar(255) DEFAULT NULL,
+  `definicion` varchar(255) DEFAULT NULL,
+  `sistema` varchar(255) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `comentarios` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comentarios` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -145,7 +182,7 @@ CREATE TABLE `ciudad` (
   `PaisCodigo` char(3) NOT NULL DEFAULT '',
   `CiudadDistrito` char(20) NOT NULL DEFAULT '',
   `CiudadPoblacion` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ciudad`
@@ -4482,10 +4519,10 @@ INSERT INTO `ciudad` (`CiudadID`, `CiudadNombre`, `PaisCodigo`, `CiudadDistrito`
 
 CREATE TABLE `ciudades` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pais` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_iso2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_iso3` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `pais` varchar(250) NOT NULL,
+  `codigo_iso2` varchar(255) NOT NULL,
+  `codigo_iso3` varchar(250) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4498,10 +4535,10 @@ CREATE TABLE `ciudades` (
 
 CREATE TABLE `contactos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cargo` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `cargo` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4542,7 +4579,7 @@ INSERT INTO `contacto_tercero` (`id`, `contacto_id`, `tercero_id`, `created_at`,
 
 CREATE TABLE `cotizaciones` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(255) NOT NULL,
   `pedido_id` bigint(20) UNSIGNED NOT NULL,
   `tercero_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -4564,7 +4601,7 @@ CREATE TABLE `cotizacion_articulo` (
   `costo` decimal(8,0) DEFAULT NULL,
   `utilidad` int(3) NOT NULL,
   `marca` bigint(20) UNSIGNED DEFAULT NULL,
-  `plazo_entrega` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `plazo_entrega` varchar(11) NOT NULL,
   `precio_venta` decimal(8,0) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -4593,7 +4630,7 @@ CREATE TABLE `cotizacion_pedido` (
 
 CREATE TABLE `departamentos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) NOT NULL,
   `pais_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -4607,17 +4644,17 @@ CREATE TABLE `departamentos` (
 
 CREATE TABLE `empresa` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `siglas` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `celular` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `representante` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ciudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pais` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `siglas` varchar(11) DEFAULT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `celular` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `nit` varchar(255) NOT NULL,
+  `representante` varchar(255) NOT NULL,
+  `ciudad` varchar(255) NOT NULL,
+  `pais` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4637,11 +4674,11 @@ INSERT INTO `empresa` (`id`, `nombre`, `siglas`, `direccion`, `telefono`, `celul
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -4654,7 +4691,7 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `fotos_articulo_temporal` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `articulo_temporal_id` bigint(20) UNSIGNED NOT NULL,
-  `foto_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto_path` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4668,7 +4705,7 @@ CREATE TABLE `fotos_articulo_temporal` (
 CREATE TABLE `foto_articulo` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `IdArticulo` int(11) NOT NULL,
-  `ruta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ruta` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `articulo_temporal_id` int(11) UNSIGNED NOT NULL
@@ -4683,7 +4720,7 @@ CREATE TABLE `foto_articulo` (
 CREATE TABLE `imagenes_articulo` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `articulo_id` bigint(20) UNSIGNED NOT NULL,
-  `ruta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ruta` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4696,11 +4733,11 @@ CREATE TABLE `imagenes_articulo` (
 
 CREATE TABLE `listas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `definicion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fotoMedida` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `definicion` text DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `fotoMedida` varchar(300) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4912,7 +4949,7 @@ INSERT INTO `listas` (`id`, `tipo`, `nombre`, `definicion`, `foto`, `fotoMedida`
 
 CREATE TABLE `lista_padres` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4941,13 +4978,13 @@ INSERT INTO `lista_padres` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `maquinas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `marca` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `modelo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `serie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `arreglo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fotoId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `marca` varchar(250) DEFAULT NULL,
+  `modelo` varchar(255) NOT NULL,
+  `serie` varchar(255) DEFAULT NULL,
+  `arreglo` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `fotoId` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4981,7 +5018,8 @@ CREATE TABLE `maquinas_pedido` (
 INSERT INTO `maquinas_pedido` (`id`, `maquina_id`, `pedido_id`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, '2023-12-17 17:56:52', '2023-12-17 17:56:52'),
 (2, 2, 2, '2023-12-17 18:08:49', '2023-12-17 18:08:49'),
-(3, 2, 3, '2023-12-17 18:38:01', '2023-12-17 18:38:01');
+(3, 2, 3, '2023-12-17 18:38:01', '2023-12-17 18:38:01'),
+(4, 2, 4, '2024-01-13 03:21:35', '2024-01-13 03:21:35');
 
 -- --------------------------------------------------------
 
@@ -5026,9 +5064,9 @@ INSERT INTO `maquina_marca` (`maquina_id`, `marca_id`, `created_at`, `updated_at
 
 CREATE TABLE `marcas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `imagen` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `imagen` varchar(300) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5085,12 +5123,12 @@ INSERT INTO `marcas` (`id`, `nombre`, `descripcion`, `imagen`, `created_at`, `up
 
 CREATE TABLE `medidas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `unidad` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `valor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `idMedida` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `unidad` varchar(255) DEFAULT NULL,
+  `valor` varchar(255) DEFAULT NULL,
+  `tipo` varchar(255) DEFAULT NULL,
+  `idMedida` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5100,7 +5138,25 @@ CREATE TABLE `medidas` (
 --
 
 INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `foto`, `created_at`, `updated_at`) VALUES
-(2, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-12-17 19:48:43', '2023-12-17 19:48:43');
+(2, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-12-17 19:48:43', '2023-12-17 19:48:43'),
+(3, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:13:53', '2024-01-13 03:13:53'),
+(4, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:18:13', '2024-01-13 03:18:13'),
+(5, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:53:09', '2024-01-13 03:53:09'),
+(6, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:56:05', '2024-01-13 03:56:05'),
+(7, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:56:25', '2024-01-13 03:56:25'),
+(8, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:57:26', '2024-01-13 03:57:26'),
+(9, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:57:58', '2024-01-13 03:57:58'),
+(10, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:02:45', '2024-01-13 04:02:45'),
+(11, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:03:12', '2024-01-13 04:03:12'),
+(12, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:03:21', '2024-01-13 04:03:21'),
+(13, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:03:35', '2024-01-13 04:03:35'),
+(14, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:03:51', '2024-01-13 04:03:51'),
+(15, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:04:15', '2024-01-13 04:04:15'),
+(16, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:04:33', '2024-01-13 04:04:33'),
+(17, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:04:53', '2024-01-13 04:04:53'),
+(18, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:05:38', '2024-01-13 04:05:38'),
+(19, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:05:53', '2024-01-13 04:05:53'),
+(21, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2024-01-13 04:19:41', '2024-01-13 04:19:41');
 
 -- --------------------------------------------------------
 
@@ -5110,7 +5166,7 @@ INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `f
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5173,7 +5229,7 @@ CREATE TABLE `pais` (
   `PaisNombre` varchar(100) NOT NULL,
   `PaisCodigo` varchar(10) NOT NULL,
   `phone_code` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pais`
@@ -5437,9 +5493,9 @@ INSERT INTO `pais` (`PaisNombre`, `PaisCodigo`, `phone_code`) VALUES
 
 CREATE TABLE `paises` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_iso2` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codigo_iso3` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `codigo_iso2` varchar(20) NOT NULL,
+  `codigo_iso3` varchar(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5479,8 +5535,8 @@ INSERT INTO `paises` (`id`, `nombre`, `codigo_iso2`, `codigo_iso3`, `created_at`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -5501,9 +5557,9 @@ CREATE TABLE `pedidos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `tercero_id` int(11) NOT NULL,
-  `comentario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comentario` varchar(255) DEFAULT NULL,
   `contacto_id` int(11) DEFAULT NULL,
-  `estado` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Nuevo',
+  `estado` varchar(11) NOT NULL DEFAULT 'Nuevo',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5515,7 +5571,8 @@ CREATE TABLE `pedidos` (
 INSERT INTO `pedidos` (`id`, `user_id`, `tercero_id`, `comentario`, `contacto_id`, `estado`, `created_at`, `updated_at`) VALUES
 (1, 1, 2, NULL, 1, 'Costeo', '2023-12-17 17:56:52', '2023-12-17 18:07:53'),
 (2, 1, 2, NULL, 1, 'Costeo', '2023-12-17 18:08:49', '2023-12-17 18:08:57'),
-(3, 1, 2, NULL, NULL, 'Nuevo', '2023-12-17 18:38:01', '2023-12-17 18:38:01');
+(3, 1, 2, NULL, NULL, 'Nuevo', '2023-12-17 18:38:01', '2023-12-17 18:38:01'),
+(4, 1, 2, NULL, NULL, 'Nuevo', '2024-01-13 03:21:35', '2024-01-13 03:21:35');
 
 -- --------------------------------------------------------
 
@@ -5581,7 +5638,8 @@ CREATE TABLE `pedido_marca` (
 INSERT INTO `pedido_marca` (`id`, `pedido_id`, `marca_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 38, NULL, NULL),
 (2, 2, 38, NULL, NULL),
-(3, 3, 38, NULL, NULL);
+(3, 3, 38, NULL, NULL),
+(4, 4, 38, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5605,11 +5663,11 @@ CREATE TABLE `pedido_sistema` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -5629,7 +5687,7 @@ CREATE TABLE `referencias` (
   `marca_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `referencias`
@@ -5639,7 +5697,10 @@ INSERT INTO `referencias` (`id`, `referencia`, `articulo_id`, `marca_id`, `creat
 (1, '1752731394', 1, 38, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
 (2, '1752731395', 1, 38, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
 (3, '1752731397', 1, 1, '2023-12-17 19:46:38', '0000-00-00 00:00:00'),
-(4, '54654675767', 1, NULL, '2023-12-17 19:48:43', '2023-12-17 19:48:43');
+(4, '54654675767', 1, NULL, '2023-12-17 19:48:43', '2023-12-17 19:48:43'),
+(5, '123', 19, NULL, '2024-01-13 04:06:46', '2024-01-13 04:06:46'),
+(6, '1234', 19, NULL, '2024-01-13 04:06:46', '2024-01-13 04:06:46'),
+(7, '12345', 19, NULL, '2024-01-13 04:19:41', '2024-01-13 04:19:41');
 
 -- --------------------------------------------------------
 
@@ -5651,7 +5712,7 @@ CREATE TABLE `referencias_articulos` (
   `id` int(11) NOT NULL,
   `articulo_id` bigint(20) NOT NULL,
   `referencia_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -5667,6 +5728,14 @@ CREATE TABLE `relacion_suplencia` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `relacion_suplencia`
+--
+
+INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 2, NULL, NULL),
+(3, 3, 2, '2024-01-13 03:18:13', '2024-01-13 03:18:13');
+
 -- --------------------------------------------------------
 
 --
@@ -5675,9 +5744,9 @@ CREATE TABLE `relacion_suplencia` (
 
 CREATE TABLE `sistemas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `imagen` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `imagen` varchar(300) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5732,29 +5801,29 @@ INSERT INTO `sistemas_articulos_temporales` (`id`, `sistema_id`, `articulo_tempo
 
 CREATE TABLE `terceros` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipo_documento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `numero_documento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `direccion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dv` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `tipo_documento` varchar(255) NOT NULL,
+  `numero_documento` varchar(255) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dv` varchar(255) DEFAULT NULL,
   `CiudadID` int(11) DEFAULT 2257,
-  `PaisCodigo` char(3) COLLATE utf8mb4_unicode_ci DEFAULT 'COL',
-  `codigo_postal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'activo',
-  `forma_pago` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email_factura_electronica` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `rut` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `certificacion_bancaria` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `camara_comercio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cedula_representante_legal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sitio_web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PaisCodigo` char(3) DEFAULT 'COL',
+  `codigo_postal` varchar(255) DEFAULT NULL,
+  `estado` varchar(255) DEFAULT 'activo',
+  `forma_pago` varchar(255) DEFAULT NULL,
+  `email_factura_electronica` varchar(255) DEFAULT NULL,
+  `rut` varchar(255) DEFAULT NULL,
+  `certificacion_bancaria` varchar(255) DEFAULT NULL,
+  `camara_comercio` varchar(255) DEFAULT NULL,
+  `cedula_representante_legal` varchar(255) DEFAULT NULL,
+  `sitio_web` varchar(255) DEFAULT NULL,
   `puntos` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Indicativo` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '+57'
+  `tipo` varchar(255) DEFAULT NULL,
+  `Indicativo` varchar(4) NOT NULL DEFAULT '+57'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -5832,7 +5901,7 @@ CREATE TABLE `trm` (
 --
 
 INSERT INTO `trm` (`id`, `trm`, `created_at`, `updated_at`) VALUES
-(1, 4300.00, NULL, '2023-10-20 22:34:58');
+(1, 3929.00, NULL, '2024-01-13 01:40:01');
 
 -- --------------------------------------------------------
 
@@ -5842,14 +5911,14 @@ INSERT INTO `trm` (`id`, `trm`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `role` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
-  `foto` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'user',
+  `foto` varchar(300) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -6216,7 +6285,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `articulos_juegos`
@@ -6228,13 +6297,13 @@ ALTER TABLE `articulos_juegos`
 -- AUTO_INCREMENT de la tabla `articulo_medida`
 --
 ALTER TABLE `articulo_medida`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_pedido`
 --
 ALTER TABLE `articulo_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_temporal`
@@ -6336,7 +6405,7 @@ ALTER TABLE `maquinas`
 -- AUTO_INCREMENT de la tabla `maquinas_pedido`
 --
 ALTER TABLE `maquinas_pedido`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `maquina_articulo`
@@ -6354,7 +6423,7 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `medidas`
 --
 ALTER TABLE `medidas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -6372,7 +6441,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos_articulos_temporales`
@@ -6390,7 +6459,7 @@ ALTER TABLE `pedido_articulo_sistema`
 -- AUTO_INCREMENT de la tabla `pedido_marca`
 --
 ALTER TABLE `pedido_marca`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_sistema`
@@ -6408,7 +6477,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `referencias`
 --
 ALTER TABLE `referencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `referencias_articulos`
@@ -6420,7 +6489,7 @@ ALTER TABLE `referencias_articulos`
 -- AUTO_INCREMENT de la tabla `relacion_suplencia`
 --
 ALTER TABLE `relacion_suplencia`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas`
