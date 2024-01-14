@@ -19,6 +19,7 @@
                                     {{-- <th>Sistema</th> --}}
                                     <th>Definición</th>
                                     <th>Referencia</th>
+                                    <th>Cambios</th>
                                     <th>Comentarios</th>
                                     <th>Foto</th>
                                     {{-- <th>Acciones</th> --}}
@@ -42,6 +43,14 @@
                                         <td><a
                                                 href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->referencia }}</a>
                                         </td>
+                                        <td>
+                                            <ul>
+                                                @foreach ($articulo->referencias as $referencia)
+                                                    <li>{{ $referencia->referencia }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
                                         <td><a
                                                 href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->comentarios }}</a>
                                         </td>

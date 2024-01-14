@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-01-2024 a las 05:20:15
+-- Tiempo de generación: 14-01-2024 a las 18:03:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -64,7 +64,27 @@ INSERT INTO `articulos` (`id`, `marca`, `sistema`, `definicion`, `referencia`, `
 (16, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:04:53', '2024-01-13 04:04:53'),
 (17, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:05:38', '2024-01-13 04:05:38'),
 (18, 'Amigo', NULL, 'Piston motor', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:05:53', '2024-01-13 04:05:53'),
-(19, 'Amigo', NULL, 'Boss', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:06:46', '2024-01-13 04:19:11');
+(19, 'Amigo', NULL, 'Boss', '12345', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-13 04:06:46', '2024-01-13 04:19:11'),
+(20, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:15:24', '2024-01-14 16:15:24'),
+(21, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:16:05', '2024-01-14 16:16:05'),
+(22, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:16:23', '2024-01-14 16:16:23'),
+(23, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:17:04', '2024-01-14 16:17:04'),
+(24, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:17:29', '2024-01-14 16:17:29'),
+(25, NULL, NULL, 'Camisa Motor (Lisa)', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:17:36', '2024-01-14 16:17:36'),
+(26, NULL, NULL, 'Banda de Camisa', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:19:47', '2024-01-14 16:19:47'),
+(27, NULL, NULL, 'Banda de Camisa', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:20:41', '2024-01-14 16:20:41'),
+(28, NULL, NULL, 'Banda de Camisa', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:21:52', '2024-01-14 16:21:52'),
+(29, NULL, NULL, 'Banda de Camisa', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:21:58', '2024-01-14 16:21:58'),
+(30, NULL, NULL, 'Banda de Camisa', '1234598787788', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:23:02', '2024-01-14 16:23:02'),
+(31, NULL, NULL, 'Kit Motor (Juego)', '123459878778889787', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:26:55', '2024-01-14 16:26:55'),
+(32, NULL, NULL, 'Kit Motor (Juego)', '123459878778889787', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:27:37', '2024-01-14 16:27:37'),
+(33, NULL, NULL, 'Kit Motor (Juego)', '123459878778889787', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:28:36', '2024-01-14 16:28:36'),
+(34, NULL, NULL, 'Kit Motor (Juego)', '123459878778889787', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:29:06', '2024-01-14 16:29:06'),
+(35, 'American Crane', NULL, 'Casquete de Biela 0,75 mm', 'dfghrthy', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:35:54', '2024-01-14 16:35:54'),
+(36, 'American Crane', NULL, 'Camisa Motor (Pestaña)', 'gbdfhfhgf', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:37:42', '2024-01-14 16:37:42'),
+(37, 'American Crane', NULL, 'Camisa Motor (Pestaña)', 'gbdfhfhgf', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:38:13', '2024-01-14 16:38:13'),
+(38, 'American Crane', NULL, 'Camisa Motor (Pestaña)', 'gbdfhfhgf', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:38:38', '2024-01-14 16:38:38'),
+(39, 'American Crane', NULL, 'Camisa Motor (Pestaña)', 'gbdfhfhgf', NULL, 'Gear', 0.1, 'no-imagen.jpg', '2024-01-14 16:41:18', '2024-01-14 16:41:18');
 
 -- --------------------------------------------------------
 
@@ -100,7 +120,6 @@ CREATE TABLE `articulo_medida` (
 
 INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `updated_at`) VALUES
 (2, 1, 2, NULL, NULL),
-(3, 2, 3, NULL, NULL),
 (4, 3, 4, NULL, NULL),
 (5, 4, 5, NULL, NULL),
 (6, 5, 6, NULL, NULL),
@@ -117,7 +136,28 @@ INSERT INTO `articulo_medida` (`id`, `articulo_id`, `medida_id`, `created_at`, `
 (17, 16, 17, NULL, NULL),
 (18, 17, 18, NULL, NULL),
 (19, 18, 19, NULL, NULL),
-(21, 19, 21, NULL, NULL);
+(28, 19, 28, NULL, NULL),
+(29, 20, 29, NULL, NULL),
+(30, 21, 30, NULL, NULL),
+(31, 22, 31, NULL, NULL),
+(32, 23, 32, NULL, NULL),
+(33, 24, 33, NULL, NULL),
+(34, 25, 34, NULL, NULL),
+(35, 26, 35, NULL, NULL),
+(36, 27, 36, NULL, NULL),
+(37, 28, 37, NULL, NULL),
+(38, 29, 38, NULL, NULL),
+(39, 30, 39, NULL, NULL),
+(40, 31, 40, NULL, NULL),
+(41, 32, 41, NULL, NULL),
+(42, 33, 42, NULL, NULL),
+(43, 34, 43, NULL, NULL),
+(44, 35, 44, NULL, NULL),
+(45, 36, 45, NULL, NULL),
+(46, 37, 46, NULL, NULL),
+(47, 38, 47, NULL, NULL),
+(48, 39, 48, NULL, NULL),
+(52, 2, 52, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5139,7 +5179,6 @@ CREATE TABLE `medidas` (
 
 INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `foto`, `created_at`, `updated_at`) VALUES
 (2, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2023-12-17 19:48:43', '2023-12-17 19:48:43'),
-(3, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:13:53', '2024-01-13 03:13:53'),
 (4, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:18:13', '2024-01-13 03:18:13'),
 (5, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:53:09', '2024-01-13 03:53:09'),
 (6, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 03:56:05', '2024-01-13 03:56:05'),
@@ -5156,7 +5195,28 @@ INSERT INTO `medidas` (`id`, `nombre`, `unidad`, `valor`, `tipo`, `idMedida`, `f
 (17, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:04:53', '2024-01-13 04:04:53'),
 (18, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:05:38', '2024-01-13 04:05:38'),
 (19, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-13 04:05:53', '2024-01-13 04:05:53'),
-(21, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2024-01-13 04:19:41', '2024-01-13 04:19:41');
+(28, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2024-01-14 13:51:43', '2024-01-14 13:51:43'),
+(29, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:15:24', '2024-01-14 16:15:24'),
+(30, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:16:05', '2024-01-14 16:16:05'),
+(31, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:16:23', '2024-01-14 16:16:23'),
+(32, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:17:04', '2024-01-14 16:17:04'),
+(33, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:17:29', '2024-01-14 16:17:29'),
+(34, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:17:36', '2024-01-14 16:17:36'),
+(35, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:19:47', '2024-01-14 16:19:47'),
+(36, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:20:41', '2024-01-14 16:20:41'),
+(37, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:21:52', '2024-01-14 16:21:52'),
+(38, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:21:58', '2024-01-14 16:21:58'),
+(39, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:23:02', '2024-01-14 16:23:02'),
+(40, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:26:55', '2024-01-14 16:26:55'),
+(41, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:27:37', '2024-01-14 16:27:37'),
+(42, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:28:36', '2024-01-14 16:28:36'),
+(43, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:29:06', '2024-01-14 16:29:06'),
+(44, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:35:54', '2024-01-14 16:35:54'),
+(45, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:37:42', '2024-01-14 16:37:42'),
+(46, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:38:13', '2024-01-14 16:38:13'),
+(47, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:38:38', '2024-01-14 16:38:38'),
+(48, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-14 16:41:18', '2024-01-14 16:41:18'),
+(52, NULL, NULL, NULL, NULL, NULL, 'no-imagen.jpg', '2024-01-14 16:53:06', '2024-01-14 16:53:06');
 
 -- --------------------------------------------------------
 
@@ -5683,7 +5743,7 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `referencias` (
   `id` int(11) NOT NULL,
   `referencia` varchar(50) NOT NULL,
-  `articulo_id` int(11) NOT NULL,
+  `articulo_id` int(11) DEFAULT NULL,
   `marca_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00'
@@ -5700,7 +5760,10 @@ INSERT INTO `referencias` (`id`, `referencia`, `articulo_id`, `marca_id`, `creat
 (4, '54654675767', 1, NULL, '2023-12-17 19:48:43', '2023-12-17 19:48:43'),
 (5, '123', 19, NULL, '2024-01-13 04:06:46', '2024-01-13 04:06:46'),
 (6, '1234', 19, NULL, '2024-01-13 04:06:46', '2024-01-13 04:06:46'),
-(7, '12345', 19, NULL, '2024-01-13 04:19:41', '2024-01-13 04:19:41');
+(7, '12345', 19, NULL, '2024-01-13 04:19:41', '2024-01-13 04:19:41'),
+(8, 'ABCD', 25, NULL, '2024-01-14 16:17:36', '2024-01-14 16:17:36'),
+(9, 'DEFS', 2, NULL, '2024-01-14 16:51:21', '2024-01-14 16:51:21'),
+(10, 'XCVB', 2, NULL, '2024-01-14 16:53:06', '2024-01-14 16:53:06');
 
 -- --------------------------------------------------------
 
@@ -5710,9 +5773,25 @@ INSERT INTO `referencias` (`id`, `referencia`, `articulo_id`, `marca_id`, `creat
 
 CREATE TABLE `referencias_articulos` (
   `id` int(11) NOT NULL,
-  `articulo_id` bigint(20) NOT NULL,
+  `articulo_id` bigint(20) UNSIGNED NOT NULL,
   `referencia_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `referencias_articulos`
+--
+
+INSERT INTO `referencias_articulos` (`id`, `articulo_id`, `referencia_id`) VALUES
+(1, 2, 5),
+(2, 2, 1),
+(3, 25, 8),
+(4, 30, 8),
+(5, 34, 8),
+(6, 35, 8),
+(7, 39, 8),
+(8, 2, 8),
+(9, 2, 9),
+(10, 2, 10);
 
 -- --------------------------------------------------------
 
@@ -5734,7 +5813,15 @@ CREATE TABLE `relacion_suplencia` (
 
 INSERT INTO `relacion_suplencia` (`id`, `articulo_id`, `suplido_por_id`, `created_at`, `updated_at`) VALUES
 (2, 2, 2, NULL, NULL),
-(3, 3, 2, '2024-01-13 03:18:13', '2024-01-13 03:18:13');
+(3, 3, 2, '2024-01-13 03:18:13', '2024-01-13 03:18:13'),
+(7, 19, 3, '2024-01-14 13:42:24', '2024-01-14 13:42:24'),
+(8, 19, 2, '2024-01-14 13:44:41', '2024-01-14 13:44:41'),
+(9, 19, 4, '2024-01-14 13:46:21', '2024-01-14 13:46:21'),
+(10, 19, 2, '2024-01-14 13:46:30', '2024-01-14 13:46:30'),
+(11, 19, 2, '2024-01-14 13:49:31', '2024-01-14 13:49:31'),
+(12, 19, 3, '2024-01-14 13:49:31', '2024-01-14 13:49:31'),
+(13, 19, 4, '2024-01-14 13:49:31', '2024-01-14 13:49:31'),
+(14, 19, 2, '2024-01-14 13:51:43', '2024-01-14 13:51:43');
 
 -- --------------------------------------------------------
 
@@ -6203,7 +6290,7 @@ ALTER TABLE `referencias`
 ALTER TABLE `referencias_articulos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `referencia` (`referencia_id`),
-  ADD KEY `articulo_id` (`articulo_id`) USING BTREE;
+  ADD KEY `fk_articulo_referencia` (`articulo_id`);
 
 --
 -- Indices de la tabla `relacion_suplencia`
@@ -6285,7 +6372,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `articulos_juegos`
@@ -6297,7 +6384,7 @@ ALTER TABLE `articulos_juegos`
 -- AUTO_INCREMENT de la tabla `articulo_medida`
 --
 ALTER TABLE `articulo_medida`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `articulo_pedido`
@@ -6423,7 +6510,7 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `medidas`
 --
 ALTER TABLE `medidas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -6477,19 +6564,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `referencias`
 --
 ALTER TABLE `referencias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `referencias_articulos`
 --
 ALTER TABLE `referencias_articulos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `relacion_suplencia`
 --
 ALTER TABLE `relacion_suplencia`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `sistemas`
@@ -6647,6 +6734,13 @@ ALTER TABLE `pedido_marca`
 ALTER TABLE `pedido_sistema`
   ADD CONSTRAINT `pedido_sistema_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pedido_sistema_sistema_id_foreign` FOREIGN KEY (`sistema_id`) REFERENCES `sistemas` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `referencias_articulos`
+--
+ALTER TABLE `referencias_articulos`
+  ADD CONSTRAINT `fk_articulo_referencia` FOREIGN KEY (`articulo_id`) REFERENCES `articulos` (`id`),
+  ADD CONSTRAINT `fk_referencia_articulo` FOREIGN KEY (`referencia_id`) REFERENCES `referencias` (`id`);
 
 --
 -- Filtros para la tabla `relacion_suplencia`

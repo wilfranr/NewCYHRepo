@@ -11,14 +11,15 @@ use App\Models\Medida;
 use App\Models\Pedido;
 use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
-use App\Models\referencias;
+use App\Models\Referencia;
 
 class ArticuloController extends Controller
 {
     // Método para mostrar la lista de artículos
     public function index()
     {
-        $articulos = Articulo::all();
+        // Obtener todos los artículos de la base de datos con la relación de referencias
+        $articulos = Articulo::with('referencias')->get();
 
         return view('articulos.index', compact('articulos'));
     }
@@ -30,7 +31,7 @@ class ArticuloController extends Controller
         $articulos = Articulo::all();
         $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
         $definiciones = Lista::where('tipo', 'Definicion Repuesto')->pluck('nombre');
-        $referencias = referencias::all();
+        $referencias = Referencia::all();
 
         // Obtener las definiciones con su respectiva foto de medida
         $definicionesConFoto = Lista::where('tipo', 'Definición')->select('nombre', 'foto')->get();
@@ -107,6 +108,8 @@ class ArticuloController extends Controller
 
         // Guardar el artículo
         $articulo->save();
+
+
         // Verificar si el artículo está asociado a un pedido
         if ($request->has('pedido_id')) {
             $pedido = Pedido::find($request->pedido_id);
@@ -159,25 +162,29 @@ class ArticuloController extends Controller
         }
 
         // Crear nuevas referencias
-        $referencias = $request->input('nuevaReferencia');
-        $cantidadReferencias = count($referencias);
-        for ($i = 0; $i < $cantidadReferencias; $i++) {
-            $referencia = new referencias();
-            $referencia->referencia = $referencias[$i];
-            $referencia->articulo_id = $articulo->id;
-            $referencia->save();
+        if ($request->input('nuevaReferencia') != null) {
+            $referencias = $request->input('nuevaReferencia');
+            $cantidadReferencias = count($referencias);
+            for ($i = 0; $i < $cantidadReferencias; $i++) {
+                $referencia = new Referencia();
+                $referencia->referencia = $referencias[$i];
+                $referencia->articulo_id = $articulo->id;
+                $referencia->save();
+
+                //relacionar referencia con articulo
+                $articulo->referencias()->attach($referencia->id);
+            }
         }
 
-        // Crear relaciones de suplencia si se seleccionaron artículos para suplir
-        if ($request->has('cambio')) {
-            foreach ($request->input('cambio') as $suplidorId) {
-                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
-                if ($suplidorId != $articulo->id) {
-                    // Crear una nueva relación de suplencia
-                    RelacionSuplencia::create([
-                        'articulo_id' => $articulo->id, // ID del artículo principal
-                        'suplido_por_id' => $suplidorId, // ID del artículo que lo suple
-                    ]);
+        // si vienen cambios relacionarlos con las referencias
+        if ($request->input('cambio') != null) {
+            $referenciasSeleccionadas = $request->input('cambio', []);
+
+            $articulo = Articulo::find($articulo->id);
+            foreach ($referenciasSeleccionadas as $referenciaId) {
+                $referencia = Referencia::find($referenciaId);
+                if ($referencia) {
+                    $articulo->referencias()->attach($referencia->id);
                 }
             }
         }
@@ -210,18 +217,17 @@ class ArticuloController extends Controller
         return view('articulos.show', compact('articulo', 'definiciones'));
     }
 
-
     public function edit($id)
     {
         $articulos = Articulo::all();
-        $referencias = referencias::all();
+        $referencias = Referencia::all();
 
         // Obtener el artículo que se va a editar
         $articulo = Articulo::findOrFail($id);
 
         //obtener las referencias relacionadas al articulo
-        $referenciasAsociadas = referencias::where('articulo_id', $articulo->id)->get();
-        // dd($referencias);
+        $referenciasAsociadas = $articulo->referencias;
+
 
         // Obtener los artículos existentes en la relación de suplencia
         $articulosEnSuplencia = RelacionSuplencia::where('articulo_id', $articulo->id)
@@ -243,7 +249,7 @@ class ArticuloController extends Controller
         $medidas = $articulo->medidas;
 
         //obtener las definiciones de la lista 
-        $definiciones = Lista::where('tipo', 'Definición')->get();
+        $definiciones = Lista::where('tipo', 'Definicion Repuesto')->get();
         $tipoMedida = Lista::where('tipo', 'Medida')->pluck('nombre', 'id');
         $unidadMedidas = Lista::where('tipo', 'Unidad medida')->pluck('nombre', 'id');
         $unidades = Lista::where('tipo', 'Unidad medida')->get();
@@ -272,9 +278,9 @@ class ArticuloController extends Controller
 
         //mensajes de validación
         $messages = [
-            'marca.required' => 'El campo de marca es obligatorio.',
-            'definicion.required' => 'El campo de definición es obligatorio.',
-            'referencia.required' => 'El campo de referencia es obligatorio.',
+            'marca.nullable' => 'El campo de marca es obligatorio.',
+            'definicion.nullable' => 'El campo de definición es obligatorio.',
+            'referencia.nullable' => 'El campo de referencia es obligatorio.',
             // Agregar más mensajes personalizados según sea necesario
         ];
         $validatedData = $request->validate([
@@ -308,36 +314,35 @@ class ArticuloController extends Controller
         $articulo->save();
 
 
-
-        // Si vienen datos de suplencia
-        if ($request->has('cambio')) {
-            // Eliminar todas las relaciones de suplencia antiguas
-            $articulo->suplencias()->delete();
-
-            // Crear las nuevas relaciones de suplencia
-            foreach ($request->input('cambio') as $suplidorId) {
-                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
-                if ($suplidorId != $articulo->id) {
-                    // Crear una nueva relación de suplencia
-                    RelacionSuplencia::create([
-                        'articulo_id' => $articulo->id, // ID del artículo principal
-                        'suplido_por_id' => $suplidorId, // ID del artículo que lo suple
-                    ]);
-                }
-            }
-        }
-        //si viene nuevaReferencia
-        if ($request->has('nuevaReferencia')) {
-            //crear las nuevas referencias
+        // Crear nuevas referencias
+        if ($request->input('nuevaReferencia') != null) {
             $referencias = $request->input('nuevaReferencia');
             $cantidadReferencias = count($referencias);
             for ($i = 0; $i < $cantidadReferencias; $i++) {
-                $referencia = new referencias();
+                $referencia = new Referencia();
                 $referencia->referencia = $referencias[$i];
                 $referencia->articulo_id = $articulo->id;
                 $referencia->save();
+
+                //relacionar referencia con articulo
+                $articulo->referencias()->attach($referencia->id);
             }
         }
+
+        // si vienen cambios relacionarlos con las referencias
+        if ($request->input('cambio') != null) {
+            $referenciasSeleccionadas = $request->input('cambio', []);
+            // dd($referenciasSeleccionadas);
+
+            $articulo = Articulo::find($articulo->id);
+            foreach ($referenciasSeleccionadas as $referenciaId) {
+                $referencia = Referencia::find($referenciaId);
+                if ($referencia) {
+                    $articulo->referencias()->attach($referencia->id);
+                }
+            }
+        }
+
 
         // Si vienen datos de juego
         if ($request->has('juego')) {

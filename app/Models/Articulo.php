@@ -11,6 +11,7 @@ use App\Models\Imagen;
 use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
 use App\Models\Sistemas;
+use App\Models\Referencia;
 
 
 class Articulo extends Model
@@ -43,17 +44,17 @@ class Articulo extends Model
             ->withTimestamps();
     }
 
-    //funcion para buscar maquinas por referencia
-    public function fotos()
-    {
-        return $this->hasMany(Foto::class);
-    }
+    // //funcion para buscar maquinas por referencia
+    // public function fotos()
+    // {
+    //     return $this->hasMany(Foto::class);
+    // }
 
-    //funcion para buscar imágenes por referencia
-    public function imagenes()
-    {
-        return $this->hasMany(Imagen::class);
-    }
+    // //funcion para buscar imágenes por referencia
+    // public function imagenes()
+    // {
+    //     return $this->hasMany(Imagen::class);
+    // }
 
     //funcion para buscar cambios por referencia
     public function suplencias()
@@ -80,10 +81,14 @@ class Articulo extends Model
     }
 
     public function sistemaPedidoEnPedido($pedidoId)
-{
-    return $this->belongsToMany(Sistemas::class, 'pedido_articulo_sistema', 'articulo_id', 'sistema_id')
-        ->wherePivot('pedido_id', $pedidoId)
-        ->withPivot('pedido_id');
-}
+    {
+        return $this->belongsToMany(Sistemas::class, 'pedido_articulo_sistema', 'articulo_id', 'sistema_id')
+            ->wherePivot('pedido_id', $pedidoId)
+            ->withPivot('pedido_id');
+    }
 
+    public function referencias()
+    {
+        return $this->belongsToMany(Referencia::class, 'referencias_articulos', 'articulo_id', 'referencia_id');
+    }
 }

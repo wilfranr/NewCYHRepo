@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class referencias extends Model
+class Referencia extends Model
 {
     use HasFactory;
     protected $table = 'referencias';
@@ -14,4 +14,9 @@ class referencias extends Model
         'articulo_id',
         'marca_id'
     ];
+
+    public function articulos()
+    {
+        return $this->belongsToMany(Articulo::class, 'referencias_articulos', 'referencia_id', 'articulo_id');
+    }
 }
