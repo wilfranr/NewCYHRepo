@@ -40,9 +40,28 @@
                                 <div class="col-12 col-sm-6 col-md-12 d-flex align-items-stretch flex-column">
                                     <div class="row">
                                         <div class="col-6">
+
+                                            {{-- Referencia --}}
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label for="referencia">{{ __('Referencia') }}</label>
+                                                        <div class="row">
+                                                            <div class="col-10">
+
+                                                                <input class="form-control mb-2" type="text"
+                                                                    placeholder="Ingrese referencia" name="referencia"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             {{-- Definición --}}
                                             <div class="form-group">
-                                                <label for="select-definicion">{{ __('Definición específica ') }}</label>
+                                                <label for="select-definicion">{{ __('Definición Común ') }}</label>
                                                 <div class="row">
                                                     <div class="col-10">
                                                         <select class="form-control select2" id="select-definicion"
@@ -65,23 +84,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            {{-- Referencia --}}
-                                            <div class="form-group">
-                                                <!-- Creación de un grupo de formulario en una fila -->
-                                                <label for="referencia">{{ __('Referencia') }}</label>
-                                                <input id="referencia" type="text"
-                                                    class="form-control @error('referencia') is-invalid @enderror"
-                                                    name="referencia" value="{{ old('referencia') }}" required>
-
-                                                @error('referencia')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-
-                                            </div>
-
                                             {{-- Peso --}}
                                             <div class="form-group">
                                                 <label for="peso">{{ __('Peso (lbs)') }}</label>
@@ -104,9 +106,10 @@
                                                 <select class="form-control select2" id="marca" name="marca">
                                                     <option value="">Seleccione una marca fabricante</option>
                                                     <!-- Opción inicial, sin valor, que indica que ninguna marca ha sido seleccionada -->
-                                                    @foreach ($maquinas as $id => $nombre)
+                                                    @foreach ($marcas as $marca)
                                                         <!-- Ciclo que recorre la lista de marcas fabricantes -->
-                                                        <option value="{{ $nombre }}">{{ $nombre }}
+                                                        <option value={{$marca->id}}>
+                                                            {{ $marca->nombre }}
                                                         </option>
                                                         <!-- Opción que muestra el nombre de la marca fabricante -->
                                                     @endforeach
@@ -356,28 +359,28 @@
         var indiceReferencia = 1;
 
         // Evento click del botón
-        $('#add_reference').on('click', function() {
-            // Obtener la referencia ingresada por el usuario
-            var referencia = $('input[name="nuevaReferencia"]').val();
+        // $('#add_reference').on('click', function() {
+        //     // Obtener la referencia ingresada por el usuario
+        //     var referencia = $('input[name="nuevaReferencia"]').val();
 
-            // Validar que se haya ingresado una referencia
-            if (referencia.length > 0) {
-                // Agregar la referencia al listado de referencias
-                $('#new_reference').append('<li id="referencia_' + indiceReferencia + '">' + referencia + '</li>');
-                //almacenar la nueva referencia en un input
-                $('#form').append('<input type="hidden" name="nuevaReferencia[]" value="' + referencia + '">');
+        //     // Validar que se haya ingresado una referencia
+        //     if (referencia.length > 0) {
+        //         // Agregar la referencia al listado de referencias
+        //         $('#new_reference').append('<li id="referencia_' + indiceReferencia + '">' + referencia + '</li>');
+        //         //almacenar la nueva referencia en un input
+        //         $('#form').append('<input type="hidden" name="nuevaReferencia[]" value="' + referencia + '">');
 
-                // Agregar la referencia al select de referencias
-                $('select[name="cambio[]"]').append('<option value="' + indiceReferencia + '">' + referencia +
-                    '</option>');
+        //         // Agregar la referencia al select de referencias
+        //         $('select[name="cambio[]"]').append('<option value="' + indiceReferencia + '">' + referencia +
+        //             '</option>');
 
-                // Incrementar el índice
-                indiceReferencia++;
+        //         // Incrementar el índice
+        //         indiceReferencia++;
 
-                // Limpiar el campo de ingreso de referencia
-                $('input[name="nuevaReferencia"]').val('');
-            }
-        });
+        //         // Limpiar el campo de ingreso de referencia
+        //         $('input[name="nuevaReferencia"]').val('');
+        //     }
+        // });
 
         function mostrarFotoMedida(definicionId) {
             console.log(definicionId);

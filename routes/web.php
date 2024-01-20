@@ -24,6 +24,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\SistemaController;
 use App\Http\Controllers\UtilController;
+use App\Http\Controllers\PruebasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ use App\Http\Controllers\UtilController;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+//ruta PruebasController
+Route::get('/pruebas', [PruebasController::class, 'index']);
 
 //ruta home
 Route::get('/home', [HomeController::class, 'index']);
@@ -172,6 +176,8 @@ Route::get('/articulos/{id}/edit', [ArticuloController::class, 'edit'])->name('a
 Route::put('/articulos/{id}/update', [ArticuloController::class, 'update'])->name('articulos.update');
 Route::delete('/articulos/{id}', [ArticuloController::class, 'destroy'])->name('articulos.destroy');
 Route::post('/articulos/definicion', [ArticuloController::class, 'definicion'])->name('articulos.definicion');
+//Ruta para funcion buscar
+Route::get('/articulos/buscar', [ArticuloController::class, 'buscar'])->name('articulos.buscar');
 
 // Ruta para mostrar una cotización específica
 Route::get('/cotizaciones/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');

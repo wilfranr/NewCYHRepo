@@ -11,6 +11,7 @@ use App\Models\Medida;
 use App\Models\Pedido;
 use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
+use App\Models\Marca;
 use App\Models\Referencia;
 
 class ArticuloController extends Controller
@@ -32,6 +33,7 @@ class ArticuloController extends Controller
         $sistemas = Lista::where('tipo', 'sistema')->pluck('nombre', 'id');
         $definiciones = Lista::where('tipo', 'Definicion Repuesto')->pluck('nombre');
         $referencias = Referencia::all();
+        $marcas = Marca::all();
 
         // Obtener las definiciones con su respectiva foto de medida
         $definicionesConFoto = Lista::where('tipo', 'Definición')->select('nombre', 'foto')->get();
@@ -48,7 +50,7 @@ class ArticuloController extends Controller
         $maquinas = Lista::where('tipo', 'marca')->pluck('nombre', 'id');
 
         // Mostrar la vista de creación de artículo
-        return view('articulos.create', compact('sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'referencias'));
+        return view('articulos.create', compact('sistemas', 'maquinas', 'medidas', 'unidadMedidas', 'articulos', 'definiciones', 'definicionesFotoMedida', 'referencias', 'marcas'));
     }
 
     // Método para guardar el artículo en la base de datos
@@ -57,9 +59,8 @@ class ArticuloController extends Controller
         // dd($request->all());
         // Mensajes de validación
         $messages = [
-            'marca.required' => 'El campo marca es obligatorio.',
-            'select-definicion.required' => 'El campo definición es obligatorio.',
             'referencia.required' => 'El campo referencia es obligatorio.',
+            'select-definicion.required' => 'El campo definición es obligatorio.',
             'descripcion_especifica.required' => 'El campo descripción específica es obligatorio.',
             'comentarios.required' => 'El campo comentarios es obligatorio.',
             'peso.required' => 'El campo peso es obligatorio.',
@@ -70,22 +71,29 @@ class ArticuloController extends Controller
 
         // Validar los datos del formulario
         $validatedData = $request->validate([
-            'marca' => 'nullable|string',
+            'referencia' => 'required|string',
             'select-definicion' => 'nullable|string',
-            'referencia' => 'nullable|string',
             'descripcion_especifica' => 'nullable|string',
             'comentarios' => 'nullable|string',
             'peso' => 'nullable|string',
             'foto' => 'nullable|image|max:2048', // Agregamos validación para imágenes
         ]);
-
+        
+        // Crear nueva referencia
+        $marca = $request->input('marca');
+        $referencia = $request->input('referencia');
+        // buscar si la referencia y la marca ya existen, buscar por campo referencia y marca_id
+        $referenciaExistente = Referencia::where('referencia', $referencia)->where('marca_id', $marca)->first();
+        // si la referencia existe
+        if ($referenciaExistente) {
+            // mostrar mensaje de error indicando que esta referencia ya existe
+            return redirect()->route('articulos.create')->with('error', 'La referencia ya existe.');
+        } else {
         // Crear el artículo
         $articulo = new Articulo();
 
         // Actualizar los campos del artículo
-        $articulo->marca = $validatedData['marca'];
         $articulo->definicion = $validatedData['select-definicion'];
-        $articulo->referencia = $validatedData['referencia'];
         $articulo->descripcionEspecifica = $validatedData['descripcion_especifica'];
         $articulo->comentarios = $validatedData['comentarios'];
         $articulo->peso = $validatedData['peso'];
@@ -100,26 +108,8 @@ class ArticuloController extends Controller
             $articulo->fotoDescriptiva = 'no-imagen.jpg'; //guardar una foto por defecto
         }
 
-        // Asociar las máquinas con el artículo
-        $maquinas = Maquina::all();
-        foreach ($maquinas as $maquina) {
-            $maquina->articulos()->attach($articulo->id, ['fabricante' => $request->fabricante, 'tipo_maquina' => $request->tipo_maquina]);
-        }
-
         // Guardar el artículo
         $articulo->save();
-
-
-        // Verificar si el artículo está asociado a un pedido
-        if ($request->has('pedido_id')) {
-            $pedido = Pedido::find($request->pedido_id);
-
-            // Verificar si se encontró el pedido
-            if ($pedido) {
-                // Asociar el artículo al pedido mediante la relación muchos a muchos
-                $pedido->articulos()->attach($articulo->id, ['cantidad' => $request->cantidad]);
-            }
-        }
 
         // Obtener los datos del formulario de medidas
         $dataMedida = $request->only(['contadorMedidas', 'tipoMedida', 'valorMedida', 'unidadMedida', 'idMedida']);
@@ -161,47 +151,15 @@ class ArticuloController extends Controller
             }
         }
 
-        // Crear nuevas referencias
-        if ($request->input('nuevaReferencia') != null) {
-            $referencias = $request->input('nuevaReferencia');
-            $cantidadReferencias = count($referencias);
-            for ($i = 0; $i < $cantidadReferencias; $i++) {
-                $referencia = new Referencia();
-                $referencia->referencia = $referencias[$i];
-                $referencia->articulo_id = $articulo->id;
-                $referencia->save();
-
-                //relacionar referencia con articulo
-                $articulo->referencias()->attach($referencia->id);
-            }
+            // si la referencia no existe
+            // crear nueva referencia
+            $nuevaReferencia = new Referencia();  // Renombré la variable para evitar la referencia circular
+            $nuevaReferencia->referencia = $referencia;
+            $nuevaReferencia->articulo_id = $articulo->id;
+            $nuevaReferencia->marca_id = $marca;
+            $nuevaReferencia->save();
         }
 
-        // si vienen cambios relacionarlos con las referencias
-        if ($request->input('cambio') != null) {
-            $referenciasSeleccionadas = $request->input('cambio', []);
-
-            $articulo = Articulo::find($articulo->id);
-            foreach ($referenciasSeleccionadas as $referenciaId) {
-                $referencia = Referencia::find($referenciaId);
-                if ($referencia) {
-                    $articulo->referencias()->attach($referencia->id);
-                }
-            }
-        }
-
-        //crear las relaciones de juego si se seleccionaron artículos para juego
-        if ($request->has('juego')) {
-            foreach ($request->input('juego') as $juegoId) {
-                // Asegurarse de que no se esté intentando establecer una relación con el mismo artículo
-                if ($juegoId != $articulo->id) {
-                    // Crear una nueva relación de juego
-                    JuegoArticulo::create([
-                        'articulo_id' => $articulo->id, // ID del artículo principal
-                        'juego_por_id' => $juegoId, // ID del artículo que lo suple
-                    ]);
-                }
-            }
-        }
 
         //redireccionar recargando la pagina
         return redirect()->route('articulos.index')->with('success', 'Artículo creado correctamente.');
@@ -448,6 +406,19 @@ class ArticuloController extends Controller
         $lista->save();
         // Redireccionar al usuario
         return redirect()->route('articulos.create')->with('success', 'La lista ha sido creada exitosamente.');
+    }
+
+    public function buscar(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'buscar' => 'required',
+        ]);
+        // Obtener el valor de la búsqueda
+        $buscar = $request->buscar;
+        // Buscar los artículos que coincidan con el valor de búsqueda
+        $referencias = Referencia::where('referencia', 'LIKE', '%' . $buscar . '%')->get();
+        return view('articulos.buscar', compact('referencias', 'buscar'));
     }
 
     public function destroy($id)
