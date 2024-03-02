@@ -13,6 +13,9 @@ use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
 use App\Models\Marca;
 use App\Models\Referencia;
+use App\Models\User;
+use Illuminate\Support\Facades\Response;
+
 
 class ArticuloController extends Controller
 {
@@ -78,7 +81,7 @@ class ArticuloController extends Controller
             'peso' => 'nullable|string',
             'foto' => 'nullable|image|max:2048', // Agregamos validación para imágenes
         ]);
-        
+
         // Crear nueva referencia
         $marca = $request->input('marca');
         $referencia = $request->input('referencia');
@@ -89,67 +92,67 @@ class ArticuloController extends Controller
             // mostrar mensaje de error indicando que esta referencia ya existe
             return redirect()->route('articulos.create')->with('error', 'La referencia ya existe.');
         } else {
-        // Crear el artículo
-        $articulo = new Articulo();
+            // Crear el artículo
+            $articulo = new Articulo();
 
-        // Actualizar los campos del artículo
-        $articulo->definicion = $validatedData['select-definicion'];
-        $articulo->descripcionEspecifica = $validatedData['descripcion_especifica'];
-        $articulo->comentarios = $validatedData['comentarios'];
-        $articulo->peso = $validatedData['peso'];
+            // Actualizar los campos del artículo
+            $articulo->definicion = $validatedData['select-definicion'];
+            $articulo->descripcionEspecifica = $validatedData['descripcion_especifica'];
+            $articulo->comentarios = $validatedData['comentarios'];
+            $articulo->peso = $validatedData['peso'];
 
-        // Procesar la foto descriptiva del artículo, si se proporcionó
-        if ($request->hasFile('foto-descriptiva')) { //si se sube una foto
-            $fotoDescriptiva = $request->file('foto-descriptiva'); //obtener la foto
-            $filename = time() . '_' . $fotoDescriptiva->getClientOriginalName(); //obtener el nombre de la foto
-            $filepath = $fotoDescriptiva->storeAs('public/articulos', $filename); //guardar la foto en la carpeta articulos
-            $articulo->fotoDescriptiva = $filename; //guardar el nombre de la foto en la base de datos
-        } else { //si no se sube una foto
-            $articulo->fotoDescriptiva = 'no-imagen.jpg'; //guardar una foto por defecto
-        }
-
-        // Guardar el artículo
-        $articulo->save();
-
-        // Obtener los datos del formulario de medidas
-        $dataMedida = $request->only(['contadorMedidas', 'tipoMedida', 'valorMedida', 'unidadMedida', 'idMedida']);
-
-        // Verificar si el índice 'tipoMedida' existe
-        if (isset($dataMedida['tipoMedida'])) {
-            // Obtener el contador de medidas
-            $contadorMedidas = $dataMedida['contadorMedidas'];
-
-            // Recorrer el bucle para crear y asociar las medidas al artículo
-            for ($i = 0; $i < $contadorMedidas; $i++) {
-                $medida = new Medida();
-
-                // Verificar si el índice 'tipoMedida' en la posición $i existe
-                if (isset($dataMedida['tipoMedida'][$i])) {
-                    $medida->nombre = $dataMedida['tipoMedida'][$i];
-                }
-
-                // Verificar si el índice 'valorMedida' en la posición $i existe
-                if (isset($dataMedida['valorMedida'][$i])) {
-                    $medida->valor = $dataMedida['valorMedida'][$i];
-                }
-
-                // Verificar si el índice 'unidadMedida' en la posición $i existe
-                if (isset($dataMedida['unidadMedida'][$i])) {
-                    $medida->unidad = $dataMedida['unidadMedida'][$i];
-                }
-
-                // Verificar si el índice 'idMedida' en la posición $i existe
-                if (isset($dataMedida['idMedida'][$i])) {
-                    $medida->idMedida = $dataMedida['idMedida'][$i];
-                }
-
-
-                $medida->save();
-
-                // Asociar la medida al artículo en la tabla pivot
-                $articulo->medidas()->attach($medida->id);
+            // Procesar la foto descriptiva del artículo, si se proporcionó
+            if ($request->hasFile('foto-descriptiva')) { //si se sube una foto
+                $fotoDescriptiva = $request->file('foto-descriptiva'); //obtener la foto
+                $filename = time() . '_' . $fotoDescriptiva->getClientOriginalName(); //obtener el nombre de la foto
+                $filepath = $fotoDescriptiva->storeAs('public/articulos', $filename); //guardar la foto en la carpeta articulos
+                $articulo->fotoDescriptiva = $filename; //guardar el nombre de la foto en la base de datos
+            } else { //si no se sube una foto
+                $articulo->fotoDescriptiva = 'no-imagen.jpg'; //guardar una foto por defecto
             }
-        }
+
+            // Guardar el artículo
+            $articulo->save();
+
+            // Obtener los datos del formulario de medidas
+            $dataMedida = $request->only(['contadorMedidas', 'tipoMedida', 'valorMedida', 'unidadMedida', 'idMedida']);
+
+            // Verificar si el índice 'tipoMedida' existe
+            if (isset($dataMedida['tipoMedida'])) {
+                // Obtener el contador de medidas
+                $contadorMedidas = $dataMedida['contadorMedidas'];
+
+                // Recorrer el bucle para crear y asociar las medidas al artículo
+                for ($i = 0; $i < $contadorMedidas; $i++) {
+                    $medida = new Medida();
+
+                    // Verificar si el índice 'tipoMedida' en la posición $i existe
+                    if (isset($dataMedida['tipoMedida'][$i])) {
+                        $medida->nombre = $dataMedida['tipoMedida'][$i];
+                    }
+
+                    // Verificar si el índice 'valorMedida' en la posición $i existe
+                    if (isset($dataMedida['valorMedida'][$i])) {
+                        $medida->valor = $dataMedida['valorMedida'][$i];
+                    }
+
+                    // Verificar si el índice 'unidadMedida' en la posición $i existe
+                    if (isset($dataMedida['unidadMedida'][$i])) {
+                        $medida->unidad = $dataMedida['unidadMedida'][$i];
+                    }
+
+                    // Verificar si el índice 'idMedida' en la posición $i existe
+                    if (isset($dataMedida['idMedida'][$i])) {
+                        $medida->idMedida = $dataMedida['idMedida'][$i];
+                    }
+
+
+                    $medida->save();
+
+                    // Asociar la medida al artículo en la tabla pivot
+                    $articulo->medidas()->attach($medida->id);
+                }
+            }
 
             // si la referencia no existe
             // crear nueva referencia
@@ -170,7 +173,7 @@ class ArticuloController extends Controller
         // Buscar un artículo en la base de datos usando el modelo Articulo y el ID proporcionado   
         $articulo = Articulo::find($id);
         // realiza una consulta a la base de datos para obtener las definiciones comunes
-        $definiciones = Lista::where('tipo', 'Descripcion comun')->pluck('nombre', 'fotoMedida', 'id');
+        $definiciones = Lista::where('tipo', 'Definicion Repuesto')->pluck('nombre', 'fotoMedida', 'id');
         // Devolver una vista llamada 'articulos.show' y pasar las variables $articulo y $definiciones a la vista
         return view('articulos.show', compact('articulo', 'definiciones'));
     }
@@ -420,6 +423,19 @@ class ArticuloController extends Controller
         $referencias = Referencia::where('referencia', 'LIKE', '%' . $buscar . '%')->get();
         return view('articulos.buscar', compact('referencias', 'buscar'));
     }
+
+    public function searchArticle(Request $request)
+    {
+        $data = $request->all();
+        $query = $data['query'];
+
+        $filter_data = User::select('name')
+            ->where('name', 'LIKE', '%' . $query . '%')
+            ->get();
+
+        return response()->json($filter_data);
+    }
+
 
     public function destroy($id)
     {

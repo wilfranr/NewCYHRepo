@@ -125,7 +125,9 @@
     <script>
         const createListasUrl = "{{ route('listas.create') }}";
         var createTercerosUrl = "{{ route('terceros.create') }}";
-    </script>
+        </script>
+        {{-- jquery --}}
+
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
@@ -136,9 +138,9 @@
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <script src="{{ asset('vendor/adminlte/dist/js/custom.js') }}"></script>
+        {{-- typeahead --}}
+
         
-        
-        <!-- master.blade.php -->
         
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>

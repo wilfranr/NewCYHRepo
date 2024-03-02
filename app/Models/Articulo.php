@@ -16,14 +16,13 @@ use App\Models\Referencia;
 
 class Articulo extends Model
 {
-    use HasFactory;
 
     //campos de la tabla articulos
     protected $fillable = [
         'marca',
         'definicion',
-        'referencia',
-        'descripcion_especifica',
+        // 'referencia',
+        'descripcionEspecifica',
         'comentarios',
         'peso',
         'fotoDescriptiva',

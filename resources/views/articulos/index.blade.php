@@ -2,8 +2,12 @@
 
 @section('content')
     <div class="container-fluid mt-3">
-        {{-- <a href="{{ route('articulos.create') }}" class="btn btn-primary mb-2 mt-2"><i class="fa fa-plus"></i> Crear
-            Artículo</a> --}}
+        <div class="form-group">
+            <div class="input-group input-group-lg">
+                <input type="search" id="search" class="form-control mt-3" placeholder="Buscar artículo">
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -16,12 +20,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Fabricante</th>
-                                    {{-- <th>Sistema</th> --}}
                                     <th>Definición</th>
                                     <th>Referencias</th>
                                     <th>Comentarios</th>
                                     <th>Foto</th>
-                                    {{-- <th>Acciones</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,11 +37,10 @@
                                         <td><a
                                                 href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->marca }}</a>
                                         </td>
-                                        {{-- <td>{{ $articulo->sistema }}</td> --}}
                                         <td><a
                                                 href="{{ route('articulos.edit', $articulo->id) }}">{{ $articulo->definicion }}</a>
                                         </td>
-                                        
+
                                         <td>
                                             <ul>
                                                 @foreach ($articulo->referencias as $referencia)
@@ -59,21 +60,7 @@
                                             </a>
                                         </td>
 
-                                        {{-- <td>
-                                            <a href="{{ route('articulos.show', $articulo->id) }}"
-                                                class="btn btn-outline-primary btn-sm"><i class="fa fa-eye"
-                                                    aria-hidden="true"></i></a>
-                                            <a href="{{ route('articulos.edit', $articulo->id) }}"
-                                                class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('articulos.destroy', $articulo->id) }}" method="POST"
-                                                style="display: inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm delete"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td> --}}
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -84,9 +71,28 @@
         </div>
 
     </div>
-@endsection
-@section('js')
+    @endsection
+    @section('js')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script>
+        var path = "{{ route('articulos.searchArticle') }}";
+        $('#search').typeahead({
+            source: function(query, process) {
+                console.log('typeahead');
+                console.log(query);
+                return $.get(path, {
+                    query: query
+                }, function(data) {
+                    console.log(data);
+                    return process(data);
+
+                });
+            }
+        });
+
+
+
+
         $(function() {
             $('#articulos').DataTable({
                 "searching": true,
@@ -98,7 +104,7 @@
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
                 },
                 "paging": true,
-                
+
             });
 
         });

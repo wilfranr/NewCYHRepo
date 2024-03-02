@@ -259,20 +259,7 @@
                             <tr>
                                 <td><strong>1</strong></td>
                                 <td>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <input type="text" name="referencia1" class="form-control"
-                                                id="referencia1" readonly>
-                                                <input type="hidden" name="contador" id="contador" value="1">
-                                        </div>
-                                        <div class="col-1">
-                                            <button type="button" class="btn btn-outline-success btn-sm"
-                                                id="boton-buscar-referencias" title="Buscar artículos por referencia"
-                                                data-toggle="modal" data-target="#modalBuscarReferencias"
-                                                data-fila="1"><i class="fa fa-search" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <input type="text" name="referencia1" class="form-control" required>
                                 </td>
                                 <td>
                                     <select name="sistema1" class="form-control">
@@ -310,18 +297,51 @@
                 <div class="card-footer text-left">
                     <button type="button" id="agregar-fila" class="btn btn-outline-success">Agregar artículo</button>
                 </div>
+                <button type="button" class="btn btn-outline-success btn-sm" id="boton-agregar-referencias"
+                    title="Agregar areferencias en masa" data-toggle="modal" data-target="#referenciasModal"
+                    data-fila="1">Agregar referencias desde excel
+                </button>
+                <!-- Tabla para mostrar las referencias ingresadas -->
+                <div class="mt-4" id="div-referencias">
+                    <div class="row">
+                        <div class="col-3">
+                            <h3>Referencias Ingresadas</h3>
+                        </div>
+                        <div class="col-1">
+                            {{-- boton limpiar --}}
+                            <button type="button" class="btn btn-outline-danger float-right" id="limpiar-referencias"
+                                title="Limpiar referencias ingresadas">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="referenciasTableBody">
+                            <!-- Aquí se llenarán dinámicamente las filas de la tabla -->
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
 
         </div>
+        <input type="hidden" name="referenciasArray" id="referenciasArray">
 
         {{-- comentarios del pedido --}}
         <div id="comentariosPedido">
             <label for="comentarioPedido">Comentarios del pedido</label>
-            <textarea name="comentarioPedido" id="comentarioPedido" cols="20" rows="5" class="form-control" data-toggle="tooltip" data-placement="top"
+            <textarea name="comentarioPedido" id="comentarioPedido" cols="20" rows="5" class="form-control"
+            data-toggle="tooltip" data-placement="top"
             title="Ingrese cualquier información relevante del pedido. Ej. repuesto, tipo de máquina, solicitudes específicas, recomendaciones, etc"></textarea>
-
+            
             <div class="ml-auto">
-                <button type="submit" class="btn btn-primary mt-3 float-right"><i class="fa fa-cart-plus" aria-hidden="true"></i>
+                <button type="submit" class="btn btn-primary mt-3 float-right"><i class="fa fa-cart-plus"
+                        aria-hidden="true"></i>
                     Crear pedido</button>
             </div>
 
@@ -418,7 +438,7 @@
     </div>
 
     {{-- Modal buscar referencias de artículos --}}
-    <div class="modal fade" id="modalBuscarReferencias" tabindex="-1" aria-labelledby="modalBuscarReferenciasLabel"
+    {{-- <div class="modal fade" id="modalBuscarReferencias" tabindex="-1" aria-labelledby="modalBuscarReferenciasLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -435,6 +455,7 @@
                             <th>Referencia</th>
                             <th>Definición</th>
                             <th>Fabricante</th>
+                            <th>Cambio</th>
                             <th>Foto</th>
                             <th></th>
                         </tr>
@@ -445,6 +466,13 @@
                                 <td>{{ $articulo->referencia }}</td>
                                 <td>{{ $articulo->definicion }}</td>
                                 <td>{{ $articulo->marca }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach ($articulo->referencias as $referencia)
+                                            <li>{{ $referencia->referencia }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td>
                                     <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
                                         target="_blank">
@@ -464,7 +492,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Modal crear máquina --}}
     <div class="modal fade" id="modalCrearMaquinas">
@@ -639,9 +667,94 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para ingresar referencias -->
+    <div class="modal fade" id="referenciasModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingresar Referencias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="referenciasTextarea" class="form-control" rows="5"
+                        placeholder="Ingrese las referencias separadas por un salto de línea"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarReferencias()">Guardar</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 @endsection
 @section('js')
     <script>
+        //mostrar div-referencias al abrir modal
+        $('#referenciasModal').on('show.bs.modal', function(event) {
+            $('#div-referencias').show();
+        });
+        function guardarReferencias() {
+            // Obtener las referencias del textarea
+            var referenciasConCantidad = document.getElementById('referenciasTextarea').value;
+
+            // Dividir las referencias por un salto de línea
+            var lineas = referenciasConCantidad.split('\n');
+
+            // Procesar cada línea
+            var referenciasArray = [];
+
+            for (var i = 0; i < lineas.length; i++) {
+                // Dividir cada línea en referencia y cantidad
+                var partes = lineas[i].split(/\s+/);
+
+                // Obtener la referencia y la cantidad
+                var referencia = partes[0];
+                var cantidad = partes[1] || ''; // Puede no haber cantidad
+
+                // Añadir referencia y cantidad al array
+                referenciasArray.push({
+                    referencia: referencia,
+                    cantidad: cantidad
+                });
+            }
+
+            console.log('Lista de referencias ingresadas',referenciasArray);
+
+            // Limpiar la tabla antes de agregar nuevas filas
+            document.getElementById('referenciasTableBody').innerHTML = '';
+
+            // Agregar las referencias a la tabla
+            for (var i = 0; i < referenciasArray.length; i++) {
+                var referencia = referenciasArray[i].referencia;
+                var cantidad = referenciasArray[i].cantidad;
+
+                // Agregar una nueva fila a la tabla
+                var newRow = document.getElementById('referenciasTableBody').insertRow(i);
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+
+                // Agregar datos a las celdas
+                cell1.innerHTML = referencia;
+                cell2.innerHTML = cantidad;
+            }
+
+
+            // Guardar las referencias en un campo oculto
+            document.getElementById('referenciasArray').value = JSON.stringify(referenciasArray);
+
+            // Cerrar el modal
+            $('#referenciasModal').modal('hide');
+        }
+        //limpiar referencias
+        $('#limpiar-referencias').click(function() {
+            $('#referenciasTableBody').empty();
+        });
+
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -658,11 +771,13 @@
             //ocultar div fotod maquinas
             $('.divFotosMaquina').hide();
             //ocultar div articulos
-            $('#articulos').hide();
+            $('#articulos').show();
             //ocultar alerta de seleccionar maquina
             $('#alerta-seleccionar-maquina').hide();
             //Ocultar botones
             $('#div-botones').hide();
+            //ocultar div-referencias
+            $('#div-referencias').hide();
 
 
             // Capturar el evento de clic en el botón "Seleccionar" de la tabla de clientes
@@ -936,7 +1051,7 @@
                 // Incrementar el contador
                 contadorArticulos++;
 
-                
+
 
             }
 
