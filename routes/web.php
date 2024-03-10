@@ -180,6 +180,13 @@ Route::post('/articulos/definicion', [ArticuloController::class, 'definicion'])-
 Route::get('/articulos/buscar', [ArticuloController::class, 'buscar'])->name('articulos.buscar');
 //Ruta funcion seacrhProduct
     Route::get('/articulos/searchArticle', [ArticuloController::class, 'searchArticle'])->name('articulos.searchArticle');
+//Ruta para obtener definicion de articulo
+
+Route::get('/articulos/search-definicion', 'ArticuloController@searchDefinicion');
+
+
+
+
 
 // Ruta para mostrar una cotización específica
 Route::get('/cotizaciones/{id}', [CotizacionController::class, 'show'])->name('cotizaciones.show');

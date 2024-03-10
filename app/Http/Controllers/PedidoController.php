@@ -68,7 +68,7 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // Validar los datos del formulario	
         $data = $request->validate([
             'tercero_id' => 'nullable|exists:terceros,id',
@@ -103,87 +103,134 @@ class PedidoController extends Controller
         $pedido->marcas()->attach($marca->id);
 
 
+
+
         // Agregar cada artículo temporal al pedido
         $contadorArticulos = $request->input('contador');
-        // dd($contadorArticulos);
+        //si contador de articulos es mayor a 0
+        if ($contadorArticulos > 0) {
+            // dd($contadorArticulos);
+
+            for ($i = 1; $i <= $contadorArticulos; $i++) {
+                // Validar los datos de los articulos
+                $dataArticulo = $request->validate([
+                    "referencia{$i}" => ['nullable', 'string', 'max:255'],
+                    "comentarioArticulo{$i}" => ['nullable', 'string', 'max:255'],
+                    "sistema{$i}" => ['nullable', 'string', 'max:255'],
+                    "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
+                ]);
+
+                // dd($dataArticulo);
+                //si viene articulo real
+                if ($request->input("referencia{$i}") != null) {
+
+                    // Guardar artículos en la tabla articulo_pedido
+                    $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
+                    $pedido->articulos()->attach($articulo->id);
+
+                    // Guardar la cantidad en la tabla pivot
+                    $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
 
 
-        for ($i = 1; $i <= $contadorArticulos; $i++) {
-            // Validar los datos de los articulos
-            $dataArticulo = $request->validate([
-                "referencia{$i}" => ['nullable', 'string', 'max:255'],
-                "comentarioArticulo{$i}" => ['nullable', 'string', 'max:255'],
-                "sistema{$i}" => ['nullable', 'string', 'max:255'],
-                "cantidad{$i}" => ['nullable', 'integer', 'min:1'],
-            ]);
+                    //Guardar el comentario del artículo en la tabla pivot 
+                    $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
 
-            // dd($dataArticulo);
-            //si viene articulo real
-            if ($request->input("referencia{$i}") != null) {
+                    // Si vienen sistemas
+                    if ($request->input("sistema{$i}") != null) {
+                        $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
+                        // dd($sistema);
 
-                // Guardar artículos en la tabla articulo_pedido
-                $articulo = Articulo::where('referencia', $request->input("referencia{$i}"))->first();
-                $pedido->articulos()->attach($articulo->id);
-
-                // Guardar la cantidad en la tabla pivot
-                $pedido->articulos()->updateExistingPivot($articulo->id, ['cantidad' => $request->input("cantidad{$i}")]);
-
-
-                //Guardar el comentario del artículo en la tabla pivot 
-                $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
-
-                // Si vienen sistemas
-                if ($request->input("sistema{$i}") != null) {
-                    $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
-                    // dd($sistema);
-
-                    if ($sistema) {
-                        // Asociar el sistema al artículo y al pedido
-                        $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
+                        if ($sistema) {
+                            // Asociar el sistema al artículo y al pedido
+                            $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
+                        }
                     }
                 }
-            }
 
 
-            //si viene articulo temporal
-            if ($request->input("referencia{$i}") == null) {
-                $articuloTemporal = new ArticuloTemporal();
-                $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
-                $articuloTemporal->cantidad = $request->input("cantidad{$i}");
-                $articuloTemporal->save();
-                // dd($articuloTemporal);
+                //si viene articulo temporal
+                if ($request->input("referencia{$i}") == null) {
+                    $articuloTemporal = new ArticuloTemporal();
+                    $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
+                    $articuloTemporal->cantidad = $request->input("cantidad{$i}");
+                    $articuloTemporal->save();
+                    // dd($articuloTemporal);
 
-                // Obtener las fotos del formulario
-                $fotos = $request->file("fotos{$i}");
-                // dd($fotos);
+                    // Obtener las fotos del formulario
+                    $fotos = $request->file("fotos{$i}");
+                    // dd($fotos);
 
-                if ($fotos) {
-                    foreach ($fotos as $foto) {
-                        // Generar un nombre único para la foto
-                        $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
+                    if ($fotos) {
+                        foreach ($fotos as $foto) {
+                            // Generar un nombre único para la foto
+                            $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
 
-                        // Almacenar la foto en la carpeta de almacenamiento
-                        $foto->storeAs('fotos-articulo-temporal', $nombreFoto, 'public');
+                            // Almacenar la foto en la carpeta de almacenamiento
+                            $foto->storeAs('fotos-articulo-temporal', $nombreFoto, 'public');
 
-                        // Crear una instancia de FotoArticuloTemporal
-                        $fotoArticuloTemporal = new FotoArticuloTemporal();
-                        $fotoArticuloTemporal->articuloTemporal()->associate($articuloTemporal);
-                        $fotoArticuloTemporal->foto_path = $nombreFoto;
-                        $fotoArticuloTemporal->save();
+                            // Crear una instancia de FotoArticuloTemporal
+                            $fotoArticuloTemporal = new FotoArticuloTemporal();
+                            $fotoArticuloTemporal->articuloTemporal()->associate($articuloTemporal);
+                            $fotoArticuloTemporal->foto_path = $nombreFoto;
+                            $fotoArticuloTemporal->save();
+                        }
                     }
-                }
-                // dd($request->input("sistema{$i}"));
+                    // dd($request->input("sistema{$i}"));
 
-                // Si vienen sistemas
-                if ($request->input("sistema{$i}") != null) {
-                    // Asociar el sistema al artículo 
-                    $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
-                }
+                    // Si vienen sistemas
+                    if ($request->input("sistema{$i}") != null) {
+                        // Asociar el sistema al artículo 
+                        $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
+                    }
 
-                //asociar articulo temporal con pedido
-                $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                    //asociar articulo temporal con pedido
+                    $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                }
             }
         }
+
+        //si viene referenciasArray
+        if ($request->input('referenciasArray') != null) {
+            $referenciasArray = $request->input('referenciasArray');
+            // Verificar si $referenciasArray es un array
+            if (is_array($referenciasArray)) {
+                foreach ($referenciasArray as $referencia) {
+                    $articuloTemporal = new ArticuloTemporal();
+                    $articuloTemporal->referencia = $referencia['referencia'];
+                    $articuloTemporal->cantidad = $referencia['cantidad'];
+                    $articuloTemporal->save();
+
+                    //Asociar articulo temporal con pedido
+                    $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                }
+            } else {
+                // Manejar el caso en el que $referenciasArray no sea un array
+                $referenciasArray = json_decode($referenciasArray, true);
+                if (is_array($referenciasArray)) {
+                    // dd($referenciasArray);
+                    foreach ($referenciasArray as $referencia) {
+                        //si no viene cantidad se asigna 1
+                        if ($referencia['cantidad'] == null) {
+                            $referencia['cantidad'] = 1;
+                        }
+                        //si no viene referencia no se asigna
+                        if ($referencia['referencia'] != null) {
+                        $articuloTemporal = new ArticuloTemporal();
+                        $articuloTemporal->referencia = $referencia['referencia'];
+                        $articuloTemporal->cantidad = $referencia['cantidad'];
+                        $articuloTemporal->save();
+
+                        //Asociar articulo temporal con pedido
+                        $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                        }
+                    }
+                } else {
+                    // Puedes mostrar un mensaje de error o realizar alguna otra acción
+                    dd($referenciasArray);
+                }
+            }
+        }
+
         return redirect()->route('pedidos.index')->with('success', 'Pedido creado exitosamente.');
     }
 
@@ -202,7 +249,7 @@ class PedidoController extends Controller
         // dd($pedido);
         // dd($pedido->articulos->first()->sistemasPedidos->first()->sistema);
 
-        
+
 
         //obtener el pedido anterior
         $previous = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'desc')->first();
@@ -256,7 +303,7 @@ class PedidoController extends Controller
         return view('pedidos.edit', compact('pedido', 'articulosTemporales', 'fotosArticuloTemporal', 'previous', 'next'));
     }
 
-    
+
 
     public function update(Request $request, $id)
     {
@@ -305,7 +352,6 @@ class PedidoController extends Controller
             dd($sistema);
 
             $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
-            
         }
 
 

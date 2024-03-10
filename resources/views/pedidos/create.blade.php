@@ -259,7 +259,21 @@
                             <tr>
                                 <td><strong>1</strong></td>
                                 <td>
-                                    <input type="text" name="referencia1" class="form-control" required>
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <input type="text" name="referencia1" class="form-control"
+                                                id="referencia1" readonly>
+                                                <input type="hidden" name="contador" id="contador" value="1">
+                                        </div>
+                                        <div class="col-1">
+                                            <button type="button" class="btn btn-outline-success btn-sm"
+                                                id="boton-buscar-referencias" title="Buscar artículos por referencia"
+                                                data-toggle="modal" data-target="#modalBuscarReferencias"
+                                                data-fila="1"><i class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="referencia1" class="form-control">
                                 </td>
                                 <td>
                                     <select name="sistema1" class="form-control">
@@ -331,6 +345,8 @@
 
         </div>
         <input type="hidden" name="referenciasArray" id="referenciasArray">
+        <input type="hidden" name="cantidadArray" id="cantidadArray">
+
 
         {{-- comentarios del pedido --}}
         <div id="comentariosPedido">
@@ -438,7 +454,7 @@
     </div>
 
     {{-- Modal buscar referencias de artículos --}}
-    {{-- <div class="modal fade" id="modalBuscarReferencias" tabindex="-1" aria-labelledby="modalBuscarReferenciasLabel"
+    <div class="modal fade" id="modalBuscarReferencias" tabindex="-1" aria-labelledby="modalBuscarReferenciasLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -492,7 +508,7 @@
                 </table>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- Modal crear máquina --}}
     <div class="modal fade" id="modalCrearMaquinas">
@@ -724,6 +740,8 @@
             }
 
             console.log('Lista de referencias ingresadas',referenciasArray);
+            var cantidadArray = referenciasArray.length;
+            console.log('Cantidad de referencias ingresadas',cantidadArray);
 
             // Limpiar la tabla antes de agregar nuevas filas
             document.getElementById('referenciasTableBody').innerHTML = '';
@@ -749,10 +767,33 @@
 
             // Cerrar el modal
             $('#referenciasModal').modal('hide');
+
+            // Mostrar un modal swal a la derecha, pequeño con la cantidad de referencias ingresadas, tiempo 3 segundos
+            Swal.fire({
+                icon: 'success',
+                title: 'Referencias ingresadas',
+                text: 'Se han ingresado ' + cantidadArray + ' referencias',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: true,
+                position: 'top-end',
+                width: '300px'
+            });
         }
         //limpiar referencias
         $('#limpiar-referencias').click(function() {
             $('#referenciasTableBody').empty();
+            //motrar mosal swal indicando que se han eliminado las referncias ingresadas
+            Swal.fire({
+                icon: 'success',
+                title: 'Referencias eliminadas',
+                text: 'Se han eliminado las referencias ingresadas',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                width: '300px'
+            });
         });
 
         $(function() {

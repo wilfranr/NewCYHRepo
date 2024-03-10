@@ -436,6 +436,22 @@ class ArticuloController extends Controller
         return response()->json($filter_data);
     }
 
+    public function searchDefinicion(Request $request)
+    {
+        $data = $request->all();
+        $referencia = $data['referencia'];
+
+        // Obtener el ID del artículo a partir de la referencia
+        $articuloId = Referencia::where('referencia', $referencia)->first()->articulo_id;
+
+        // Obtener la definición del artículo
+        $definicion = Articulo::where('id', $articuloId)->first()->definicion;
+
+        // Retornar la definición como respuesta JSON
+        return response()->json([
+            'definicion' => $definicion,
+        ]);
+    }
 
     public function destroy($id)
     {

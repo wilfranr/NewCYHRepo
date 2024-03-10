@@ -237,8 +237,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 3%">#</th>
-                                <th style="width: 35%;">Referencia--Definición</th>
+                                <th style="width: 35%;">Referencia</th>
+                                <th style="width: 35%;">Definición</th>
                                 <th style="width: 25%;">Sistema</th>
+                                <th style="width: 25%;">Marca</th>
                                 <th style="width: 10%;">Cantidad</th>
                                 <th style="width: 30%;">Comentarios</th>
                                 <th style="width: 10%;">Imágen</th>
@@ -255,18 +257,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <select class="form-control select2" style="width: 100%;"
-                                                    name="referencia{{ $index + 1 }}" required>
-                                                    <option value="{{ $articuloTemporal->referencia }}">
-                                                        {{ $articuloTemporal->referencia }}--{{ $articuloTemporal->definicion }}
-                                                    </option>
+                                                {{-- Display the value of $articuloTemporal->referencia --}}
+                                                {{ $articuloTemporal->referencia }}
+                                                <select class="form-control" id="referencia{{ $index + 1 }}"
+                                                    style="width: 100%;" name="referencia{{ $index + 1 }}" required onchange="mostrarDefinicion()">
+                                                    {{-- Rest of the code --}}
                                                     @foreach ($referencias as $referencia)
                                                         <option value="{{ $referencia->referencia }}">
-                                                            {{ $referencia->referencia }}--{{ $referencia->definicion }}
+                                                            {{ $referencia->referencia }}
                                                         </option>
                                                     @endforeach
-                                                    <input type="hidden" value="{{ $articuloTemporal->definicion }}"
-                                                        name="definicion{{ $index + 1 }}">
                                                 </select>
                                                 @error('referencia')
                                                     <span class="invalid-feedback" role="alert">
@@ -275,6 +275,12 @@
                                                 @enderror
                                             </div>
                                         </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <input type="text" class="form-control"
+                                                    value=""
+                                                    name="definicion{{ $index + 1 }}" style="width: 100%;" readonly>
+                                            </div>
                                         <td>
                                             <div class="d-flex">
                                                 {{-- Si vienen sistemas desde un articulo temporal --}}
@@ -312,6 +318,24 @@
                                             </div>
                                         </td>
                                         <td>
+                                            {{-- Marca --}}
+                                            <div class="d-flex">
+                                                <select class="form-control select2" style="width: 100%;"
+                                                    name="marca{{ $index + 1 }}" required>
+                                                    <option value="">Seleccione una marca</option>
+                                                    @foreach ($marcas as $marca)
+                                                        <option value="{{ $marca->nombre }}">
+                                                            {{ $marca->nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('marca')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                        </td>
+                                        <td>
                                             <input type="number" class="form-control"
                                                 name="cantidad{{ $index + 1 }}"
                                                 value="{{ $articuloTemporal->cantidad }}" style="width: 100px;">
@@ -319,8 +343,8 @@
                                         <td>
                                             <textarea class="form-control" name="comentarios{{ $index + 1 }}">
                                                 @if ($articuloTemporal->comentarios)
-                                                    Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
-                                                @endif
+Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
+@endif
                                             </textarea>
                                         </td>
                                         <!-- Aca va la foto del articulo temporal -->
@@ -385,7 +409,9 @@
                                                 {{-- Aca va un select con el sistema asociado al artículo de este pedido --}}
                                                 @php
                                                     // Obtener el sistema asociado al artículo de este pedido
-                                                    $sistemaAsociado = $articulo->sistemaPedidoEnPedido($pedido->id)->first();
+                                                    $sistemaAsociado = $articulo
+                                                        ->sistemaPedidoEnPedido($pedido->id)
+                                                        ->first();
                                                     $sistemaId = optional($sistemaAsociado)->id;
                                                 @endphp
 
@@ -603,6 +629,28 @@
         //mostrar div agregar referencia
         function agregarReferencia() {
             $('#agregarReferencia').show();
+        }
+
+        //función que muestra la definición de la referencia seleccionada
+        function mostrarDefinicion() {
+            var referencia = $('#referencia{{ $index + 1 }}').val();
+            console.log(referencia);
+
+            // Realizar una consulta AJAX para obtener la definición del artículo
+            $.ajax({
+                url: '/articulos/search-definicion', // Cambiar la ruta a la que definiste en el controlador
+                method: 'GET',
+                data: {
+                    referencia: referencia
+                },
+                success: function(response) {
+                    // Asignar el valor de la definición al input correspondiente
+                    $('#definicion{{ $index + 1 }}').val(response.definicion);
+                },
+                error: function() {
+                    console.log('Error al obtener la definición del artículo');
+                }
+            });
         }
     </script>
 @endsection
