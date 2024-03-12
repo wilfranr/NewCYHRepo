@@ -35,6 +35,12 @@ class Pedido extends Model
             ->withTimestamps();
     }
 
+    //un pedido puede tener muchas referencias
+    public function referencias()
+    {
+        return $this->belongsToMany(Referencia::class, 'pedido_referencia', 'pedido_id', 'referencia_id')->withTimestamps();
+    }
+
     //relacion terceros
     public function tercero()
     {
@@ -43,11 +49,11 @@ class Pedido extends Model
     }
 
 
-    public function items()
-    {
-        // relacion con la tabla items_pedidos
-        return $this->hasMany(ItemPedido::class);
-    }
+    // public function items()
+    // {
+    //     // relacion con la tabla items_pedidos
+    //     return $this->hasMany(ItemPedido::class);
+    // }
 
     public function user()
     {

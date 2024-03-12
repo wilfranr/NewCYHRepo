@@ -259,9 +259,10 @@
                                             <div class="d-flex">
                                                 {{-- Display the value of $articuloTemporal->referencia --}}
                                                 {{ $articuloTemporal->referencia }}
-                                                <select class="form-control" id="referencia{{ $index + 1 }}"
+                                                <select class="form-control select2" id="referencia{{ $index + 1 }}"
                                                     style="width: 100%;" name="referencia{{ $index + 1 }}" required onchange="mostrarDefinicion()">
                                                     {{-- Rest of the code --}}
+                                                    <option value="{{ $articuloTemporal->referencia }}">{{ $articuloTemporal->referencia }}</option>
                                                     @foreach ($referencias as $referencia)
                                                         <option value="{{ $referencia->referencia }}">
                                                             {{ $referencia->referencia }}

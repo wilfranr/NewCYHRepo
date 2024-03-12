@@ -209,19 +209,36 @@ class PedidoController extends Controller
                 if (is_array($referenciasArray)) {
                     // dd($referenciasArray);
                     foreach ($referenciasArray as $referencia) {
-                        //si no viene cantidad se asigna 1
-                        if ($referencia['cantidad'] == null) {
-                            $referencia['cantidad'] = 1;
-                        }
-                        //si no viene referencia no se asigna
-                        if ($referencia['referencia'] != null) {
-                        $articuloTemporal = new ArticuloTemporal();
-                        $articuloTemporal->referencia = $referencia['referencia'];
-                        $articuloTemporal->cantidad = $referencia['cantidad'];
-                        $articuloTemporal->save();
-
-                        //Asociar articulo temporal con pedido
-                        $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                        //buscar la referencia en la tabla referencias
+                        $referencia = Referencia::where('referencia', $referencia['referencia'])->first();
+                        //si encuentra la referencia se asocia con el pedido
+                        if ($referencia) {
+                            // dd($referencia);
+                            //traer el articulo que esta asociado a esa referencia
+                            $articuloAsociado = $referencia->articulo_id;
+                            $definicionAsociada = Articulo::find($articuloAsociado)->definicion;
+                            $marcaReferencia = $referencia->marca_id;
+                            $marcaAsociada = Marca::find($marcaReferencia)->nombre;
+                            // dd($marcaAsociada);
+                            //asociar referencia con pedido
+                            $pedido->referencias()->attach($referencia->id);
+                        } else {
+                            // Puedes mostrar un mensaje de error o realizar alguna otra acción
+                            dd($referenciasArray);
+                            //si no viene cantidad se asigna 1
+                            if ($referencia['cantidad'] == null) {
+                                $referencia['cantidad'] = 1;
+                            }
+                            //si no viene referencia no se asigna
+                            if ($referencia['referencia'] != null) {
+                            $articuloTemporal = new ArticuloTemporal();
+                            $articuloTemporal->referencia = $referencia['referencia'];
+                            $articuloTemporal->cantidad = $referencia['cantidad'];
+                            $articuloTemporal->save();
+    
+                            //Asociar articulo temporal con pedido
+                            $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                            }
                         }
                     }
                 } else {

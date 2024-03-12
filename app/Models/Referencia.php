@@ -19,4 +19,10 @@ class Referencia extends Model
     {
         return $this->belongsToMany(Articulo::class, 'referencias_articulos', 'referencia_id', 'articulo_id');
     }
+
+    //una referencia puede estar presenten en muchos pedidos
+    public function pedidos()
+    {
+        return $this->belongsToMany(Pedido::class, 'pedido_referencia', 'referencia_id', 'pedido_id')->withTimestamps();
+    }
 }
