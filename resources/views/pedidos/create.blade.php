@@ -263,7 +263,7 @@
                                         <div class="col-10">
                                             <input type="text" name="referencia1" class="form-control"
                                                 id="referencia1" readonly>
-                                                <input type="hidden" name="contador" id="contador" value="1">
+                                            <input type="hidden" name="contador" id="contador" value="1">
                                         </div>
                                         <div class="col-1">
                                             <button type="button" class="btn btn-outline-success btn-sm"
@@ -313,7 +313,7 @@
                 </div>
                 <button type="button" class="btn btn-outline-success btn-sm" id="boton-agregar-referencias"
                     title="Agregar areferencias en masa" data-toggle="modal" data-target="#referenciasModal"
-                    data-fila="1">Agregar referencias desde excel
+                    data-fila="1">Agregar varias referencias
                 </button>
                 <!-- Tabla para mostrar las referencias ingresadas -->
                 <div class="mt-4" id="div-referencias">
@@ -352,9 +352,9 @@
         <div id="comentariosPedido">
             <label for="comentarioPedido">Comentarios del pedido</label>
             <textarea name="comentarioPedido" id="comentarioPedido" cols="20" rows="5" class="form-control"
-            data-toggle="tooltip" data-placement="top"
-            title="Ingrese cualquier información relevante del pedido. Ej. repuesto, tipo de máquina, solicitudes específicas, recomendaciones, etc"></textarea>
-            
+                data-toggle="tooltip" data-placement="top"
+                title="Ingrese cualquier información relevante del pedido. Ej. repuesto, tipo de máquina, solicitudes específicas, recomendaciones, etc"></textarea>
+
             <div class="ml-auto">
                 <button type="submit" class="btn btn-primary mt-3 float-right"><i class="fa fa-cart-plus"
                         aria-hidden="true"></i>
@@ -695,9 +695,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                {{-- colocar imagen de ejemplo de como copiar las referencias --}}
                 <div class="modal-body">
-                    <textarea id="referenciasTextarea" class="form-control" rows="5"
-                        placeholder="Ingrese las referencias separadas por un salto de línea"></textarea>
+                    <div class="callout callout-info">
+                        <p>Puedes copiar desde excel varias referencias y sus cantidades como se muestra en la imágen, luego
+                            pegarlas en el cuadro de texto.</p>
+                    </div>
+                    <div class="text-center">
+                        <img class="" src="{{ asset('storage/articulos/ReferenciasDesdeExcel.png') }}"
+                            alt="Ejemplo de referencias" class="img-fluid">
+                    </div>
+                    <textarea id="referenciasTextarea" class="form-control" rows="5" placeholder="Ingrese las referencias"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -705,7 +714,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 @endsection
 @section('js')
@@ -714,9 +723,25 @@
         $('#referenciasModal').on('show.bs.modal', function(event) {
             $('#div-referencias').show();
         });
+
         function guardarReferencias() {
             // Obtener las referencias del textarea
             var referenciasConCantidad = document.getElementById('referenciasTextarea').value;
+            console.log('Referencias ingresadas', referenciasConCantidad);
+            //si no se ingresaron referencias
+            if (referenciasConCantidad == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se han ingresado referencias',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    width: '300px'
+                });
+                return;
+            }
 
             // Dividir las referencias por un salto de línea
             var lineas = referenciasConCantidad.split('\n');
@@ -739,9 +764,9 @@
                 });
             }
 
-            console.log('Lista de referencias ingresadas',referenciasArray);
+            console.log('Lista de referencias ingresadas', referenciasArray);
             var cantidadArray = referenciasArray.length;
-            console.log('Cantidad de referencias ingresadas',cantidadArray);
+            console.log('Cantidad de referencias ingresadas', cantidadArray);
 
             // Limpiar la tabla antes de agregar nuevas filas
             document.getElementById('referenciasTableBody').innerHTML = '';
@@ -1117,7 +1142,6 @@
             });
         });
 
-
         // DataTables
         $(function() {
             $('#referencias').DataTable({
@@ -1126,9 +1150,9 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
-                },
+                // "language": {
+                //     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                // },
                 "paging": true,
             });
             $('#maquinas').DataTable({
@@ -1137,9 +1161,9 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
-                },
+                // "language": {
+                //     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+                // },
                 "paging": true,
             });
 

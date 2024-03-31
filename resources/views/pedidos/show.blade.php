@@ -257,9 +257,7 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                {{-- Display the value of $articuloTemporal->referencia --}}
-                                                {{ $articuloTemporal->referencia }}
-                                                <select class="form-control select2" id="referencia{{ $index + 1 }}"
+                                                <select class="form-control select2 " id="referencia{{ $index + 1 }}"
                                                     style="width: 100%;" name="referencia{{ $index + 1 }}" required onchange="mostrarDefinicion()">
                                                     {{-- Rest of the code --}}
                                                     <option value="{{ $articuloTemporal->referencia }}">{{ $articuloTemporal->referencia }}</option>
@@ -344,8 +342,8 @@
                                         <td>
                                             <textarea class="form-control" name="comentarios{{ $index + 1 }}">
                                                 @if ($articuloTemporal->comentarios)
-Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
-@endif
+                                                    Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
+                                                @endif
                                             </textarea>
                                         </td>
                                         <!-- Aca va la foto del articulo temporal -->
@@ -380,9 +378,9 @@ Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTe
                                 @endforeach
                             @endif
                             {{-- Artículos Permanentes --}}
-                            @if ($pedido->articulos->count() >= 1)
+                            @if ($pedido->referencias->count() >= 1)
                                 {{-- Recorrer los articulos reales --}}
-                                @foreach ($pedido->articulos as $index => $articulo)
+                                @foreach ($pedido->referencias as $index => $articulo)
                                     <tr>
                                         <td>
                                             <strong>{{ $index + 1 }}</strong>

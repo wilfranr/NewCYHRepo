@@ -97,13 +97,10 @@ class PedidoController extends Controller
         }
 
         // Agregar cada marca al pedido
-        $maquina = Maquina::with('marcas')->find($maquinaId);
+        // $maquina = Maquina::with('marcas')->find($maquinaId);
 
-        $marca = $maquina->marcas->first();
-        $pedido->marcas()->attach($marca->id);
-
-
-
+        // $marca = $maquina->marcas->first();
+        // $pedido->marcas()->attach($marca->id);
 
         // Agregar cada artículo temporal al pedido
         $contadorArticulos = $request->input('contador');
@@ -210,34 +207,39 @@ class PedidoController extends Controller
                     // dd($referenciasArray);
                     foreach ($referenciasArray as $referencia) {
                         //buscar la referencia en la tabla referencias
-                        $referencia = Referencia::where('referencia', $referencia['referencia'])->first();
+                        $referenciaExistente = Referencia::where('referencia', $referencia['referencia'])->first();
+
                         //si encuentra la referencia se asocia con el pedido
-                        if ($referencia) {
-                            // dd($referencia);
+                        if ($referenciaExistente) {
                             //traer el articulo que esta asociado a esa referencia
-                            $articuloAsociado = $referencia->articulo_id;
+                            $articuloAsociado = $referenciaExistente->articulo_id;
                             $definicionAsociada = Articulo::find($articuloAsociado)->definicion;
-                            $marcaReferencia = $referencia->marca_id;
+                            $marcaReferencia = $referenciaExistente->marca_id;
                             $marcaAsociada = Marca::find($marcaReferencia)->nombre;
-                            // dd($marcaAsociada);
-                            //asociar referencia con pedido
-                            $pedido->referencias()->attach($referencia->id);
+                            //asociar referencia con pedido ee incluir la cantidad
+                            $pedido->referencias()->attach($referenciaExistente->id);
+                            //guardar la cantidad en la tabla pivot
+                            $pedido->referencias()->updateExistingPivot($referenciaExistente->id, ['cantidad' => $referencia['cantidad']]);
                         } else {
-                            // Puedes mostrar un mensaje de error o realizar alguna otra acción
-                            dd($referenciasArray);
-                            //si no viene cantidad se asigna 1
-                            if ($referencia['cantidad'] == null) {
-                                $referencia['cantidad'] = 1;
-                            }
+                            $cantidad = (int)$referencia['cantidad'];
+
+                            $referencia = $referencia['referencia'];
                             //si no viene referencia no se asigna
-                            if ($referencia['referencia'] != null) {
-                            $articuloTemporal = new ArticuloTemporal();
-                            $articuloTemporal->referencia = $referencia['referencia'];
-                            $articuloTemporal->cantidad = $referencia['cantidad'];
-                            $articuloTemporal->save();
-    
-                            //Asociar articulo temporal con pedido
-                            $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                            if ($referencia != null) {
+                                // Si la referencia no existe en la tabla referencias, se crea un articulo temporal por cada referencia del array
+
+                                //si cantidad = 0, cantidad = 1
+                                if ($cantidad == 0) {
+                                    $cantidad = 1;
+                                }
+                                
+                                $articuloTemporal = new ArticuloTemporal();
+                                $articuloTemporal->referencia = $referencia;
+                                $articuloTemporal->cantidad = $cantidad;
+                                $articuloTemporal->save();
+
+                                //Asociar articulo temporal con pedido
+                                $pedido->articulosTemporales()->attach($articuloTemporal->id);
                             }
                         }
                     }
@@ -259,11 +261,11 @@ class PedidoController extends Controller
             'maquinas',
             'articulosTemporales.fotosArticuloTemporal',
             'articulos.sistemas',
-            'articulos',
+            // 'articulos',
             'marcas',
             'sistemasPedidos' // Asegúrate de cargar la relación aquí
         ])->find($id);
-        // dd($pedido);
+        // dd($pedido); 
         // dd($pedido->articulos->first()->sistemasPedidos->first()->sistema);
 
 
@@ -274,7 +276,7 @@ class PedidoController extends Controller
         $next = Pedido::where('id', '<', $pedido->id)->orderBy('id', 'asc')->first();
 
         // Obtener todos los artículos asociados al pedido
-        $articulos = $pedido->articulos;
+        $articulos = $pedido->referencias;
         // dd($articulos);
 
         //obtener todas las referencias de los articulos
