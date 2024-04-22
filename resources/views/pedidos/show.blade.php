@@ -256,13 +256,17 @@
                                             <strong>{{ $index + 1 }}</strong>
                                         </td>
                                         <td>
+                                            <div>
+                                                <p>{{ $articuloTemporal->referencia }}</p>
+                                            </div>
                                             <div class="d-flex">
-                                                <select class="form-control select2 " id="referencia{{ $index + 1 }}"
-                                                    style="width: 100%;" name="referencia{{ $index + 1 }}" required onchange="mostrarDefinicion()">
-                                                    {{-- Rest of the code --}}
-                                                    <option value="{{ $articuloTemporal->referencia }}">{{ $articuloTemporal->referencia }}</option>
+                                                <select class="form-control" id="referenciaTemporal{{ $index + 1 }}"
+                                                    style="width: 100%;" name="referenciaTemporal{{ $index + 1 }}"
+                                                    required onchange="mostrarDefinicion({{ $index + 1 }})">
+                                                    <option value="">Selecciones una referencia</option>
                                                     @foreach ($referencias as $referencia)
-                                                        <option value="{{ $referencia->referencia }}">
+                                                        <option value="{{ $referencia->referencia }}"
+                                                            data-articulo-id="{{ $referencia->articulo_id }}">
                                                             {{ $referencia->referencia }}
                                                         </option>
                                                     @endforeach
@@ -277,8 +281,9 @@
                                         <td>
                                             <div class="d-flex">
                                                 <input type="text" class="form-control"
-                                                    value=""
-                                                    name="definicion{{ $index + 1 }}" style="width: 100%;" readonly>
+                                                    id="definicionTemporal{{ $index + 1 }}"
+                                                    name="definicionTemporal{{ $index + 1 }}" style="width: 100%;"
+                                                    readonly>
                                             </div>
                                         <td>
                                             <div class="d-flex">
@@ -342,8 +347,8 @@
                                         <td>
                                             <textarea class="form-control" name="comentarios{{ $index + 1 }}">
                                                 @if ($articuloTemporal->comentarios)
-                                                    Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
-                                                @endif
+Comentario del vendedor: {{ $articuloTemporal->comentarios }}@else{{ $articuloTemporal->comentarios }}
+@endif
                                             </textarea>
                                         </td>
                                         <!-- Aca va la foto del articulo temporal -->
@@ -378,93 +383,95 @@
                                 @endforeach
                             @endif
                             {{-- Artículos Permanentes --}}
-                            @if ($pedido->referencias->count() >= 1)
-                                {{-- Recorrer los articulos reales --}}
-                                @foreach ($pedido->referencias as $index => $articulo)
-                                    <tr>
-                                        <td>
-                                            <strong>{{ $index + 1 }}</strong>
-                                        </td>
+                            <!--
+                                            @if ($pedido->referencias->count() >= 1)
+    {{-- Recorrer los articulos reales --}}
+                                                @foreach ($pedido->referencias as $index => $articulo)
+    <tr>
+                                                        <td>
+                                                            <strong>{{ $index + 1 }}</strong>
+                                                        </td>
 
-                                        <td>
-                                            <div class="d-flex">
-                                                <select class="form-control select2" style="width: 100%;"
-                                                    name="referencia{{ $index + 1 }}" required>
-                                                    <option value="{{ $articulo->referencia }}">
-                                                        {{ $articulo->referencia }}--{{ $articulo->definicion }}
-                                                    </option>
-                                                    @foreach ($referencias as $referencia)
-                                                        <option value="{{ $referencia->referencia }}">
-                                                            {{ $referencia->referencia }}--{{ $referencia->definicion }}
-                                                        </option>
-                                                    @endforeach
-                                                    <input type="hidden" value="{{ $articulo->definicion }}"
-                                                        name="definicion{{ $index + 1 }}">
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                {{-- Aca va un select con el sistema asociado al artículo de este pedido --}}
-                                                @php
-                                                    // Obtener el sistema asociado al artículo de este pedido
-                                                    $sistemaAsociado = $articulo
-                                                        ->sistemaPedidoEnPedido($pedido->id)
-                                                        ->first();
-                                                    $sistemaId = optional($sistemaAsociado)->id;
-                                                @endphp
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <select class="form-control select2" style="width: 100%;"
+                                                                    name="referencia{{ $index + 1 }}" required>
+                                                                    <option value="{{ $articulo->referencia }}">
+                                                                        {{ $articulo->referencia }}--{{ $articulo->definicion }}
+                                                                    </option>
+                                                                    @foreach ($referencias as $referencia)
+    <option value="{{ $referencia->referencia }}">
+                                                                            {{ $referencia->referencia }}--{{ $referencia->definicion }}
+                                                                        </option>
+    @endforeach
+                                                                    <input type="hidden" value="{{ $articulo->definicion }}"
+                                                                        name="definicion{{ $index + 1 }}">
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                {{-- Aca va un select con el sistema asociado al artículo de este pedido --}}
+                                                                @php
+                                                                    // Obtener el sistema asociado al artículo de este pedido
+                                                                    $sistemaAsociado = $articulo
+                                                                        ->sistemaPedidoEnPedido($pedido->id)
+                                                                        ->first();
+                                                                    $sistemaId = optional($sistemaAsociado)->id;
+                                                                @endphp
 
-                                                <select class="form-control select2"
-                                                    name="sistema_id{{ $index + 1 }}">
-                                                    @if ($sistemaAsociado)
-                                                        <option value="{{ $sistemaId }}" selected>
-                                                            {{ $sistemaAsociado->nombre }}
-                                                        </option>
-                                                    @endif
+                                                                <select class="form-control select2"
+                                                                    name="sistema_id{{ $index + 1 }}">
+                                                                    @if ($sistemaAsociado)
+    <option value="{{ $sistemaId }}" selected>
+                                                                            {{ $sistemaAsociado->nombre }}
+                                                                        </option>
+    @endif
 
-                                                    {{-- Mostrar otros sistemas --}}
-                                                    @foreach ($sistemas as $sistema)
-                                                        @if ($sistemaAsociado && $sistema->id == $sistemaAsociado->id)
-                                                            @continue; {{-- Saltar el sistema ya seleccionado --}}
-                                                        @endif
-                                                        <option value="{{ $sistema->id }}">
-                                                            {{ $sistema->nombre }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                                    {{-- Mostrar otros sistemas --}}
+                                                                    @foreach ($sistemas as $sistema)
+    @if ($sistemaAsociado && $sistema->id == $sistemaAsociado->id)
+    @continue; {{-- Saltar el sistema ya seleccionado --}}
+    @endif
+                                                                        <option value="{{ $sistema->id }}">
+                                                                            {{ $sistema->nombre }}
+                                                                        </option>
+    @endforeach
+                                                                </select>
 
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control"
-                                                name="cantidad{{ $index + 1 }}"
-                                                value="{{ $articulo->pivot->cantidad }}" style="width: 100px;">
-                                        </td>
-                                        <td>
-                                            @if ($articulo->pivot->comentario)
-                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentario }}</textarea>
-                                            @else
-                                                <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentario }}</textarea>
-                                            @endif
-                                        </td>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control"
+                                                                name="cantidad{{ $index + 1 }}"
+                                                                value="{{ $articulo->pivot->cantidad }}" style="width: 100px;">
+                                                        </td>
+                                                        <td>
+                                                            @if ($articulo->pivot->comentario)
+    <textarea class="form-control" name="comentarios{{ $index + 1 }}">Comentario del vendedor:{{ $articulo->pivot->comentario }}</textarea>
+@else
+    <textarea class="form-control" name="comentarios{{ $index + 1 }}">{{ $articulo->pivot->comentario }}</textarea>
+    @endif
+                                                        </td>
 
-                                        <td>
-                                            <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
-                                                target="_blank">
-                                                <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
-                                                    alt="Foto de la lista" width="100px">
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-danger delete-row-btn">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
+                                                        <td>
+                                                            <a href="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                                                target="_blank">
+                                                                <img src="{{ asset('storage/articulos/' . $articulo->fotoDescriptiva) }}"
+                                                                    alt="Foto de la lista" width="100px">
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-outline-danger delete-row-btn">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </td>
 
 
-                                    </tr>
-                                @endforeach
-                            @endif
+                                                    </tr>
+    @endforeach
+    @endif
+                                            -->
                         </tbody>
                     </table>
                     {{-- Botones de agregar y crear --}}
@@ -631,25 +638,29 @@
         }
 
         //función que muestra la definición de la referencia seleccionada
-        function mostrarDefinicion() {
-            var referencia = $('#referencia{{ $index + 1 }}').val();
-            console.log(referencia);
+        function mostrarDefinicion(index) {
+            var referencia = $('#referenciaTemporal' + index).val();
+            var articuloId = $('#referenciaTemporal' + index + ' option:selected').data('articulo-id');
+            console.log(articuloId);
 
-            // Realizar una consulta AJAX para obtener la definición del artículo
-            $.ajax({
-                url: '/articulos/search-definicion', // Cambiar la ruta a la que definiste en el controlador
-                method: 'GET',
-                data: {
-                    referencia: referencia
-                },
-                success: function(response) {
+            fetch('/articulos/' + articuloId + '/definicion')
+                .then(response => {
+                    // Verificar si la respuesta es exitosa
+                    if (!response.ok) {
+                        throw new Error('Error al obtener la definición del artículo');
+                    }
+                    // Devolver la respuesta como JSON
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data.definicion);
                     // Asignar el valor de la definición al input correspondiente
-                    $('#definicion{{ $index + 1 }}').val(response.definicion);
-                },
-                error: function() {
-                    console.log('Error al obtener la definición del artículo');
-                }
-            });
+                    $('#definicionTemporal' + index).val(data.definicion);
+                })
+                .catch(error => {
+                    console.log(error);
+                    // Manejar cualquier error que ocurra durante la solicitud
+                });
         }
     </script>
 @endsection

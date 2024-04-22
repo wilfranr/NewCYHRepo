@@ -133,56 +133,56 @@ class PedidoController extends Controller
                     $pedido->articulos()->updateExistingPivot($articulo->id, ['comentario' => $request->input("comentarioArticulo{$i}")]);
 
                     // Si vienen sistemas
-                    if ($request->input("sistema{$i}") != null) {
-                        $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
-                        // dd($sistema);
+                    // if ($request->input("sistema{$i}") != null) {
+                    //     $sistema = Sistemas::where('id', $request->input("sistema{$i}"))->first();
+                    //     // dd($sistema);
 
-                        if ($sistema) {
-                            // Asociar el sistema al artículo y al pedido
-                            $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
-                        }
-                    }
+                    //     if ($sistema) {
+                    //         // Asociar el sistema al artículo y al pedido
+                    //         $articulo->sistemasPedidos()->attach($pedido, ['sistema_id' => $sistema->id]);
+                    //     }
+                    // }
                 }
 
 
                 //si viene articulo temporal
-                if ($request->input("referencia{$i}") == null) {
-                    $articuloTemporal = new ArticuloTemporal();
-                    $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
-                    $articuloTemporal->cantidad = $request->input("cantidad{$i}");
-                    $articuloTemporal->save();
-                    // dd($articuloTemporal);
+                // if ($request->input("referencia{$i}") == null) {
+                //     $articuloTemporal = new ArticuloTemporal();
+                //     $articuloTemporal->comentarios = $request->input("comentarioArticulo{$i}");
+                //     $articuloTemporal->cantidad = $request->input("cantidad{$i}");
+                //     $articuloTemporal->save();
+                //     // dd($articuloTemporal);
 
-                    // Obtener las fotos del formulario
-                    $fotos = $request->file("fotos{$i}");
-                    // dd($fotos);
+                //     // Obtener las fotos del formulario
+                //     $fotos = $request->file("fotos{$i}");
+                //     // dd($fotos);
 
-                    if ($fotos) {
-                        foreach ($fotos as $foto) {
-                            // Generar un nombre único para la foto
-                            $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
+                //     if ($fotos) {
+                //         foreach ($fotos as $foto) {
+                //             // Generar un nombre único para la foto
+                //             $nombreFoto = uniqid() . '.' . $foto->getClientOriginalExtension();
 
-                            // Almacenar la foto en la carpeta de almacenamiento
-                            $foto->storeAs('fotos-articulo-temporal', $nombreFoto, 'public');
+                //             // Almacenar la foto en la carpeta de almacenamiento
+                //             $foto->storeAs('fotos-articulo-temporal', $nombreFoto, 'public');
 
-                            // Crear una instancia de FotoArticuloTemporal
-                            $fotoArticuloTemporal = new FotoArticuloTemporal();
-                            $fotoArticuloTemporal->articuloTemporal()->associate($articuloTemporal);
-                            $fotoArticuloTemporal->foto_path = $nombreFoto;
-                            $fotoArticuloTemporal->save();
-                        }
-                    }
-                    // dd($request->input("sistema{$i}"));
+                //             // Crear una instancia de FotoArticuloTemporal
+                //             $fotoArticuloTemporal = new FotoArticuloTemporal();
+                //             $fotoArticuloTemporal->articuloTemporal()->associate($articuloTemporal);
+                //             $fotoArticuloTemporal->foto_path = $nombreFoto;
+                //             $fotoArticuloTemporal->save();
+                //         }
+                //     }
+                //     // dd($request->input("sistema{$i}"));
 
-                    // Si vienen sistemas
-                    if ($request->input("sistema{$i}") != null) {
-                        // Asociar el sistema al artículo 
-                        $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
-                    }
+                //     // Si vienen sistemas
+                //     if ($request->input("sistema{$i}") != null) {
+                //         // Asociar el sistema al artículo 
+                //         $articuloTemporal->sistemas()->attach($request->input("sistema{$i}"));
+                //     }
 
-                    //asociar articulo temporal con pedido
-                    $pedido->articulosTemporales()->attach($articuloTemporal->id);
-                }
+                //     //asociar articulo temporal con pedido
+                //     $pedido->articulosTemporales()->attach($articuloTemporal->id);
+                // }
             }
         }
 

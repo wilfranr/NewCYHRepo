@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Articulo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Lista;
-use App\Models\Maquina;
 use App\Models\Medida;
-use App\Models\Pedido;
 use App\Models\RelacionSuplencia;
 use App\Models\JuegoArticulo;
 use App\Models\Marca;
 use App\Models\Referencia;
 use App\Models\User;
-use Illuminate\Support\Facades\Response;
 
 
 class ArticuloController extends Controller
@@ -436,22 +432,15 @@ class ArticuloController extends Controller
         return response()->json($filter_data);
     }
 
-    public function searchDefinicion(Request $request)
+    public function getDefinicion($id)
     {
-        $data = $request->all();
-        $referencia = $data['referencia'];
-
-        // Obtener el ID del artículo a partir de la referencia
-        $articuloId = Referencia::where('referencia', $referencia)->first()->articulo_id;
-
         // Obtener la definición del artículo
-        $definicion = Articulo::where('id', $articuloId)->first()->definicion;
+        $articulo = Articulo::findOrFail($id);
 
-        // Retornar la definición como respuesta JSON
-        return response()->json([
-            'definicion' => $definicion,
-        ]);
+        // Devolver la definición como respuesta JSON
+        return response()->json(['definicion' => $articulo->definicion]);
     }
+
 
     public function destroy($id)
     {

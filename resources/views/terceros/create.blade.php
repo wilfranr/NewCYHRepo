@@ -296,6 +296,7 @@
             fetch('/ciudades/' + paisCodigo)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     const ciudadSelect = document.getElementById('ciudad');
 
                     ciudadSelect.innerHTML = '';

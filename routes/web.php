@@ -182,7 +182,7 @@ Route::get('/articulos/buscar', [ArticuloController::class, 'buscar'])->name('ar
     Route::get('/articulos/searchArticle', [ArticuloController::class, 'searchArticle'])->name('articulos.searchArticle');
 //Ruta para obtener definicion de articulo
 
-Route::get('/articulos/search-definicion', 'ArticuloController@searchDefinicion');
+Route::get('/articulos/{id}/definicion', [ArticuloController::class, 'getDefinicion']);
 
 
 

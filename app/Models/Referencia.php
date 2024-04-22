@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Articulo;
 
 class Referencia extends Model
 {
@@ -17,7 +18,7 @@ class Referencia extends Model
 
     public function articulos()
     {
-        return $this->belongsToMany(Articulo::class, 'referencias_articulos', 'referencia_id', 'articulo_id');
+        return $this->belongsTo(Articulo::class, 'articulo_id');
     }
 
     //una referencia puede estar presenten en muchos pedidos

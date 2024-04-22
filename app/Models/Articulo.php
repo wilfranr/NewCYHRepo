@@ -19,6 +19,7 @@ class Articulo extends Model
 
     //campos de la tabla articulos
     protected $fillable = [
+        'id',
         'marca',
         'definicion',
         // 'referencia',
@@ -88,6 +89,6 @@ class Articulo extends Model
 
     public function referencias()
     {
-        return $this->belongsToMany(Referencia::class, 'referencias_articulos', 'articulo_id', 'referencia_id');
+        return $this->hasMany(Referencia::class, 'articulo_id');
     }
 }
